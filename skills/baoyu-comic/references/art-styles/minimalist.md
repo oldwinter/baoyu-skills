@@ -1,47 +1,47 @@
 # minimalist
 
-极简画风 - Clean black line art, limited spot color, simplified stick-figure characters
+极简画风 - 干净黑色 line art、有限 spot color、简化火柴人角色
 
 ## Overview
 
-Minimalist cartoon illustration characterized by clean black line art on white background with very limited spot color for emphasis. Characters are simplified to near-stick-figure abstraction, focusing on gesture and concept rather than anatomical detail. Designed for business allegory, quick-read educational content, and concept illustration.
+Minimalist cartoon illustration，以白底上的干净黑色 line art 为特征，只用极少 spot color 做强调。角色被简化到接近火柴人的抽象程度，重点是姿态和概念，而不是解剖细节。适合商业寓言、快速阅读的教育内容和概念插画。
 
 ## Line Work
 
-- Clean, uniform black lines (1.5-2px)
-- No hatching, cross-hatching, or shading techniques
-- Minimal detail — every line serves a purpose
-- Bold outlines for characters, thinner lines for props/labels
-- No decorative flourishes or ornamental lines
+- 干净、统一的黑线（1.5-2px）
+- 不使用 hatching、cross-hatching 或 shading 技法
+- 细节极少，每条线都有目的
+- 角色使用粗描边，道具/标签使用较细线条
+- 不使用装饰性花样或 ornament 线条
 
 ## Character Design
 
-- Highly simplified, stick-figure-like business characters
-- Circle or oval heads with minimal facial features (dot eyes, simple line mouth)
-- Body as simple geometric shapes or line constructions
-- Distinguishing features through props only (tie, hat, briefcase, glasses)
-- No anatomical detail — expressive through posture and gesture
-- 4-5 head height proportions (squat, iconic)
+- 高度简化、类似火柴人的商务角色
+- 圆形或椭圆头部，面部特征极少（点眼、简单线条嘴）
+- 身体用简单几何形状或线条结构表现
+- 只通过道具区分特征（领带、帽子、公文包、眼镜）
+- 无解剖细节，通过姿态和手势表达
+- 4-5 头身比例（矮胖、符号化）
 
 ## Background Treatment
 
-- Mostly blank/white — negative space is a design element
-- Minimal environmental cues (a line for ground, simple desk outline)
-- Concept labels and text annotations replace detailed environments
-- Icons and symbols over realistic rendering
-- No perspective or spatial depth
+- 主要留白/白色，negative space 是设计元素
+- 极少环境线索（地面一条线、简单桌面轮廓）
+- 用概念标签和文本注释替代详细环境
+- 使用图标和符号，而非写实渲染
+- 无透视或空间深度
 
 ## Color Approach
 
-- Primarily black and white (90%+ of the image)
-- 1-2 spot accent colors for emphasis on key concepts
-- Accent color used sparingly: highlighting key objects, text labels, concept indicators
-- No gradients, no shading, no color fills on backgrounds
-- Color draws the eye to the most important element in each panel
+- 主要为黑白（画面 90%+）
+- 使用 1-2 个 spot accent color 强调关键概念
+- 强调色克制使用：高亮关键对象、文本标签、概念指示
+- 无渐变、无阴影、背景不做色彩填充
+- 颜色用于把视线引向每个 panel 中最重要的元素
 
 ## Default Color Palette
 
-| Role | Color | Hex |
+| 角色 | 颜色 | Hex |
 |------|-------|-----|
 | Primary | Black ink | `#1A1A1A` |
 | Background | Clean white | `#FFFFFF` |
@@ -52,33 +52,33 @@ Minimalist cartoon illustration characterized by clean black line art on white b
 
 ## Visual Elements
 
-- Text labels with accent-color backgrounds or underlines for key terms
-- Simple icons: arrows, circles, checkmarks, crosses
-- Concept highlight boxes with spot color
-- Minimal speech bubbles (simple oval or rectangle, thin black outline)
-- No sound effects, no motion lines, no screen tones
+- 关键术语使用带强调色背景或下划线的文本标签
+- 简单图标：箭头、圆圈、勾选、叉号
+- 带 spot color 的概念高亮框
+- 极简 speech bubbles（简单椭圆或矩形，细黑描边）
+- 无 sound effects、无 motion lines、无 screen tones
 
 ## Quality Markers
 
-- ✓ Clean, purposeful line work with no unnecessary detail
-- ✓ 90%+ black-and-white with strategic spot color
-- ✓ Simplified characters readable at small sizes
-- ✓ Text labels integrated naturally into panels
-- ✓ Strong negative space usage
-- ✓ Every element serves the narrative point
+- ✓ 线条干净且有目的，没有不必要细节
+- ✓ 90%+ 黑白，策略性使用 spot color
+- ✓ 简化角色在小尺寸下依然可读
+- ✓ 文本标签自然融入 panels
+- ✓ 强 negative space 使用
+- ✓ 每个元素都服务叙事要点
 
 ## Compatibility
 
-| Tone | Fit | Notes |
+| Tone | Fit | 说明 |
 |------|-----|-------|
-| neutral | ✓✓ | Ideal for business/educational content |
-| warm | ✓ | Works for gentle stories, slight warmth in accent |
-| energetic | ✓ | Works for punchy, high-energy content |
-| dramatic | ✗ | Style too stripped down for dramatic intensity |
-| vintage | ✗ | Minimalist aesthetic conflicts with aged/textured look |
-| romantic | ✗ | No capacity for decorative/soft elements |
-| action | ✗ | No dynamic line capability for speed/impact |
+| neutral | ✓✓ | 非常适合商业/教育内容 |
+| warm | ✓ | 适合温和故事，通过强调色增加轻微温暖感 |
+| energetic | ✓ | 适合有冲击力、高能量内容 |
+| dramatic | ✗ | 风格过于简化，无法承载戏剧强度 |
+| vintage | ✗ | Minimalist 美学与旧化/纹理感冲突 |
+| romantic | ✗ | 无法承载装饰性/柔软元素 |
+| action | ✗ | 不具备表现速度/冲击的动态线条能力 |
 
 ## Best For
 
-Business allegory, management fables, short concept illustration, four-panel comic strips, quick-insight education, social media content
+商业寓言、管理寓言、短概念插画、四格漫画、快速洞察教育、社交媒体内容

@@ -1,59 +1,59 @@
 # playful
 
-Fun, creative illustration style for casual and educational content
+适合轻松与教育内容的有趣、创意 illustration 风格。
 
-## Design Aesthetic
+## 设计美学
 
-Whimsical and entertaining visual approach that sparks joy. Pastel colors with bright pops of energy. Doodle-like quality that feels approachable and fun. Creates a sense of play and discovery. Encourages engagement through visual delight.
+异想天开且有娱乐感的视觉方式，能激发愉悦感。Pastel 色搭配明亮的能量点缀。Doodle-like 质感让画面亲近又有趣。营造玩耍与发现感。通过视觉上的愉悦鼓励参与。
 
-## Background
+## 背景
 
-- Color: Light Cream (#FFFBEB) or Soft White (#FFF)
-- Texture: Subtle, playful pattern or clean
+- 颜色：Light Cream (#FFFBEB) 或 Soft White (#FFF)
+- 纹理：细微的趣味图案，或保持干净
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Light Cream | #FFFBEB | Primary background |
-| Primary | Pastel Pink | #FED7E2 | Soft warmth |
-| Secondary | Mint | #C6F6D5 | Fresh energy |
-| Tertiary | Lavender | #E9D8FD | Dreamy touch |
-| Accent 1 | Sky Blue | #BEE3F8 | Calm brightness |
-| Accent 2 | Bright Yellow | #FBBF24 | Energy pop |
-| Accent 3 | Coral | #F6AD55 | Warm pop |
-| Accent 4 | Turquoise | #38B2AC | Cool pop |
-| Text | Soft Charcoal | #4A4A4A | Text elements |
+| Background | Light Cream | #FFFBEB | 主背景 |
+| Primary | Pastel Pink | #FED7E2 | 柔和温暖感 |
+| Secondary | Mint | #C6F6D5 | 清新能量 |
+| Tertiary | Lavender | #E9D8FD | 梦幻点缀 |
+| Accent 1 | Sky Blue | #BEE3F8 | 平静亮度 |
+| Accent 2 | Bright Yellow | #FBBF24 | 能量跳点 |
+| Accent 3 | Coral | #F6AD55 | 暖色跳点 |
+| Accent 4 | Turquoise | #38B2AC | 冷色跳点 |
+| Text | Soft Charcoal | #4A4A4A | 文本元素 |
 
-## Visual Elements
+## 视觉元素
 
-- Doodles and sketchy lines
-- Star and sparkle decorations
-- Swirls and curvy elements
-- Cute character illustrations
-- Speech bubbles and callouts
-- Emoji-style icons
-- Confetti and celebration marks
-- Playful hand-lettering
+- Doodle 和 sketchy 线条
+- 星星与闪光装饰
+- 漩涡和曲线元素
+- 可爱角色插画
+- 对话气泡和 callout
+- Emoji-style 图标
+- 彩纸屑和庆祝标记
+- 俏皮 hand-lettering
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Use varied pastel palette
-- Add whimsical decorations
-- Create friendly characters
-- Include playful details
-- Keep energy high and positive
+- 使用丰富 pastel 调色板
+- 添加奇趣装饰
+- 创建友好角色
+- 包含俏皮细节
+- 保持高能量与正向感
 
-### Don't
+### 不要
 
-- Use dark or moody colors
-- Create serious compositions
-- Add corporate elements
-- Use rigid geometric shapes
-- Make it feel professional
+- 使用暗色或情绪沉重的颜色
+- 创建严肃构图
+- 添加 corporate 元素
+- 使用僵硬几何形状
+- 让画面显得过于专业正式
 
-## Best For
+## 适合
 
-Tutorials and guides, beginner-friendly content, casual articles, fun topics, children's content, hobby-related posts, entertaining explanations
+教程与指南、适合初学者的内容、轻松文章、有趣主题、儿童内容、爱好相关帖子、娱乐化解释

@@ -1,6 +1,6 @@
 # Structural Diagram Layout
 
-Covers: class diagrams, ER diagrams, component diagrams, package diagrams, org charts.
+覆盖：class diagrams、ER diagrams、component diagrams、package diagrams、org charts。
 
 ## Class Diagram
 
@@ -27,18 +27,18 @@ Covers: class diagrams, ER diagrams, component diagrams, package diagrams, org c
 </g>
 ```
 
-For abstract classes, italicize the class name. For interfaces, add `«interface»` above the name in smaller font.
+对 abstract classes，将 class name 设为 italic。对 interfaces，在 name 上方用更小字体添加 `«interface»`。
 
 ### Relationship Lines
 
 | Relationship | Line Style | Arrow/End |
 |-------------|------------|-----------|
-| Inheritance | Solid | Empty triangle (▷) pointing to parent |
-| Implementation | Dashed | Empty triangle pointing to interface |
-| Composition | Solid | Filled diamond (◆) at owner end |
-| Aggregation | Solid | Empty diamond (◇) at owner end |
-| Dependency | Dashed | Open arrowhead at dependency target |
-| Association | Solid | Open arrowhead or none |
+| Inheritance | Solid | 指向 parent 的 empty triangle (▷) |
+| Implementation | Dashed | 指向 interface 的 empty triangle |
+| Composition | Solid | owner end 使用 filled diamond (◆) |
+| Aggregation | Solid | owner end 使用 empty diamond (◇) |
+| Dependency | Dashed | dependency target 使用 open arrowhead |
+| Association | Solid | open arrowhead 或无 |
 
 **Markers:**
 
@@ -61,7 +61,7 @@ For abstract classes, italicize the class name. For interfaces, add `«interface
 
 ### Cardinality Labels
 
-Place at each end of the relationship line, offset 5-8px from the box edge:
+放在 relationship line 的两端，距 box edge 偏移 5-8px：
 
 ```svg
 <text x="X" y="Y" fill="#94a3b8" font-size="8">1..*</text>
@@ -69,11 +69,11 @@ Place at each end of the relationship line, offset 5-8px from the box edge:
 
 ## ER Diagram
 
-Similar to class diagrams but:
-- Use 2-compartment boxes (entity name + attributes)
-- Mark primary keys with `PK` prefix and bold
-- Mark foreign keys with `FK` prefix
-- Relationship lines use crow's foot notation:
+与 class diagrams 类似，但：
+- 使用 2-compartment boxes（entity name + attributes）
+- primary keys 使用 `PK` 前缀并加粗
+- foreign keys 使用 `FK` 前缀
+- relationship lines 使用 crow's foot notation：
 
 ```svg
 <!-- One end (single line) -->
@@ -87,14 +87,14 @@ Similar to class diagrams but:
 ## Org Chart
 
 - Top-down tree layout
-- Root at top center
-- Each level evenly spaced (100-120px vertical gap)
-- Siblings evenly distributed horizontally
-- Connection lines: vertical from parent bottom center to horizontal bar, then vertical down to each child top center
-- Use color to indicate departments or hierarchy levels
+- Root 位于顶部居中
+- 每一层均匀间隔（vertical gap 100-120px）
+- Siblings 横向均匀分布
+- Connection lines：从 parent bottom center 垂直到 horizontal bar，再垂直到每个 child top center
+- 使用颜色表示 departments 或 hierarchy levels
 
 ## Layout Tips
 
-- Start by counting the widest level to determine total diagram width
-- Center the tree horizontally in the viewBox
-- For deep trees (5+ levels), consider horizontal layout instead
+- 先统计最宽层级，以确定总 diagram width
+- 在 viewBox 中横向居中 tree
+- 对深树（5+ levels），考虑改用 horizontal layout

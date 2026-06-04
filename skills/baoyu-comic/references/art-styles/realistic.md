@@ -1,56 +1,56 @@
 # realistic
 
-写实画风 - Digital painting with realistic proportions and lighting
+写实画风 - 具有写实比例和光照的 digital painting
 
 ## Overview
 
-Full-color realistic manga style using digital painting techniques. Features anatomically accurate characters, rich gradients, and detailed environmental rendering. Sophisticated aesthetic for mature audiences.
+使用 digital painting 技法的全彩 realistic manga 风格。特点是解剖准确的角色、丰富渐变和细致环境渲染。适合成熟受众的精致美学。
 
 ## Line Work
 
-- Clean, precise outlines with clear contours
-- Uniform line weight for character definition
-- No excessive hatching - rely on color for depth
-- Smooth curves and realistic anatomical lines
-- Ligne Claire influence: clean but not simplified
+- 干净精确的描边，轮廓清晰
+- 用统一线宽定义角色
+- 不使用过度 hatching，依靠色彩建立深度
+- 平滑曲线和写实解剖线条
+- 受 Ligne Claire 影响：干净但不简化
 
 ## Character Design
 
-- Realistic human proportions (7-8 head heights)
-- Anatomically accurate features and expressions
-- Detailed facial structure without exaggeration
-- Natural poses and body language
-- Consistent appearance across panels
-- Subtle expressions rather than manga-style
+- 写实人体比例（7-8 头身）
+- 解剖准确的特征和表情
+- 面部结构细致但不夸张
+- 自然姿态和肢体语言
+- 跨 panels 保持外观一致
+- 表情细微，而非夸张 manga-style
 
 ## Rendering Style
 
-- Full-color digital painting with rich gradients
-- Soft shadow transitions on skin and fabric
-- Realistic material textures (glass, liquid, fabric, wood)
-- Detailed hair with natural shine and volume
-- Environmental lighting affects all elements
-- NOT flat cel-shading - smooth color blending
+- 使用丰富渐变的全彩 digital painting
+- 皮肤和织物上有柔和阴影过渡
+- 写实材质纹理（玻璃、液体、织物、木材）
+- 头发细致，有自然光泽和体积
+- 环境光影响所有元素
+- 不使用 flat cel-shading，而是平滑色彩混合
 
 ## Background Treatment
 
-- Highly detailed, realistic environments
-- Accurate perspective and spatial depth
-- Atmospheric lighting (warm indoor, cool outdoor)
-- Professional settings rendered with precision
-- Props and objects with realistic textures
+- 高细节、写实环境
+- 准确透视和空间深度
+- 氛围光照（室内偏暖、室外偏冷）
+- 精确渲染专业场景
+- 道具和对象具有写实纹理
 
 ## Color Approach
 
-- Rich gradients for depth and volume
-- Realistic lighting with warm/cool contrast
-- Material-specific rendering
-- Subtle color temperature shifts
-- Professional, sophisticated palette
+- 用丰富渐变表现深度和体积
+- 写实光照，带暖/冷对比
+- 按材质渲染
+- 细微色温变化
+- 专业、成熟的调色板
 
 ## Default Color Palette
 
-| Role | Color | Hex |
+| 角色 | 颜色 | Hex |
 |------|-------|-----|
 | Skin Light | Natural warm | #F5D6C6 |
 | Skin Shadow | Warm shadow | #E8C4B0 |
@@ -63,27 +63,27 @@ Full-color realistic manga style using digital painting techniques. Features ana
 
 ## Quality Markers
 
-- ✓ Anatomically accurate proportions
-- ✓ Smooth color gradients (not flat fills)
-- ✓ Realistic material textures
-- ✓ Detailed, atmospheric backgrounds
-- ✓ Natural lighting with soft shadows
-- ✓ Expressive but subtle expressions
-- ✓ Professional aesthetic
-- ✓ Clean speech bubbles
+- ✓ 解剖准确的比例
+- ✓ 平滑色彩渐变（不是扁平填充）
+- ✓ 写实材质纹理
+- ✓ 细致、有氛围的背景
+- ✓ 自然光照和柔和阴影
+- ✓ 有表现力但细微的表情
+- ✓ 专业美学
+- ✓ 干净 speech bubbles
 
 ## Compatibility
 
-| Tone | Fit | Notes |
+| Tone | Fit | 说明 |
 |------|-----|-------|
-| neutral | ✓✓ | Professional content |
-| warm | ✓✓ | Nostalgic stories |
-| dramatic | ✓✓ | High drama |
-| vintage | ✓✓ | Period pieces |
-| romantic | ✗ | Style mismatch |
-| energetic | ✗ | Too refined |
-| action | ✓ | Serious action |
+| neutral | ✓✓ | 专业内容 |
+| warm | ✓✓ | 怀旧故事 |
+| dramatic | ✓✓ | 高戏剧性 |
+| vintage | ✓✓ | 时代作品 |
+| romantic | ✗ | 风格不匹配 |
+| energetic | ✗ | 过于精致 |
+| action | ✓ | 严肃动作 |
 
 ## Best For
 
-Professional topics (wine, food, business), lifestyle content, adult narratives, documentary-style, mature educational guides
+专业主题（葡萄酒、食物、商业）、生活方式内容、成人叙事、documentary-style、成熟教育指南

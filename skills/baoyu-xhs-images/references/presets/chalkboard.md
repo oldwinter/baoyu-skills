@@ -5,9 +5,9 @@ category: educational
 
 # Chalkboard Style
 
-Black chalkboard background with colorful chalk drawing aesthetic.
+黑色 chalkboard background，搭配彩色 chalk drawing aesthetic。
 
-## Element Combination
+## 元素组合
 
 ```yaml
 canvas:
@@ -33,7 +33,7 @@ decorations:
 
 ## Color Palette
 
-| Role | Colors | Hex |
+| 角色 | Colors | Hex |
 |------|--------|-----|
 | Background | Chalkboard black, green-black | #1A1A1A, #1C2B1C |
 | Primary Text | Chalk white | #F5F5F5 |
@@ -43,39 +43,39 @@ decorations:
 | Accent 4 | Chalk green | #90EE90 |
 | Accent 5 | Chalk orange | #FFB366 |
 
-## Visual Elements
+## 视觉元素
 
-- Hand-drawn chalk illustrations with sketchy, imperfect lines
-- Chalk dust effects around text and key elements
-- Doodles: stars, arrows, underlines, circles, checkmarks
-- Mathematical formulas and simple diagrams
-- Eraser smudges and chalk residue textures
-- Stick figures and simple icons
-- Connection lines with hand-drawn feel
+- 使用 sketchy、imperfect lines 的 hand-drawn chalk illustrations
+- text 和 key elements 周围添加 chalk dust effects
+- Doodles：stars、arrows、underlines、circles、checkmarks
+- Mathematical formulas 和 simple diagrams
+- Eraser smudges 和 chalk residue textures
+- Stick figures 和 simple icons
+- 带 hand-drawn feel 的 connection lines
 
 ## Typography
 
 - Hand-drawn chalk lettering style
-- Visible chalk texture on all text
-- Imperfect baseline adds authenticity
-- White or bright colored chalk for emphasis
+- 所有 text 带 visible chalk texture
+- 不完美 baseline 增加真实感
+- 使用 white 或 bright colored chalk 强调
 
 ## Style Rules
 
 ### Do
-- Maintain authentic chalk texture on all elements
-- Use imperfect, hand-drawn quality throughout
-- Add subtle chalk dust and smudge effects
-- Create visual hierarchy with color variety
-- Include playful doodles and annotations
+- 所有元素保持 authentic chalk texture
+- 全篇使用 imperfect、hand-drawn quality
+- 添加 subtle chalk dust 和 smudge effects
+- 用 color variety 创建 visual hierarchy
+- 包含 playful doodles 和 annotations
 
 ### Don't
-- Use perfect geometric shapes
-- Create clean digital-looking lines
-- Add photorealistic elements
-- Use gradients or glossy effects
+- 使用 perfect geometric shapes
+- 创建 clean digital-looking lines
+- 添加 photorealistic elements
+- 使用 gradients 或 glossy effects
 
-## Best Layout Pairings
+## 最佳 Layout 搭配
 
 | Layout | Compatibility | Use Case |
 |--------|---------------|----------|
@@ -86,7 +86,7 @@ decorations:
 | comparison | ✓ | Concept comparisons |
 | flow | ✓✓ | Process explanations |
 
-## Best For
+## 最适合
 
 - Educational content
 - Tutorials and how-to's

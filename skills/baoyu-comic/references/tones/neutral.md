@@ -1,63 +1,63 @@
 # neutral
 
-中性基调 - Balanced, rational, educational
+中性基调 - 平衡、理性、教育
 
 ## Overview
 
-Default balanced tone suitable for educational and informative content. Neither overly emotional nor cold - creates accessible, professional atmosphere.
+默认平衡 tone，适合教育和信息类内容。既不过度情绪化，也不冰冷，营造易接近且专业的氛围。
 
 ## Mood Characteristics
 
-- Balanced emotional register
-- Clear, rational presentation
-- Educational focus
-- Professional but approachable
-- Objective storytelling
+- 平衡的情绪语域
+- 清晰、理性的呈现
+- 聚焦教育
+- 专业但亲近
+- 客观叙事
 
 ## Color Modifiers
 
-When applied to any art style:
+应用到任意 art style 时：
 
-| Adjustment | Direction |
+| 调整 | 方向 |
 |------------|-----------|
-| Saturation | Standard (no shift) |
-| Contrast | Balanced |
-| Temperature | Neutral |
-| Brightness | Slightly bright |
+| Saturation | 标准（不偏移） |
+| Contrast | 平衡 |
+| Temperature | 中性 |
+| Brightness | 略明亮 |
 
 ## Lighting
 
-- Even, clear lighting
-- Minimal dramatic shadows
-- Consistent across panels
-- Natural light sources
-- No extreme contrast
+- 均匀清晰光照
+- 极少戏剧化阴影
+- 跨 panels 保持一致
+- 自然光源
+- 无极端对比
 
 ## Emotional Range
 
-| Emotion | Expression Level |
+| 情绪 | 表达程度 |
 |---------|-----------------|
-| Joy | Moderate smile |
-| Concern | Thoughtful expression |
-| Surprise | Mild widening of eyes |
-| Frustration | Slight frown |
+| Joy | 适度微笑 |
+| Concern | 思考表情 |
+| Surprise | 眼睛轻微睁大 |
+| Frustration | 轻微皱眉 |
 
 ## Composition
 
-- Balanced panel layouts
-- Clear focal points
-- Readable hierarchies
-- Standard framing
-- Functional compositions
+- 平衡 panel 布局
+- 清晰焦点
+- 可读层级
+- 标准 framing
+- 功能性构图
 
 ## Best For
 
-- Educational content
-- Technical tutorials
-- Informative biographies
+- 教育内容
+- 技术教程
+- 信息型传记
 - Documentary style
-- Professional topics
+- 专业主题
 
 ## Usage Notes
 
-Neutral is the default tone. Combine with any art style for baseline professional output. Most versatile tone option.
+Neutral 是默认 tone。可与任意 art style 组合，产出基准专业结果。它是最通用的 tone 选项。

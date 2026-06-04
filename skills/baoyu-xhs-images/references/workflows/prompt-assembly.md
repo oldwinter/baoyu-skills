@@ -1,10 +1,10 @@
 # Prompt Assembly Guide
 
-Guide for assembling image generation prompts from elements, presets, and outline content.
+用于从 elements、presets 和 outline content 组装 image generation prompts 的指南。
 
-## Base Prompt Structure
+## Base Prompt 结构
 
-Every XHS infographic prompt follows this structure:
+每个 XHS infographic prompt 都遵循以下结构：
 
 ```
 Create a Xiaohongshu (Little Red Book) style infographic following these guidelines:
@@ -58,9 +58,9 @@ Create a Xiaohongshu (Little Red Book) style infographic following these guideli
 Please use nano banana pro to generate the infographic based on the specifications above.
 ```
 
-## Style Section Assembly
+## Style Section 组装
 
-Load from `presets/{style}.md` and extract key elements:
+从 `presets/{style}.md` 加载并提取关键元素：
 
 ```markdown
 ## Style: {style_name}
@@ -79,7 +79,7 @@ Load from `presets/{style}.md` and extract key elements:
 
 ### Screen-Print Style Override
 
-When `style: screen-print`, replace the standard Core Principles and Text Style sections with:
+当 `style: screen-print` 时，用以下内容替换标准 Core Principles 和 Text Style sections：
 
 ```
 ## Core Principles
@@ -114,9 +114,9 @@ When `style: screen-print`, replace the standard Core Principles and Text Style 
 
 ## Palette Override
 
-When `--palette` is specified (or style has `default_palette` in frontmatter and no explicit `--palette`), palette colors **replace** the style's Color Palette in the prompt. Style rendering rules (Visual Elements, Typography, Style Rules) remain unchanged.
+当指定 `--palette`（或 style 在 frontmatter 中有 `default_palette` 且没有显式 `--palette`）时，palette colors 会**替换** prompt 中 style 的 Color Palette。Style rendering rules（Visual Elements、Typography、Style Rules）保持不变。
 
-Load from `palettes/{palette}.md` and override:
+从 `palettes/{palette}.md` 加载并覆盖：
 
 ```markdown
 ## Palette Override: {palette_name}
@@ -135,17 +135,17 @@ Load from `palettes/{palette}.md` and override:
 **Constraint**: {semantic constraint from palette}
 ```
 
-**Override rules**:
-1. Palette Background **replaces** style's background color (keep style's texture description)
-2. Palette Colors **replace** style's Color Palette section entirely
-3. Palette Semantic Constraint is appended to the style section
-4. If no `--palette` and style has `default_palette` → load that palette
-5. If no `--palette` and no `default_palette` → use style's built-in colors (no override)
-6. Explicit `--palette` always overrides style's `default_palette`
+**覆盖规则**：
+1. Palette Background **替换** style 的 background color（保留 style 的 texture description）
+2. Palette Colors **完全替换** style 的 Color Palette section
+3. Palette Semantic Constraint 追加到 style section
+4. 如果没有 `--palette` 且 style 有 `default_palette` → 加载该 palette
+5. 如果没有 `--palette` 且没有 `default_palette` → 使用 style 内置颜色（不覆盖）
+6. 显式 `--palette` 始终覆盖 style 的 `default_palette`
 
-## Layout Section Assembly
+## Layout Section 组装
 
-Load from `elements/canvas.md` and extract relevant layout:
+从 `elements/canvas.md` 加载并提取相关 layout：
 
 ```markdown
 ## Layout: {layout_name}
@@ -160,9 +160,9 @@ Load from `elements/canvas.md` and extract relevant layout:
 {balance_description}
 ```
 
-## Content Section Assembly
+## Content Section 组装
 
-From outline entry:
+来自 outline entry：
 
 ```markdown
 ## Content
@@ -177,7 +177,7 @@ From outline entry:
 {visual_description}
 ```
 
-## Watermark Section (if enabled)
+## Watermark Section（如果启用）
 
 ```markdown
 ## Watermark
@@ -186,18 +186,18 @@ Include a subtle watermark "{content}" positioned at {position}. The watermark s
 be legible but not distracting from the main content.
 ```
 
-## Assembly Process
+## 组装流程
 
 ### Step 0: Resolve Style Preset (if `--preset` used)
 
-If user specified `--preset`, resolve to style + layout + palette from `references/style-presets.md`:
+如果用户指定 `--preset`，从 `references/style-presets.md` 解析为 style + layout + palette：
 
 ```python
 # e.g., --preset hand-drawn-edu → style=sketch-notes, layout=flow, palette=macaron
 style, layout, palette = resolve_preset(preset_name)
 ```
 
-Explicit `--style`/`--layout`/`--palette` flags override preset values.
+显式 `--style`/`--layout`/`--palette` flags 会覆盖 preset 值。
 
 ### Step 1: Load Style Definition
 
@@ -205,12 +205,12 @@ Explicit `--style`/`--layout`/`--palette` flags override preset values.
 preset = load_preset(style_name)  # e.g., "sketch-notes"
 ```
 
-Extract:
-- Color palette (may be overridden by palette)
+提取：
+- Color palette（可能被 palette 覆盖）
 - Visual elements
 - Typography style
-- Best practices (do/don't)
-- `default_palette` from frontmatter (if present)
+- Best practices（do/don't）
+- frontmatter 中的 `default_palette`（如果存在）
 
 ### Step 1.5: Apply Palette Override (if applicable)
 
@@ -229,40 +229,40 @@ if palette:
 layout = get_layout_from_canvas(layout_name)  # e.g., "dense"
 ```
 
-Extract:
-- Information density guidelines
-- Whitespace percentage
-- Structure description
-- Visual balance rules
+提取：
+- 信息密度指南
+- 留白百分比
+- 结构说明
+- 视觉平衡规则
 
 ### Step 3: Format Content
 
-From outline entry, format:
-- Position context (Cover/Content/Ending)
-- Text content with hierarchy
-- Visual concept description
-- Swipe hook (for context, not in prompt)
+从 outline entry 格式化：
+- 位置上下文（Cover/Content/Ending）
+- 带层级的文本内容
+- 视觉概念说明
+- Swipe hook（用于上下文，不进入 prompt）
 
 ### Step 4: Add Watermark (if applicable)
 
-If preferences include watermark:
-- Add watermark section with content, position, opacity
+如果 preferences 包含 watermark：
+- 添加包含内容、位置、opacity 的 watermark section
 
 ### Step 5: Visual Consistency — Reference Image Chain
 
-When generating multiple images in a series:
+生成一组多张图片时：
 
-1. **Image 1 (cover)**: Generate without `--ref` — this establishes the visual anchor
-2. **Images 2+**: Always pass image 1 as `--ref` to the installed image generation skill.
-   Read that skill's `SKILL.md` and use its documented interface rather than calling its scripts directly.
-   For each later image, use the assembled prompt file as input, set the output image path, keep aspect ratio `3:4`, use quality `2k`, and pass image 1 as the reference.
-   This ensures the AI maintains the same character design, illustration style, and color rendering across the series.
+1. **Image 1 (cover)**：不带 `--ref` 生成，用它建立视觉锚点
+2. **Images 2+**：始终将 image 1 作为 `--ref` 传给已安装的 image generation skill。
+   读取该 skill 的 `SKILL.md`，使用其文档化接口，而不是直接调用脚本。
+   对每张后续图片，使用组装好的 prompt 文件作为输入，设置输出图片路径，保持 aspect ratio `3:4`，使用 quality `2k`，并传入 image 1 作为 reference。
+   这能确保 AI 在整个系列中保持相同的 character design、illustration style 和 color rendering。
 
 ### Step 6: Combine
 
-Assemble all sections into final prompt following base structure.
+按 base structure 将所有 sections 组装成最终 prompt。
 
-## Example: Assembled Prompt
+## 示例：组装后的 Prompt
 
 ```markdown
 Create a Xiaohongshu (Little Red Book) style infographic following these guidelines:
@@ -367,12 +367,12 @@ Please use nano banana pro to generate the infographic based on the specificatio
 
 ## Prompt Checklist
 
-Before generating, verify:
+生成前确认：
 
-- [ ] Style section loaded from correct preset
-- [ ] Palette override applied (if `--palette` specified or style has `default_palette`)
-- [ ] Layout section matches outline specification
-- [ ] Content accurately reflects outline entry
-- [ ] Language matches source content
-- [ ] Watermark included (if enabled in preferences)
-- [ ] No conflicting instructions
+- [ ] Style section 已从正确 preset 加载
+- [ ] Palette override 已应用（如果指定 `--palette` 或 style 有 `default_palette`）
+- [ ] Layout section 匹配 outline specification
+- [ ] Content 准确反映 outline entry
+- [ ] Language 匹配 source content
+- [ ] Watermark 已包含（如果 preferences 中启用）
+- [ ] 没有冲突指令

@@ -1,35 +1,35 @@
 # warm
 
-温馨基调 - Nostalgic, personal, comforting
+温馨基调 - 怀旧、个人化、安慰感
 
 ## Overview
 
-Warm, inviting atmosphere for personal stories and nostalgic content. Creates emotional connection through cozy aesthetics and comforting visuals.
+适合个人故事和怀旧内容的温暖、亲切氛围。通过舒适美学和安慰感视觉建立情感连接。
 
 ## Mood Characteristics
 
-- Nostalgic feeling
-- Personal, intimate atmosphere
-- Comforting and healing
-- Memory and reflection
-- Gentle emotional warmth
+- 怀旧感
+- 个人化、亲密氛围
+- 安慰与疗愈
+- 记忆与反思
+- 温柔的情感温度
 
 ## Color Modifiers
 
-When applied to any art style:
+应用到任意 art style 时：
 
-| Adjustment | Direction |
+| 调整 | 方向 |
 |------------|-----------|
-| Saturation | Slightly reduced |
-| Contrast | Softer |
-| Temperature | Warm shift (+15%) |
-| Brightness | Soft, golden |
+| Saturation | 略微降低 |
+| Contrast | 更柔软 |
+| Temperature | 向暖色偏移（+15%） |
+| Brightness | 柔和、金色 |
 
 ## Color Temperature
 
 Shift palette toward warm tones:
 
-| Original | Warm Shift |
+| 原色 | 暖色偏移 |
 |----------|-----------|
 | Cool blue | Soft teal |
 | Pure white | Cream |
@@ -46,49 +46,49 @@ Shift palette toward warm tones:
 ## Lighting
 
 - Golden hour lighting
-- Soft, diffused light
-- Warm indoor glow
-- Candle/lamp warmth
-- Gentle shadows
+- 柔和漫射光
+- 温暖室内 glow
+- 蜡烛/灯光温暖感
+- 温柔阴影
 
 ## Emotional Range
 
-| Emotion | Expression |
+| 情绪 | 表达 |
 |---------|-----------|
-| Joy | Genuine warm smile |
-| Sadness | Gentle melancholy |
-| Love | Soft, tender expressions |
-| Memory | Distant, reflective gaze |
+| Joy | 真诚温暖的微笑 |
+| Sadness | 温柔忧伤 |
+| Love | 柔软、温情表情 |
+| Memory | 遥远、沉思的凝视 |
 
 ## Composition
 
-- Intimate framing
-- Cozy environments
-- Soft focus backgrounds
-- Welcoming spaces
-- Personal moments highlighted
+- 亲密 framing
+- 舒适环境
+- Soft focus 背景
+- 有欢迎感的空间
+- 突出个人时刻
 
 ## Visual Elements
 
-- Warm light rays
-- Soft edges
-- Nostalgic props (old photos, keepsakes)
-- Comfort objects (blankets, tea cups)
-- Nature elements (autumn leaves, sunset)
+- 暖光光线
+- 柔软边缘
+- 怀旧道具（旧照片、纪念物）
+- 舒适物件（毯子、茶杯）
+- 自然元素（秋叶、日落）
 
 ## Best For
 
-- Personal stories
-- Childhood memories
-- Mentorship narratives
-- Family histories
-- Gentle biographies
-- Healing journeys
+- 个人故事
+- 童年回忆
+- 导师叙事
+- 家族历史
+- 温柔传记
+- 疗愈旅程
 
 ## Combination Notes
 
-Works especially well with:
-- ligne-claire: nostalgic European comics
-- realistic: touching human stories
-- manga: slice-of-life warmth
-- chalk: nostalgic education
+特别适合搭配：
+- ligne-claire：怀旧 European comics
+- realistic：动人的人性故事
+- manga：slice-of-life 温暖感
+- chalk：怀旧教育

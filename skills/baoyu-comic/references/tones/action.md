@@ -1,56 +1,56 @@
 # action
 
-动作基调 - Speed, impact, power
+动作基调 - 速度、冲击、力量
 
 ## Overview
 
-High-impact action atmosphere with dynamic movement, combat effects, and powerful visual energy. Creates visceral, exciting sequences.
+高冲击动作氛围，包含动态运动、战斗效果和强视觉能量。创造直观、刺激的 sequence。
 
 ## Mood Characteristics
 
-- Speed and motion
-- Power and impact
-- Combat intensity
-- Physical energy
-- Visceral excitement
+- 速度与运动
+- 力量与冲击
+- 战斗强度
+- 身体能量
+- 直观刺激
 
 ## Color Modifiers
 
-When applied to any art style:
+应用到任意 art style 时：
 
-| Adjustment | Direction |
+| 调整 | 方向 |
 |------------|-----------|
-| Saturation | High contrast |
-| Contrast | Maximum |
-| Temperature | Variable per effect |
-| Brightness | Dynamic range |
+| Saturation | 高对比 |
+| Contrast | 最大 |
+| Temperature | 随效果变化 |
+| Brightness | 动态范围 |
 
 ## Action Effects
 
 **Combat/motion effects** (apply liberally):
 
-| Effect | Usage |
+| Effect | 用途 |
 |--------|-------|
-| Speed lines | Motion, velocity |
-| Impact bursts | Hits, collisions |
-| Shockwaves | Powerful impacts |
-| Flying debris | Environmental destruction |
-| Dust clouds | Ground impacts |
-| Motion blur | Fast movement |
-| Afterimages | Super speed |
+| Speed lines | 运动、速度 |
+| Impact bursts | 打击、碰撞 |
+| Shockwaves | 强力冲击 |
+| Flying debris | 环境破坏 |
+| Dust clouds | 地面冲击 |
+| Motion blur | 快速运动 |
+| Afterimages | 超高速 |
 
 ## Special Effects
 
-| Effect Type | Visual Approach |
+| Effect Type | 视觉方式 |
 |------------|-----------------|
-| Energy attacks | Glowing, radiating |
-| Physical impacts | Radiating lines, debris |
-| Movement | Speed lines, blur |
-| Atmosphere | Flying particles, wind |
+| Energy attacks | 发光、放射 |
+| Physical impacts | 放射线、碎片 |
+| Movement | Speed lines、blur |
+| Atmosphere | 飞散粒子、风 |
 
 ## Effect Colors
 
-| Effect | Color | Hex |
+| Effect | 颜色 | Hex |
 |--------|-------|-----|
 | Energy glow | Blue | #4299E1 |
 | Fire/power | Gold | #FFD700 |
@@ -59,52 +59,52 @@ When applied to any art style:
 
 ## Lighting
 
-- Dynamic, shifting
-- Impact flashes
-- Energy glow sources
-- Rim lighting on figures
-- Dramatic contrast
+- 动态、变化
+- 冲击闪光
+- 能量 glow 光源
+- 人物 rim lighting
+- 戏剧化对比
 
 ## Emotional Range
 
-| Emotion | Expression |
+| 情绪 | 表达 |
 |---------|-----------|
-| Determination | Fierce focus |
-| Rage | Intense, powerful |
-| Triumph | Victorious pose |
-| Struggle | Strained effort |
+| Determination | 凶猛专注 |
+| Rage | 强烈、有力量 |
+| Triumph | 胜利姿态 |
+| Struggle | 用力挣扎 |
 
 ## Composition
 
-- Dynamic angles
-- Extreme perspectives
-- Panel-breaking layouts
-- Asymmetric designs
-- Impact-focused framing
+- 动态角度
+- 极端透视
+- 破 panel 布局
+- 非对称设计
+- 以冲击为中心的 framing
 
 ## Pose Guidelines
 
-- Dynamic warrior poses
-- Weight and momentum visible
-- Muscle tension shown
-- Flow of movement captured
-- Impact points emphasized
+- 动态战士姿势
+- 可见重量和动量
+- 展示肌肉张力
+- 捕捉运动流向
+- 强调冲击点
 
 ## Best For
 
-- Martial arts combat
-- Action sequences
-- Sports moments
-- Physical challenges
-- Battle scenes
-- Climactic confrontations
+- 武术战斗
+- 动作 sequences
+- 运动时刻
+- 身体挑战
+- 战斗场景
+- 高潮对峙
 
 ## Combination Notes
 
-Works especially well with:
-- ink-brush: wuxia combat
-- manga: shonen battles
+特别适合搭配：
+- ink-brush：武侠战斗
+- manga：shonen battles
 
-Avoid with:
-- chalk: style mismatch
-- ligne-claire: style mismatch (too static)
+避免搭配：
+- chalk：风格不匹配
+- ligne-claire：风格不匹配（过于静态）

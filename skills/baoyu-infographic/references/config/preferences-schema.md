@@ -1,6 +1,6 @@
 ---
 name: preferences-schema
-description: EXTEND.md YAML schema for baoyu-infographic user preferences
+description: baoyu-infographic 用户偏好的 EXTEND.md YAML schema
 ---
 
 # Preferences Schema
@@ -31,65 +31,65 @@ custom_styles:            # extra style definitions merged with the 21 built-ins
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `version` | int | 1 | Schema version |
-| `preferred_layout` | string\|null | null | Pre-selected layout — surfaces as the top recommendation in Step 3 |
-| `preferred_style` | string\|null | null | Pre-selected style — surfaces as the top recommendation in Step 3 |
-| `preferred_aspect` | string\|null | null | Default aspect for Step 4 (named preset or W:H string) |
-| `language` | string\|null | null | Output language (null = auto-detect from source content) |
-| `preferred_image_backend` | string | `auto` | Image backend selection. `auto` = prefer runtime-native tool, fall back to the only installed backend, ask if multiple non-native are present. `ask` = always confirm on every run. `<backend-id>` (e.g., `codex-imagegen`, `baoyu-image-gen`, `image_generate`) = pin this backend when available; fall back to `auto` when it isn't. Absent = `auto`. |
-| `custom_styles` | array | [] | Additional styles available alongside the 21 built-ins |
+| `preferred_layout` | string\|null | null | 预选 layout，会在 Step 3 中作为顶部推荐出现 |
+| `preferred_style` | string\|null | null | 预选 style，会在 Step 3 中作为顶部推荐出现 |
+| `preferred_aspect` | string\|null | null | Step 4 的默认 aspect（命名 preset 或 W:H 字符串） |
+| `language` | string\|null | null | 输出语言（null = 从 source content 自动检测） |
+| `preferred_image_backend` | string | `auto` | 图片 backend 选择。`auto` = 优先 runtime-native tool，回退到唯一已安装 backend，如存在多个非原生 backend 则询问。`ask` = 每次运行都确认。`<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`image_generate`）= 可用时固定此 backend，不可用时回退到 `auto`。缺省 = `auto`。 |
+| `custom_styles` | array | [] | 除 21 个内置 styles 外额外可用的 styles |
 
-Backend resolution logic is documented in the `## Image Generation Tools` section of `SKILL.md`. This doc only defines the field.
+Backend resolution logic 记录在 `SKILL.md` 的 `## Image Generation Tools` 部分。本文档只定义字段。
 
-All fields in this schema are defaults only — they shape Step-3 recommendations and Step-4 defaults but never bypass Step 4 confirmation (see the `## Confirmation Policy` section in SKILL.md).
+此 schema 中所有字段都只是默认值；它们影响 Step 3 推荐和 Step 4 默认值，但绝不会绕过 Step 4 confirmation（见 SKILL.md 中的 `## Confirmation Policy`）。
 
-Example backend ids:
+Example backend ids：
 
 | Value | Meaning |
 |-------|---------|
-| `codex-imagegen` | Codex built-in `imagegen` tool |
+| `codex-imagegen` | Codex 内置 `imagegen` tool |
 | `baoyu-image-gen` | `baoyu-image-gen` skill / script backend |
-| `image_generate` | Generic runtime image tool such as Hermes |
+| `image_generate` | Hermes 等 generic runtime image tool |
 
 ## Layout Options
 
-See the **Layout Gallery (21)** table in `SKILL.md` for the canonical list. Common picks:
+Canonical list 见 `SKILL.md` 中的 **Layout Gallery (21)** 表。常用选项：
 
 | Value | Best For |
 |-------|----------|
-| `bento-grid` | General default — overview, multiple topics |
-| `linear-progression` | Timelines, processes, tutorials |
-| `dense-modules` | High-density modules, data-rich guides |
-| `hub-spoke` | Central concept with related items |
-| `dashboard` | Metrics, KPIs |
+| `bento-grid` | 通用默认 — overview、多主题 |
+| `linear-progression` | Timelines、processes、tutorials |
+| `dense-modules` | 高密度 modules、data-rich guides |
+| `hub-spoke` | 中心概念及相关项 |
+| `dashboard` | Metrics、KPIs |
 
 ## Style Options
 
-See the **Style Gallery (21)** table in `SKILL.md` for the canonical list. Common picks:
+Canonical list 见 `SKILL.md` 中的 **Style Gallery (21)** 表。常用选项：
 
 | Value | Description |
 |-------|-------------|
-| `craft-handmade` | Hand-drawn, paper craft (default) |
-| `corporate-memphis` | Flat vector, vibrant |
-| `morandi-journal` | Hand-drawn doodle, warm Morandi tones |
-| `pop-laboratory` | Blueprint grid, lab precision |
-| `retro-pop-grid` | 1970s retro pop art, Swiss grid |
+| `craft-handmade` | 手绘、paper craft（默认） |
+| `corporate-memphis` | Flat vector、鲜艳 |
+| `morandi-journal` | Hand-drawn doodle、暖 Morandi tones |
+| `pop-laboratory` | Blueprint grid、lab precision |
+| `retro-pop-grid` | 1970s retro pop art、Swiss grid |
 
 ## Aspect Options
 
 | Value | Ratio | Notes |
 |-------|-------|-------|
-| `landscape` | 16:9 | Slides, blog headers, web banners |
-| `portrait` | 9:16 | Mobile, social, dense modules (default for `dense-modules`) |
-| `square` | 1:1 | Social posts, thumbnails |
-| Custom W:H | e.g. `3:4`, `4:3`, `2.35:1` | Pass through verbatim to the prompt |
+| `landscape` | 16:9 | Slides、blog headers、web banners |
+| `portrait` | 9:16 | Mobile、social、dense modules（`dense-modules` 默认） |
+| `square` | 1:1 | Social posts、thumbnails |
+| Custom W:H | e.g. `3:4`, `4:3`, `2.35:1` | 原样传入 prompt |
 
 ## Custom Style Fields
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `name` | Yes | Unique style identifier (kebab-case) |
-| `description` | Yes | One-line description shown in Step 3 recommendations |
-| `prompt_fragment` | Yes | Style traits appended into the Step 5 prompt body |
+| `name` | Yes | 唯一 style identifier（kebab-case） |
+| `description` | Yes | Step 3 recommendations 中显示的一行说明 |
+| `prompt_fragment` | Yes | 追加到 Step 5 prompt body 的 style traits |
 
 ## Example: Minimal Preferences
 
@@ -102,7 +102,7 @@ language: zh
 ---
 ```
 
-`preferred_image_backend` is omitted above; absence is treated as `auto`.
+上方省略了 `preferred_image_backend`；缺省视为 `auto`。
 
 ## Example: Full Preferences
 

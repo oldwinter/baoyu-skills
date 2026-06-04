@@ -1,8 +1,8 @@
-# EXTEND.md Schema for baoyu-translate
+# baoyu-translate 的 EXTEND.md Schema
 
 ## Format
 
-EXTEND.md uses YAML format:
+EXTEND.md 使用 YAML 格式：
 
 ```yaml
 # Default target language (ISO code or common name)
@@ -51,31 +51,31 @@ glossaries:
       to: "人工智能"
 ```
 
-## Fields
+## 字段
 
-| Field | Type | Default | Description |
+| Field | Type | Default | 说明 |
 |-------|------|---------|-------------|
-| `target_language` | string | `zh-CN` | Default target language code |
-| `default_mode` | string | `normal` | Default translation mode (`quick` / `normal` / `refined`) |
-| `audience` | string | `general` | Target reader profile (`general` / `technical` / `academic` / `business` / custom) |
-| `style` | string | `storytelling` | Translation style (`storytelling` / `formal` / `technical` / `literal` / `academic` / `business` / `humorous` / `conversational` / `elegant` / custom) |
-| `chunk_threshold` | number | `4000` | Word count threshold to trigger chunked translation |
-| `chunk_max_words` | number | `5000` | Max words per chunk |
-| `glossary` | array | `[]` | Universal glossary entries (inline) |
-| `glossary_files` | array | `[]` | External glossary file paths (absolute or relative to EXTEND.md) |
-| `glossaries` | object | `{}` | Language-pair specific glossary entries |
+| `target_language` | string | `zh-CN` | 默认目标语言代码 |
+| `default_mode` | string | `normal` | 默认翻译模式（`quick` / `normal` / `refined`） |
+| `audience` | string | `general` | 目标读者画像（`general` / `technical` / `academic` / `business` / custom） |
+| `style` | string | `storytelling` | 翻译风格（`storytelling` / `formal` / `technical` / `literal` / `academic` / `business` / `humorous` / `conversational` / `elegant` / custom） |
+| `chunk_threshold` | number | `4000` | 触发 chunked translation 的词数阈值 |
+| `chunk_max_words` | number | `5000` | 每个 chunk 最大词数 |
+| `glossary` | array | `[]` | 通用 glossary entries（内联） |
+| `glossary_files` | array | `[]` | 外部 glossary 文件路径（绝对路径或相对 EXTEND.md） |
+| `glossaries` | object | `{}` | 特定语言对 glossary entries |
 
 ## Glossary Entry
 
-| Field | Required | Description |
+| Field | Required | 说明 |
 |-------|----------|-------------|
-| `from` | yes | Source term |
-| `to` | yes | Target translation |
-| `note` | no | Usage note (e.g., "Keep English", "Only in tech context") |
+| `from` | yes | 源术语 |
+| `to` | yes | 目标译法 |
+| `note` | no | 使用说明（例如 "Keep English", "Only in tech context"） |
 
 ## Glossary File Format
 
-External glossary files (`glossary_files`) support two formats:
+外部 glossary 文件（`glossary_files`）支持两种格式：
 
 **Markdown table** (`.md`):
 ```markdown
@@ -94,7 +94,7 @@ External glossary files (`glossary_files`) support two formats:
   note: "Keep English"
 ```
 
-Paths can be absolute or relative to the EXTEND.md file location.
+路径可以是绝对路径，或相对 EXTEND.md 文件所在位置。
 
 ## Priority
 
@@ -104,4 +104,4 @@ Paths can be absolute or relative to the EXTEND.md file location.
 4. EXTEND.md `glossary_files` entries (in listed order, later files override earlier)
 5. Built-in glossary (e.g., `references/glossary-en-zh.md`)
 
-Later entries override earlier ones for the same source term.
+对同一源术语，后面的 entries 会覆盖前面的。

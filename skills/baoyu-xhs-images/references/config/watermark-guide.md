@@ -1,11 +1,11 @@
 ---
 name: watermark-guide
-description: Watermark configuration guide for baoyu-xhs-images
+description: baoyu-xhs-images 的水印配置指南
 ---
 
-# Watermark Guide
+# 水印指南
 
-## Position Diagram
+## 位置示意图
 
 ```
 ┌─────────────────────────────┐
@@ -19,44 +19,44 @@ description: Watermark configuration guide for baoyu-xhs-images
 └─────────────────────────────┘
 ```
 
-## Position Recommendations
+## 位置建议
 
-| Position | Best For | Avoid When |
+| 位置 | 适合 | 避免场景 |
 |----------|----------|------------|
-| `bottom-right` | Default choice, most common | Key info in bottom-right |
-| `bottom-left` | Right-heavy layouts | Key info in bottom-left |
-| `bottom-center` | Centered designs | Text-heavy bottom area |
-| `top-right` | Bottom-heavy content | Title/header in top-right |
+| `bottom-right` | 默认选择，最常见 | 关键信息在右下角 |
+| `bottom-left` | 右侧偏重布局 | 关键信息在左下角 |
+| `bottom-center` | 居中设计 | 底部文字密集 |
+| `top-right` | 底部偏重内容 | 标题/header 在右上角 |
 
-## Content Format
+## 内容格式
 
-| Format | Example | Style |
+| 格式 | 示例 | 风格 |
 |--------|---------|-------|
 | Handle | `@username` | Most common for XHS |
-| Text | `MyBrand` | Simple branding |
-| Chinese | `小红书:用户名` | Platform specific |
+| Text | `MyBrand` | 简单品牌标识 |
+| Chinese | `小红书:用户名` | 平台专属 |
 | URL | `myblog.com` | Cross-platform |
 
-## Best Practices
+## 最佳实践
 
-1. **Consistency**: Use same watermark across all images in series
-2. **Legibility**: Ensure watermark readable on both light/dark areas
-3. **Size**: Keep subtle - should not distract from content
+1. **一致性**：系列内所有图片使用同一水印
+2. **可读性**：确保水印在明/暗区域都可读
+3. **大小**：保持克制，不应干扰内容
 
-## Prompt Integration
+## Prompt 集成
 
-When watermark is enabled, add to image generation prompt:
+启用水印时，在 image generation prompt 中加入：
 
 ```
 Include a subtle watermark "[content]" positioned at [position].
 The watermark should be legible but not distracting from the main content.
 ```
 
-## Common Issues
+## 常见问题
 
-| Issue | Solution |
+| 问题 | 解决方案 |
 |-------|----------|
-| Watermark invisible | Adjust position or check contrast |
-| Watermark too prominent | Change position or reduce size |
-| Watermark overlaps content | Change position |
-| Inconsistent across images | Use session ID for consistency |
+| 水印不可见 | 调整位置或检查对比度 |
+| 水印过于显眼 | 更改位置或缩小尺寸 |
+| 水印与内容重叠 | 更改位置 |
+| 图片之间不一致 | 使用 session ID 保持一致性 |

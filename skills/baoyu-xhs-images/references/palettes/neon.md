@@ -1,32 +1,32 @@
 # Neon Palette
 
-Vibrant neon colors on dark background. High-energy, futuristic, eye-catching.
+深色背景上的鲜艳 neon 色。高能量、未来感、抓眼球。
 
-## Background
+## 背景
 
-- Color: Dark Purple (#1A1025)
-- Texture: Smooth, deep
+- 颜色：Dark Purple (#1A1025)
+- 纹理：平滑、深邃
 
-## Colors
+## 颜色
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Dark Purple | #1A1025 | Primary background |
-| Text | Bright White | #F0F0F0 | Titles, main content |
-| Secondary Text | Light Lavender | #B8B8D4 | Annotations, labels |
-| Block Color | Neon Cyan | #00F5FF | Content block fill |
-| Block Color | Neon Magenta | #FF00FF | Content block fill |
-| Block Color | Neon Green | #39FF14 | Content block fill |
-| Block Color | Neon Pink | #FF6EC7 | Content block fill |
-| Accent | Electric Yellow | #FFFF00 | Emphasis, highlights |
+| Background | Dark Purple | #1A1025 | 主背景 |
+| Text | Bright White | #F0F0F0 | 标题、主要内容 |
+| Secondary Text | Light Lavender | #B8B8D4 | 注释、标签 |
+| Block Color | Neon Cyan | #00F5FF | 内容块填充 |
+| Block Color | Neon Magenta | #FF00FF | 内容块填充 |
+| Block Color | Neon Green | #39FF14 | 内容块填充 |
+| Block Color | Neon Pink | #FF6EC7 | 内容块填充 |
+| Accent | Electric Yellow | #FFFF00 | 强调、高光 |
 
-## Semantic Constraint
+## 语义约束
 
-Vibrant neon color palette on dark background. Colors should glow against the dark base. High contrast, futuristic feel. Use neon sparingly — too many glowing elements become chaotic. Let dark background breathe. Do NOT render color names, hex codes, or role labels as visible text in the image.
+深色背景上的鲜艳 neon 调色板。颜色应在深色底上发光。高对比，未来感。Neon 要克制使用，过多发光元素会变得混乱。让深色背景有呼吸感。不要把颜色名称、Hex code 或角色标签渲染为图片中的可见文本。
 
-## Best Paired With
+## 最佳搭配
 
-- `bold` — amplifies high-impact energy
-- `pop` — neon takes the vibrancy further
-- `minimal` — neon accents on dark create striking contrast
-- `notion` — futuristic knowledge card aesthetic
+- `bold`，放大高冲击能量
+- `pop`，neon 进一步提升鲜艳感
+- `minimal`，深色上的 neon 强调形成醒目对比
+- `notion`，未来感知识卡美学

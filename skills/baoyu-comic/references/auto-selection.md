@@ -1,10 +1,10 @@
 # Auto Selection
 
-Content signals determine default art + tone + layout (or preset).
+内容信号决定默认 art + tone + layout（或 preset）。
 
 ## Content Signal Matrix
 
-| Content Signals | Art Style | Tone | Layout | Preset |
+| 内容信号 | Art Style | Tone | Layout | Preset |
 |-----------------|-----------|------|--------|--------|
 | Tutorial, how-to, beginner | manga | neutral | webtoon | **ohmsha** |
 | Computing, AI, programming | manga | neutral | dense | **ohmsha** |
@@ -22,36 +22,36 @@ Content signals determine default art + tone + layout (or preset).
 
 ## Preset Recommendation Rules
 
-**When preset is recommended**: Load `presets/{preset}.md` and apply all special rules.
+**当推荐 preset 时**：加载 `presets/{preset}.md` 并应用所有特殊规则。
 
 ### ohmsha
-- **Triggers**: Tutorial, technical, educational, computing, programming, how-to, beginner
-- **Special rules**: Visual metaphors, NO talking heads, gadget reveals, Doraemon-style characters
+- **触发条件**：Tutorial、technical、educational、computing、programming、how-to、beginner
+- **特殊规则**：Visual metaphors、NO talking heads、gadget reveals、Doraemon-style characters
 - **Base**: manga + neutral + webtoon/dense
 
 ### wuxia
-- **Triggers**: Martial arts, wuxia, xianxia, cultivation, swordplay
-- **Special rules**: Qi effects, combat visuals, atmospheric elements
+- **触发条件**：Martial arts、wuxia、xianxia、cultivation、swordplay
+- **特殊规则**：Qi effects、combat visuals、atmospheric elements
 - **Base**: ink-brush + action + splash
 
 ### shoujo
-- **Triggers**: Romance, love story, school life, emotional drama
-- **Special rules**: Decorative elements, eye details, romantic beats
+- **触发条件**：Romance、love story、school life、emotional drama
+- **特殊规则**：Decorative elements、eye details、romantic beats
 - **Base**: manga + romantic + standard
 
 ### concept-story
-- **Triggers**: Psychology, motivation, self-help, business narrative, management, leadership, personal growth, coaching, soft skills, abstract concept through story
-- **Special rules**: Visual symbol system, growth arc, dialogue+action balance, original characters
+- **触发条件**：Psychology、motivation、self-help、business narrative、management、leadership、personal growth、coaching、soft skills、abstract concept through story
+- **特殊规则**：Visual symbol system、growth arc、dialogue+action balance、original characters
 - **Base**: manga + warm + standard
 
 ### four-panel
-- **Triggers**: Business allegory, fable, parable, short insight, four-panel, 四格, 四格漫画, single-page comic, minimalist comic strip
-- **Special rules**: Strict 起承转合 4-panel structure, B&W + spot color, simplified stick-figure characters, single-page story
+- **触发条件**：Business allegory、fable、parable、short insight、four-panel、四格、四格漫画、single-page comic、minimalist comic strip
+- **特殊规则**：严格起承转合 4-panel structure、B&W + spot color、simplified stick-figure characters、single-page story
 - **Base**: minimalist + neutral + four-panel
 
 ## Compatibility Matrix
 
-Art Style × Tone combinations work best when matched appropriately:
+Art Style × Tone 组合在适配得当时效果最好：
 
 | Art Style | ✓✓ Best | ✓ Works | ✗ Avoid |
 |-----------|---------|---------|---------|
@@ -62,11 +62,11 @@ Art Style × Tone combinations work best when matched appropriately:
 | chalk | neutral, warm, energetic | vintage | dramatic, action, romantic |
 | minimalist | neutral | warm, energetic | dramatic, vintage, romantic, action |
 
-**Note**: Art Style × Tone × Layout can be freely combined. Incompatible combinations work but may produce unexpected results.
+**注意**：Art Style × Tone × Layout 可以自由组合。不兼容组合也能工作，但可能产生意外结果。
 
-## Priority Order
+## 优先级顺序
 
-1. User-specified options (`--art`, `--tone`, `--style`)
+1. 用户指定选项（`--art`, `--tone`, `--style`）
 2. EXTEND.md defaults
-3. Content signal analysis → auto-selection
-4. Fallback: ligne-claire + neutral + standard
+3. 内容信号分析 → auto-selection
+4. Fallback：ligne-claire + neutral + standard

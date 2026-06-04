@@ -1,6 +1,6 @@
 # Style Presets
 
-`--preset X` expands to a style + layout + optional palette combination. Users can override any dimension.
+`--preset X` 会展开为 style + layout + 可选 palette 的组合。用户可以覆盖任意维度。
 
 | --preset | Style | Layout | Palette |
 |----------|-------|--------|---------|
@@ -31,13 +31,13 @@
 | `sketch-card` | `sketch-notes` | `dense` | `macaron` |
 | `sketch-summary` | `sketch-notes` | `balanced` | `macaron` |
 
-Empty Palette = use style's built-in colors (or style's `default_palette` if defined in frontmatter).
+Palette 为空 = 使用 style 内置颜色（或 frontmatter 中定义的 style `default_palette`）。
 
-## Override Examples
+## 覆盖示例
 
-- `--preset knowledge-card --style chalkboard` = chalkboard style with dense layout
-- `--preset poster --layout quadrant` = screen-print style with quadrant layout
-- `--preset hand-drawn-edu --palette warm` = sketch-notes style with flow layout, warm palette instead of macaron
-- `--style notion --palette macaron` = notion rendering rules with macaron colors
+- `--preset knowledge-card --style chalkboard` = chalkboard style + dense layout
+- `--preset poster --layout quadrant` = screen-print style + quadrant layout
+- `--preset hand-drawn-edu --palette warm` = sketch-notes style + flow layout，但使用 warm palette 替代 macaron
+- `--style notion --palette macaron` = notion 渲染规则 + macaron 颜色
 
-Explicit `--style`/`--layout`/`--palette` flags always override preset values.
+显式 `--style`/`--layout`/`--palette` flags 始终覆盖 preset 值。

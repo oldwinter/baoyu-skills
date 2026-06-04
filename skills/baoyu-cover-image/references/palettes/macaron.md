@@ -1,6 +1,6 @@
 # macaron
 
-Soft macaron pastel color blocks on warm cream
+Warm cream 上的 soft macaron pastel color blocks
 
 ## Color Palette
 
@@ -18,13 +18,13 @@ Soft macaron pastel color blocks on warm cream
 
 - Rounded pastel color blocks
 - Subtle warm paper grain texture
-- Soft shadows, no hard edges
-- Gentle gradient transitions between zones
+- Soft shadows，无 hard edges
+- Zones 之间使用 gentle gradient transitions
 
 ## Semantic Constraint
 
-Do NOT render color names, hex codes, or role labels as visible text in the image.
+不要把 color names、hex codes 或 role labels 渲染成图片中的可见文字。
 
 ## Best For
 
-Educational content, knowledge sharing, concept explainers, tutorials, tech summaries, onboarding materials
+Educational content、knowledge sharing、concept explainers、tutorials、tech summaries、onboarding materials

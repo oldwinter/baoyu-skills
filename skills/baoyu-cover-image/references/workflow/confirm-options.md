@@ -2,24 +2,24 @@
 
 ## Purpose
 
-Validate all 6 dimensions + aspect ratio.
+验证全部 6 个 dimensions + aspect ratio。
 
 ## Skip Conditions
 
 | Condition | Skipped Questions | Still Asked |
 |-----------|-------------------|-------------|
-| `--quick` flag | Type, Palette, Rendering, Text, Mood, Font | **Aspect Ratio** (unless `--aspect` specified) |
+| `--quick` flag | Type、Palette、Rendering、Text、Mood、Font | **Aspect Ratio**（除非指定了 `--aspect`） |
 | All 6 dimensions + `--aspect` specified | All | None |
-| `quick_mode: true` in EXTEND.md | Type, Palette, Rendering, Text, Mood, Font | **Aspect Ratio** (unless `--aspect` specified) |
+| EXTEND.md 中 `quick_mode: true` | Type、Palette、Rendering、Text、Mood、Font | **Aspect Ratio**（除非指定了 `--aspect`） |
 | Otherwise | None | All 7 questions |
 
-**Important**: Aspect ratio is ALWAYS asked unless explicitly specified via `--aspect` CLI flag. User presets in EXTEND.md are shown as recommended option, not auto-selected.
+**Important**：除非通过 `--aspect` CLI flag 显式指定，Aspect ratio 总是要询问。EXTEND.md 中的 user presets 作为 recommended option 展示，而不是自动选择。
 
 ## Quick Mode Output
 
-When skipping 6 dimensions:
+跳过 6 dimensions 时：
 
-```
+```text
 Quick Mode: Auto-selected dimensions
 • Type: [type] ([reason])
 • Palette: [palette] ([reason])
@@ -33,13 +33,13 @@ Quick Mode: Auto-selected dimensions
 
 ## Confirmation Flow
 
-**Language**: Auto-determined (user's input language > saved preference > source language). No need to ask.
+**Language**：自动决定（用户输入语言 > saved preference > source language），无需询问。
 
-Present ALL options in a **single AskUserQuestion call** (4 questions max).
+在 **单次 AskUserQuestion call** 中展示所有 options（最多 4 个问题）。
 
-Skip any question where the dimension is already specified via CLI flag or `--style` preset.
+跳过任何已经通过 CLI flag 或 `--style` preset 指定的 dimension。
 
-### Q1: Type (skip if `--type`)
+### Q1：Type（如有 `--type` 则跳过）
 
 ```yaml
 header: "Type"
@@ -56,7 +56,7 @@ options:
     description: "Text-focused layout - opinions, quotes"
 ```
 
-### Q2: Palette (skip if `--palette` or `--style`)
+### Q2：Palette（如有 `--palette` 或 `--style` 则跳过）
 
 ```yaml
 header: "Palette"
@@ -73,9 +73,9 @@ options:
     description: "Technical - engineering blue, navy, cyan"
 ```
 
-### Q3: Rendering (skip if `--rendering` or `--style`)
+### Q3：Rendering（如有 `--rendering` 或 `--style` 则跳过）
 
-Show compatible renderings (✓✓ first from compatibility matrix):
+展示 compatible renderings（compatibility matrix 中的 ✓✓ 优先）：
 
 ```yaml
 header: "Rendering"
@@ -92,7 +92,7 @@ options:
     description: "Polished, precise, subtle gradients"
 ```
 
-### Q4: Font (skip if `--font`)
+### Q4：Font（如有 `--font` 则跳过）
 
 ```yaml
 header: "Font"
@@ -111,11 +111,11 @@ options:
     description: "Bold decorative - announcements, entertainment"
 ```
 
-### Q5: Other Settings (skip if all remaining dimensions already specified)
+### Q5：Other Settings（如果所有剩余 dimensions 都已指定则跳过）
 
-Combine remaining settings into one question. Include: Output Dir (if no preference + file path input), Text, Mood, Aspect. Show auto-selected values as recommended option. User can accept all or type adjustments via "Other".
+把剩余 settings 合并成一个问题。包含：Output Dir（无 preference + file path input 时）、Text、Mood、Aspect。把 auto-selected values 显示为 recommended option。用户可接受全部，或通过 "Other" 输入调整。
 
-**When output dir needs asking** (no `default_output_dir` preference + file path input):
+**需要询问 output dir 时**（无 `default_output_dir` preference + file path input）：
 
 ```yaml
 header: "Settings"
@@ -130,7 +130,7 @@ options:
     description: "cover-image/{topic-slug}/, separate from article"
 ```
 
-**When output dir already set** (preference exists or pasted content):
+**Output dir 已设置时**（preference exists 或 pasted content）：
 
 ```yaml
 header: "Settings"
@@ -145,8 +145,8 @@ options:
     description: "Low contrast, muted — calm, professional"
 ```
 
-*Note*: "Other" (auto-added) allows typing custom combo. Parse `/`-separated values matching the question format.
+*Note*："Other"（auto-added）允许用户输入 custom combo。按 question format 解析 `/`-separated values。
 
 ## After Response
 
-Proceed to Step 3 with confirmed dimensions.
+带着 confirmed dimensions 继续 Step 3。

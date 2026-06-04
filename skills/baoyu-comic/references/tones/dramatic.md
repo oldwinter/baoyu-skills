@@ -1,36 +1,36 @@
 # dramatic
 
-戏剧基调 - High contrast, intense, powerful moments
+戏剧基调 - 高对比、强烈、有力时刻
 
 ## Overview
 
-High-impact dramatic tone for pivotal moments, conflicts, and breakthroughs. Uses strong contrast and intense compositions to create emotional power.
+适合关键时刻、冲突和突破的高冲击 dramatic tone。使用强对比和强烈构图创造情感力量。
 
 ## Mood Characteristics
 
-- Tension and intensity
-- Pivotal moments
-- Conflict and resolution
-- Breakthrough discoveries
-- Emotional climaxes
+- 张力与强度
+- 关键时刻
+- 冲突与解决
+- 突破性发现
+- 情感高潮
 
 ## Color Modifiers
 
-When applied to any art style:
+应用到任意 art style 时：
 
-| Adjustment | Direction |
+| 调整 | 方向 |
 |------------|-----------|
-| Saturation | High (vibrant or deep) |
-| Contrast | Maximum |
-| Temperature | Varies for effect |
-| Brightness | Strong highlights, deep shadows |
+| Saturation | 高（鲜艳或深沉） |
+| Contrast | 最大 |
+| Temperature | 随效果变化 |
+| Brightness | 强高光、深阴影 |
 
 ## Contrast Approach
 
-- Sharp light/dark divisions
-- Minimal mid-tones
-- Stark compositions
-- Silhouette potential
+- 锐利明暗分割
+- 极少中间调
+- 鲜明构图
+- 可使用剪影
 - Rim lighting effects
 
 ## Accent Colors
@@ -43,53 +43,53 @@ When applied to any art style:
 
 ## Lighting
 
-- Dramatic single-source
-- High contrast shadows
-- Rim lighting on characters
+- 戏剧化单光源
+- 高对比阴影
+- 角色上使用 rim lighting
 - Spotlight effects
-- Chiaroscuro influence
+- 受 chiaroscuro 影响
 
 ## Emotional Range
 
-| Emotion | Expression |
+| 情绪 | 表达 |
 |---------|-----------|
-| Anger | Intense, defined features |
-| Determination | Strong, focused gaze |
-| Shock | Wide eyes, stark lighting |
-| Triumph | Powerful, elevated pose |
+| Anger | 强烈、轮廓分明的特征 |
+| Determination | 强而专注的凝视 |
+| Shock | 睁大眼、强烈光照 |
+| Triumph | 有力量的高位姿态 |
 
 ## Composition
 
-- Angular, dynamic layouts
-- Dramatic camera angles
-- Low/high viewpoints
-- Diagonal compositions
-- Negative space for impact
+- 有棱角的动态布局
+- 戏剧化 camera angles
+- 低/高视角
+- 对角线构图
+- 用 negative space 制造冲击
 
 ## Visual Elements
 
-- Speed lines for tension
+- 用 speed lines 制造张力
 - Impact effects
-- Dramatic backgrounds (storms, fire)
-- Silhouettes
+- 戏剧化背景（风暴、火）
+- 剪影
 - Light burst effects
-- Environmental drama
+- 环境 drama
 
 ## Best For
 
-- Pivotal discoveries
-- Conflict scenes
-- Climactic moments
-- Breakthrough realizations
-- Emotional confrontations
-- Historical turning points
+- 关键发现
+- 冲突场景
+- 高潮时刻
+- 突破性领悟
+- 情感对峙
+- 历史转折点
 
 ## Combination Notes
 
-Works especially well with:
-- realistic: powerful drama
-- ink-brush: martial arts climax
-- ligne-claire: historical pivots
-- manga: shonen battles
+特别适合搭配：
+- realistic：强力 drama
+- ink-brush：武术高潮
+- ligne-claire：历史转折
+- manga：shonen battles
 
-Avoid with: chalk (style mismatch)
+避免搭配：chalk（风格不匹配）

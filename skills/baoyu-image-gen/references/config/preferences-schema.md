@@ -1,11 +1,11 @@
 ---
 name: preferences-schema
-description: EXTEND.md YAML schema for baoyu-image-gen user preferences
+description: baoyu-image-gen 用户偏好的 EXTEND.md YAML schema
 ---
 
 # Preferences Schema
 
-## Full Schema
+## 完整 Schema
 
 ```yaml
 ---
@@ -65,32 +65,33 @@ batch:
 ---
 ```
 
-## Field Reference
+## 字段参考
 
-| Field | Type | Default | Description |
+| 字段 | 类型 | 默认值 | 说明 |
 |-------|------|---------|-------------|
-| `version` | int | 1 | Schema version |
-| `default_provider` | string\|null | null | Default provider (null = auto-detect) |
-| `default_quality` | string\|null | null | Default quality (null = 2k) |
-| `default_aspect_ratio` | string\|null | null | Default aspect ratio |
-| `default_image_size` | string\|null | null | Google/OpenRouter image size (overrides quality) |
-| `default_image_api_dialect` | string\|null | null | OpenAI-compatible image dialect (`openai-native` or `ratio-metadata`) |
-| `default_model.google` | string\|null | null | Google default model |
-| `default_model.openai` | string\|null | null | OpenAI default model |
-| `default_model.azure` | string\|null | null | Azure default deployment name |
-| `default_model.openrouter` | string\|null | null | OpenRouter default model |
-| `default_model.dashscope` | string\|null | null | DashScope default model |
-| `default_model.zai` | string\|null | null | Z.AI default model |
-| `default_model.minimax` | string\|null | null | MiniMax default model |
-| `default_model.replicate` | string\|null | null | Replicate default model |
-| `default_model.codex-cli` | string\|null | null | Codex-CLI logical label (Codex image_gen has no user-selectable model) |
-| `batch.max_workers` | int\|null | 10 | Batch worker cap |
-| `batch.provider_limits.<provider>.concurrency` | int\|null | provider default | Max simultaneous requests per provider |
-| `batch.provider_limits.<provider>.start_interval_ms` | int\|null | provider default | Minimum gap between request starts per provider |
+| `version` | int | 1 | Schema 版本 |
+| `default_provider` | string\|null | null | 默认 provider（null = auto-detect） |
+| `default_quality` | string\|null | null | 默认 quality（null = 2k） |
+| `default_aspect_ratio` | string\|null | null | 默认 aspect ratio |
+| `default_image_size` | string\|null | null | Google/OpenRouter image size（覆盖 quality） |
+| `default_image_api_dialect` | string\|null | null | OpenAI-compatible image dialect（`openai-native` 或 `ratio-metadata`） |
+| `default_model.google` | string\|null | null | Google 默认 model |
+| `default_model.openai` | string\|null | null | OpenAI 默认 model |
+| `default_model.azure` | string\|null | null | Azure 默认 deployment name |
+| `default_model.openrouter` | string\|null | null | OpenRouter 默认 model |
+| `default_model.dashscope` | string\|null | null | DashScope 默认 model |
+| `default_model.zai` | string\|null | null | Z.AI 默认 model |
+| `default_model.minimax` | string\|null | null | MiniMax 默认 model |
+| `default_model.replicate` | string\|null | null | Replicate 默认 model |
+| `default_model.codex-cli` | string\|null | null | Codex-CLI 逻辑标签（Codex image_gen 没有用户可选 model） |
+| `batch.max_workers` | int\|null | 10 | Batch worker 上限 |
+| `batch.provider_limits.<provider>.concurrency` | int\|null | provider default | 每个 provider 最大同时请求数 |
+| `batch.provider_limits.<provider>.start_interval_ms` | int\|null | provider default | 每个 provider 的请求启动最小间隔 |
 
-## Examples
+## 示例
 
-**Minimal**:
+**Minimal**：
+
 ```yaml
 ---
 version: 1
@@ -100,7 +101,8 @@ default_image_api_dialect: null
 ---
 ```
 
-**Full**:
+**Full**：
+
 ```yaml
 ---
 version: 1

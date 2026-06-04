@@ -1,6 +1,6 @@
 ---
 name: baoyu-xhs-images
-description: Generates infographic image card series with 12 visual styles, 8 layouts, and 3 color palettes. Breaks content into 1-10 cartoon-style image cards optimized for social media engagement. Use when user mentions "小红书图片", "小红书种草", "小绿书", "微信图文", "微信贴图", "image cards", "图片卡片", baoyu-xhs-images, or wants social media infographic series.
+description: 生成 infographic image card series，支持 12 种视觉 style、8 种 layout 和 3 套 color palette。将内容拆解成 1-10 张适合社交媒体互动的 cartoon-style 图片卡片。当用户提到 "小红书图片"、"小红书种草"、"小绿书"、"微信图文"、"微信贴图"、"image cards"、"图片卡片"、baoyu-xhs-images，或想要社交媒体 infographic series 时使用。
 version: 2.0.1
 metadata:
   openclaw:
@@ -9,143 +9,143 @@ metadata:
 
 # Image Card Series Generator
 
-Break down complex content into eye-catching image card series with multiple style options.
+将复杂内容拆解成醒目的图片卡片系列，并提供多种 style 选项。
 
-## User Input Tools
+## 用户输入工具
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当此 skill 需要提示用户时，按以下工具选择规则执行（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或等价工具。
+2. **Fallback**：如果不存在这类工具，输出带编号的纯文本消息，并请用户针对每个问题回复所选编号/答案。
+3. **批量提问**：如果工具支持单次调用多个问题，把所有适用问题合并到一次调用；如果只支持单问题，则按优先级逐个询问。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下面具体的 `AskUserQuestion` 引用只是示例 - 在其他 runtime 中替换为本地等价工具。
 
 ## Image Generation Tools
 
-When this skill needs to render an image, resolve the backend in this order:
+当此 skill 需要渲染图片时，按以下顺序解析 backend：
 
-1. **Current-request override** — if the user names a specific backend in the current message, use it.
-2. **Saved preference** — if `EXTEND.md` sets `preferred_image_backend` to a backend available right now, use it.
-3. **Auto-select** (when the preference is `auto`, unset, or the pinned backend isn't available):
-   - **Codex (`imagegen`)** — first, inspect your available-skills / tool inventory. If a skill named `imagegen` is listed, you are running inside Codex and MUST use it: invoke via the `Skill` tool with `skill: "imagegen"`, passing the saved prompt file's content (plus output path and aspect ratio per Codex `imagegen`'s own args). Codex `imagegen` is the official raster backend in that runtime and outranks any non-native skill (e.g., `baoyu-image-gen`) unless the user has explicitly pinned a different `preferred_image_backend`.
-   - **Codex via `codex exec` (`codex-imagegen`)** — if the current runtime exposes no native `imagegen` skill but the `codex` CLI is on `PATH` with an active `codex login`, route through `baoyu-image-gen --provider codex-cli` (preferred), or — if baoyu-image-gen is unavailable — invoke the bundled wrapper directly. Details, parameters, and the runtime-discovery procedure live in [references/codex-imagegen.md](references/codex-imagegen.md) — load that file only when this branch is selected.
-   - **Other runtime-native tools** — if the runtime exposes a different native image tool (e.g., Hermes `image_generate`), use it the same way.
-   - Otherwise, if exactly one non-native backend is installed (e.g., `baoyu-image-gen`), use it.
-   - Otherwise (multiple non-native backends with no runtime-native tool), ask the user once — batch with any other initial questions.
-4. **If none are available**, tell the user and ask how to proceed.
+1. **当前请求覆盖** - 如果用户在当前消息中指定了某个 backend，使用它。
+2. **已保存偏好** - 如果 `EXTEND.md` 将 `preferred_image_backend` 设置为当前可用的 backend，使用它。
+3. **自动选择**（当偏好是 `auto`、未设置，或固定的 backend 不可用时）：
+   - **Codex (`imagegen`)** - 先检查 available-skills / tool inventory。如果列出了名为 `imagegen` 的 skill，说明你在 Codex 内运行，必须使用它：通过 `Skill` tool 调用，设置 `skill: "imagegen"`，传入已保存 prompt 文件的内容（再按 Codex `imagegen` 自己的参数传 output path 和 aspect ratio）。Codex `imagegen` 是该 runtime 的官方 raster backend，优先级高于任何 non-native skill（例如 `baoyu-image-gen`），除非用户明确固定了不同的 `preferred_image_backend`。
+   - **通过 `codex exec` 使用 Codex（`codex-imagegen`）** - 如果当前 runtime 没有暴露原生 `imagegen` skill，但 `codex` CLI 在 `PATH` 上且已有有效的 `codex login`，通过 `baoyu-image-gen --provider codex-cli` 路由（首选），或者在 baoyu-image-gen 不可用时直接调用 bundled wrapper。细节、参数和 runtime-discovery 流程见 [references/codex-imagegen.md](references/codex-imagegen.md) - 只有选中这个分支时才加载该文件。
+   - **其他 runtime-native tools** - 如果 runtime 暴露了不同的原生图片工具（例如 Hermes `image_generate`），按同样方式使用。
+   - 否则，如果只安装了一个 non-native backend（例如 `baoyu-image-gen`），使用它。
+   - 否则（多个 non-native backend 且没有 runtime-native tool），询问用户一次 - 可与其他初始问题合并。
+4. **如果都不可用**，告知用户并询问如何继续。
 
-**⛔ Never substitute SVG, HTML, canvas, or other code-based rendering for raster image generation.** Codex `imagegen`'s own description says it should be used "when the output should be a bitmap asset rather than repo-native code or vector." If you cannot resolve a raster backend via step 3, fall through to step 4 and ask the user — do **not** silently emit SVG, write inline `<svg>` markup, or produce HTML/CSS art as a substitute. This applies even if the article/section seems "diagram-like": the consumer skill calling this rule has already decided that a raster image is what it needs.
+**⛔ 绝不要用 SVG、HTML、canvas 或其他基于代码的渲染替代 raster image generation。** Codex `imagegen` 自身说明中说，它应在“输出应是 bitmap asset，而不是 repo-native code 或 vector”时使用。如果无法通过步骤 3 解析 raster backend，就进入步骤 4 询问用户 - 不要静默输出 SVG、写 inline `<svg>` 标记，或生成 HTML/CSS art 作为替代。即使文章/章节看起来“像 diagram”，也同样适用：调用这条规则的上游 skill 已经判断它需要的是 raster image。
 
-**⛔ Never repair rendered text by painting over a generated bitmap.** Do not use ImageMagick, Pillow, Canvas, SVG, HTML/CSS, OCR scripts, or any other programmatic overlay to cover, rewrite, erase, stroke, or replace titles, body copy, tags, or any other text inside an already generated image card. If text is wrong or unclear, regenerate from a corrected prompt, switch to a layout with less on-card text, or ask the user which imperfect candidate to keep.
+**⛔ 绝不要通过覆盖已生成 bitmap 来修复渲染文字。** 不要使用 ImageMagick、Pillow、Canvas、SVG、HTML/CSS、OCR scripts 或任何其他程序化 overlay 去遮盖、重写、擦除、描边或替换已生成图片卡片中的标题、正文、标签或任何文字。如果文字错误或不清晰，应基于修正后的 prompt 重新生成，切换到卡片文字更少的 layout，或询问用户保留哪个不完美候选图。
 
-Setting `preferred_image_backend: ask` forces the step-3 prompt every run regardless of available backends. Users change the pinned backend via the `## Changing Preferences` section below.
+设置 `preferred_image_backend: ask` 会强制每次运行都在步骤 3 提示用户，无论可用 backend 是什么。用户可通过下面的 `## Changing Preferences` 章节修改固定 backend。
 
-**Prompt file requirement (hard)**: write each image's full, final prompt to a standalone file under `prompts/` (naming: `NN-{type}-[slug].md`) BEFORE invoking any backend. The file is the reproducibility record and lets you switch backends without regenerating prompts.
+**Prompt 文件要求（硬性）**：在调用任何 backend 之前，先把每张图片完整、最终的 prompt 写入 `prompts/` 下的独立文件（命名：`NN-{type}-[slug].md`）。该文件是可复现记录，也让你能在不重新生成 prompt 的情况下切换 backend。
 
-Concrete tool names (`imagegen`, `image_generate`, `baoyu-image-gen`) above are examples — substitute the local equivalents under the same rule.
+上面的具体工具名（`imagegen`、`image_generate`、`baoyu-image-gen`）只是示例 - 按同一规则替换为本地等价工具。
 
-## Batch Generation Policy
+## 批量生成策略
 
-After every prompt file for the current generation group has been saved and verified, generate images in batches by default.
+当前生成组的每个 prompt 文件都保存并验证后，默认批量生成图片。
 
-Priority order:
+优先级顺序：
 
-1. Use the chosen backend's native batch / multi-task interface if it exists. Each task must keep its own prompt file, output path, aspect ratio, session ID, and direct reference images.
-2. If no native batch interface exists but the runtime can issue parallel tool calls, dispatch up to `generation_batch_size` images at a time. Default: `4`. An explicit user request in the current message, such as `--batch-size 4` or "并行 4 张一起生成", overrides EXTEND.md.
-3. If neither native batch nor parallel tool calls are available, generate sequentially.
+1. 如果所选 backend 存在原生 batch / multi-task interface，使用它。每个任务必须保留自己的 prompt file、output path、aspect ratio、session ID 和 direct reference images。
+2. 如果没有原生 batch interface，但 runtime 可以发起并行 tool calls，每次最多派发 `generation_batch_size` 张。默认：`4`。当前消息中的明确用户请求（例如 `--batch-size 4` 或“并行 4 张一起生成”）会覆盖 EXTEND.md。
+3. 如果既没有原生 batch，也没有并行 tool calls，则顺序生成。
 
-Rules:
+规则：
 
-- Honor the image-1 anchor chain: generate image 1 first, then batch images 2+ using image 1 as the reference.
-- Never start a batch until every selected prompt file for that batch exists on disk.
-- Retry failed items once without regenerating successful items.
-- Do not use subagents merely to parallelize image rendering. Use subagents only for separate prompt iteration or creative exploration.
+- 遵守 image-1 anchor chain：先生成 image 1，然后用 image 1 作为 reference 批量生成 images 2+。
+- 在该批次的每个选定 prompt file 都存在于磁盘前，绝不启动 batch。
+- 失败项重试一次，不重新生成成功项。
+- 不要仅为了并行渲染图片而使用 subagents。subagents 只用于独立 prompt 迭代或创意探索。
 
-## Confirmation Policy
+## 确认策略
 
-Default behavior: **confirm before generation**.
+默认行为：**生成前确认**。
 
-- Treat explicit skill invocation, a file path, matched signals/presets, and `EXTEND.md` defaults as **recommendation inputs only**. None of them authorizes skipping confirmation.
-- Do **not** start Step 3 until the user completes Step 2.
-- Skip confirmation only when the current request explicitly says to do so, for example: `--yes`, "直接生成", "不用确认", "跳过确认", "按默认出图", or equivalent wording.
-- If confirmation is skipped explicitly, state the assumed strategy / style / layout / palette / count / backend in the next user-facing update before generating.
+- 将显式 skill 调用、文件路径、匹配到的 signals/presets 和 `EXTEND.md` defaults 仅视为**推荐输入**。它们都不能授权跳过确认。
+- 用户完成 Step 2 之前，不要开始 Step 3。
+- 只有当前请求明确要求时才跳过确认，例如：`--yes`、“直接生成”、“不用确认”、“跳过确认”、“按默认出图”或等价表述。
+- 如果明确跳过确认，在生成前的下一条面向用户更新中说明假定的 strategy / style / layout / palette / count / backend。
 
-## Language
+## 语言
 
-Respond in the user's language across questions, progress, errors, and completion summary. Keep technical tokens (style names, file paths, code) in English.
+问题、进度、错误和完成摘要都使用用户语言回复。技术 token（style 名称、file paths、code）保持英文。
 
-## Options
+## 选项
 
-| Option | Description |
+| 选项 | 说明 |
 |--------|-------------|
-| `--style <name>` | Visual style (see Styles below) |
-| `--layout <name>` | Information layout (see Layouts below) |
-| `--palette <name>` | Color override: macaron / warm / neon |
-| `--preset <name>` | Style + layout + optional palette shorthand (see Presets below; per-preset prompt fragments in `references/style-presets.md`) |
-| `--ref <files...>` | Reference images applied to image 1 as the series anchor |
-| `--batch-size <n>` | Temporary generation batch size for this run. Default: `generation_batch_size` from EXTEND.md, otherwise 4. Clamp to 1-8. |
-| `--yes` | Non-interactive: skip all confirmations, use EXTEND.md or built-in defaults, auto-confirm recommended plan (Path A) |
+| `--style <name>` | Visual style（见下方 Styles） |
+| `--layout <name>` | Information layout（见下方 Layouts） |
+| `--palette <name>` | Color override：macaron / warm / neon |
+| `--preset <name>` | Style + layout + 可选 palette 的 shorthand（见下方 Presets；各 preset 的 prompt fragments 在 `references/style-presets.md`） |
+| `--ref <files...>` | 应用于 image 1 的 reference images，作为系列 anchor |
+| `--batch-size <n>` | 本次运行的临时 generation batch size。默认使用 EXTEND.md 的 `generation_batch_size`，否则为 4。限制到 1-8。 |
+| `--yes` | Non-interactive：跳过所有确认，使用 EXTEND.md 或内置 defaults，自动确认推荐方案（Path A） |
 
 ## Dimensions
 
-Three independent knobs combine freely:
+三个独立旋钮可自由组合：
 
-| Dimension | Controls | Options |
+| Dimension | 控制内容 | 选项 |
 |-----------|----------|---------|
-| **Style** | Visual aesthetics (lines, decorations, rendering) | 12 styles (see Styles below) |
-| **Layout** | Information structure (density, arrangement) | 8 layouts (see Layouts below) |
-| **Palette** (optional) | Color override, replaces the style's default colors | macaron / warm / neon (see Palettes below) |
+| **Style** | 视觉美学（lines、decorations、rendering） | 12 styles（见下方 Styles） |
+| **Layout** | 信息结构（density、arrangement） | 8 layouts（见下方 Layouts） |
+| **Palette**（可选） | Color override，替换 style 默认颜色 | macaron / warm / neon（见下方 Palettes） |
 
-Example: `--style notion --layout dense` makes an intellectual knowledge card; add `--palette macaron` to soften the colors without changing notion's rendering rules. A `--preset` is a shorthand for style + layout (+ optional palette).
+示例：`--style notion --layout dense` 会制作一张理性的知识卡；添加 `--palette macaron` 可以柔化颜色，同时不改变 notion 的 rendering rules。`--preset` 是 style + layout（+ 可选 palette）的 shorthand。
 
-**Palette behavior**: no `--palette` → style's built-in colors; `--palette <name>` → overrides colors only, rendering rules unchanged. Some styles declare a `default_palette` (e.g., sketch-notes defaults to macaron).
+**Palette 行为**：无 `--palette` → 使用 style 内置颜色；`--palette <name>` → 仅覆盖颜色，rendering rules 不变。部分 styles 声明了 `default_palette`（例如 sketch-notes 默认使用 macaron）。
 
 ## Styles (12)
 
-| Style | Description |
+| Style | 说明 |
 |-------|-------------|
-| `cute` (Default) | Sweet, adorable, girly aesthetic |
-| `fresh` | Clean, refreshing, natural |
-| `warm` | Cozy, friendly, approachable |
-| `bold` | High impact, attention-grabbing |
-| `minimal` | Ultra-clean, sophisticated |
-| `retro` | Vintage, nostalgic, trendy |
-| `pop` | Vibrant, energetic, eye-catching |
-| `notion` | Minimalist hand-drawn line art, intellectual |
-| `chalkboard` | Colorful chalk on black board, educational |
-| `study-notes` | Realistic handwritten photo style, blue pen + red annotations + yellow highlighter |
-| `screen-print` | Bold poster art, halftone textures, limited colors, symbolic storytelling |
-| `sketch-notes` | Hand-drawn educational infographic, macaron pastels on warm cream, wobble lines |
+| `cute` (Default) | 甜美、可爱、少女感 aesthetic |
+| `fresh` | 干净、清爽、自然 |
+| `warm` | 舒适、友好、亲近 |
+| `bold` | 高冲击、抓注意力 |
+| `minimal` | 极简干净、精致 |
+| `retro` | 复古、怀旧、有趋势感 |
+| `pop` | 鲜明、有活力、醒目 |
+| `notion` | Minimalist hand-drawn line art，有知识感 |
+| `chalkboard` | 黑板上的彩色 chalk，教育感 |
+| `study-notes` | 真实手写照片风格，蓝笔 + 红色批注 + 黄色 highlighter |
+| `screen-print` | Bold poster art、halftone textures、limited colors、symbolic storytelling |
+| `sketch-notes` | 手绘教育 infographic，warm cream 上的 macaron pastels，wobble lines |
 
-Per-style specifications: `references/presets/<style>.md`.
+每个 style 的规格：`references/presets/<style>.md`。
 
 ## Layouts (8)
 
-| Layout | Description |
+| Layout | 说明 |
 |--------|-------------|
-| `sparse` (Default) | 1-2 points, maximum impact |
-| `balanced` | 3-4 points, standard |
-| `dense` | 5-8 points, knowledge-card style |
-| `list` | Enumeration / ranking (4-7 items) |
-| `comparison` | Side-by-side contrast |
-| `flow` | Process / timeline (3-6 steps) |
-| `mindmap` | Center-radial (4-8 branches) |
-| `quadrant` | Four-quadrant / circular sections |
+| `sparse` (Default) | 1-2 个点，最大冲击 |
+| `balanced` | 3-4 个点，标准密度 |
+| `dense` | 5-8 个点，知识卡风格 |
+| `list` | 枚举 / 排名（4-7 项） |
+| `comparison` | 并排对比 |
+| `flow` | 流程 / 时间线（3-6 步） |
+| `mindmap` | 中心放射（4-8 个分支） |
+| `quadrant` | 四象限 / 环形分区 |
 
-Layout specs: `references/elements/canvas.md`.
+Layout specs：`references/elements/canvas.md`。
 
-## Palettes (optional override)
+## Palettes（可选 override）
 
-Replaces the style's colors while keeping rendering rules (line treatment, textures) intact.
+替换 style 的颜色，同时保持 rendering rules（line treatment、textures）不变。
 
-| Palette | Background | Zone Colors | Accent | Feel |
+| Palette | Background | Zone Colors | Accent | 感受 |
 |---------|------------|-------------|--------|------|
-| `macaron` | Warm cream #F5F0E8 | Blue #A8D8EA, Lavender #D5C6E0, Mint #B5E5CF, Peach #F8D5C4 | Coral #E8655A | Soft, educational |
-| `warm` | Soft peach #FFECD2 | Orange #ED8936, Terracotta #C05621, Golden #F6AD55, Rose #D4A09A | Sienna #A0522D | Earth tones, cozy |
-| `neon` | Dark purple #1A1025 | Cyan #00F5FF, Magenta #FF00FF, Green #39FF14, Pink #FF6EC7 | Yellow #FFFF00 | High-energy, futuristic |
+| `macaron` | Warm cream #F5F0E8 | Blue #A8D8EA, Lavender #D5C6E0, Mint #B5E5CF, Peach #F8D5C4 | Coral #E8655A | 柔和、教育感 |
+| `warm` | Soft peach #FFECD2 | Orange #ED8936, Terracotta #C05621, Golden #F6AD55, Rose #D4A09A | Sienna #A0522D | Earth tones、舒适 |
+| `neon` | Dark purple #1A1025 | Cyan #00F5FF, Magenta #FF00FF, Green #39FF14, Pink #FF6EC7 | Yellow #FFFF00 | 高能、未来感 |
 
-Palette specs: `references/palettes/<palette>.md`.
+Palette specs：`references/palettes/<palette>.md`。
 
 ## Presets (style + layout shortcuts)
 
@@ -202,13 +202,13 @@ Quick-start combos, grouped by scenario. Use `--preset <name>` or recommend duri
 | `editorial` | screen-print | balanced | 观点文章、文化评论 |
 | `cinematic` | screen-print | comparison | 电影对比、戏剧张力 |
 
-Full prompt-fragment definitions: `references/style-presets.md`.
+完整 prompt-fragment 定义：`references/style-presets.md`。
 
 ## Auto-Selection
 
-Match content signals to the best combo. First row whose keywords appear wins; fall back to `cute-share` if nothing matches.
+将 content signals 匹配到最佳组合。关键词出现的第一行优先；如果没有匹配项，fallback 到 `cute-share`。
 
-| Signals in source | Style | Layout | Recommended preset |
+| Source 中的信号 | Style | Layout | 推荐 preset |
 |-------------------|-------|--------|--------------------|
 | beauty, fashion, cute, girl, pink | `cute` | sparse/balanced | `cute-share`, `girly` |
 | health, nature, fresh, organic | `fresh` | balanced/flow | `product-review`, `nature-flow` |
@@ -225,7 +225,7 @@ Match content signals to the best combo. First row whose keywords appear wins; f
 
 ## Style × Layout Matrix
 
-Compatibility scores (✓✓ highly recommended, ✓ works well, ✗ avoid). Use when the user picks a non-default combo and you want to flag a poor match.
+兼容性评分（✓✓ 强烈推荐，✓ 效果不错，✗ 避免）。当用户选择非默认组合且你想提示匹配不佳时使用。
 
 |              | sparse | balanced | dense | list | comparison | flow | mindmap | quadrant |
 |--------------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -242,33 +242,33 @@ Compatibility scores (✓✓ highly recommended, ✓ works well, ✗ avoid). Use
 | screen-print | ✓✓ | ✓✓ | ✗  | ✓  | ✓✓ | ✓  | ✗  | ✓✓ |
 | sketch-notes | ✓  | ✓✓ | ✓✓ | ✓✓ | ✓  | ✓✓ | ✓✓ | ✓  |
 
-## Outline Strategies
+## Outline 策略
 
-Three differentiated approaches — each produces a structurally different outline. The workflow recommends one; Path C generates all three and lets the user choose.
+三种差异化方法 - 每种都会生成结构不同的 outline。Workflow 会推荐其中一种；Path C 会生成全部三种并让用户选择。
 
-| Strategy | Concept | Best for | Structure |
+| Strategy | 概念 | 最适合 | 结构 |
 |----------|---------|----------|-----------|
-| **A — Story-Driven** | Personal experience as the thread, emotional resonance first | Reviews, personal shares, transformation | Hook → Problem → Discovery → Experience → Conclusion |
-| **B — Information-Dense** | Value-first, efficient information delivery | Tutorials, comparisons, checklists | Core conclusion → Info card → Pros/Cons → Recommendation |
-| **C — Visual-First** | Visual impact as core, minimal text | High-aesthetic products, lifestyle, mood content | Hero image → Detail shots → Lifestyle scene → CTA |
+| **A - Story-Driven** | 以个人体验为主线，优先情感共鸣 | 评测、个人分享、转变故事 | Hook → Problem → Discovery → Experience → Conclusion |
+| **B - Information-Dense** | 价值优先，高效传递信息 | 教程、对比、清单 | Core conclusion → Info card → Pros/Cons → Recommendation |
+| **C - Visual-First** | 以视觉冲击为核心，文字最少 | 高审美产品、生活方式、氛围内容 | Hero image → Detail shots → Lifestyle scene → CTA |
 
 ## Reference Images
 
-User-supplied refs are **separate from** the internal "image-1 as anchor" chain (Step 3) — they layer on top of it.
+用户提供的 refs 与内部 “image-1 as anchor” chain（Step 3）**相互独立** - 它们叠加在该 chain 之上。
 
-**Intake**: via `--ref <files...>` or paths pasted in conversation.
-- File path → copy to `refs/NN-ref-{slug}.{ext}`
-- Pasted with no path → ask for the path, or extract style traits as a text fallback
+**接收方式**：通过 `--ref <files...>` 或对话中粘贴的路径。
+- 文件路径 → 复制到 `refs/NN-ref-{slug}.{ext}`
+- 粘贴但没有路径 → 询问路径，或提取 style traits 作为文本 fallback
 
-**Usage modes** (per reference):
+**Usage modes**（每个 reference 单独设置）：
 
-| Usage | Effect |
+| Usage | 效果 |
 |-------|--------|
-| `direct` | Pass the file to the backend (typically on image 1 only, so the anchor propagates through the chain) |
-| `style` | Extract style traits and append to every card's prompt body |
-| `palette` | Extract hex colors and append to every card's prompt body |
+| `direct` | 将文件传给 backend（通常只用于 image 1，让 anchor 通过 chain 传播） |
+| `style` | 提取 style traits 并追加到每张卡片的 prompt body |
+| `palette` | 提取 hex colors 并追加到每张卡片的 prompt body |
 
-Record refs in each affected card's prompt frontmatter:
+在每张受影响卡片的 prompt frontmatter 中记录 refs：
 
 ```yaml
 references:
@@ -277,24 +277,24 @@ references:
     usage: direct
 ```
 
-At generation time: verify files exist. Image 1 with `usage: direct` + backend that accepts refs → pass via the backend's ref parameter (becomes the chain anchor). Images 2+ keep using image-1 as `--ref` per Step 3 — do NOT re-stack user refs on top (avoids conflicting signals). For `style`/`palette`, embed extracted traits in every prompt.
+生成时：验证文件存在。Image 1 如果设置 `usage: direct` 且 backend 接受 refs → 通过 backend 的 ref 参数传入（成为 chain anchor）。Images 2+ 按 Step 3 继续使用 image-1 作为 `--ref` - 不要再次叠加用户 refs（避免信号冲突）。对于 `style`/`palette`，将提取出的 traits 嵌入每个 prompt。
 
-## File Layout
+## 文件布局
 
 ```
 image-cards/{topic-slug}/
 ├── source-{slug}.{ext}
 ├── analysis.md
-├── outline-strategy-{a,b,c}.md    # Path C only
+├── outline-strategy-{a,b,c}.md    # 仅 Path C
 ├── outline.md
 ├── prompts/NN-{type}-{slug}.md
 ├── NN-{type}-{slug}.png
-└── refs/                          # only if --ref used
+└── refs/                          # 仅使用 --ref 时存在
 ```
 
-**Slug**: 2-4 words, kebab-case. "AI 工具推荐" → `ai-tools-recommend`. On collision, append `-YYYYMMDD-HHMMSS`.
+**Slug**：2-4 个词，kebab-case。"AI 工具推荐" → `ai-tools-recommend`。如发生冲突，追加 `-YYYYMMDD-HHMMSS`。
 
-**Backup rule** (applies throughout): before overwriting any file — source, outline, prompt, image — rename the existing one to `<name>-backup-YYYYMMDD-HHMMSS.<ext>`. This protects user edits.
+**备份规则**（全流程适用）：覆盖任何文件（source、outline、prompt、image）之前，先将现有文件重命名为 `<name>-backup-YYYYMMDD-HHMMSS.<ext>`。这可以保护用户编辑。
 
 ## Workflow
 
@@ -308,7 +308,7 @@ image-cards/{topic-slug}/
 
 ### Step 0: Load EXTEND.md ⛔ BLOCKING
 
-Check these paths in order; first hit wins:
+按顺序检查这些路径；第一个命中项生效：
 
 | Path | Scope |
 |------|-------|
@@ -316,27 +316,27 @@ Check these paths in order; first hit wins:
 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-xhs-images/EXTEND.md` | XDG |
 | `$HOME/.baoyu-skills/baoyu-xhs-images/EXTEND.md` | User home |
 
-- **Found** → read, parse, print a summary (style / layout / watermark / language), continue.
-- **Not found + interactive** → run first-time setup (see `references/config/first-time-setup.md`) and save before anything else. Do NOT analyze content or ask style questions until preferences exist — this keeps first-run behavior predictable.
-- **Not found + `--yes`** → skip setup, use built-in defaults (no watermark, style/layout auto-selected, language from content). Do not prompt, do not create EXTEND.md.
+- **Found** → 读取、解析、打印摘要（style / layout / watermark / language），继续。
+- **Not found + interactive** → 运行首次设置（见 `references/config/first-time-setup.md`），并在其他任何操作前保存。Preferences 存在之前，不要分析内容或询问 style 问题 - 这样可保持首次运行行为可预测。
+- **Not found + `--yes`** → 跳过设置，使用内置 defaults（无 watermark，style/layout 自动选择，language 从内容判断）。不要提示，不要创建 EXTEND.md。
 
-**EXTEND.md keys**: watermark, preferred style/layout, custom style definitions, language preference, preferred image backend, generation batch size. Schema: `references/config/preferences-schema.md`.
+**EXTEND.md keys**：watermark、preferred style/layout、custom style definitions、language preference、preferred image backend、generation batch size。Schema：`references/config/preferences-schema.md`。
 
 ### Step 1: Analyze Content → `analysis.md`
 
-1. Save the source (backup rule applies if `source.md` exists).
-2. Run the deep analysis in `references/workflows/analysis-framework.md`: content type, hook potential, audience, engagement signals, visual opportunity map, swipe flow.
-3. Detect source language, pick recommended image count (2-10).
-4. Auto-recommend strategy + style + layout + palette using the **Auto-Selection** table above.
-5. Write everything to `analysis.md`.
+1. 保存 source（如果 `source.md` 已存在，应用备份规则）。
+2. 运行 `references/workflows/analysis-framework.md` 中的深度分析：content type、hook potential、audience、engagement signals、visual opportunity map、swipe flow。
+3. 检测 source language，选择推荐图片数量（2-10）。
+4. 使用上方 **Auto-Selection** 表自动推荐 strategy + style + layout + palette。
+5. 将所有内容写入 `analysis.md`。
 
 ### Step 2: Smart Confirm ⚠️ REQUIRED
 
-**Hard gate**: this step is mandatory per the [Confirmation Policy](#confirmation-policy) — Step 3 cannot start until the user confirms here (or explicitly opts out with `--yes` / equivalent wording in the current request).
+**硬性 gate**：根据 [Confirmation Policy](#confirmation-policy)，此步骤必需 - 用户在这里确认之前（或在当前请求中用 `--yes` / 等价表述明确跳过前），不能开始 Step 3。
 
-Goal: present the auto-recommended plan and let the user confirm or adjust. Skip this step entirely under `--yes` — proceed with Path A using the analysis and any CLI overrides.
+目标：展示自动推荐方案，让用户确认或调整。使用 `--yes` 时完全跳过此步骤 - 使用分析结果和任何 CLI overrides，按 Path A 继续。
 
-**Display summary** before asking:
+**提问前展示摘要**：
 
 ```
 📋 内容分析
@@ -351,46 +351,46 @@ Goal: present the auto-recommended plan and let the user confirm or adjust. Skip
   元素：[background] / [decorations] / [emphasis]
 ```
 
-Then ask one question — three paths. Verbatim option copy: `references/confirmation.md`.
+然后询问一个问题 - 三条路径。逐字选项文案见：`references/confirmation.md`。
 
-**Path A — Quick confirm** (trust auto-recommendation): generate a single outline using the recommended strategy + style → save to `outline.md` → Step 3.
+**Path A - 快速确认**（信任自动推荐）：使用推荐 strategy + style 生成单一 outline → 保存到 `outline.md` → Step 3。
 
-**Path B — Customize**: ask five questions (strategy/style, layout, palette, count, optional notes) with the recommendation pre-filled — blanks keep the recommendation. Generate one outline with the user's choices → `outline.md` → Step 3. See `references/confirmation.md`.
+**Path B - 自定义**：询问五个问题（strategy/style、layout、palette、count、optional notes），预填推荐值 - 留空则保持推荐。基于用户选择生成一个 outline → `outline.md` → Step 3。见 `references/confirmation.md`。
 
-**Path C — Detailed mode**: two sub-confirmations.
+**Path C - 详细模式**：两次子确认。
 
-- *Step 2a — Content understanding*: ask selling points (multi-select), audience, style preference (authentic / professional / aesthetic / auto), optional context. Update `analysis.md`.
-- *Step 2b — Three outline variants*: generate `outline-strategy-a.md`, `outline-strategy-b.md`, `outline-strategy-c.md`. Each MUST have a different structure AND a different recommended style — include `style_reason` in the frontmatter. Page-count heuristic: A ~4-6, B ~3-5, C ~3-4. Template: `references/workflows/outline-template.md`; frontmatter example in `references/confirmation.md`.
-- *Step 2c — Selection*: ask three questions (outline A/B/C/Combined, style, visual elements). Save selected/merged outline to `outline.md` → Step 3.
+- *Step 2a - 内容理解*：询问 selling points（multi-select）、audience、style preference（authentic / professional / aesthetic / auto）、optional context。更新 `analysis.md`。
+- *Step 2b - 三个 outline variants*：生成 `outline-strategy-a.md`、`outline-strategy-b.md`、`outline-strategy-c.md`。每个都必须拥有不同结构且推荐不同 style - 在 frontmatter 中包含 `style_reason`。页数启发式：A ~4-6，B ~3-5，C ~3-4。模板：`references/workflows/outline-template.md`；frontmatter 示例见 `references/confirmation.md`。
+- *Step 2c - 选择*：询问三个问题（outline A/B/C/Combined、style、visual elements）。将选中/合并的 outline 保存到 `outline.md` → Step 3。
 
 ### Step 3: Generate Images
 
-With confirmed outline + style + layout + palette:
+使用已确认的 outline + style + layout + palette：
 
-**Visual consistency — image-1 anchor chain**: character / mascot / color rendering drifts between calls unless you anchor them. Generate image 1 (cover) first WITHOUT `--ref`, then pass image 1 as `--ref` to every subsequent image. This is the single most important consistency trick for this skill — don't skip it even if the backend also supports a session ID.
+**视觉一致性 - image-1 anchor chain**：如果不设置 anchor，character / mascot / color rendering 会在多次调用之间漂移。先生成 image 1（cover），不带 `--ref`；然后把 image 1 作为 `--ref` 传给每一张后续图片。这是此 skill 最重要的一致性技巧 - 即使 backend 也支持 session ID，也不要跳过。
 
-Generation flow:
+生成流程：
 
-1. Write the full prompt for every image to `prompts/NN-{type}-{slug}.md` in the user's preferred language (backup rule applies), then verify all selected prompt files exist.
-2. Generate **image 1** first without `--ref`; backup rule applies to the PNG file. This establishes the anchor.
-3. Build a task list for **images 2+** using image 1 as `--ref <path-to-image-01.png>`.
-4. Dispatch images 2+ in batches per the `## Batch Generation Policy`: backend native batch first, runtime parallel tool calls second, sequential only as fallback.
-5. Report progress after each completed image. On failure, retry only the failed item once from the same saved prompt file.
+1. 用用户偏好的语言，将每张图片的完整 prompt 写入 `prompts/NN-{type}-{slug}.md`（应用备份规则），然后验证所有选定 prompt 文件都存在。
+2. 先生成 **image 1**，不带 `--ref`；PNG 文件同样应用备份规则。这会建立 anchor。
+3. 为 **images 2+** 构建 task list，使用 image 1 作为 `--ref <path-to-image-01.png>`。
+4. 按 `## Batch Generation Policy` 批量派发 images 2+：优先 backend 原生 batch，其次 runtime 并行 tool calls，最后才顺序生成。
+5. 每张图片完成后报告进度。失败时，只从同一个已保存 prompt 文件重试失败项一次。
 
-**Watermark** (if enabled in EXTEND.md): append to the generation prompt:
+**Watermark**（如果在 EXTEND.md 中启用）：追加到生成 prompt：
 
 ```
 Include a subtle watermark "[content]" positioned at [position].
 The watermark should be legible but not distracting.
 ```
 
-See `references/config/watermark-guide.md`.
+见 `references/config/watermark-guide.md`。
 
-**Backend selection**: per the Image Generation Tools rule at the top — use whatever is available, ask once if multiple, before any generation. Under `--yes`, use the EXTEND.md preference and fall back to the first available backend. Prompt files MUST exist before invoking any backend.
+**Backend selection**：按顶部 Image Generation Tools 规则执行 - 生成前使用可用项；若有多个则询问一次。在 `--yes` 下，使用 EXTEND.md 偏好，并 fallback 到第一个可用 backend。调用任何 backend 之前，prompt files 必须存在。
 
-**`codex-imagegen` invocation**: when the rule resolves to `codex-imagegen`, see [references/codex-imagegen.md](references/codex-imagegen.md) for the invocation contract (preferred `baoyu-image-gen --provider codex-cli` path, runtime wrapper discovery, parameter notes, stdout schema, batch semantics — n=1 per call so card batches must dispatch one wrapper call per card; the wrapper does NOT accept `--sessionId`, so chain consistency must come from `--ref` per Step 3 above).
+**`codex-imagegen` invocation**：当规则解析到 `codex-imagegen` 时，查看 [references/codex-imagegen.md](references/codex-imagegen.md) 的调用契约（首选 `baoyu-image-gen --provider codex-cli` 路径、runtime wrapper discovery、parameter notes、stdout schema、batch semantics - 每次调用 n=1，因此卡片 batch 必须为每张卡派发一次 wrapper 调用；wrapper 不接受 `--sessionId`，所以 chain consistency 必须按上方 Step 3 通过 `--ref` 获得）。
 
-**Session ID** (if the backend supports `--sessionId`): use `cards-{topic-slug}-{timestamp}` for every image; combined with the ref chain this gives maximum consistency.
+**Session ID**（如果 backend 支持 `--sessionId`）：每张图片都使用 `cards-{topic-slug}-{timestamp}`；结合 ref chain 可获得最大一致性。
 
 ### Step 4: Completion Report
 
@@ -416,68 +416,68 @@ Images: N total
 - NN-ending-[slug].png ✓ Ending (sparse)
 ```
 
-## Content Breakdown Principles
+## 内容拆解原则
 
-| Position | Purpose | Typical layout |
+| 位置 | 目的 | 典型 layout |
 |----------|---------|----------------|
-| Cover (image 1) | Hook + visual impact | `sparse` |
-| Content (middle) | Core value per image | `balanced` / `dense` / `list` / `comparison` / `flow` |
-| Ending (last) | CTA / summary | `sparse` or `balanced` |
+| Cover（image 1） | Hook + 视觉冲击 | `sparse` |
+| Content（中间） | 每张图片承载一个核心价值 | `balanced` / `dense` / `list` / `comparison` / `flow` |
+| Ending（最后） | CTA / summary | `sparse` 或 `balanced` |
 
-For the style × layout compatibility matrix, see the **Style × Layout Matrix** above.
+Style × layout 兼容矩阵见上方 **Style × Layout Matrix**。
 
-## Image Modification
+## 图片修改
 
-| Action | How |
+| 操作 | 方法 |
 |--------|-----|
-| Edit | Update `prompts/NN-{type}-{slug}.md` **first**, then regenerate with the same session ID |
-| Add | Specify position, create prompt, generate, renumber subsequent files `NN+1`, update outline |
-| Delete | Remove files, renumber subsequent `NN-1`, update outline |
+| Edit | **先**更新 `prompts/NN-{type}-{slug}.md`，再用相同 session ID 重新生成 |
+| Add | 指定位置，创建 prompt，生成，将后续文件重新编号为 `NN+1`，更新 outline |
+| Delete | 删除文件，将后续文件重新编号为 `NN-1`，更新 outline |
 
-Always update the prompt file before regenerating — it's the source of truth and makes changes reproducible.
+重新生成前始终先更新 prompt file - 它是 source of truth，并让修改可复现。
 
-Text correction policy:
+文字修正策略：
 
-- If a card's title, body copy, tags, or any other rendered text is misspelled, garbled, hard to read, or visually weak, do not patch the bitmap with code.
-- For text-correction regenerations, write a new prompt file and a new output path so the flawed candidate is preserved for comparison.
-- Post-processing is limited to crop, resize, compression, or format conversion that does not alter text or the main composition.
+- 如果卡片的标题、正文、标签或任何其他渲染文字拼写错误、乱码、难读或视觉效果弱，不要用代码 patch bitmap。
+- 对于文字修正类重新生成，写入新的 prompt file 和新的 output path，以便保留有问题的候选图用于比较。
+- Post-processing 仅限 crop、resize、compression 或 format conversion，且不得改变文字或主体构图。
 
 ## References
 
-| File | Content |
+| 文件 | 内容 |
 |------|---------|
-| `references/confirmation.md` | Verbatim AskUserQuestion copy for every confirmation path |
-| `references/style-presets.md` | Full preset shortcut definitions |
-| `references/presets/<style>.md` | Per-style element definitions |
-| `references/palettes/<name>.md` | Per-palette color definitions |
-| `references/elements/canvas.md` | Aspect ratios, safe zones, grid layouts |
-| `references/elements/image-effects.md` | Cutout, stroke, filters |
-| `references/elements/typography.md` | Decorated text, tags, text direction |
-| `references/elements/decorations.md` | Emphasis marks, backgrounds, doodles, frames |
+| `references/confirmation.md` | 每条 confirmation path 的逐字 AskUserQuestion 文案 |
+| `references/style-presets.md` | 完整 preset shortcut definitions |
+| `references/presets/<style>.md` | 每个 style 的 element definitions |
+| `references/palettes/<name>.md` | 每个 palette 的 color definitions |
+| `references/elements/canvas.md` | Aspect ratios、safe zones、grid layouts |
+| `references/elements/image-effects.md` | Cutout、stroke、filters |
+| `references/elements/typography.md` | Decorated text、tags、text direction |
+| `references/elements/decorations.md` | Emphasis marks、backgrounds、doodles、frames |
 | `references/workflows/analysis-framework.md` | Content analysis framework |
-| `references/workflows/outline-template.md` | Outline template with layout guide |
+| `references/workflows/outline-template.md` | 带 layout guide 的 outline template |
 | `references/workflows/prompt-assembly.md` | Prompt assembly guide |
 | `references/config/preferences-schema.md` | EXTEND.md schema |
-| `references/config/first-time-setup.md` | First-time setup flow |
-| `references/config/watermark-guide.md` | Watermark configuration |
+| `references/config/first-time-setup.md` | 首次设置流程 |
+| `references/config/watermark-guide.md` | Watermark 配置 |
 
 ## Notes
 
-- Auto-retry once on generation failure before reporting an error.
-- For sensitive public figures, use stylized cartoon alternatives.
-- Smart Confirm (Step 2) is required; Detailed mode adds a second confirmation (2a + 2c).
+- 生成失败时自动重试一次，再报告错误。
+- 对敏感公众人物，使用 stylized cartoon alternatives。
+- Smart Confirm（Step 2）是必需的；Detailed mode 会增加第二次确认（2a + 2c）。
 
 ## Changing Preferences
 
-EXTEND.md lives at the first matching path listed in Step 0. Three ways to change it:
+EXTEND.md 位于 Step 0 中列出的第一个匹配路径。修改它有三种方式：
 
-- **Edit directly** — open EXTEND.md and change fields. Full schema: `references/config/preferences-schema.md`.
-- **Reconfigure interactively** — delete EXTEND.md (or ask "reconfigure baoyu-xhs-images preferences" / "重新配置"). The next run re-triggers first-time setup.
-- **Common one-line edits**:
-  - `preferred_image_backend: auto` — default; runtime-native tool wins, falls back to the only installed backend, asks only if multiple non-native are present.
-  - `preferred_image_backend: codex-imagegen` — pin to Codex's built-in.
-  - `preferred_image_backend: baoyu-image-gen` — pin to the baoyu-image-gen skill.
-  - `preferred_image_backend: ask` — confirm backend every run.
-  - `generation_batch_size: 4` — default number of images to render concurrently when the backend/runtime supports batch or parallel generation.
+- **直接编辑** - 打开 EXTEND.md 并修改字段。完整 schema：`references/config/preferences-schema.md`。
+- **交互式重新配置** - 删除 EXTEND.md（或要求 "reconfigure baoyu-xhs-images preferences" / "重新配置"）。下一次运行会重新触发首次设置。
+- **常见单行编辑**：
+  - `preferred_image_backend: auto` - 默认；runtime-native tool 优先，fallback 到唯一 installed backend，仅当存在多个 non-native 时询问。
+  - `preferred_image_backend: codex-imagegen` - 固定到 Codex 内置能力。
+  - `preferred_image_backend: baoyu-image-gen` - 固定到 baoyu-image-gen skill。
+  - `preferred_image_backend: ask` - 每次运行都确认 backend。
+  - `generation_batch_size: 4` - 当 backend/runtime 支持 batch 或并行生成时，同时渲染的默认图片数。
   - `preferred_style: notion`, `preferred_layout: dense`, `preferred_palette: macaron`, `language: zh`.
-  - `watermark.enabled: true` + `watermark.content: "@handle"` — add a watermark.
+  - `watermark.enabled: true` + `watermark.content: "@handle"` - 添加 watermark。

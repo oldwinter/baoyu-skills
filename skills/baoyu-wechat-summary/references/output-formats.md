@@ -1,14 +1,14 @@
-# Output formats — normal & roast digest
+# Output formats - normal & roast digest
 
-This reference defines the two digest variants the skill produces: the **normal** version (default, sober summary) and the **roast** version (毒舌，sarcastic critique, opt-in). Load this file during Step 4 (skeleton) and keep it open through Step 6 (audit).
+此 reference 定义此 skill 生成的两种 digest 变体：**normal** 版本（默认，清醒摘要）和 **roast** 版本（毒舌，sarcastic critique，opt-in）。在 Step 4（skeleton）期间加载此文件，并一直打开到 Step 6（audit）。
 
-Both versions share the same overall layout and writing rules; the differences are tone, the leaderboard annotations, the portraits, and the footer. Write the normal version first when both are requested — it's the anchor for incremental mode and the source of truth for the profile updates.
+两个版本共享相同整体 layout 和写作规则；差异在 tone、leaderboard annotations、portraits 和 footer。当两个版本都被请求时，先写 normal 版本 - 它是 incremental mode 的 anchor，也是 profile updates 的 source of truth。
 
 ---
 
 ## 1. Normal version
 
-### 1.1 Five-part structure
+### 1.1 五部分结构
 
 ```
 [Title line]
@@ -23,11 +23,11 @@ Both versions share the same overall layout and writing rules; the differences a
 
 ### 1.2 Title line
 
-- Single line, no markdown heading.
-- Form: `{群名} 群聊精华 · {日期或日期区间}`
-- Date single day: `2026-03-12`. Date range: `2026-03-12 ~ 2026-03-15`.
+- 单行，不使用 markdown heading。
+- 形式：`{群名} 群聊精华 · {日期或日期区间}`
+- 单日日期：`2026-03-12`。Date range：`2026-03-12 ~ 2026-03-15`。
 
-Example:
+示例：
 
 ```
 相亲相爱一家人 群聊精华 · 2026-03-12
@@ -35,14 +35,14 @@ Example:
 
 ### 1.3 Statistics block
 
-- Starts with `📊 消息统计: 共 N 条消息`.
-- Followed by a leaderboard, top 10 senders by message count, one per line.
-- Form per line: `{排名}. {昵称}: {消息数} 条`
-- Counting rules:
-  - Include images, emojis, links, voice transcripts — anything that occupies a chat row is one message.
-  - Exclude system messages and revoked messages (`[系统]`, `revokemsg`).
-  - For the `self_wxid` user, substitute `self_display` from EXTEND.md before counting/displaying.
-  - Resolve ambiguous nicknames (per SKILL.md Step 3.6) before tallying so the same person isn't double-counted.
+- 以 `📊 消息统计: 共 N 条消息` 开头。
+- 后接 leaderboard，按 message count 排名前 10 的发送者，每人一行。
+- 每行形式：`{排名}. {昵称}: {消息数} 条`
+- 计数规则：
+  - 包含 images、emojis、links、voice transcripts - 任何占据聊天行的内容都算一条 message。
+  - 排除 system messages 和 revoked messages（`[系统]`、`revokemsg`）。
+  - 对 `self_wxid` 用户，在计数/显示前替换为 EXTEND.md 中的 `self_display`。
+  - 统计前按 SKILL.md Step 3.6 解析 ambiguous nicknames，避免同一人被重复计数。
 
 Example:
 
@@ -56,21 +56,21 @@ Example:
 
 ### 1.4 Opening summary
 
-- 1-2 paragraphs, plain prose, no headings, no bullets.
-- Hook the reader: lead with the most distinctive thread of the day (a heated debate, a surprising announcement, a market move someone reacted to).
-- Reference 2-4 of the day's category titles in the prose so the reader knows what's coming.
-- Mention 1-2 specific people only if their contribution is central; otherwise stay topic-focused.
-- No timestamps, no message counts (those live in the stats block).
+- 1-2 段，plain prose，无 headings，无 bullets。
+- Hook the reader：以当天最有辨识度的 thread 开头（激烈辩论、意外 announcement、有人反应强烈的 market move）。
+- 在 prose 中提到当天 2-4 个 category titles，让读者知道后文内容。
+- 只有当某人贡献很核心时才提到 1-2 个具体人物；否则保持 topic-focused。
+- 不写 timestamps，不写 message counts（这些属于 stats block）。
 
 ### 1.5 群友画像 section
 
-- Heading line: `群友画像`
-- One entry per user with 3+ messages this batch.
-- Order: by message count, descending.
-- Entry header: `{昵称}（{角色标签}）` — the role tag is your one-line read on this person *today*. Examples: `做空美股的乐子人`, `深夜技术指导`, `论坛级吐槽担当`.
-- Body: 2-5 bullets with `•` prefix. Each bullet states one observation. Quote evidence inline where natural.
-- Continuity: if you loaded a prior profile in Step 3.7, carry forward the established tags/observations that still apply, and call out *change* explicitly (`今天罕见地没提空头`, `从昨天的乐观转向今天的焦虑`).
-- Don't invent backstory — only what's in the messages or the prior profile.
+- Heading line：`群友画像`
+- 本批次每个有 3+ messages 的用户一个 entry。
+- 顺序：按 message count 降序。
+- Entry header：`{昵称}（{角色标签}）` - role tag 是你对这个人*今天*的一行判断。示例：`做空美股的乐子人`、`深夜技术指导`、`论坛级吐槽担当`。
+- Body：2-5 条 bullets，使用 `•` 前缀。每条 bullet 陈述一个 observation。自然处内联引用证据。
+- Continuity：如果 Step 3.7 加载了 prior profile，延续仍适用的既有 tags/observations，并明确指出*变化*（`今天罕见地没提空头`、`从昨天的乐观转向今天的焦虑`）。
+- 不要编造 backstory - 只使用 messages 或 prior profile 中的内容。
 
 Example:
 
@@ -85,15 +85,15 @@ Example:
 
 ### 1.6 Categorized body
 
-- 3-6 self-named categories per day.
-- Each category is a thematic bucket — name it for the *topic*, not generic ("讨论"、"闲聊" are forbidden labels).
-- Category header: `{emoji} {标题}` — one emoji prefix, then a short noun phrase.
-  - Suggested emoji: 🛠 工具/技术，📦 产品发布，📰 新闻/市场，💬 观点辩论，😄 笑料/段子，📚 学习分享，💸 钱与消费，🍜 生活日常。
-- Body inside each category: prose with embedded quotes. Use `•` bullets when listing 3+ parallel items; otherwise paragraphs.
-- Attribution: name the speaker on first mention in a thread (`蛙总说他...`). For follow-on lines in the same thread, attribution can be implicit if the chain is short and clear.
-- Quotes: use 「」 for direct quotes. Quote when the wording is vivid, surprising, or characteristic; paraphrase otherwise.
-- Merge: a multi-person discussion is one entry, not a list of one-line replies.
-- Links: preserve the full URL inline. Article titles stay verbatim.
+- 每天 3-6 个 self-named categories。
+- 每个 category 是 thematic bucket - 按*话题*命名，不要使用泛称（禁止 "讨论"、"闲聊" 这类 label）。
+- Category header：`{emoji} {标题}` - 一个 emoji 前缀，后接简短 noun phrase。
+  - 建议 emoji：🛠 工具/技术，📦 产品发布，📰 新闻/市场，💬 观点辩论，😄 笑料/段子，📚 学习分享，💸 钱与消费，🍜 生活日常。
+- 每个 category 内的 body：嵌入 quotes 的 prose。列出 3+ 个平行项目时使用 `•` bullets；否则使用段落。
+- Attribution：thread 首次提及时写出 speaker（`蛙总说他...`）。同一 thread 的后续句子，如果链条短且清晰，attribution 可隐含。
+- Quotes：direct quotes 使用 「」。措辞生动、意外或有个人特征时引用；否则 paraphrase。
+- Merge：多人讨论是一个 entry，不是一串单行回复列表。
+- Links：完整 URL inline 保留。Article titles 逐字保留。
 
 Example:
 
@@ -103,11 +103,11 @@ Example:
 蛙总下午把 4.7 装上后第一反应是「比 4.6 慢一倍」，老王跟着复现，怀疑是 Opus 默认配置导致。阿喵贴了官方文档 https://docs.claude.com/.../opus-4-7 ，提到可以切回 Sonnet 4.6 跑速测，三人最终结论：复杂任务 4.7 强，日常用 4.6 更顺手。
 ```
 
-### 1.7 Pain-point section (optional)
+### 1.7 Pain-point section（可选）
 
-- Include only when the day's chat contains at least one concrete unresolved or partially-resolved problem.
-- Heading: `今日待解决问题` or `本周悬而未决`.
-- One entry per problem. Format:
+- 只有当天聊天包含至少一个具体的 unresolved 或 partially-resolved problem 时才包含。
+- Heading：`今日待解决问题` 或 `本周悬而未决`。
+- 每个 problem 一个 entry。格式：
   ```
   问题：<一句话描述>
   提出者：<昵称>
@@ -115,7 +115,7 @@ Example:
   状态：<✅ 已解决 / ⚠️ 部分解决 / ❌ 仍未解决>
   方案：<若有人提了方案，写在这；否则写"暂无方案">
   ```
-- Skip the section entirely if there are no genuine pain points — don't pad with trivial questions.
+- 如果没有真正 pain points，整段跳过 - 不要用琐碎问题填充。
 
 ### 1.8 @bot 答疑 section (optional)
 
@@ -179,38 +179,38 @@ Roast 版基于普通版的话题骨架和素材，用毒舌、尖锐、挑衅�
 
 ---
 
-## 3. Common formatting rules (both versions)
+## 3. 通用格式规则（两个版本）
 
-- **No markdown.** No `**bold**`, no `# headings`, no `*italic*`, no `[link](url)` syntax. Headings are plain text on their own line.
-- **Bullets use `•`.** Not `-`, not `*`, not `1.` for prose-style bullets.
-- **Numbered lists** (`1.`, `2.`) are reserved for the leaderboard.
-- **Subcategory hints** within a body block are plain text with no symbol prefix.
-- **Links preserved verbatim.** Paste the full URL inline. Don't shorten, don't hide behind text.
-- **One emoji per category title.** Don't stack 🛠💬 etc.
-- **Pain-point statuses** use ✅⚠️❌ verbatim.
-- **Quotes use 「」.** Single quotes for nested.
-- **Names verbatim.** Don't abbreviate `蛙总` to `蛙`, don't translate Chinese names, don't anonymize.
-
----
-
-## 4. Common content rules (both versions)
-
-- **Filter only pure noise.** Cut: lone emoji reactions, "好的"/"收到"/"哈哈哈" with no follow-on, duplicate forwards.
-- **Keep gossip, anecdotes, signature moments.** These are the highlight reel — the whole point of the digest.
-- **Plain language.** Preserve vivid expressions and idiosyncratic phrasings — that's what makes the speaker recognizable.
-- **Keep real names.** Both for traceability and so the digest is useful as memory.
-- **Tool, product, URL names complete.** `Claude Code 4.7`, not `CC`. `https://github.com/...`, not `GitHub 上那个项目`.
-- **Merge, don't list.** A 30-message debate becomes one paragraph, not 30 bullet points.
-- **Direct-quote deep observations.** When someone says something striking, quote it verbatim with 「」 rather than paraphrase.
-- **Shared articles → title + sharer.** `阿喵分享了《一个 Rust 工程师的反思》` — include the title and who shared.
-- **No timestamp-based sleep/timezone inference.** (Repeated here because it applies to both versions, not just roast — never say `凌晨 3 点还在线` in either.)
-- **No fabricated facts.** Every claim must be supported by an actual message in the batch (or in a loaded profile). If you're tempted to "add color," stop.
+- **No markdown。** 不使用 `**bold**`、`# headings`、`*italic*`、`[link](url)` syntax。Headings 是单独一行 plain text。
+- **Bullets 使用 `•`。** Prose-style bullets 不用 `-`、不用 `*`、不用 `1.`。
+- **Numbered lists**（`1.`、`2.`）只保留给 leaderboard。
+- Body block 内的 **Subcategory hints** 是无 symbol prefix 的 plain text。
+- **Links 逐字保留。** 完整 URL inline 粘贴。不要缩短，不要藏在文字后。
+- **每个 category title 一个 emoji。** 不要堆叠 🛠💬 等。
+- **Pain-point statuses** 逐字使用 ✅⚠️❌。
+- **Quotes 使用 「」。** 嵌套引用使用 single quotes。
+- **Names 逐字保留。** 不要把 `蛙总` 缩写成 `蛙`，不要翻译中文名，不要匿名化。
 
 ---
 
-## 5. Output skeleton — quick reference
+## 4. 通用内容规则（两个版本）
 
-When you forget the structure mid-write, this is the skeleton:
+- **只过滤纯噪音。** 删除：单独 emoji reactions、没有后续的 "好的"/"收到"/"哈哈哈"、重复转发。
+- **保留 gossip、anecdotes、signature moments。** 这些是 highlight reel - 也是 digest 的核心意义。
+- **Plain language。** 保留生动表达和个人化措辞 - 这正是 speaker 可辨认的原因。
+- **保留真实名称。** 既为了 traceability，也让 digest 可作为 memory 使用。
+- **Tool、product、URL names 完整。** 写 `Claude Code 4.7`，不要写 `CC`。写 `https://github.com/...`，不要写 `GitHub 上那个项目`。
+- **Merge, don't list。** 30 条消息的辩论写成一段，不写成 30 个 bullet points。
+- **Direct-quote deep observations。** 当有人说了很有意思的话，用 「」 逐字引用，而不是 paraphrase。
+- **Shared articles → title + sharer。** `阿喵分享了《一个 Rust 工程师的反思》` - 包含标题和分享者。
+- **不基于 timestamp 推断睡眠/时区。**（这里重复一次，因为它适用于两个版本，不只 roast - 任一版本都不要写 `凌晨 3 点还在线`。）
+- **不编造事实。** 每个 claim 都必须由本批次实际 message（或已加载 profile）支持。如果你想“加点色彩”，停下。
+
+---
+
+## 5. Output skeleton - quick reference
+
+写到一半忘记结构时，看这个 skeleton：
 
 ### Normal
 
@@ -292,18 +292,18 @@ When you forget the structure mid-write, this is the skeleton:
 
 ---
 
-## 6. Self-check before saving
+## 6. 保存前自检
 
-Before writing the digest file, mentally walk through:
+写入 digest file 前，在脑中逐项检查：
 
-1. Stats block accurate? Counts match the filtered message set?
-2. Top 10 names resolved (self_display substituted, ambiguous nicknames disambiguated)?
-3. Opening hooks at least one real category title?
-4. Every active user (3+ msgs) has a 画像 entry?
-5. Every category has a topic-named title (not "讨论")?
-6. Every quote uses 「」 and is traceable to a real message?
-7. Links inline and complete?
-8. No markdown bold/heading/link syntax leaked through?
-9. (Roast only) Every roast bullet would pass the §2 红线 audit?
-10. Footer line exact match?
+1. Stats block 是否准确？Counts 是否匹配过滤后的 message set？
+2. Top 10 names 是否已解析（替换 self_display，消歧 ambiguous nicknames）？
+3. Opening 是否 hook 了至少一个真实 category title？
+4. 每个 active user（3+ msgs）是否都有画像 entry？
+5. 每个 category 是否都有按话题命名的 title（不是 "讨论"）？
+6. 每个 quote 是否使用 「」，并可追溯到真实 message？
+7. Links 是否 inline 且完整？
+8. 是否没有泄漏 markdown bold/heading/link syntax？
+9. （仅 Roast）每条 roast bullet 是否都能通过 §2 红线 audit？
+10. Footer line 是否完全匹配？
 11. （本批有 @bot 请求时）两版各有对应 @bot 答疑小节？普通版真诚有用、毒舌版带刺仍有干货？无编造的实时信息？

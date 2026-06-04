@@ -1,29 +1,29 @@
-# Style Maintenance (baoyu-comic)
+# Style Maintenance（baoyu-comic）
 
-## Adding a New Style
+## 添加新 Style
 
-1. Create style definition: `skills/baoyu-comic/references/styles/<style-name>.md`
-2. Update SKILL.md: add to `--style` options table + auto-selection entry
-3. Generate showcase image:
+1. 创建 style definition：`skills/baoyu-comic/references/styles/<style-name>.md`
+2. 更新 SKILL.md：添加到 `--style` options table + auto-selection entry
+3. 生成 showcase image：
    ```bash
    ${BUN_X} skills/baoyu-danger-gemini-web/scripts/main.ts \
      --prompt "A single comic book page in <style-name> style showing [scene]. Features: [characteristics]. 3:4 portrait aspect ratio comic page." \
      --image screenshots/comic-styles/<style-name>.png
    ```
-4. Compress: `${BUN_X} skills/baoyu-compress-image/scripts/main.ts screenshots/comic-styles/<style-name>.png`
-5. Update both READMEs (`README.md` + `README.zh.md`): add style to options, description table, preview grid
+4. 压缩：`${BUN_X} skills/baoyu-compress-image/scripts/main.ts screenshots/comic-styles/<style-name>.png`
+5. 更新两份 README（`README.md` + `README.zh.md`）：添加 style 到 options、description table、preview grid
 
-## Updating an Existing Style
+## 更新现有 Style
 
-1. Update style definition in `references/styles/`
-2. Regenerate showcase image if visual characteristics changed (steps 3-4 above)
-3. Update READMEs if description changed
+1. 更新 `references/styles/` 中的 style definition
+2. 如果视觉特征变化，重新生成 showcase image（见上方步骤 3-4）
+3. 如果描述变化，更新 README
 
-## Deleting a Style
+## 删除 Style
 
-1. Delete style definition + showcase image (`.webp`)
-2. Remove from SKILL.md `--style` options + auto-selection
-3. Remove from both READMEs (options, description table, preview grid)
+1. 删除 style definition + showcase image（`.webp`）
+2. 从 SKILL.md 的 `--style` options + auto-selection 中移除
+3. 从两份 README 中移除（options、description table、preview grid）
 
 ## Style Preview Grid Format
 

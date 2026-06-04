@@ -1,11 +1,11 @@
 # Changesets
 
-This folder stores release notes for version bumps managed by Changesets.
+此文件夹存放由 Changesets 管理的 version bumps 的 release notes。
 
-Create a new changeset before merging a user-facing change:
+合并 user-facing change 前，创建一个新的 changeset：
 
 ```bash
 bunx changeset
 ```
 
-After the changeset lands on `main`, GitHub Actions will open or update the release PR automatically. Merging that release PR publishes the next npm version.
+Changeset 合入 `main` 后，GitHub Actions 会自动打开或更新 release PR。合并该 release PR 会发布下一个 npm version。

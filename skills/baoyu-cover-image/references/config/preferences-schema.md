@@ -1,11 +1,11 @@
 ---
 name: preferences-schema
-description: EXTEND.md YAML schema for baoyu-cover-image user preferences
+description: baoyu-cover-image 用户偏好的 EXTEND.md YAML schema
 ---
 
 # Preferences Schema
 
-## Full Schema
+## 完整 Schema
 
 ```yaml
 ---
@@ -46,108 +46,108 @@ custom_palettes:
 ---
 ```
 
-## Field Reference
+## 字段参考
 
-| Field | Type | Default | Description |
+| 字段 | 类型 | 默认值 | 说明 |
 |-------|------|---------|-------------|
-| `version` | int | 3 | Schema version |
-| `watermark.enabled` | bool | false | Enable watermark |
-| `watermark.content` | string | "" | Watermark text (@username or custom) |
-| `watermark.position` | enum | bottom-right | Position on image |
-| `preferred_type` | string | null | Type name or null for auto |
-| `preferred_palette` | string | null | Palette name or null for auto |
-| `preferred_rendering` | string | null | Rendering name or null for auto |
-| `preferred_text` | string | title-only | Text density level |
-| `preferred_mood` | string | balanced | Mood intensity level |
-| `default_aspect` | string | "2.35:1" | Default aspect ratio |
-| `quick_mode` | bool | false | Skip confirmation step |
-| `language` | string | null | Output language (null = auto-detect) |
-| `preferred_image_backend` | string | `auto` | Image backend selection. `auto` = prefer runtime-native tool, fall back to the only installed backend, ask if multiple non-native are present. `ask` = always confirm on every run. `<backend-id>` (e.g., `codex-imagegen`, `baoyu-image-gen`, `image_generate`) = pin this backend when available; fall back to `auto` when it isn't. Absent = `auto`. Resolution logic is documented in `SKILL.md`'s `## Image Generation Tools` section. |
-| `custom_palettes` | array | [] | User-defined palettes |
+| `version` | int | 3 | Schema 版本 |
+| `watermark.enabled` | bool | false | 启用 watermark |
+| `watermark.content` | string | "" | Watermark text（@username 或 custom） |
+| `watermark.position` | enum | bottom-right | 图片上的位置 |
+| `preferred_type` | string | null | Type name，或 null 表示自动选择 |
+| `preferred_palette` | string | null | Palette name，或 null 表示自动选择 |
+| `preferred_rendering` | string | null | Rendering name，或 null 表示自动选择 |
+| `preferred_text` | string | title-only | Text density 级别 |
+| `preferred_mood` | string | balanced | Mood intensity 级别 |
+| `default_aspect` | string | "2.35:1" | 默认 aspect ratio |
+| `quick_mode` | bool | false | 跳过 confirmation step |
+| `language` | string | null | 输出语言（null = auto-detect） |
+| `preferred_image_backend` | string | `auto` | Image backend selection。`auto` = 优先 runtime-native tool，fallback 到唯一 installed backend，多个 non-native 时询问。`ask` = 每次运行都确认。`<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`image_generate`）= 该 backend 可用时固定使用，不可用时 fallback 到 `auto`。Absent = `auto`。Resolution logic 见 `SKILL.md` 的 `## Image Generation Tools` section。 |
+| `custom_palettes` | array | [] | 用户定义 palettes |
 
-## Type Options
+## Type 选项
 
-| Value | Description |
+| 值 | 说明 |
 |-------|-------------|
-| `hero` | Large visual impact, title overlay |
-| `conceptual` | Concept visualization, abstract core ideas |
-| `typography` | Text-focused layout, prominent title |
-| `metaphor` | Visual metaphor, concrete expressing abstract |
-| `scene` | Atmospheric scene, narrative feel |
-| `minimal` | Minimalist composition, generous whitespace |
+| `hero` | 强视觉冲击，title overlay |
+| `conceptual` | 概念可视化，抽象核心观点 |
+| `typography` | 以文字为中心的 layout，突出 title |
+| `metaphor` | Visual metaphor，用具象表达抽象 |
+| `scene` | 有氛围的 scene，叙事感 |
+| `minimal` | Minimalist composition，充足 whitespace |
 
-## Palette Options
+## Palette 选项
 
-| Value | Description |
+| 值 | 说明 |
 |-------|-------------|
-| `warm` | Friendly, approachable — orange, golden yellow, terracotta |
-| `elegant` | Sophisticated, refined — soft coral, muted teal, dusty rose |
-| `cool` | Technical, professional — engineering blue, navy, cyan |
-| `dark` | Cinematic, premium — electric purple, cyan, magenta |
-| `earth` | Natural, organic — forest green, sage, earth brown |
-| `vivid` | Energetic, bold — bright red, neon green, electric blue |
-| `pastel` | Gentle, whimsical — soft pink, mint, lavender |
-| `mono` | Clean, focused — black, near-black, white |
-| `retro` | Nostalgic, vintage — muted orange, dusty pink, maroon |
+| `warm` | Friendly、approachable：orange、golden yellow、terracotta |
+| `elegant` | Sophisticated、refined：soft coral、muted teal、dusty rose |
+| `cool` | Technical、professional：engineering blue、navy、cyan |
+| `dark` | Cinematic、premium：electric purple、cyan、magenta |
+| `earth` | Natural、organic：forest green、sage、earth brown |
+| `vivid` | Energetic、bold：bright red、neon green、electric blue |
+| `pastel` | Gentle、whimsical：soft pink、mint、lavender |
+| `mono` | Clean、focused：black、near-black、white |
+| `retro` | Nostalgic、vintage：muted orange、dusty pink、maroon |
 
-## Rendering Options
+## Rendering 选项
 
-| Value | Description |
+| 值 | 说明 |
 |-------|-------------|
-| `flat-vector` | Clean outlines, uniform fills, geometric icons |
-| `hand-drawn` | Sketchy, organic, imperfect strokes, paper texture |
-| `painterly` | Soft brush strokes, color bleeds, watercolor feel |
-| `digital` | Polished, precise edges, subtle gradients, UI components |
-| `pixel` | Pixel grid, dithering, chunky 8-bit shapes |
-| `chalk` | Chalk strokes, dust effects, blackboard texture |
+| `flat-vector` | Clean outlines、uniform fills、geometric icons |
+| `hand-drawn` | Sketchy、organic、imperfect strokes、paper texture |
+| `painterly` | Soft brush strokes、color bleeds、watercolor feel |
+| `digital` | Polished、precise edges、subtle gradients、UI components |
+| `pixel` | Pixel grid、dithering、chunky 8-bit shapes |
+| `chalk` | Chalk strokes、dust effects、blackboard texture |
 
-## Text Options
+## Text 选项
 
-| Value | Description |
+| 值 | 说明 |
 |-------|-------------|
-| `none` | Pure visual, no text elements |
-| `title-only` | Single headline |
+| `none` | 纯视觉，无 text elements |
+| `title-only` | 单个 headline |
 | `title-subtitle` | Title + subtitle |
-| `text-rich` | Title + subtitle + keyword tags (2-4) |
+| `text-rich` | Title + subtitle + keyword tags（2-4） |
 
-## Mood Options
+## Mood 选项
 
-| Value | Description |
+| 值 | 说明 |
 |-------|-------------|
-| `subtle` | Low contrast, muted colors, calm aesthetic |
-| `balanced` | Medium contrast, normal saturation, versatile |
-| `bold` | High contrast, vivid colors, dynamic energy |
+| `subtle` | 低 contrast、muted colors、平静美学 |
+| `balanced` | 中等 contrast、正常 saturation、通用 |
+| `bold` | 高 contrast、vivid colors、动态能量 |
 
-## Position Options
+## Position 选项
 
-| Value | Description |
+| 值 | 说明 |
 |-------|-------------|
-| `bottom-right` | Lower right corner (default, most common) |
-| `bottom-left` | Lower left corner |
-| `bottom-center` | Bottom center |
-| `top-right` | Upper right corner |
+| `bottom-right` | 右下角（default，最常见） |
+| `bottom-left` | 左下角 |
+| `bottom-center` | 底部居中 |
+| `top-right` | 右上角 |
 
-## Aspect Ratio Options
+## Aspect Ratio 选项
 
-| Value | Description | Best For |
+| 值 | 说明 | 最适合 |
 |-------|-------------|----------|
-| `2.35:1` | Cinematic widescreen | Article headers, blog covers |
-| `16:9` | Standard widescreen | Presentations, video thumbnails |
-| `1:1` | Square | Social media, profile images |
+| `2.35:1` | Cinematic widescreen | Article headers、blog covers |
+| `16:9` | Standard widescreen | Presentations、video thumbnails |
+| `1:1` | Square | Social media、profile images |
 
-## Custom Palette Fields
+## Custom Palette 字段
 
-| Field | Required | Description |
+| 字段 | 必填 | 说明 |
 |-------|----------|-------------|
-| `name` | Yes | Unique palette identifier (kebab-case) |
-| `description` | Yes | What the palette conveys |
-| `colors.primary` | No | Main colors (array of hex) |
-| `colors.background` | No | Background color (hex) |
-| `colors.accents` | No | Accent colors (array of hex) |
-| `decorative_hints` | No | Decorative elements and patterns |
-| `best_for` | No | Recommended content types |
+| `name` | Yes | 唯一 palette identifier（kebab-case） |
+| `description` | Yes | Palette 传达的感觉 |
+| `colors.primary` | No | 主色（hex array） |
+| `colors.background` | No | Background color（hex） |
+| `colors.accents` | No | Accent colors（hex array） |
+| `decorative_hints` | No | Decorative elements 和 patterns |
+| `best_for` | No | 推荐内容类型 |
 
-## Example: Minimal Preferences
+## 示例：最小偏好
 
 ```yaml
 ---
@@ -164,7 +164,7 @@ quick_mode: false
 ---
 ```
 
-## Example: Full Preferences
+## 示例：完整偏好
 
 ```yaml
 ---
@@ -204,17 +204,17 @@ custom_palettes:
 ---
 ```
 
-## Migration from v2
+## 从 v2 迁移
 
-When loading v2 schema, auto-upgrade:
+加载 v2 schema 时自动 upgrade：
 
-| v2 Field | v3 Field | Migration |
+| v2 字段 | v3 字段 | 迁移 |
 |----------|----------|-----------|
 | `version: 2` | `version: 3` | Update |
-| `preferred_style` | `preferred_palette` + `preferred_rendering` | Use preset mapping table |
-| `custom_styles` | `custom_palettes` | Rename, restructure fields |
+| `preferred_style` | `preferred_palette` + `preferred_rendering` | 使用 preset mapping table |
+| `custom_styles` | `custom_palettes` | Rename，并重构 fields |
 
-**Style → Palette + Rendering mapping**:
+**Style → Palette + Rendering mapping**：
 
 | v2 `preferred_style` | v3 `preferred_palette` | v3 `preferred_rendering` |
 |----------------------|----------------------|-------------------------|
@@ -237,24 +237,24 @@ When loading v2 schema, auto-upgrade:
 | `vintage` | `retro` | `hand-drawn` |
 | `warm` | `warm` | `hand-drawn` |
 | `watercolor` | `earth` | `painterly` |
-| null (auto) | null | null |
+| null（auto） | null | null |
 
-**Custom style migration**:
+**Custom style 迁移**：
 
-| v2 Field | v3 Field |
+| v2 字段 | v3 字段 |
 |----------|----------|
 | `custom_styles[].name` | `custom_palettes[].name` |
 | `custom_styles[].description` | `custom_palettes[].description` |
 | `custom_styles[].color_palette` | `custom_palettes[].colors` |
 | `custom_styles[].visual_elements` | `custom_palettes[].decorative_hints` |
-| `custom_styles[].typography` | (removed — determined by rendering) |
+| `custom_styles[].typography` | （已移除，由 rendering 决定） |
 | `custom_styles[].best_for` | `custom_palettes[].best_for` |
 
-## Migration from v1
+## 从 v1 迁移
 
-When loading v1 schema, auto-upgrade to v3:
+加载 v1 schema 时自动 upgrade 到 v3：
 
-| v1 Field | v3 Field | Default Value |
+| v1 字段 | v3 字段 | 默认值 |
 |----------|----------|---------------|
 | (missing) | `version` | 3 |
 | (missing) | `preferred_palette` | null |
@@ -263,4 +263,4 @@ When loading v1 schema, auto-upgrade to v3:
 | (missing) | `preferred_mood` | balanced |
 | (missing) | `quick_mode` | false |
 
-v1 `--no-title` flag maps to `preferred_text: none`.
+v1 `--no-title` flag 映射为 `preferred_text: none`。

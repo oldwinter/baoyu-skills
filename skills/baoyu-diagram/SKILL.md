@@ -1,49 +1,49 @@
 ---
 name: baoyu-diagram
-description: Create professional, dark-themed SVG diagrams of any type — architecture diagrams, flowcharts, sequence diagrams, structural diagrams, mind maps, timelines, illustrative/conceptual diagrams, and more. Use this skill whenever the user asks for any kind of technical or conceptual diagram, visualization of a system, process flow, data flow, component relationship, network topology, decision tree, org chart, state machine, or any visual representation of structure/logic/process. Also trigger when the user says "画个图" "画一个架构图" "diagram" "flowchart" "sequence diagram" "draw me a ..." or uploads content and asks to visualize it. Output is always a standalone .svg file.
+description: 创建各种专业深色主题 SVG diagrams，包括 architecture diagrams、flowcharts、sequence diagrams、structural diagrams、mind maps、timelines、illustrative/conceptual diagrams 等。当用户要求任何技术或概念图、系统可视化、process flow、data flow、component relationship、network topology、decision tree、org chart、state machine，或任何 structure/logic/process 的视觉表达时使用此 skill。用户说 "画个图"、"画一个架构图"、"diagram"、"flowchart"、"sequence diagram"、"draw me a ..."，或上传内容并要求可视化时也触发。输出始终是独立 `.svg` 文件。
 version: 1.117.3
 ---
 
 # Diagram Generator
 
-Create professional SVG diagrams across multiple diagram types. All output is a single self-contained `.svg` file with embedded styles and fonts.
+创建多种 diagram types 的专业 SVG diagrams。所有输出都是单个自包含 `.svg` 文件，内嵌 styles 和 fonts。
 
-## Supported Diagram Types
+## 支持的 Diagram Types
 
-| Type | When to Use | Key Characteristics |
+| Type | 何时使用 | 关键特征 |
 |------|-------------|-------------------|
-| **Architecture** | System components & relationships | Grouped boxes, connection arrows, region boundaries |
-| **Flowchart** | Decision logic, process steps | Diamond decisions, rounded step boxes, directional flow |
-| **Sequence** | Time-ordered interactions between actors | Vertical lifelines, horizontal messages, activation bars |
-| **Structural** | Class diagrams, ER diagrams, org charts | Compartmented boxes, typed relationships (inheritance, composition) |
-| **Mind Map** | Brainstorming, topic exploration | Central node, radiating branches, organic layout |
-| **Timeline** | Chronological events | Horizontal/vertical axis, event markers, period spans |
-| **Illustrative** | Conceptual explanations, comparisons | Free-form layout, icons, annotations, visual metaphors |
-| **State Machine** | State transitions, lifecycle | Rounded state nodes, labeled transitions, start/end markers |
-| **Data Flow** | Data transformation pipelines | Process bubbles, data stores, external entities |
+| **Architecture** | System components 与 relationships | Grouped boxes、connection arrows、region boundaries |
+| **Flowchart** | Decision logic、process steps | Diamond decisions、rounded step boxes、directional flow |
+| **Sequence** | actors 之间按时间排序的 interactions | Vertical lifelines、horizontal messages、activation bars |
+| **Structural** | Class diagrams、ER diagrams、org charts | Compartmented boxes、typed relationships（inheritance、composition） |
+| **Mind Map** | Brainstorming、topic exploration | Central node、radiating branches、organic layout |
+| **Timeline** | Chronological events | Horizontal/vertical axis、event markers、period spans |
+| **Illustrative** | Conceptual explanations、comparisons | Free-form layout、icons、annotations、visual metaphors |
+| **State Machine** | State transitions、lifecycle | Rounded state nodes、labeled transitions、start/end markers |
+| **Data Flow** | Data transformation pipelines | Process bubbles、data stores、external entities |
 
 ## Design System
 
 ### Color Palette
 
-Semantic colors for component categories:
+用于 component categories 的语义颜色：
 
-| Category | Fill (rgba) | Stroke | Use For |
+| Category | Fill (rgba) | Stroke | 用途 |
 |----------|-------------|--------|---------|
-| Primary | `rgba(8, 51, 68, 0.4)` | `#22d3ee` (cyan) | Frontend, user-facing, inputs |
-| Secondary | `rgba(6, 78, 59, 0.4)` | `#34d399` (emerald) | Backend, services, processing |
-| Tertiary | `rgba(76, 29, 149, 0.4)` | `#a78bfa` (violet) | Database, storage, persistence |
-| Accent | `rgba(120, 53, 15, 0.3)` | `#fbbf24` (amber) | Cloud, infrastructure, regions |
-| Alert | `rgba(136, 19, 55, 0.4)` | `#fb7185` (rose) | Security, errors, warnings |
-| Connector | `rgba(251, 146, 60, 0.3)` | `#fb923c` (orange) | Buses, queues, middleware |
-| Neutral | `rgba(30, 41, 59, 0.5)` | `#94a3b8` (slate) | External, generic, unknown |
-| Highlight | `rgba(59, 130, 246, 0.3)` | `#60a5fa` (blue) | Active state, focus, current step |
+| Primary | `rgba(8, 51, 68, 0.4)` | `#22d3ee` (cyan) | Frontend、user-facing、inputs |
+| Secondary | `rgba(6, 78, 59, 0.4)` | `#34d399` (emerald) | Backend、services、processing |
+| Tertiary | `rgba(76, 29, 149, 0.4)` | `#a78bfa` (violet) | Database、storage、persistence |
+| Accent | `rgba(120, 53, 15, 0.3)` | `#fbbf24` (amber) | Cloud、infrastructure、regions |
+| Alert | `rgba(136, 19, 55, 0.4)` | `#fb7185` (rose) | Security、errors、warnings |
+| Connector | `rgba(251, 146, 60, 0.3)` | `#fb923c` (orange) | Buses、queues、middleware |
+| Neutral | `rgba(30, 41, 59, 0.5)` | `#94a3b8` (slate) | External、generic、unknown |
+| Highlight | `rgba(59, 130, 246, 0.3)` | `#60a5fa` (blue) | Active state、focus、current step |
 
-For flowcharts and sequence diagrams, assign colors by role (actor, decision, process) rather than by technology.
+对 flowcharts 和 sequence diagrams，按角色（actor、decision、process）分配颜色，而不是按技术分配。
 
 ### Typography
 
-Use embedded SVG `@font-face` or system monospace fallback:
+使用内嵌 SVG `@font-face` 或 system monospace fallback：
 
 ```svg
 <style>
@@ -52,16 +52,16 @@ Use embedded SVG `@font-face` or system monospace fallback:
 </style>
 ```
 
-Font sizes by role:
+按角色设置字号：
 - **Title:** 16px, weight 700
 - **Component name:** 11-12px, weight 600
 - **Sublabel / description:** 9px, weight 400, color `#94a3b8`
 - **Annotation / note:** 8px, weight 400
-- **Tiny label (on arrows):** 7-8px
+- **Tiny label（箭头上）:** 7-8px
 
-### Core Visual Elements
+### 核心视觉元素
 
-**Background:** `#0f172a` (slate-900) with subtle grid:
+**Background:** `#0f172a` (slate-900)，带细微 grid：
 ```svg
 <defs>
   <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -72,41 +72,41 @@ Font sizes by role:
 <rect width="100%" height="100%" fill="url(#grid)"/>
 ```
 
-**Arrowhead marker (standard):**
+**Arrowhead marker（standard）：**
 ```svg
 <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
   <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
 </marker>
 ```
 
-**Arrowhead marker (colored) — create per-color as needed:**
+**Arrowhead marker（colored）— 按需为每种颜色创建：**
 ```svg
 <marker id="arrow-cyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
   <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee"/>
 </marker>
 ```
 
-**Open arrowhead (for async/return messages):**
+**Open arrowhead（用于 async/return messages）：**
 ```svg
 <marker id="arrow-open" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
   <polyline points="0 0, 10 3.5, 0 7" fill="none" stroke="#64748b" stroke-width="1.5"/>
 </marker>
 ```
 
-### SVG Structure & Layering
+### SVG 结构与 Layering
 
-Draw elements in this order to get correct z-ordering (SVG paints back-to-front):
+按以下顺序绘制元素，以获得正确 z-ordering（SVG 从后向前绘制）：
 
 1. Background fill + grid pattern
-2. Region/group boundaries (dashed outlines)
-3. Connection arrows and lines
-4. Opaque masking rects (same position as component boxes, `fill="#0f172a"`)
-5. Component boxes (semi-transparent fill + stroke)
+2. Region/group boundaries（dashed outlines）
+3. Connection arrows 和 lines
+4. Opaque masking rects（与 component boxes 同位置，`fill="#0f172a"`）
+5. Component boxes（semi-transparent fill + stroke）
 6. Text labels
-7. Legend (bottom-right or bottom area, outside all boundaries)
-8. Title block (top-left)
+7. Legend（bottom-right 或 bottom area，位于所有 boundaries 外）
+8. Title block（top-left）
 
-The opaque masking rect trick is essential — semi-transparent component fills will show arrows underneath without it:
+Opaque masking rect 技巧很关键；如果没有它，semi-transparent component fills 会透出下方箭头：
 ```svg
 <!-- Mask layer: opaque background to hide arrows -->
 <rect x="100" y="100" width="160" height="60" rx="6" fill="#0f172a"/>
@@ -116,21 +116,21 @@ The opaque masking rect trick is essential — semi-transparent component fills 
 <text x="180" y="141" fill="#94a3b8" font-size="9" text-anchor="middle">Kong / Nginx</text>
 ```
 
-### Spacing Rules
+### 间距规则
 
-These prevent overlapping — follow them strictly:
+这些规则用于防止重叠，请严格遵守：
 
-- **Component box height:** 50-70px (standard), 80-120px (large/complex)
-- **Minimum gap between components:** 40px vertical, 30px horizontal
-- **Arrow label clearance:** 10px from any box edge
-- **Region boundary padding:** 20px inside edges around contained components
-- **Legend placement:** At least 20px below the lowest diagram element
-- **Title block:** 20px from top-left, outside diagram content area
-- **viewBox:** Always extend to fit all content + 30px padding on all sides
+- **Component box height:** 50-70px（standard），80-120px（large/complex）
+- **Minimum gap between components:** vertical 40px，horizontal 30px
+- **Arrow label clearance:** 距任意 box edge 10px
+- **Region boundary padding:** contained components 周围内边距 20px
+- **Legend placement:** 至少低于最低 diagram element 20px
+- **Title block:** 距 top-left 20px，位于 diagram content area 外
+- **viewBox:** 始终扩展到容纳全部内容，并在四周留 30px padding
 
 ### Component Patterns
 
-**Standard box (service/process):**
+**Standard box（service/process）：**
 ```svg
 <rect x="X" y="Y" width="160" height="60" rx="6" fill="#0f172a"/>
 <rect x="X" y="Y" width="160" height="60" rx="6" fill="FILL" stroke="STROKE" stroke-width="1.5"/>
@@ -138,7 +138,7 @@ These prevent overlapping — follow them strictly:
 <text x="CX" y="Y+40" fill="#94a3b8" font-size="9" text-anchor="middle">description</text>
 ```
 
-**Decision diamond (flowchart):**
+**Decision diamond（flowchart）：**
 ```svg
 <g transform="translate(CX, CY)">
   <polygon points="0,-35 50,0 0,35 -50,0" fill="#0f172a"/>
@@ -174,75 +174,75 @@ These prevent overlapping — follow them strictly:
 <text x="X+10" y="Y+14" fill="#fb7185" font-size="8" font-weight="500">VPC / Security Group</text>
 ```
 
-## Type-Specific Layout Guidance
+## 特定类型 Layout 指南
 
-Determine this SKILL.md file's directory path as `{baseDir}`. Read the reference file for the specific diagram type before starting layout. Reference files are located at `{baseDir}/references/` and contain detailed layout algorithms and examples.
+将此 SKILL.md 文件所在目录路径确定为 `{baseDir}`。开始 layout 前，读取具体 diagram type 的 reference 文件。Reference files 位于 `{baseDir}/references/`，包含详细 layout algorithms 和 examples。
 
 ### Architecture Diagrams
 → Read `{baseDir}/references/architecture.md`
 
-Key points: left-to-right or top-to-bottom data flow. Group related services in region boundaries. Use buses/connectors between layers. Place databases at the bottom or right.
+要点：left-to-right 或 top-to-bottom data flow。将相关 services 分组到 region boundaries 中。层之间使用 buses/connectors。将 databases 放在底部或右侧。
 
 ### Flowcharts
 → Read `{baseDir}/references/flowchart.md`
 
-Key points: top-to-bottom primary flow. Diamonds for decisions with Yes/No labels on exit arrows. Rounded rectangles for start/end. Use the Highlight color for the happy path.
+要点：top-to-bottom primary flow。decisions 使用 diamonds，并在 exit arrows 上标注 Yes/No。start/end 使用 rounded rectangles。happy path 使用 Highlight color。
 
 ### Sequence Diagrams
 → Read `{baseDir}/references/sequence.md`
 
-Key points: actors as boxes at top, vertical dashed lifelines, horizontal arrows for messages (solid=sync, dashed=return). Time flows downward. Activation bars show processing. Number messages if complex.
+要点：actors 作为顶部 boxes，使用 vertical dashed lifelines，messages 使用 horizontal arrows（solid=sync，dashed=return）。时间向下流动。Activation bars 表示 processing。复杂时给 messages 编号。
 
 ### Structural Diagrams
 → Read `{baseDir}/references/structural.md`
 
-Key points: compartmented boxes (name / attributes / methods for class diagrams). Relationship lines: solid with filled diamond=composition, solid with empty diamond=aggregation, dashed arrow=dependency, solid triangle=inheritance.
+要点：compartmented boxes（class diagrams 中为 name / attributes / methods）。Relationship lines：solid with filled diamond=composition，solid with empty diamond=aggregation，dashed arrow=dependency，solid triangle=inheritance。
 
 ### Mind Maps
-Free-form radiating layout from a central concept. Use organic curves (`<path>` with cubic beziers) for branches. Vary branch colors using the palette. Larger font for central node, decreasing as you go outward.
+从 central concept 放射的 free-form layout。branches 使用 organic curves（带 cubic beziers 的 `<path>`）。使用 palette 变化 branch colors。central node 字号更大，向外逐级减小。
 
 ### Timelines
-Horizontal or vertical axis line. Event markers as circles or diamonds on the axis. Description text offset to alternating sides to avoid overlap. Use color to categorize event types.
+Horizontal 或 vertical axis line。Event markers 作为轴线上的 circles 或 diamonds。Description text 交替偏移到两侧以避免重叠。用颜色区分 event types。
 
 ### State Machines
-Rounded-rect states with double-border for composite states. Filled circle for initial state, bullseye for final state. Curved arrows for self-transitions. Label all transitions with `event [guard] / action` format.
+Rounded-rect states；composite states 使用 double-border。initial state 使用 filled circle，final state 使用 bullseye。self-transitions 使用 curved arrows。所有 transitions 用 `event [guard] / action` 格式标注。
 
 ## Output Rules
 
-1. Output a **single `.svg` file** — no external dependencies except the Google Fonts import
-2. Set `viewBox` to fit all content with 30px padding; do NOT set fixed `width`/`height` attributes (let the SVG scale responsively)
-3. Include `xmlns="http://www.w3.org/2000/svg"` on the root `<svg>` element
-4. Put all `<style>`, `<defs>`, markers, and patterns at the top of the SVG
-5. Use `text-anchor="middle"` for centered labels; ensure text doesn't overflow boxes
-6. **Chinese text support:** When labels contain Chinese characters, use `font-family: 'JetBrains Mono', 'Noto Sans SC', 'PingFang SC', sans-serif'` and increase box widths — CJK characters are wider
-7. **Save location:** If the input is a file, save to `{inputFileDir}/diagram/`. Otherwise save to `{projectDir}/diagram/{topic-slug}/`. Create the directory if it doesn't exist
+1. 输出**单个 `.svg` 文件**；除 Google Fonts import 外无外部依赖
+2. 设置 `viewBox` 以容纳所有内容并留 30px padding；不要设置固定 `width`/`height` 属性（让 SVG 响应式缩放）
+3. 在根 `<svg>` 元素上包含 `xmlns="http://www.w3.org/2000/svg"`
+4. 将所有 `<style>`、`<defs>`、markers 和 patterns 放在 SVG 顶部
+5. 居中 labels 使用 `text-anchor="middle"`；确保文本不溢出 boxes
+6. **中文文本支持**：当 labels 包含中文字符时，使用 `font-family: 'JetBrains Mono', 'Noto Sans SC', 'PingFang SC', sans-serif'` 并增加 box widths；CJK 字符更宽
+7. **保存位置**：如果输入是文件，保存到 `{inputFileDir}/diagram/`。否则保存到 `{projectDir}/diagram/{topic-slug}/`。如目录不存在则创建
 
 ## Script
 
-Determine this SKILL.md file's directory path as `{baseDir}`. Script path: `{baseDir}/scripts/main.ts`.
+将此 SKILL.md 文件所在目录路径确定为 `{baseDir}`。Script path：`{baseDir}/scripts/main.ts`。
 
-Resolve `${BUN_X}` runtime: if `bun` installed → `bun`; if `npx` available → `npx -y bun`; else suggest installing bun.
+解析 `${BUN_X}` runtime：如果已安装 `bun` → `bun`；如果 `npx` 可用 → `npx -y bun`；否则建议安装 bun。
 
 ### SVG → @2x PNG
 
-After saving the SVG, convert it to a @2x PNG:
+保存 SVG 后，将其转换为 @2x PNG：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/main.ts <svg-path> [options]
 ```
 
-Options:
-- `-s, --scale <n>` — Scale factor (default: 2)
-- `-o, --output <path>` — Custom output path (default: `<input>@2x.png`)
+Options：
+- `-s, --scale <n>` — Scale factor（默认：2）
+- `-o, --output <path>` — 自定义输出路径（默认：`<input>@2x.png`）
 - `--json` — JSON output
 
 ## Process
 
-1. Identify the diagram type from the user's request
-2. Read the relevant reference file if one exists for that type
-3. Plan the layout: list all components, determine grouping and flow direction, calculate positions
-4. Write the SVG following the layering order above
-5. Verify spacing rules — no overlaps, legends outside boundaries, viewBox large enough
-6. Save the SVG file
-7. Run `${BUN_X} {baseDir}/scripts/main.ts <svg-path>` to generate @2x PNG
-8. Present both files to the user
+1. 从用户请求识别 diagram type
+2. 如果该 type 有相关 reference 文件，读取它
+3. 规划 layout：列出所有 components，确定 grouping 和 flow direction，计算位置
+4. 按上面的 layering order 写 SVG
+5. 验证 spacing rules：无重叠，legends 位于 boundaries 外，viewBox 足够大
+6. 保存 SVG 文件
+7. 运行 `${BUN_X} {baseDir}/scripts/main.ts <svg-path>` 生成 @2x PNG
+8. 将两个文件都展示给用户

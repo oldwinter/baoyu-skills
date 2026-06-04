@@ -1,6 +1,6 @@
 ---
 name: baoyu-wechat-summary
-description: Summarizes WeChat group chat highlights into a structured digest using the local wx-cli binary (https://github.com/jackwener/wx-cli). Generates a normal digest by default; a roast (毒舌) version is opt-in. Maintains per-group history (history.json + history-digests.jsonl) and per-user profiles across runs, with privacy guardrails baked in. Use when the user asks to "总结群聊", "群聊精华", "群聊摘要", "summarize group chat", "group chat digest", mentions a WeChat group name with a time range, says "帮我看看 XX 群最近聊了什么", "XX 群有什么值得看的", or asks to "回溯画像" / "初始化画像" / "backfill profiles". Adds the roast version when the user says "毒舌版", "roast 版", "再来个毒舌的", or similar.
+description: 使用本地 wx-cli binary（https://github.com/jackwener/wx-cli）将 WeChat 群聊精华总结成结构化 digest。默认生成 normal digest；roast（毒舌）版本需要 opt-in。跨运行维护每个群的历史（history.json + history-digests.jsonl）和每个用户的 profiles，并内置隐私 guardrails。当用户要求 "总结群聊"、"群聊精华"、"群聊摘要"、"summarize group chat"、"group chat digest"，提到 WeChat 群名和时间范围，说 "帮我看看 XX 群最近聊了什么"、"XX 群有什么值得看的"，或要求 "回溯画像" / "初始化画像" / "backfill profiles" 时使用。当用户说 "毒舌版"、"roast 版"、"再来个毒舌的" 或类似表述时，添加 roast 版本。
 version: 1.117.3
 metadata:
   openclaw:
@@ -16,40 +16,40 @@ metadata:
 
 > **⚠️ Sandbox restriction**
 >
-> wx-cli reads from `~/.wx-cli/` (config, cache, daemon socket) and from WeChat's data directory (`~/Library/Containers/com.tencent.xinWeChat/` on macOS). Both paths are outside Claude Code's default sandbox. Every `wx` command in this skill needs to run with `dangerouslyDisableSandbox: true` from the start — don't waste a sandbox attempt first. The user can use `/sandbox` to view/edit restrictions.
+> wx-cli 会读取 `~/.wx-cli/`（config、cache、daemon socket）和 WeChat 的数据目录（macOS 上为 `~/Library/Containers/com.tencent.xinWeChat/`）。这两个路径都在 Claude Code 默认 sandbox 之外。此 skill 中每个 `wx` 命令一开始就需要用 `dangerouslyDisableSandbox: true` 运行 - 不要先浪费一次 sandbox 尝试。用户可用 `/sandbox` 查看/编辑限制。
 
-## User Input Tools
+## 用户输入工具
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当此 skill 需要提示用户时，按以下工具选择规则执行（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或等价工具。
+2. **Fallback**：如果不存在这类工具，输出带编号的纯文本消息，并请用户针对每个问题回复所选编号/答案。
+3. **批量提问**：如果工具支持单次调用多个问题，把所有适用问题合并到一次调用；如果只支持单问题，则按优先级逐个询问。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下面具体的 `AskUserQuestion` 引用只是示例 - 在其他 runtime 中替换为本地等价工具。
 
-## Prerequisites
+## 前置条件
 
-Before invoking the workflow, verify the environment. Run these checks in order; stop at the first failure and surface the exact next command the user needs.
+调用 workflow 前，先验证环境。按顺序运行这些检查；遇到第一个失败即停止，并给出用户需要运行的确切下一条命令。
 
-1. **wx-cli installed** — run `wx --version`. If missing, tell the user to install it themselves (`npm install -g @jackwener/wx-cli` or use one of the alternatives at https://github.com/jackwener/wx-cli). **Do NOT auto-install** — this repo forbids piped/silent installs.
-2. **`~/.wx-cli` directory owned by the current user** — `sudo wx init` historically chowned this directory to root, which breaks every subsequent non-sudo `wx` call. Check:
+1. **wx-cli installed** - 运行 `wx --version`。如果缺失，告诉用户自行安装（`npm install -g @jackwener/wx-cli`，或使用 https://github.com/jackwener/wx-cli 上的替代方式）。**不要自动安装** - 此 repo 禁止 piped/silent installs。
+2. **`~/.wx-cli` directory 由当前用户拥有** - 历史上 `sudo wx init` 会把这个目录 chown 给 root，导致之后每个非 sudo `wx` 调用都失败。检查：
    ```bash
    ls -la ~/.wx-cli/ 2>/dev/null | head -5
    ```
-   If the directory exists but the owner is `root` (or anything other than `$(whoami)`), tell the user to repair it themselves:
+   如果目录存在但 owner 是 `root`（或任何不是 `$(whoami)` 的用户），告诉用户自行修复：
    ```bash
    sudo chown -R $(whoami) ~/.wx-cli
    sudo rm -f ~/.wx-cli/daemon.pid ~/.wx-cli/daemon.sock
    wx daemon start
    ```
-   The skill should NOT run `sudo` on the user's behalf.
-3. **wx-cli initialized** — `wx sessions` should return data. If it fails with "no keys" / "init required", instruct the user to run `wx init` while WeChat is running (on macOS, `codesign --force --deep --sign - /Applications/WeChat.app` first). Prefer non-sudo init; only fall back to `sudo wx init` if the user's wx-cli version requires it — and warn them that they'll need step 2's chown after.
-4. **WeChat 4.x running and logged in** — required for the daemon to find data files.
+   Skill 不应代表用户运行 `sudo`。
+3. **wx-cli initialized** - `wx sessions` 应返回数据。如果它因 "no keys" / "init required" 失败，指示用户在 WeChat 运行时执行 `wx init`（macOS 上先执行 `codesign --force --deep --sign - /Applications/WeChat.app`）。优先非 sudo init；只有当用户的 wx-cli 版本要求时才 fallback 到 `sudo wx init` - 并提醒他们之后需要执行步骤 2 的 chown。
+4. **WeChat 4.x 正在运行且已登录** - daemon 查找数据文件需要它。
 
 ## Preferences (EXTEND.md)
 
-Check EXTEND.md in priority order — the first one found wins:
+按优先级检查 EXTEND.md - 第一个命中项生效：
 
 | Priority | Path | Scope |
 |----------|------|-------|
@@ -57,31 +57,31 @@ Check EXTEND.md in priority order — the first one found wins:
 | 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-wechat-summary/EXTEND.md` | XDG |
 | 3 | `$HOME/.baoyu-skills/baoyu-wechat-summary/EXTEND.md` | User home |
 
-| Result | Action |
+| 结果 | 操作 |
 |--------|--------|
-| Found | Read, parse, apply. On first use in session, briefly remind: "Using preferences from [path]. Edit it to change defaults." |
-| Not found | **MUST** run first-time setup (BLOCKING) before generating any digest — do NOT silently use defaults. |
+| Found | 读取、解析、应用。在会话首次使用时简短提醒："Using preferences from [path]. Edit it to change defaults." |
+| Not found | 生成任何 digest 前**必须**运行 first-time setup（BLOCKING）- 不要静默使用 defaults。 |
 
-### Supported keys
+### 支持的 keys
 
-EXTEND.md is plain text with `key: value` or `key=value` lines, `#` for comments, case-insensitive keys.
+EXTEND.md 是纯文本，使用 `key: value` 或 `key=value` 行，`#` 表示 comments，keys 大小写不敏感。
 
-| Key | Type | Default | Purpose |
+| Key | Type | Default | 用途 |
 |-----|------|---------|---------|
-| `self_wxid` | string | (required) | The owning account's wxid. Messages whose `from_wxid` matches this are attributed to the user. |
-| `self_display` | string | (required) | Display name to substitute for the user's own messages in digest text. |
-| `default_version` | `normal` / `roast` / `both` | `normal` | Which version(s) to generate when the user doesn't say otherwise. |
-| `default_time_range` | string (e.g. `7d`, `24h`, `1d`) | (none) | Default range when the user omits time and there's no incremental anchor. |
-| `data_root` | path | `{project_root}/wechat` | Override where digest folders live. |
-| `bot_aliases` | comma-separated strings | `bot, 精华bot` | Names that trigger the 「@bot 答疑」 section. A message containing `@<alias>` (case-insensitive) is treated as a question/request aimed at the digest bot. Pick names that do NOT match any real group member or existing bot, to avoid ambiguity. |
+| `self_wxid` | string | (required) | 所属账号的 wxid。`from_wxid` 与它匹配的消息会归属为用户本人。 |
+| `self_display` | string | (required) | 在 digest 文本中替换用户本人消息的显示名。 |
+| `default_version` | `normal` / `roast` / `both` | `normal` | 用户未特别说明时生成哪些版本。 |
+| `default_time_range` | string（例如 `7d`、`24h`、`1d`） | (none) | 用户省略时间且没有 incremental anchor 时使用的默认范围。 |
+| `data_root` | path | `{project_root}/wechat` | 覆盖 digest folders 的存放位置。 |
+| `bot_aliases` | comma-separated strings | `bot, 精华bot` | 触发「@bot 答疑」section 的名称。包含 `@<alias>`（case-insensitive）的消息会被视为面向 digest bot 的问题/请求。选择不会匹配任何真实群成员或现有 bot 的名称，避免歧义。 |
 
-A starter template lives at [EXTEND.md.example](EXTEND.md.example).
+Starter template 位于 [EXTEND.md.example](EXTEND.md.example)。
 
 ### First-Time Setup (BLOCKING)
 
-If no EXTEND.md is found, do NOT silently proceed.
+如果找不到 EXTEND.md，不要静默继续。
 
-**Step A — Try to auto-discover `self_wxid` and `self_display` first.** Run (in order, stop at the first that succeeds):
+**Step A - 先尝试自动发现 `self_wxid` 和 `self_display`。** 按顺序运行（遇到第一个成功项即停止）：
 
 ```bash
 # 1. If wx-cli exposes a whoami, use it
@@ -91,70 +91,70 @@ wx whoami --json 2>/dev/null
 wx sessions --json --limit 20 2>/dev/null
 ```
 
-For option 2, scan the sessions for any private/group thread the user has sent into and read one of their own `from_wxid` / `from_nickname` pairs. If you can confidently pre-fill both values, use them as defaults in the question below; otherwise leave the fields blank for the user to fill in.
+对于选项 2，扫描 sessions，找到用户曾发言的任何私聊/群聊 thread，并读取他们自己的 `from_wxid` / `from_nickname` pair。如果能有信心预填两个值，就把它们作为下面问题的默认值；否则留空让用户填写。
 
-**Step B — Confirm with one `AskUserQuestion` call (batched), pre-filling whatever auto-discovery found:**
+**Step B - 用一次 `AskUserQuestion` 调用确认（batched），预填自动发现的内容：**
 
-- `self_wxid` (e.g., `wxid_abc123`) — fall-back hint: the user can find it with `wx contacts --query "<own nickname>"`, or by inspecting any of their own sent messages in `wx sessions --json`
-- `self_display` (e.g., `宝玉`) — how they want their messages attributed
-- `default_version` — pick one of `normal` / `roast` / `both`
-- `data_root` — where digest folders live. Default: `{project_root}/wechat`. Enter a custom absolute path (e.g. `~/Documents/wechat-digests`) or leave blank for default.
-- Save location — pick one of project / XDG / home
+- `self_wxid`（例如 `wxid_abc123`）- fallback 提示：用户可通过 `wx contacts --query "<own nickname>"` 查找，或查看 `wx sessions --json` 中任意自己发送的消息。
+- `self_display`（例如 `宝玉`）- 他们希望自己消息在 digest 中如何署名。
+- `default_version` - 从 `normal` / `roast` / `both` 中选择一个。
+- `data_root` - digest folders 存放位置。默认：`{project_root}/wechat`。输入自定义绝对路径（例如 `~/Documents/wechat-digests`）或留空使用默认。
+- Save location - 从 project / XDG / home 中选择一个。
 
-Write EXTEND.md to the chosen path. If the user provided a non-default `data_root`, include it as an uncommented line; otherwise omit it (the default applies automatically). Confirm "Preferences saved to [path]. Edit it any time to change defaults.", then continue with the digest workflow.
+将 EXTEND.md 写入所选路径。如果用户提供了非默认 `data_root`，将它作为未注释行写入；否则省略它（默认值会自动生效）。确认 "Preferences saved to [path]. Edit it any time to change defaults."，然后继续 digest workflow。
 
 ## Workflow
 
 ### Step 1: Parse the user's request
 
-Extract:
+提取：
 
-- **Group name** (or partial name for fuzzy matching)
-- **Time range** — interpret flexibly:
+- **Group name**（或用于 fuzzy matching 的 partial name）
+- **Time range** - 灵活解释：
   - "最近 1 天" / "今天" / "last 24 hours" → 1 day
   - "最近 3 天" → 3 days
   - "最近 7 天" / "这周" → 7 days
   - "最近 30 天" / "最近一个月" → 30 days
-  - "某天" (e.g. "3 月 5 号") → that specific date
-  - "某天到某天" (e.g. "3 月 1 号到 3 月 5 号") → date range
+  - "某天"（例如 "3 月 5 号"）→ 该具体日期
+  - "某天到某天"（例如 "3 月 1 号到 3 月 5 号"）→ date range
   - "从上次开始" / "继续" / "接着上次" / "since last" → **incremental mode**: read `history.json` for this group, use `last_digest.last_message_time` as the start
-  - No time specified → **incremental mode**. If no `history.json` exists yet, fall back to `default_time_range` from EXTEND.md if set, else last 24 hours.
-- **Version(s) to generate**:
-  - Start from `default_version` in EXTEND.md.
-  - User request overrides: keywords "毒舌"/"roast"/"挑衅"/"再来个毒的"/"sass" → force `include_roast=true`. Keywords "只要正经的"/"normal only"/"不要毒舌" → force `include_normal=true, include_roast=false`. "都来一份"/"两个版本都要"/"both" → both.
-  - At least one of `include_normal`/`include_roast` must end up true.
+  - 未指定时间 → **incremental mode**。如果还没有 `history.json`，则 fallback 到 EXTEND.md 中设置的 `default_time_range`；如果未设置，则使用 last 24 hours。
+- **要生成的版本**：
+  - 从 EXTEND.md 中的 `default_version` 开始。
+  - 用户请求覆盖：关键词 "毒舌"/"roast"/"挑衅"/"再来个毒的"/"sass" → 强制 `include_roast=true`。关键词 "只要正经的"/"normal only"/"不要毒舌" → 强制 `include_normal=true, include_roast=false`。"都来一份"/"两个版本都要"/"both" → both。
+  - 最终 `include_normal`/`include_roast` 至少有一个为 true。
 
-Convert relative ranges into absolute `--since YYYY-MM-DD --until YYYY-MM-DD` pairs using today's local date.
+使用今天的本地日期，将相对范围转换为绝对的 `--since YYYY-MM-DD --until YYYY-MM-DD` pair。
 
-### Step 2: Find the group + resolve folder path
+### Step 2: 查找群并解析 folder path
 
 ```bash
 wx contacts --query "<group_name>" --json
 ```
 
-Filter for entries whose `username` ends in `@chatroom`. If multiple groups match, use `AskUserQuestion` to disambiguate. If none match, fall back to `wx sessions --json` and search there before asking the user.
+筛选 `username` 以 `@chatroom` 结尾的 entries。如果匹配多个群，使用 `AskUserQuestion` 消歧。如果没有匹配项，在询问用户前先 fallback 到 `wx sessions --json` 并在那里搜索。
 
-Once resolved, compute the folder path:
+解析后，计算 folder path：
 
 ```
 {data_root}/{group_id}-{sanitized_group_name}/
 ```
 
-where `data_root` is from EXTEND.md (default `{project_root}/wechat`).
+其中 `data_root` 来自 EXTEND.md（默认 `{project_root}/wechat`）。
 
-**Sanitize the group name** — replace any of `/ \ : * ? " < > | NUL` and control characters with `_`. Trim trailing dots and whitespace. Don't strip emoji or Chinese characters.
+**Sanitize group name** - 将任何 `/ \ : * ? " < > | NUL` 和控制字符替换为 `_`。裁掉末尾 dots 和 whitespace。不要移除 emoji 或中文字符。
 
-**Group-rename detection**: list existing folders under `{data_root}/` and find any folder whose name starts with `{group_id}-`. If one exists but the suffix differs (group was renamed), rename the existing folder to the new `{group_id}-{sanitized_new_name}` form. If a target with the new name already exists (rare), keep both and prefer the existing one for this run.
+**群重命名检测**：列出 `{data_root}/` 下现有 folders，查找任何名称以 `{group_id}-` 开头的 folder。如果存在但 suffix 不同（群已重命名），将现有 folder 重命名为新的 `{group_id}-{sanitized_new_name}` 形式。如果新名称 target 已存在（少见），保留两者并在本次运行优先使用现有 target。
 
-### Step 3: Fetch messages
+### Step 3: 获取 messages
 
-For small batches (single-day digest, typically < 200 messages), pipe JSON into the agent directly:
+对于小批量（单日 digest，通常 < 200 messages），直接将 JSON pipe 给 agent：
 
 ```bash
 wx history "<group_name_or_id>" --since YYYY-MM-DD --until YYYY-MM-DD -n 5000 --json
 ```
 
-For **large batches** (weekly / monthly digests, > 200 messages), redirect to `$TMPDIR` first so the raw payload never sits in conversation context:
+对于**大批量**（weekly / monthly digests，> 200 messages），先重定向到 `$TMPDIR`，避免 raw payload 进入 conversation context：
 
 ```bash
 wx history "<group_name_or_id>" --since YYYY-MM-DD --until YYYY-MM-DD -n 5000 --json > "$TMPDIR/wx-messages.json"
@@ -162,48 +162,48 @@ wc -c "$TMPDIR/wx-messages.json"
 jq 'length' "$TMPDIR/wx-messages.json"
 ```
 
-Then read the file in slices via `Read` with `offset` + `limit`, or process with `jq` queries (e.g. `jq '.[0:200]'`, `jq '[.[] | {id, from_nickname, timestamp, content: (.content | .[0:50])}]'` for a lightweight skeleton pass). Reading all 500+ messages at once will burn token budget unnecessarily.
+然后用带 `offset` + `limit` 的 `Read` 分片读取文件，或用 `jq` queries 处理（例如 `jq '.[0:200]'`，或用于轻量 skeleton pass 的 `jq '[.[] | {id, from_nickname, timestamp, content: (.content | .[0:50])}]'`）。一次读取全部 500+ messages 会不必要地消耗 token budget。
 
-Notes:
+说明：
 
-- `--since` is inclusive; `--until` is interpreted as a date (the whole day). If the user asked for "today only", set both to today.
-- `-n 5000` is a defensive cap; for very active groups, raise it and re-fetch.
-- Filter the returned messages by their `timestamp` to be safe (some daemons may return adjacent days).
-- **Range splitting**: for ranges > 7 days OR > 500 messages, prefer generating per-3-day digests and then a meta-summary over forcing one giant digest — the categorization quality degrades sharply past a week's worth of unrelated topics.
+- `--since` 是 inclusive；`--until` 被解释为日期（整天）。如果用户要求 "today only"，两者都设为今天。
+- `-n 5000` 是防御性上限；对于非常活跃的群，提高它并重新 fetch。
+- 为安全起见，按返回 messages 的 `timestamp` 再过滤一次（某些 daemons 可能返回相邻日期）。
+- **Range splitting**：对于 > 7 天或 > 500 messages 的范围，优先生成每 3 天一个 digest，然后再生成 meta-summary，而不是强行生成一个巨大 digest - 超过一周的不相关话题会让分类质量急剧下降。
 
-**Incremental mode**: after the fetch, drop any message whose `timestamp` is `<=` the `last_message_time` from `history.json`. If zero messages remain, tell the user "上次摘要后没有新消息，已跳过生成" and exit.
+**Incremental mode**：fetch 后，丢弃任何 `timestamp` `<=` `history.json` 中 `last_message_time` 的 message。如果没有剩余消息，告诉用户 "上次摘要后没有新消息，已跳过生成" 并退出。
 
-### Step 3.5: Parse the message schema
+### Step 3.5: 解析 message schema
 
-`wx history --json` returns an array of message objects. Use the fields that are present; tolerate missing fields:
+`wx history --json` 返回 message objects 数组。使用实际存在的字段；容忍字段缺失：
 
-- **`id` / `msg_id` / `local_id`** — message identifier (use whichever wx-cli emits). Reference IDs in working notes as anchors when building the skeleton.
+- **`id` / `msg_id` / `local_id`** - message identifier（使用 wx-cli 实际输出的那个）。构建 skeleton 时，在 working notes 中将 reference IDs 作为 anchors。
 - **`from_wxid`** — stable sender identifier
 - **`from_nickname`** — display name (may be the group remark or original nickname)
-- **`content`** — text payload. Examples:
-  - Plain text → use as-is
-  - `[图片]` → opaque placeholder; see image handling below
-  - `[表情]` → emoji/sticker; skip in body unless surrounded by discussion
-  - `[视频]` / `[文件]` → media reference; skip unless discussed
-  - `[链接] <title>` or `[链接/文件] <title>` → shared article; the title IS the information — quote it and credit the sharer
-  - `[系统] ... revokemsg` → revoked; exclude from digest and from leaderboard
-- **`timestamp`** — convert to `MM-DD HH:MM` for display (and use full ISO for `generated_at`)
-- **`chat_type`** — sanity-check `group`
-- **Quote/reply** — try `quote_id`, `reply_to`, `quoted_msg_id`, or any nested `quote` object. If present, use it as strong attribution. If absent, fall back to context but flag the inferred link as uncertain.
+- **`content`** - text payload。示例：
+  - Plain text → 原样使用
+  - `[图片]` → opaque placeholder；见下方 image handling
+  - `[表情]` → emoji/sticker；除非周围有讨论，否则正文中跳过
+  - `[视频]` / `[文件]` → media reference；除非被讨论，否则跳过
+  - `[链接] <title>` 或 `[链接/文件] <title>` → shared article；title 本身就是信息 - 引用它并注明分享者
+  - `[系统] ... revokemsg` → 已撤回；从 digest 和 leaderboard 中排除
+- **`timestamp`** - 转为 `MM-DD HH:MM` 用于展示（`generated_at` 使用完整 ISO）
+- **`chat_type`** - sanity-check `group`
+- **Quote/reply** - 尝试 `quote_id`、`reply_to`、`quoted_msg_id` 或任何嵌套 `quote` object。如果存在，将其作为强 attribution。如果不存在，fallback 到上下文，但在 working notes 中标记推断关系不确定。
 
-### Step 3.6: Resolve self + ambiguous nicknames
+### Step 3.6: 解析 self 和 ambiguous nicknames
 
-- Substitute `self_display` for every message whose `from_wxid` matches `self_wxid` (from EXTEND.md). Apply this in the leaderboard, portraits, and body text. The user MUST appear under their real display name and count toward stats — never skip them.
-- Scan all unique senders for ambiguous handles: ≤2 characters, common programming words (`nil`, `null`, `test`, `admin`, `user`, `undefined`), single emoji, or otherwise low-information. For each, run `wx contacts --query "<nick>" --json --limit 5` and pick a meaningful name in this priority: remark > nickname > wxid. Apply the substitution everywhere in the digest.
+- 对每条 `from_wxid` 匹配 `self_wxid`（来自 EXTEND.md）的消息，用 `self_display` 替换。将此替换应用于 leaderboard、portraits 和正文。用户必须以真实显示名出现并计入 stats - 永远不要跳过他们。
+- 扫描所有 unique senders，查找 ambiguous handles：≤2 个字符、常见编程词（`nil`、`null`、`test`、`admin`、`user`、`undefined`）、单个 emoji 或其他低信息名称。对每个名称运行 `wx contacts --query "<nick>" --json --limit 5`，并按优先级选择有意义名称：remark > nickname > wxid。将替换应用到 digest 各处。
 
 ### Step 3.7: Load user profiles
 
-For each unique sender appearing in this batch:
+对本批次出现的每个 unique sender：
 
-- Look in `{folder}/profiles/{wxid}-*.md` by `wxid` prefix match. Read the matched file if found.
-- If `include_roast`, **also** look in `{folder}/profiles-roast/{wxid}-*.md` for the roast pass.
+- 按 `wxid` prefix match 在 `{folder}/profiles/{wxid}-*.md` 中查找。如果找到，读取匹配文件。
+- 如果 `include_roast`，roast pass **还要**在 `{folder}/profiles-roast/{wxid}-*.md` 中查找。
 
-Compile a condensed **profile context block** as internal working memory — do NOT write it into the final digest. Example shape:
+编译一个精简的 **profile context block** 作为内部 working memory - 不要写入最终 digest。示例形态：
 
 ```
 == 群友历史画像（来自 profiles/）==
@@ -211,62 +211,62 @@ K. H：空中直播员 / 生活百科全书。常见话题：旅行、金融、�
 可可苏玛：...
 ```
 
-Rules:
+规则：
 
-- Only load profiles for users active in this batch — never preload everyone.
-- Profile is **background**, not template. Current messages are still the primary source.
-- Use historical labels for **continuity** ("又双叒叕化身空中直播员") or **contrast** ("一向省钱的 XX 今天居然...").
-- **Strict separation**: normal pass reads only `profiles/`, roast pass reads only `profiles-roast/`. Never cross-load.
+- 只加载本批次活跃用户的 profiles - 绝不预加载所有人。
+- Profile 是**背景**，不是模板。当前 messages 仍是主要来源。
+- 使用历史标签来增强**连续性**（"又双叒叕化身空中直播员"）或**反差**（"一向省钱的 XX 今天居然..."）。
+- **严格隔离**：normal pass 只读取 `profiles/`，roast pass 只读取 `profiles-roast/`。绝不交叉加载。
 
-See [references/profiles.md](references/profiles.md) for the full file format.
+完整文件格式见 [references/profiles.md](references/profiles.md)。
 
-### Step 3.8: Detect existing in-chat digests (optional)
+### Step 3.8: 检测已有 in-chat digests（可选）
 
-Some users (e.g., the original 宝玉 workflow) post digests directly into the group as messages. If we don't notice these, the new digest will re-cover the same ground.
+有些用户（例如原始宝玉 workflow）会直接把 digests 作为消息发进群。如果没有发现这些内容，新 digest 会重复覆盖同一范围。
 
-Scan the fetched messages for signals of a prior in-chat digest:
+扫描 fetched messages，寻找之前 in-chat digest 的信号：
 
 - `from_wxid == self_wxid` AND
 - `content` contains `群聊精华` OR `消息统计:` OR `📊 消息统计` OR a leaderboard pattern (e.g. `^\d+\. .+: \d+ 条`), AND
 - `content` length > 1500 chars.
 
-If a match is found:
+如果找到匹配项：
 
-1. Extract the digest's covered date or range from the title line (e.g., `xxx 群聊精华 · 2026-05-12` or `... · 2026-05-10 ~ 2026-05-12`).
-2. Surface the finding to the user via `AskUserQuestion`:
+1. 从标题行提取 digest 覆盖的日期或范围（例如 `xxx 群聊精华 · 2026-05-12` 或 `... · 2026-05-10 ~ 2026-05-12`）。
+2. 通过 `AskUserQuestion` 将发现告知用户：
    - "Detected an in-chat digest by you covering {范围}. Use {范围 end + 1} as the start instead of `history.json`?"
    - Options: `Yes, skip up to {end of detected range}` / `No, use history.json` / `No, cover everything in the requested range`.
-3. Apply the chosen anchor.
+3. 应用所选 anchor。
 
-This is a heuristic — when uncertain (multiple matches, malformed title), default to `history.json` and tell the user what was skipped.
+这是启发式规则 - 当不确定时（多个匹配、标题格式异常），默认使用 `history.json`，并告诉用户跳过了什么。
 
-### Step 3.9: Detect @bot requests (if any)
+### Step 3.9: 检测 @bot requests（如有）
 
-Some group members address the digest bot directly — e.g. `@bot 帮我把昨天的讨论捋一下` or `@精华bot 这个链接讲了啥`. Catch these so each digest can answer them in a dedicated section instead of dropping them as noise.
+有些群成员会直接呼叫 digest bot，例如 `@bot 帮我把昨天的讨论捋一下` 或 `@精华bot 这个链接讲了啥`。捕捉这些请求，让每期 digest 能在专门 section 中回答，而不是把它们当作噪音丢掉。
 
-**Trigger**: a message whose text contains `@<alias>` for any alias in `bot_aliases` (from EXTEND.md; default `bot`, `精华bot`; case-insensitive). Aliases are stored as bare names — match the `@` prefix plus the alias.
+**Trigger**：消息文本包含 `bot_aliases`（来自 EXTEND.md；默认 `bot`、`精华bot`；case-insensitive）中任意 alias 的 `@<alias>`。Aliases 以裸名称存储 - 匹配 `@` 前缀加 alias。
 
-**Extract** into an internal worklist `== @bot 请求清单 ==` (working memory only — never written to the final digest):
+**提取**到内部 worklist `== @bot 请求清单 ==`（仅 working memory - 不写入最终 digest）：
 
-- Asker's real name — after Step 3.6 resolution; substitute `self_display` for the `self_wxid` user.
-- Request body — the text after stripping the `@<alias>` prefix. If the message is a reply (per Step 3.5's quote/reply fields), include the quoted message as context.
-- Anchor `local_id` for back-reference.
+- 提问者真实姓名 - 完成 Step 3.6 解析后；对于 `self_wxid` 用户替换为 `self_display`。
+- 请求正文 - 去掉 `@<alias>` 前缀后的文本。如果该消息是 reply（按 Step 3.5 的 quote/reply fields 判断），包含 quoted message 作为 context。
+- 用于 back-reference 的 anchor `local_id`。
 
-**Misfire filtering**: if a real member's nickname happens to equal an alias, judge by context. Keep only messages genuinely aimed at the digest bot (a question or request for it); skip clear person-to-person talk — a reply to that real person, or banter teasing them. (Choosing a `bot_aliases` value no real member uses avoids this at the source; the filter is a backstop.) Pure greetings/banter (`@bot 在吗`) may be kept with a brief reply.
+**误触过滤**：如果真实成员昵称恰好等于某个 alias，按上下文判断。只保留真正面向 digest bot 的消息（问题或请求）；跳过明显的人对人对话 - 给那个真人的 reply，或调侃他们的玩笑。（选择没有真实成员使用的 `bot_aliases` 值可从源头避免问题；此过滤是兜底。）纯问候/闲聊（`@bot 在吗`）可以保留并简短回复。
 
-**Answer-source constraint** (honored when rendering the section per [references/output-formats.md](references/output-formats.md)): answer from the group chat context plus your own knowledge only — **no web access**. For any request needing real-time or external information you can't verify, say so honestly (`这个我查不到实时数据，需要联网确认`) rather than fabricating.
+**Answer-source constraint**（按 [references/output-formats.md](references/output-formats.md) 渲染 section 时遵守）：只从群聊上下文和你自己的知识回答 - **不要 web access**。对于任何需要实时或外部信息且你无法验证的请求，诚实说明（`这个我查不到实时数据，需要联网确认`），不要编造。
 
-**No hits** → both versions omit the @bot 答疑 section entirely.
+**No hits** → 两个版本都完全省略 @bot 答疑 section。
 
-Do this in the same read-through as Round 1's skeleton (via its `== @bot 请求清单 ==` block) so the messages aren't scanned twice.
+在构建 Round 1 skeleton 的同一次 read-through 中完成（通过它的 `== @bot 请求清单 ==` block），避免 messages 被扫描两次。
 
-Generate the digest in three rounds so nothing slips through. The methodology stays here in SKILL.md; the content/style rules live in [references/output-formats.md](references/output-formats.md) — read that file in Round 2 before drafting.
+分三轮生成 digest，避免遗漏。方法论保留在 SKILL.md；content/style rules 位于 [references/output-formats.md](references/output-formats.md) - 在 Round 2 起草前读取该文件。
 
-#### Round 1 — Build the skeleton
+#### Round 1 - 构建 skeleton
 
-Read every message in order. **Skip image fetching/decoding** in this round. List every distinct discussion topic. Bias toward over-listing — trim in Round 3.
+按顺序读取每条 message。本轮**跳过 image fetching/decoding**。列出每个独立讨论话题。宁可多列 - Round 3 再裁剪。
 
-Internal working format (not written to the final file):
+内部 working format（不写入最终文件）：
 
 ```
 == 话题清单（共 N 条消息）==
@@ -285,31 +285,31 @@ Internal working format (not written to the final file):
 （本期无 @bot 请求则写「无」）
 ```
 
-Topic principles:
+话题原则：
 
-- Topic-switch signals: time gap > 30 min, participant change, content jump.
-- 2+ participants OR substantive content qualifies as a topic; pure emoji-banter does not.
-- **Strict attribution**: each topic must record "who said what". Don't fuse adjacent messages from different senders just because they're close in time — when minutes apart or interleaved with others, split into separate topics. Prefer two topics over one wrongly-merged topic.
-- **Carry anchor IDs**: list the key message IDs for each topic. In Round 2, jump back to these IDs in the raw messages and verify content, don't guess from context. If `quote_id` / `reply_to` is present, use the ID chain — that's the most reliable attribution.
+- Topic-switch signals：时间间隔 > 30 分钟、参与者变化、内容跳跃。
+- 2+ participants 或 substantive content 可构成话题；纯 emoji-banter 不算。
+- **严格 attribution**：每个话题必须记录“谁说了什么”。不要仅因为时间接近就把不同发送者的相邻消息合并 - 如果相隔几分钟或穿插他人消息，拆成不同话题。宁可两个话题，也不要错误合并成一个。
+- **携带 anchor IDs**：列出每个话题的关键 message IDs。Round 2 中回跳到 raw messages 的这些 IDs 验证内容，不要凭上下文猜。如果存在 `quote_id` / `reply_to`，使用 ID chain - 这是最可靠的 attribution。
 
-**Flag-for-images criteria** (any one triggers): an explicit comment on an image (`看发型是X？`, `这是谁？`, `笑死`), multiple people piling onto the same image without saying what it is, an image as the core information (晒单/截图/资料), an explanatory line right after an image (`gpt-image-2`, `太可怕了`), or cross-sender ambiguity (B says "这个看着像 X" but the previous image is from A).
+**Flag-for-images criteria**（任一触发）：对图片的明确评论（`看发型是X？`、`这是谁？`、`笑死`）、多人围绕同一图片发言但没说明图片内容、图片本身是核心信息（晒单/截图/资料）、图片后紧跟解释行（`gpt-image-2`、`太可怕了`），或跨发送者歧义（B 说“这个看着像 X”，但上一张图片来自 A）。
 
-#### Round 2 — Flesh out + write the digest
+#### Round 2 - 展开并写 digest
 
-For each topic in the skeleton, jump back to its anchor IDs and expand into full content with quotes and clear attribution. Then write the digest file.
+对 skeleton 中每个话题，回跳到它的 anchor IDs，用引用和清晰 attribution 展开为完整内容。然后写 digest file。
 
-**Image handling** (limited — wx-cli does not decode chat images):
+**Image handling**（有限 - wx-cli 不解码聊天图片）：
 
-For each flagged topic, check whether a description file already exists at `{folder}/imgs/{message_id}.txt`. If yes, read it (one-line plain text) and weave its content into the topic. If no, treat the image as opaque (`[图片]`) and write around it — describe what the surrounding messages tell us, but don't invent visual content.
+对每个 flagged topic，检查 `{folder}/imgs/{message_id}.txt` 是否已有 description file。如果有，读取它（单行纯文本）并将内容织入话题。如果没有，把图片视为 opaque（`[图片]`），围绕它来写 - 描述周围消息告诉我们的内容，但不要编造视觉内容。
 
-The `imgs/` directory exists as an **extension point**: a user (or a future wx-cli capability) can drop `{message_id}.txt` files with one-line descriptions, and the skill will pick them up. The skill itself does NOT generate these files in this version.
+`imgs/` directory 是一个 **extension point**：用户（或未来 wx-cli capability）可以放入带单行描述的 `{message_id}.txt` 文件，skill 会读取它们。此版本的 skill 自身不会生成这些文件。
 
-**Use the profile context block** (from Step 3.7):
+**使用 profile context block**（来自 Step 3.7）：
 
 - Echo continuity for matching behavior ("又双叒叕直播飞行体验")
 - Highlight contrast for departures ("一向话少的 XX 今天突然爆发")
 - Callback past quotes ("继上次'要不要买 moderna'之后，这次又...")
-- Don't sacrifice current material to force a callback.
+- 不要为了强行 callback 而牺牲当期素材。
 
 **Roast pass — profile usage extras** (only when generating the roast version):
 
@@ -318,41 +318,41 @@ The `imgs/` directory exists as an **extension point**: a user (or a future wx-c
 - 历史毒舌语录可以引用或翻新
 - 但当期素材优先，不要为了 callback 硬凑
 
-**Writing order**: write the body categories first, then the opening overview based on the finished body (so the hook is accurate).
+**写作顺序**：先写正文 categories，再基于完成后的正文写开场 overview（这样 hook 才准确）。
 
-Detailed structure, voice, formatting rules, and content guidelines are in [references/output-formats.md](references/output-formats.md). Load that file now if not already loaded.
+详细 structure、voice、formatting rules 和 content guidelines 位于 [references/output-formats.md](references/output-formats.md)。如果尚未加载，现在加载。
 
-#### Round 3 — Audit
+#### Round 3 - Audit
 
-Walk the Round 1 skeleton against the finished digest. Check:
+将 Round 1 skeleton 与完成后的 digest 对照检查：
 
-- Any listed topic missing from the digest?
-- Quotes, names, product/tool names preserved verbatim?
-- Categorization makes sense — is anything in the wrong bucket?
+- 是否有列出的话题未出现在 digest 中？
+- Quotes、names、product/tool names 是否逐字保留？
+- 分类是否合理 - 有没有内容放错 bucket？
 
-Fix in place. When clean, confirm and proceed.
+就地修正。确认干净后继续。
 
-### Step 7: Save the digest file(s)
+### Step 7: 保存 digest file(s)
 
 If `include_normal`:
 
-- Single date → `{folder}/YYYY-MM-DD.md`
+- 单日 → `{folder}/YYYY-MM-DD.md`
 - Date range → `{folder}/YYYY-MM-DD_YYYY-MM-DD.md`
-- Overwrite if the same date/range already exists.
+- 如果同一日期/范围已存在，则 overwrite。
 
 If `include_roast`:
 
-- Same naming, but with `-roast` suffix: `YYYY-MM-DD-roast.md` or `YYYY-MM-DD_YYYY-MM-DD-roast.md`.
+- 使用相同命名，但带 `-roast` suffix：`YYYY-MM-DD-roast.md` 或 `YYYY-MM-DD_YYYY-MM-DD-roast.md`。
 
-Both versions share the same statistics (message count, leaderboard) and the same underlying skeleton.
+两个版本共享相同 statistics（message count、leaderboard）和同一底层 skeleton。
 
-### Step 8: Save history (two files)
+### Step 8: 保存 history（两个文件）
 
-Maintain two files in the group folder:
+在 group folder 中维护两个文件：
 
-#### `history.json` — single record, fast read
+#### `history.json` - 单条记录，快速读取
 
-Always reflects only the most recent normal digest. Overwrite on each run when `include_normal=true`.
+始终只反映最近一次 normal digest。当 `include_normal=true` 时，每次运行 overwrite。
 
 ```json
 {
@@ -369,14 +369,14 @@ Always reflects only the most recent normal digest. Overwrite on each run when `
 }
 ```
 
-- `group_name` updates on every run (handles renames).
-- `folder` records the current folder basename for cross-reference.
-- `last_message_time` is the timestamp of the most recent message included, in `MM-DD HH:MM` — used by incremental mode.
-- Roast-only runs do NOT touch this file.
+- `group_name` 每次运行都会更新（处理重命名）。
+- `folder` 记录当前 folder basename，便于 cross-reference。
+- `last_message_time` 是已包含的最新 message timestamp，格式为 `MM-DD HH:MM` - incremental mode 会使用它。
+- Roast-only runs 不触碰此文件。
 
-#### `history-digests.jsonl` — append-only archive
+#### `history-digests.jsonl` - append-only archive
 
-One JSON object per line, same shape as `last_digest`. Every normal-version run appends one line (in chronological order). Used by backfill and historical lookups. Never read for incremental mode (which only needs the latest).
+每行一个 JSON object，shape 与 `last_digest` 相同。每次 normal-version run 追加一行（按时间顺序）。用于 backfill 和 historical lookups。Incremental mode 永远不读取它（只需要最新记录）。
 
 ```jsonl
 {"file":"2026-03-10.md","date_range":"2026-03-10","generated_at":"2026-03-10T09:00:00+08:00","message_count":420,"last_message_time":"03-10 22:30"}
@@ -384,20 +384,20 @@ One JSON object per line, same shape as `last_digest`. Every normal-version run 
 {"file":"2026-03-12.md","date_range":"2026-03-12","generated_at":"2026-03-12T10:30:00+08:00","message_count":150,"last_message_time":"03-12 18:45"}
 ```
 
-If a normal digest with the same `file` name is regenerated, append a new line anyway (the JSONL is a strict log; readers can dedupe by `file` if they need to).
+如果重新生成同名 `file` 的 normal digest，仍然追加新行（JSONL 是严格 log；读者需要时可按 `file` dedupe）。
 
-### Step 8.5: Update user profiles
+### Step 8.5: 更新 user profiles
 
-For each user with 3+ messages in this batch who appeared in the 群友画像 section:
+对本批次中有 3+ messages 且出现在群友画像 section 的每个用户：
 
 - If `include_normal`, update `{folder}/profiles/{wxid}-{nickname}.md`.
 - If `include_roast`, update `{folder}/profiles-roast/{wxid}-{nickname}.md`.
 
-Counts, frontmatter updates, append-only rules for quotes and events, and privacy guardrails are detailed in [references/profiles.md](references/profiles.md). Load that file when running this step.
+Counts、frontmatter updates、quotes 和 events 的 append-only rules，以及 privacy guardrails，详见 [references/profiles.md](references/profiles.md)。执行此步骤时加载该文件。
 
-### Completion checklist
+### 完成检查清单
 
-Profile updates are easy to forget once the digest is on disk. Before reporting the run as "done", verify every applicable file:
+Digest 落盘后很容易忘记 profile updates。报告运行 "done" 前，验证每个适用文件：
 
 - [ ] `{folder}/YYYY-MM-DD.md` written (if `include_normal`)
 - [ ] `{folder}/YYYY-MM-DD-roast.md` written (if `include_roast`)
@@ -406,83 +406,83 @@ Profile updates are easy to forget once the digest is on disk. Before reporting 
 - [ ] `{folder}/profiles/{wxid}-*.md` updated for every user with 3+ messages (if `include_normal`)
 - [ ] `{folder}/profiles-roast/{wxid}-*.md` updated for every user with 3+ messages (if `include_roast`)
 
-If any item is unchecked, finish it before declaring success. Don't ship a digest with a stale `history.json` — incremental mode depends on it.
+如果有任何项目未勾选，在声明成功前完成它。不要交付带过期 `history.json` 的 digest - incremental mode 依赖它。
 
-### Step 9: Backfill (user-triggered)
+### Step 9: Backfill（用户触发）
 
-When the user says "回溯画像" / "初始化画像" / "backfill profiles":
+当用户说 "回溯画像" / "初始化画像" / "backfill profiles" 时：
 
-1. Confirm the target group (if not specified, ask which one).
-2. List all digest files in `{folder}/` and `history-digests.jsonl`.
-3. Read existing digests in batches of 10–15 to avoid context blowup.
-4. For users appearing in 3+ digests, seed profile files using their leaderboard counts, portrait paragraphs, and quoted lines from the historical digests.
-5. Write to `profiles/` (and `profiles-roast/` if any `-roast.md` files exist).
-6. Report back: how many profiles were created, how many users covered.
+1. 确认 target group（如果未指定，询问是哪一个）。
+2. 列出 `{folder}/` 中所有 digest files 和 `history-digests.jsonl`。
+3. 按 10-15 个一批读取现有 digests，避免 context blowup。
+4. 对出现在 3+ digests 中的用户，使用历史 digests 中的 leaderboard counts、portrait paragraphs 和 quoted lines 初始化 profile files。
+5. 写入 `profiles/`（如果存在任何 `-roast.md` 文件，也写入 `profiles-roast/`）。
+6. 回报：创建了多少 profiles，覆盖了多少 users。
 
-Full procedure in [references/profiles.md](references/profiles.md).
+完整流程见 [references/profiles.md](references/profiles.md)。
 
-## Storage layout
+## 存储布局
 
 ```
-{data_root}/                                        # default: {project_root}/wechat/
+{data_root}/                                        # 默认：{project_root}/wechat/
 └── {group_id}-{group_name}/                        # e.g. 12345678901@chatroom-相亲相爱一家人/
-    ├── history.json                                # last digest pointer (fast)
+    ├── history.json                                # last digest pointer（fast）
     ├── history-digests.jsonl                       # append-only archive
-    ├── 2026-03-12.md                               # normal digest, single date
-    ├── 2026-03-12-roast.md                         # roast digest (only if generated)
-    ├── 2026-03-10_2026-03-12.md                    # normal digest, date range
+    ├── 2026-03-12.md                               # normal digest，single date
+    ├── 2026-03-12-roast.md                         # roast digest（仅生成时存在）
+    ├── 2026-03-10_2026-03-12.md                    # normal digest，date range
     ├── profiles/                                   # normal user profiles
     │   ├── onlytiancai-胡浩🐸.md
     │   └── ...
-    ├── profiles-roast/                             # roast user profiles (only if any roast generated)
+    ├── profiles-roast/                             # roast user profiles（仅生成过 roast 时存在）
     │   ├── onlytiancai-胡浩🐸.md
     │   └── ...
-    └── imgs/                                       # optional image-description files
-        ├── 49661.txt                               # one-line plain text description
+    └── imgs/                                       # 可选 image-description files
+        ├── 49661.txt                               # 单行纯文本描述
         └── ...
 ```
 
 ## wx-cli quick reference
 
-| Command | Purpose |
+| Command | 用途 |
 |---------|---------|
-| `wx --version` | Sanity-check that wx-cli is installed |
-| `wx sessions --json` | List recent sessions; useful for verifying init and finding the user's own wxid |
-| `wx contacts --query "<name>" --json` | Fuzzy-match contacts/groups by display name, remark, or wxid |
-| `wx history "<group>" --since DATE --until DATE -n N --json` | Pull a group's messages within a date range as JSON |
-| `wx members "<group>" --json` | List a group's members (rarely needed; mostly for completeness) |
-| `wx stats "<group>" --since DATE` | wx-cli's built-in stats; we compute our own from `wx history` JSON so the format matches our digest |
-| `wx daemon status` / `wx daemon stop` / `wx daemon logs --follow` | Daemon lifecycle (troubleshooting) |
+| `wx --version` | Sanity-check wx-cli 是否已安装 |
+| `wx sessions --json` | 列出最近 sessions；用于验证 init 和查找用户自己的 wxid |
+| `wx contacts --query "<name>" --json` | 按 display name、remark 或 wxid fuzzy-match contacts/groups |
+| `wx history "<group>" --since DATE --until DATE -n N --json` | 以 JSON 拉取某群在日期范围内的 messages |
+| `wx members "<group>" --json` | 列出群成员（很少需要，主要为完整性） |
+| `wx stats "<group>" --since DATE` | wx-cli 内置 stats；我们从 `wx history` JSON 自行计算，以便格式匹配 digest |
+| `wx daemon status` / `wx daemon stop` / `wx daemon logs --follow` | Daemon lifecycle（troubleshooting） |
 
-All `wx` commands accept `--json` for machine-readable output. Default output is YAML — only use it for human eyeballing during debugging.
+所有 `wx` commands 都接受 `--json` 以输出 machine-readable 结果。默认输出是 YAML - 只在 debugging 时给人眼查看。
 
 ## Troubleshooting
 
-When a `wx` command fails, diagnose by the symptom, not by retrying blindly. Common patterns:
+当 `wx` command 失败时，按症状诊断，不要盲目重试。常见模式：
 
-| Symptom | Cause | Fix (tell the user to run these — do NOT run `sudo` for them) |
+| 症状 | 原因 | 修复方式（告诉用户运行这些命令 - 不要替他们运行 `sudo`） |
 |---------|-------|----------------------------------------------------------------|
-| `Operation not permitted` / `Access denied to ~/.wx-cli` | Sandbox is on | Re-run the command with `dangerouslyDisableSandbox: true`. Persistent fix: `/sandbox` to allow `~/.wx-cli` and the WeChat data dir. |
-| `无法写入 /Users/<u>/.wx-cli` / `Permission denied` | `~/.wx-cli` is owned by root (legacy `sudo wx init`) | `sudo chown -R $(whoami) ~/.wx-cli && sudo rm -f ~/.wx-cli/daemon.{pid,sock} && wx daemon start` |
-| `wx history` hangs / times out / returns nothing | Daemon is stuck | `wx daemon stop && rm -f ~/.wx-cli/daemon.{pid,sock} && wx daemon start`, then retry |
-| `no keys` / `init required` after the daemon was working | Keys went stale (WeChat restart, version upgrade) | Make sure WeChat is running, then `wx init --force` (non-sudo first; only `sudo` if your wx-cli version requires it) |
-| `wx contacts` returns zero rows for a group you know exists | Group is folded into 折叠群 or the daemon hasn't indexed it yet | `wx sessions --json` and search there; if missing, run `wx daemon stop && wx daemon start` and retry |
-| Messages returned but `--since` / `--until` window looks wrong | Date string not in `YYYY-MM-DD` format, or off-by-one timezone | Confirm the dates are local-time `YYYY-MM-DD`. Re-filter the JSON by `timestamp` locally as a belt-and-suspenders step. |
-| Empty result for a chat that should have activity | `-n` cap too low for a noisy group | Raise `-n` (e.g. to 20000) and re-fetch |
+| `Operation not permitted` / `Access denied to ~/.wx-cli` | Sandbox 开启 | 用 `dangerouslyDisableSandbox: true` 重新运行命令。持久修复：用 `/sandbox` 允许 `~/.wx-cli` 和 WeChat data dir。 |
+| `无法写入 /Users/<u>/.wx-cli` / `Permission denied` | `~/.wx-cli` 属于 root（legacy `sudo wx init`） | `sudo chown -R $(whoami) ~/.wx-cli && sudo rm -f ~/.wx-cli/daemon.{pid,sock} && wx daemon start` |
+| `wx history` hangs / times out / returns nothing | Daemon 卡住 | `wx daemon stop && rm -f ~/.wx-cli/daemon.{pid,sock} && wx daemon start`，然后重试 |
+| daemon 曾可用但后来出现 `no keys` / `init required` | Keys 过期（WeChat restart、version upgrade） | 确保 WeChat 正在运行，然后 `wx init --force`（先非 sudo；只有 wx-cli 版本要求时才用 `sudo`） |
+| `wx contacts` 对已知存在的群返回零行 | 群被折叠进折叠群，或 daemon 尚未索引 | `wx sessions --json` 并在那里搜索；如果仍缺失，运行 `wx daemon stop && wx daemon start` 后重试 |
+| 返回了 Messages，但 `--since` / `--until` 窗口看起来不对 | Date string 不是 `YYYY-MM-DD` 格式，或 timezone off-by-one | 确认日期是 local-time `YYYY-MM-DD`。再按 `timestamp` 在本地过滤 JSON，作为双保险。 |
+| 明明应该有活动的 chat 返回空结果 | 对活跃群而言 `-n` cap 太低 | 提高 `-n`（例如到 20000）并重新 fetch |
 
-**Recovery order when nothing makes sense:**
+**完全摸不着头脑时的恢复顺序：**
 
-1. Is WeChat running?
-2. Is `~/.wx-cli` owned by `$(whoami)`?
-3. Is the daemon healthy? (`wx daemon status`)
-4. Restart the daemon (`wx daemon stop && wx daemon start`)
-5. Last resort: `wx init --force` (while WeChat is running)
+1. WeChat 是否正在运行？
+2. `~/.wx-cli` 是否归 `$(whoami)` 所有？
+3. daemon 是否健康？（`wx daemon status`）
+4. 重启 daemon（`wx daemon stop && wx daemon start`）
+5. 最后手段：`wx init --force`（WeChat 运行时）
 
-Never auto-retry inside the skill — every failure should produce a clear diagnostic plus the exact command the user needs to run.
+不要在 skill 内自动重试 - 每次失败都应给出清晰诊断和用户需要运行的确切命令。
 
 ## Notes and limitations
 
-- **Image content is opaque**. wx-cli does not decode chat images. The skill respects an `imgs/{message_id}.txt` extension point but does not auto-populate it. When a topic depends heavily on an image with no description file, the digest should say so honestly rather than invent visual content.
-- **Reply attribution is best-effort**. If wx-cli's output exposes a quote/reply field, use it. Otherwise fall back to context and flag uncertain inferences in working notes.
-- **Local time only**. Date parsing uses the agent's local time zone. Cross-time-zone group members may show timestamps that don't match their wall clock. Per the format rules, never use timestamps to infer sleep or location.
-- **wx-cli reinit**. If `wx history` suddenly returns nothing after a WeChat restart, the keys may be stale. Tell the user to run `sudo wx init --force` (while WeChat is running) and retry.
+- **Image content is opaque**。wx-cli 不解码聊天图片。Skill 尊重 `imgs/{message_id}.txt` extension point，但不会自动填充它。当某个话题严重依赖图片且没有 description file 时，digest 应诚实说明，而不是编造视觉内容。
+- **Reply attribution is best-effort**。如果 wx-cli 输出暴露 quote/reply 字段，使用它。否则 fallback 到上下文，并在 working notes 中标记不确定推断。
+- **Local time only**。日期解析使用 agent 的本地时区。跨时区群成员的 timestamps 可能与他们的 wall clock 不匹配。按格式规则，绝不要用 timestamps 推断睡眠或所在地。
+- **wx-cli reinit**。如果 WeChat restart 后 `wx history` 突然没有结果，keys 可能过期。告诉用户在 WeChat 运行时执行 `sudo wx init --force` 并重试。

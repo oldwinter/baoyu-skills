@@ -1,6 +1,6 @@
 # EXTEND.md Schema
 
-Structure for user preferences in `.baoyu-skills/baoyu-slide-deck/EXTEND.md`.
+`.baoyu-skills/baoyu-slide-deck/EXTEND.md` 中用户偏好的结构。
 
 ## Full Schema
 
@@ -38,16 +38,16 @@ custom_styles:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `style` | string | `blueprint` | Preset name, `custom`, or custom style name |
-| `audience` | string | `general` | Default target audience |
-| `language` | string | `auto` | Output language (auto = detect from input) |
-| `review` | boolean | `true` | Show outline review before generation |
-| `preferred_image_backend` | string | `auto` | Image backend selection. `auto` = prefer runtime-native tool, fall back to the only installed backend, ask if multiple non-native are present. `ask` = always confirm on every run. `<backend-id>` (e.g., `codex-imagegen`, `baoyu-image-gen`, `image_generate`) = pin this backend when available; fall back to `auto` when it isn't. Absent = `auto`. Resolution logic is documented in `SKILL.md`'s `## Image Generation Tools` section. |
-| `generation_batch_size` | int | 4 | Number of slide images to dispatch per batch when the backend has native batch support or the runtime can issue parallel generation calls. Clamp invalid values to 1-8. Current user request overrides this value. |
+| `style` | string | `blueprint` | Preset name、`custom` 或 custom style name |
+| `audience` | string | `general` | 默认 target audience |
+| `language` | string | `auto` | 输出语言（auto = 从输入检测） |
+| `review` | boolean | `true` | 生成前展示 outline review |
+| `preferred_image_backend` | string | `auto` | 图片 backend 选择。`auto` = 优先 runtime-native tool，回退到唯一已安装 backend，如存在多个非原生 backend 则询问。`ask` = 每次运行都确认。`<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`image_generate`）= 可用时固定此 backend，不可用时回退到 `auto`。缺省 = `auto`。解析逻辑见 `SKILL.md` 的 `## Image Generation Tools` 部分。 |
+| `generation_batch_size` | int | 4 | 当 backend 有原生 batch 支持或 runtime 可发起并行生成调用时，每批分发的 slide images 数。无效值限制到 1-8。当前用户请求会覆盖此值。 |
 
 ### Custom Dimensions
 
-Only used when `style: custom`. Defines dimension values directly.
+仅当 `style: custom` 时使用。直接定义 dimension values。
 
 | Field | Options | Default |
 |-------|---------|---------|
@@ -58,7 +58,7 @@ Only used when `style: custom`. Defines dimension values directly.
 
 ### Custom Styles
 
-Define reusable custom dimension combinations.
+定义可复用的 custom dimension combinations。
 
 ```yaml
 custom_styles:
@@ -70,17 +70,17 @@ custom_styles:
     description: "Optional description"
 ```
 
-Then use with: `/baoyu-slide-deck content.md --style style-name`
+然后这样使用：`/baoyu-slide-deck content.md --style style-name`
 
 ## Minimal Examples
 
-### Just change default style
+### 只修改默认 style
 
 ```yaml
 style: sketch-notes
 ```
 
-### Prefer no reviews
+### 偏好不 review
 
 ```yaml
 review: false
@@ -97,7 +97,7 @@ dimensions:
   density: minimal
 ```
 
-### Define reusable custom style
+### 定义可复用 custom style
 
 ```yaml
 custom_styles:
@@ -111,19 +111,19 @@ custom_styles:
 
 ## File Locations
 
-Priority order (first found wins):
+优先级顺序（第一个找到的生效）：
 
 1. `.baoyu-skills/baoyu-slide-deck/EXTEND.md` (project)
 2. `$HOME/.baoyu-skills/baoyu-slide-deck/EXTEND.md` (user)
 
 ## First-Time Setup
 
-When no EXTEND.md exists, the skill prompts for initial preferences:
+当不存在 EXTEND.md 时，skill 会询问初始偏好：
 
-1. Preferred style (preset or custom)
+1. Preferred style（preset 或 custom）
 2. Default audience
 3. Language preference
 4. Review preference
-5. Save location (project or user)
+5. Save location（project 或 user）
 
-Creates EXTEND.md at chosen location.
+在所选位置创建 EXTEND.md。

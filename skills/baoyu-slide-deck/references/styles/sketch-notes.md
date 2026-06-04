@@ -1,66 +1,66 @@
 # sketch-notes
 
-Soft hand-drawn illustration style with fresh, refined minimalist editorial aesthetic
+带 fresh、refined minimalist editorial aesthetic 的 soft hand-drawn illustration style
 
 ## Design Aesthetic
 
-Illustration or hand-drawn feel with soft, relaxed brush strokes. Fresh, refined overall style with minimalist editorial approach. Emphasis on precision, clarity and intelligent elegance while prioritizing warmth, approachability and friendliness.
+Illustration 或 hand-drawn feel，使用 soft、relaxed brush strokes。整体风格 fresh、refined，采用 minimalist editorial approach。强调 precision、clarity 和 intelligent elegance，同时优先考虑 warmth、approachability 和 friendliness。
 
 ## Background
 
 - Color: Warm Off-White (#FAF8F0)
-- Texture: Subtle paper grain, slightly warm tone to avoid clinical feel
+- Texture: 细腻 paper grain，略暖色调以避免 clinical feel
 
 ## Typography
 
 ### Primary Font (Headlines)
 
-Bold hand-written marker font or cartoon poster font. Slightly uneven baseline for organic feel. Thick strokes with soft edges. Render as hand-drawn letters, not typed text.
+Bold hand-written marker font 或 cartoon poster font。略不平整 baseline 带来 organic feel。Thick strokes 搭配 soft edges。渲染为 hand-drawn letters，而不是 typed text。
 
 ### Secondary Font (Body)
 
-Clear handwritten round or hard-pen style mimicking everyday notes. Consistent sizing with slight natural variation. Render as casual handwriting, legible but not mechanical.
+清晰 handwritten round 或 hard-pen style，模拟 everyday notes。Sizing 一致，但带轻微自然变化。渲染为 casual handwriting，可读但不机械。
 
 ## Color Palette
 
 | Role | Color | Hex | Usage |
 |------|-------|-----|-------|
 | Background | Warm Off-White | #FAF8F0 | Primary background |
-| Primary Text | Deep Charcoal | #2C3E50 | Headlines, body text |
+| Primary Text | Deep Charcoal | #2C3E50 | Headlines、body text |
 | Alt Text | Deep Brown | #4A4A4A | Secondary text elements |
-| Accent 1 | Soft Orange | #F4A261 | Highlights, emphasis |
+| Accent 1 | Soft Orange | #F4A261 | Highlights、emphasis |
 | Accent 2 | Mustard Yellow | #E9C46A | Secondary highlights |
-| Accent 3 | Sage Green | #87A96B | Nature, growth concepts |
-| Accent 4 | Light Blue | #7EC8E3 | Tech, AI elements |
-| Accent 5 | Red Brown | #A0522D | Land, infrastructure |
+| Accent 3 | Sage Green | #87A96B | Nature、growth concepts |
+| Accent 4 | Light Blue | #7EC8E3 | Tech、AI elements |
+| Accent 5 | Red Brown | #A0522D | Land、infrastructure |
 
 ## Visual Elements
 
-- Connection lines with hand-drawn wavy feel, not perfectly straight
-- Conceptual abstract icons illustrating ideas rather than literal scenes
-- Color fills don't need to completely fill outlines - preserve hand-painted casual feel
-- Simple geometric shapes with rounded corners
-- Arrows and pointers with sketchy, informal style
-- Doodle-style decorative elements: stars, spirals, underlines
+- Connection lines 带 hand-drawn wavy feel，不要完全笔直
+- 用 conceptual abstract icons 表达 ideas，而不是 literal scenes
+- Color fills 不需要完全填满 outlines，保留 hand-painted casual feel
+- Simple geometric shapes，带 rounded corners
+- Arrows 和 pointers 使用 sketchy、informal style
+- Doodle-style decorative elements：stars、spirals、underlines
 
 ## Style Rules
 
 ### Do
 
-- Keep layouts open and well-structured
-- Emphasize information hierarchy and readability
-- Use hand-drawn quality for all elements
-- Allow imperfection - slight wobbles add character
-- Layer elements with subtle overlaps
+- 保持 layouts 开放且结构清晰
+- 强调 information hierarchy 和 readability
+- 所有元素使用 hand-drawn quality
+- 允许不完美；轻微 wobbles 会增加 character
+- 用 subtle overlaps 叠放元素
 
 ### Don't
 
-- Use perfect geometric shapes
-- Create photorealistic elements
-- Overcrowd with too many elements
-- Use pure white backgrounds
-- Add slide numbers, footers, or logos
+- 使用完美 geometric shapes
+- 创建 photorealistic elements
+- 用过多元素造成拥挤
+- 使用 pure white backgrounds
+- 添加 slide numbers、footers 或 logos
 
 ## Best For
 
-Educational content, knowledge sharing, technical explanations, friendly presentations, tutorials, onboarding materials
+Educational content、knowledge sharing、technical explanations、friendly presentations、tutorials、onboarding materials

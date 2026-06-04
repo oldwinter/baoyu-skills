@@ -1,32 +1,32 @@
 # Warm Palette
 
-Warm earth tones on soft peach background. Cozy, inviting, no cool colors.
+Soft peach 背景上的暖色大地色。舒适、亲切，不使用冷色。
 
-## Background
+## 背景
 
-- Color: Soft Peach (#FFECD2)
-- Texture: Warm, slightly textured
+- 颜色：Soft Peach (#FFECD2)
+- 纹理：温暖，轻微纹理
 
-## Colors
+## 颜色
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Soft Peach | #FFECD2 | Primary background |
-| Text | Deep Brown | #744210 | Titles, main content |
-| Secondary Text | Warm Brown | #9C6644 | Annotations, labels |
-| Block Color | Warm Orange | #ED8936 | Content block fill |
-| Block Color | Terracotta | #C05621 | Content block fill |
-| Block Color | Golden Yellow | #F6AD55 | Content block fill |
-| Block Color | Dusty Rose | #D4A09A | Content block fill |
-| Accent | Burnt Sienna | #A0522D | Emphasis, highlights |
+| Background | Soft Peach | #FFECD2 | 主背景 |
+| Text | Deep Brown | #744210 | 标题、主要内容 |
+| Secondary Text | Warm Brown | #9C6644 | 注释、标签 |
+| Block Color | Warm Orange | #ED8936 | 内容块填充 |
+| Block Color | Terracotta | #C05621 | 内容块填充 |
+| Block Color | Golden Yellow | #F6AD55 | 内容块填充 |
+| Block Color | Dusty Rose | #D4A09A | 内容块填充 |
+| Accent | Burnt Sienna | #A0522D | 强调、高光 |
 
-## Semantic Constraint
+## 语义约束
 
-Warm-only color palette, no cool colors (no blue, green, purple). Earth tones throughout. Evokes comfort, warmth, and trust. All colors should feel like autumn sunlight. Do NOT render color names, hex codes, or role labels as visible text in the image.
+只使用暖色的调色板，不使用冷色（没有蓝、绿、紫）。全程使用大地色。唤起舒适、温暖和信任。所有颜色都应像秋日阳光。不要把颜色名称、Hex code 或角色标签渲染为图片中的可见文本。
 
-## Best Paired With
+## 最佳搭配
 
-- `warm` — natural pairing, amplifies cozy feel
-- `cute` — warm pastels enhance the sweet aesthetic
-- `retro` — earth tones complement vintage style
-- `sketch-notes` — warm educational feel
+- `warm`，天然搭配，放大舒适感
+- `cute`，暖色 pastel 增强甜美美学
+- `retro`，大地色补充 vintage 风格
+- `sketch-notes`，温暖教育感

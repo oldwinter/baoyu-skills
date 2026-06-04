@@ -4,28 +4,31 @@
 
 ### 1.0 Detect & Save Reference Images ⚠️ REQUIRED if images provided
 
-Check if user provided reference images. Handle based on input type:
+检查用户是否提供了 reference images。按输入类型处理：
 
 | Input Type | Action |
 |------------|--------|
-| Image file path provided | Copy to `references/` subdirectory → can use `--ref` |
-| Image in conversation (no path) | **ASK user for file path** with AskUserQuestion |
-| User can't provide path | Extract style/palette verbally → append to prompts (NO frontmatter references) |
+| 提供 image file path | 复制到 `references/` 子目录 → 可使用 `--ref` |
+| 对话中有图片（无 path） | 使用 AskUserQuestion **询问用户文件路径** |
+| 用户无法提供 path | 用文字提取 style/palette → 追加到 prompts（不写 frontmatter references） |
 
-**CRITICAL**: Only add `references` to prompt frontmatter if files are ACTUALLY SAVED to `references/` directory.
+**CRITICAL**：只有文件确实已保存到 `references/` 目录时，才在 prompt frontmatter 中添加 `references`。
 
-**If user provides file path**:
-1. Copy to `references/NN-ref-{slug}.png`
-2. Create description: `references/NN-ref-{slug}.md`
-3. Verify files exist before proceeding
+**如果用户提供文件路径**：
 
-**If user can't provide path** (extracted verbally):
-1. Analyze image visually, extract: colors, style, composition
-2. Create `references/extracted-style.md` with extracted info
-3. DO NOT add `references` to prompt frontmatter
-4. Instead, append extracted style/colors directly to prompt text
+1. 复制到 `references/NN-ref-{slug}.png`
+2. 创建描述文件：`references/NN-ref-{slug}.md`
+3. 继续前验证文件存在
 
-**Description File Format** (only when file saved):
+**如果用户无法提供 path**（用文字提取）：
+
+1. 视觉分析图片，提取：colors、style、composition
+2. 创建 `references/extracted-style.md`，写入提取信息
+3. 不要在 prompt frontmatter 中添加 `references`
+4. 改为将提取出的 style/colors 直接追加到 prompt text
+
+**Description File Format**（仅当保存了文件时）：
+
 ```yaml
 ---
 ref_id: NN
@@ -34,15 +37,17 @@ filename: NN-ref-{slug}.png
 [User's description or auto-generated description]
 ```
 
-**Verification** (only for saved files):
-```
+**Verification**（仅针对已保存文件）：
+
+```text
 Reference Images Saved:
 - 01-ref-{slug}.png ✓ (can use --ref)
 - 02-ref-{slug}.png ✓ (can use --ref)
 ```
 
-**Or for extracted style**:
-```
+**Or for extracted style**：
+
+```text
 Reference Style Extracted (no file):
 - Colors: #E8756D coral, #7ECFC0 mint...
 - Style: minimal flat vector, clean lines...
@@ -55,24 +60,24 @@ Reference Style Extracted (no file):
 
 | Input | Output Directory | Next |
 |-------|------------------|------|
-| File path | EXTEND.md `default_output_dir` (default: `imgs-subdir`). If not configured, confirm in 1.2. | → 1.2 |
+| File path | EXTEND.md `default_output_dir`（默认：`imgs-subdir`）。未配置时在 1.2 中确认。 | → 1.2 |
 | Pasted content | `illustrations/{topic-slug}/` | → 1.4 |
 
-**Backup rule for pasted content**: If `source.md` exists in target directory, rename to `source-backup-YYYYMMDD-HHMMSS.md` before saving.
+**Backup rule for pasted content**：如果目标目录中已存在 `source.md`，保存前重命名为 `source-backup-YYYYMMDD-HHMMSS.md`。
 
 ### 1.2-1.4 Configuration (file path input only)
 
-Check preferences and existing state, then ask ALL needed questions in ONE AskUserQuestion call (max 4 questions).
+检查 preferences 和 existing state，然后用一次 AskUserQuestion 调用询问所有必要问题（最多 4 个问题）。
 
-**Questions to include** (skip if preference exists or not applicable):
+**Questions to include**（如果 preference 已存在或不适用则跳过）：
 
 | Question | When to Ask | Options |
 |----------|-------------|---------|
-| Output directory | No `default_output_dir` in EXTEND.md | `{article-dir}/imgs/` (Recommended), `{article-dir}/`, `{article-dir}/illustrations/`, `illustrations/{topic-slug}/` |
-| Existing images | Target dir has `.png/.jpg/.webp` files | `supplement`, `overwrite`, `regenerate` |
-| Article update | Always (file path input) | `update`, `copy` |
+| Output directory | EXTEND.md 中没有 `default_output_dir` | `{article-dir}/imgs/` (Recommended), `{article-dir}/`, `{article-dir}/illustrations/`, `illustrations/{topic-slug}/` |
+| Existing images | Target dir 中有 `.png/.jpg/.webp` 文件 | `supplement`, `overwrite`, `regenerate` |
+| Article update | 始终询问（file path input） | `update`, `copy` |
 
-**Preference Values** (if configured, skip asking):
+**Preference Values**（已配置时跳过询问）：
 
 | `default_output_dir` | Path |
 |----------------------|------|
@@ -83,7 +88,7 @@ Check preferences and existing state, then ask ALL needed questions in ONE AskUs
 
 ### 1.5 Load Preferences (EXTEND.md) ⛔ BLOCKING
 
-**CRITICAL**: If EXTEND.md not found, MUST complete first-time setup before ANY other questions or steps. Do NOT proceed to reference images, do NOT ask about content, do NOT ask about type/style — ONLY complete the preferences setup first.
+**CRITICAL**：如果未找到 EXTEND.md，必须先完成 first-time setup，然后才能进行任何其他问题或步骤。不要进入 reference images，不要询问内容，不要询问 type/style；只完成 preferences setup。
 
 ```bash
 # macOS, Linux, WSL, Git Bash
@@ -102,10 +107,10 @@ if (Test-Path "$HOME/.baoyu-skills/baoyu-article-illustrator/EXTEND.md") { "user
 
 | Result | Action |
 |--------|--------|
-| Found | Read, parse, display summary → Continue |
-| Not found | ⛔ **BLOCKING**: Run first-time setup ONLY ([config/first-time-setup.md](config/first-time-setup.md)) → Complete and save EXTEND.md → Then continue |
+| Found | 读取、解析、展示摘要 → Continue |
+| Not found | ⛔ **BLOCKING**：只运行 first-time setup（[config/first-time-setup.md](config/first-time-setup.md)）→ 完成并保存 EXTEND.md → 然后继续 |
 
-**Supports**: Watermark | Preferred type/style | Custom styles | Language | Output directory
+**Supports**：Watermark | Preferred type/style | Custom styles | Language | Output directory
 
 ---
 
@@ -117,132 +122,138 @@ if (Test-Path "$HOME/.baoyu-skills/baoyu-article-illustrator/EXTEND.md") { "user
 |----------|-------------|
 | Content type | Technical / Tutorial / Methodology / Narrative |
 | Illustration purpose | information / visualization / imagination |
-| Core arguments | 2-5 main points to visualize |
-| Visual opportunities | Positions where illustrations add value |
-| Recommended type | Based on content signals and purpose |
-| Recommended density | Based on length and complexity |
+| Core arguments | 需要可视化的 2-5 个主要观点 |
+| Visual opportunities | 插图能提供价值的位置 |
+| Recommended type | 基于 content signals 和 purpose |
+| Recommended density | 基于长度和复杂度 |
 
 ### 2.2 Extract Core Arguments
 
 - Main thesis
-- Key concepts reader needs
+- 读者需要的 key concepts
 - Comparisons/contrasts
-- Framework/model proposed
+- 提出的 framework/model
 
-**CRITICAL**: If article uses metaphors (e.g., "电锯切西瓜"), do NOT illustrate literally. Visualize the **underlying concept**.
+**CRITICAL**：如果文章使用隐喻（例如“电锯切西瓜”），不要按字面画。应可视化**底层概念**。
 
 ### 2.3 Identify Positions
 
-**Illustrate**:
-- Core arguments (REQUIRED)
+**Illustrate**：
+
+- Core arguments（REQUIRED）
 - Abstract concepts
 - Data comparisons
-- Processes, workflows
+- Processes、workflows
 
-**Do NOT Illustrate**:
-- Metaphors literally
+**Do NOT Illustrate**：
+
+- 字面化 metaphors
 - Decorative scenes
 - Generic illustrations
 
 ### 2.4 Analyze Reference Images (if provided in Step 1.0)
 
-For each reference image:
+对每张 reference image：
 
 | Analysis | Description |
 |----------|-------------|
-| Visual characteristics | Style, colors, composition |
-| Content/subject | What the reference depicts |
-| Suitable positions | Which sections match this reference |
-| Style match | Which illustration types/styles align |
+| Visual characteristics | Style、colors、composition |
+| Content/subject | Reference 描绘什么 |
+| Suitable positions | 哪些 sections 匹配此 reference |
+| Style match | 哪些 illustration types/styles 匹配 |
 | Usage recommendation | `direct` / `style` / `palette` |
 
 | Usage | When to Use |
 |-------|-------------|
-| `direct` | Reference matches desired output closely |
-| `style` | Extract visual style characteristics only |
-| `palette` | Extract color scheme only |
+| `direct` | Reference 与期望输出高度匹配 |
+| `style` | 只提取 visual style characteristics |
+| `palette` | 只提取 color scheme |
 
 ---
 
 ## Step 3: Confirm Settings ⚠️
 
-**Do NOT skip.** Use ONE AskUserQuestion call with max 4 questions. **Q1, Q2, Q3 are ALL REQUIRED.**
+**不要跳过。** 使用一次 AskUserQuestion 调用，最多 4 个问题。**Q1、Q2、Q3 都是 REQUIRED。**
 
 ### Q1: Preset or Type ⚠️ REQUIRED
 
-Based on Step 2 content analysis, recommend a preset first (sets both type & style). Look up [style-presets.md](style-presets.md) "Content Type → Preset Recommendations" table.
+基于 Step 2 内容分析，先推荐 preset（同时设置 type 和 style）。查看 [style-presets.md](style-presets.md) 的 "Content Type → Preset Recommendations" 表。
 
 - [Recommended preset] — [brief: type + style + why] (Recommended)
 - [Alternative preset] — [brief]
-- Or choose type manually: infographic / scene / flowchart / comparison / framework / timeline / mixed
+- 或手动选择 type：infographic / scene / flowchart / comparison / framework / timeline / mixed
 
-**Default**: if Step 2 found no strong content signal, the recommended preset MUST be `hand-drawn-edu` (infographic + sketch-notes + macaron — warm cream paper, black hand-drawn lines, soft pastel blocks). This is the universal fallback.
+**Default**：如果 Step 2 没有发现强 content signal，recommended preset 必须是 `hand-drawn-edu`（infographic + sketch-notes + macaron — 暖奶油纸张、黑色手绘线条、柔和 pastel blocks）。这是通用 fallback。
 
-**If user picks a preset → skip Q3** (type & style both resolved).
-**If user picks a type → Q3 is REQUIRED.**
+**如果用户选择 preset → 跳过 Q3**（type 和 style 都已解析）。
+**如果用户选择 type → Q3 REQUIRED。**
 
 ### Q2: Density ⚠️ REQUIRED - DO NOT SKIP
-- minimal (1-2) - Core concepts only
-- balanced (3-5) - Major sections
-- per-section - At least 1 per section/chapter (Recommended)
-- rich (6+) - Comprehensive coverage
+
+- minimal (1-2) - 只覆盖核心概念
+- balanced (3-5) - 主要 sections
+- per-section - 每个 section/chapter 至少 1 张（Recommended）
+- rich (6+) - 全面覆盖
 
 ### Q3: Style ⚠️ REQUIRED (skip if preset chosen in Q1)
 
-If EXTEND.md has `preferred_style`:
+如果 EXTEND.md 有 `preferred_style`：
+
 - [Custom style name + brief description] (Recommended)
 - [Top compatible core style 1]
 - [Top compatible core style 2]
-- Other (see full Style Gallery)
+- Other（见完整 Style Gallery）
 
-If no `preferred_style` (present Core Styles first):
+如果没有 `preferred_style`（先展示 Core Styles）：
+
 - [Best compatible core style] (Recommended)
 - [Other compatible core style 1]
 - [Other compatible core style 2]
-- Other (see full Style Gallery)
+- Other（见完整 Style Gallery）
 
-**Core Styles** (simplified selection):
+**Core Styles**（简化选择）：
 
 | Core Style | Maps To | Best For |
 |------------|---------|----------|
-| `hand-drawn` | sketch-notes | **Default.** Warm cream paper, black hand-drawn lines, pastel blocks — educational infographics, concept explainers, onboarding, general knowledge articles |
-| `minimal-flat` | notion | General, knowledge sharing, SaaS |
-| `sci-fi` | blueprint | AI, frontier tech, system design |
-| `editorial` | editorial | Processes, data, journalism |
-| `scene` | warm/watercolor | Narratives, emotional, lifestyle |
-| `poster` | screen-print | Opinion, editorial, cultural, cinematic |
+| `hand-drawn` | sketch-notes | **默认。** 暖奶油纸张、黑色手绘线条、pastel blocks — 教育信息图、概念解释、onboarding、通用知识文章 |
+| `minimal-flat` | notion | 通用、knowledge sharing、SaaS |
+| `sci-fi` | blueprint | AI、frontier tech、system design |
+| `editorial` | editorial | Processes、data、journalism |
+| `scene` | warm/watercolor | Narratives、emotional、lifestyle |
+| `poster` | screen-print | Opinion、editorial、cultural、cinematic |
 
-**Default recommendation**: when Step 2 surfaces no strong content signal, recommend **`hand-drawn-edu`** preset (→ infographic + sketch-notes + macaron) as the primary option in Q1. When the user picks a type manually without a preferred_style, recommend `sketch-notes` first in Q3.
+**Default recommendation**：当 Step 2 没有强 content signal 时，在 Q1 中推荐 **`hand-drawn-edu`** preset（→ infographic + sketch-notes + macaron）作为 primary option。用户手动选择 type 且没有 preferred_style 时，在 Q3 中优先推荐 `sketch-notes`。
 
-Style selection based on Type × Style compatibility matrix (styles.md).
-**In Step 5.1**, read `styles/<style>.md` for visual elements and rendering rules.
+Style selection 基于 Type × Style compatibility matrix（styles.md）。
+**在 Step 5.1**，读取 `styles/<style>.md` 获取 visual elements 和 rendering rules。
 
 ### Q4: Palette (optional)
 
-If preset did not specify a palette, and the user may benefit from a palette override, offer available palettes:
+如果 preset 未指定 palette，且用户可能受益于 palette override，则提供可用 palettes：
 
-- Default (use style's built-in colors) (Recommended)
-- `macaron` — soft pastel blocks on warm cream
-- `warm` — warm earth tones, no cool colors
-- `neon` — vibrant neon on dark backgrounds
+- Default（使用 style 内置颜色）(Recommended)
+- `macaron` — 暖奶油底上的柔和 pastel blocks
+- `warm` — 暖 earth tones，无冷色
+- `neon` — 深色背景上的 vibrant neon
 
-**Skip if**: preset already resolved palette, or `preferred_palette` set in EXTEND.md.
+**Skip if**：preset 已解析 palette，或 EXTEND.md 中设置了 `preferred_palette`。
 
-See Palette Gallery in [styles.md](styles.md#palette-gallery) and full specs in `palettes/<palette>.md`.
+参见 [styles.md](styles.md#palette-gallery) 中的 Palette Gallery，以及 `palettes/<palette>.md` 中的完整规格。
 
 ### Q5: Image Text Language ⚠️ REQUIRED when article language ≠ EXTEND.md `language`
 
-Detect article language from content. If different from EXTEND.md `language` setting, MUST ask:
-- Article language (match article content) (Recommended)
-- EXTEND.md language (user's general preference)
+从内容检测 article language。如果与 EXTEND.md `language` 设置不同，必须询问：
 
-**Skip only if**: Article language matches EXTEND.md `language`, or EXTEND.md has no `language` setting.
+- Article language（匹配文章内容）(Recommended)
+- EXTEND.md language（用户的一般偏好）
+
+**Skip only if**：Article language 匹配 EXTEND.md `language`，或 EXTEND.md 没有 `language` 设置。
 
 ### Display Reference Usage (if references detected in Step 1.0)
 
-When presenting outline preview to user, show reference assignments:
+向用户展示 outline preview 时，显示 reference assignments：
 
-```
+```text
 Reference Images:
 | Ref | Filename | Recommended Usage |
 |-----|----------|-------------------|
@@ -254,7 +265,7 @@ Reference Images:
 
 ## Step 4: Generate Outline
 
-Save as `{output-dir}/outline.md` (all paths below are relative to the output directory determined in Step 1.1/1.2):
+保存为 `{output-dir}/outline.md`（下方所有路径均相对 Step 1.1/1.2 确定的 output directory）：
 
 ```yaml
 ---
@@ -285,12 +296,13 @@ references:                    # Only if references provided
 ...
 ```
 
-**Requirements**:
-- Each position justified by content needs
+**Requirements**：
+
+- 每个 position 都要由内容需求支撑
 - Type applied consistently
-- Style reflected in descriptions
-- Count matches density
-- References assigned based on Step 2.4 analysis
+- Style 要体现在 descriptions 中
+- Count 匹配 density
+- References 基于 Step 2.4 analysis 分配
 
 ---
 
@@ -298,12 +310,12 @@ references:                    # Only if references provided
 
 ### 5.1 Create Prompts ⛔ BLOCKING
 
-**Every illustration MUST have a saved prompt file before generation begins. DO NOT skip this step.**
+**每张插图在生成前都必须有已保存的 prompt file。不要跳过此步骤。**
 
-For each illustration in the outline:
+对 outline 中每张插图：
 
-1. **Create prompt file**: `{output-dir}/prompts/NN-{type}-{slug}.md`
-2. **Include YAML frontmatter**:
+1. **Create prompt file**：`{output-dir}/prompts/NN-{type}-{slug}.md`
+2. **Include YAML frontmatter**：
    ```yaml
    ---
    illustration_id: 01
@@ -311,81 +323,85 @@ For each illustration in the outline:
    style: custom-flat-vector
    ---
    ```
-3. **Load style specs**: Read `styles/<style>.md` for visual elements, style rules, and rendering instructions
-4. **Load palette specs** (if palette specified): Read `palettes/<palette>.md` for colors and background. Palette colors **replace** the style's default Color Palette. If no palette specified, use the style's built-in colors.
-5. **Follow type-specific template** from [prompt-construction.md](prompt-construction.md), using rendering from style + colors from palette (or style default)
-6. **Prompt quality requirements** (all REQUIRED):
-   - `Layout`: Describe overall composition (grid / radial / hierarchical / left-right / top-down)
-   - `ZONES`: Describe each visual area with specific content, not vague descriptions
-   - `LABELS`: Use **actual numbers, terms, metrics, quotes from the article** — NOT generic placeholders
-   - `COLORS`: Specify hex codes from palette (or style default) with semantic meaning
-   - `STYLE`: Describe line treatment, texture, mood, character rendering per style rules
-   - `ASPECT`: Specify ratio (e.g., `16:9`)
-7. **Apply defaults**: composition requirements, character rendering, text guidelines, watermark
-8. **Backup rule**: If prompt file exists, rename to `prompts/NN-{type}-{slug}-backup-YYYYMMDD-HHMMSS.md`
+3. **Load style specs**：读取 `styles/<style>.md`，获取 visual elements、style rules 和 rendering instructions
+4. **Load palette specs**（如果指定 palette）：读取 `palettes/<palette>.md`，获取 colors 和 background。Palette colors **替换** style 默认 Color Palette。未指定 palette 时，使用 style 内置颜色。
+5. **Follow type-specific template**：按 [prompt-construction.md](prompt-construction.md)，结合 style rendering + palette colors（或 style default）
+6. **Prompt quality requirements**（全部 REQUIRED）：
+   - `Layout`：描述整体构图（grid / radial / hierarchical / left-right / top-down）
+   - `ZONES`：用具体内容描述每个 visual area，不要模糊描述
+   - `LABELS`：使用文章中的**实际数字、术语、指标、quotes**，不要用 generic placeholders
+   - `COLORS`：从 palette（或 style default）指定 hex codes，并说明语义
+   - `STYLE`：按 style rules 描述 line treatment、texture、mood、character rendering
+   - `ASPECT`：指定 ratio（例如 `16:9`）
+7. **Apply defaults**：composition requirements、character rendering、text guidelines、watermark
+8. **Backup rule**：如果 prompt file 已存在，重命名为 `prompts/NN-{type}-{slug}-backup-YYYYMMDD-HHMMSS.md`
 
-**Verification** ⛔: Before proceeding to 5.2, confirm ALL prompt files exist:
-```
+**Verification** ⛔：进入 5.2 前，确认所有 prompt files 存在：
+
+```text
 Prompt Files:
 - prompts/01-infographic-overview.md ✓
 - prompts/02-infographic-distillation.md ✓
 ...
 ```
 
-**DO NOT** pass ad-hoc inline text to `--prompt` without first saving prompt files. The generation command should either use `--promptfiles prompts/NN-{type}-{slug}.md` or read the saved file content for `--prompt`.
+**不要**在未先保存 prompt files 的情况下，将临时 inline text 传给 `--prompt`。生成命令应使用 `--promptfiles prompts/NN-{type}-{slug}.md`，或读取已保存文件内容作为 `--prompt`。
 
-**Execution choice**:
-- If multiple illustrations already have saved prompt files and the task is now plain generation, use batch generation by default.
-- Prefer the chosen backend's native batch / multi-task interface when available.
-- If the backend has no native batch interface but the runtime can issue parallel tool calls, dispatch up to `generation_batch_size` tasks at a time. Default: `4`. The current user request overrides EXTEND.md.
-- Generate sequentially only when neither backend batch nor runtime parallel calls are available.
-- Use subagents only when each illustration still needs separate prompt rewriting, style exploration, or other per-image reasoning before generation. Do not use subagents just to parallelize rendering.
+**Execution choice**：
 
-**CRITICAL - References in Frontmatter**:
-- Only add `references` field if files ACTUALLY EXIST in `references/` directory
-- If style/palette was extracted verbally (no file), append info to prompt BODY instead
-- Before writing frontmatter, verify: `test -f references/NN-ref-{slug}.png`
+- 如果多张插图已经有已保存 prompt files，且任务现在只是生成图片，默认使用 batch generation。
+- 优先使用所选 backend 的原生 batch / multi-task interface。
+- 如果 backend 没有原生 batch interface，但 runtime 可发起并行 tool calls，则一次最多分发 `generation_batch_size` 个 tasks。默认：`4`。当前用户请求覆盖 EXTEND.md。
+- 只有当 backend batch 和 runtime parallel calls 都不可用时，才顺序生成。
+- 只有当每张插图仍需要单独 prompt rewriting、style exploration 或其他 per-image reasoning 时才使用 subagents。不要仅为了并行渲染而使用 subagents。
+
+**CRITICAL - References in Frontmatter**：
+
+- 只有文件确实存在于 `references/` 目录时，才添加 `references` 字段
+- 如果 style/palette 是用文字提取的（没有文件），将信息追加到 prompt BODY
+- 写入 frontmatter 前验证：`test -f references/NN-ref-{slug}.png`
 
 ### 5.2 Select Generation Skill
 
-Follow the `## Image Generation Tools` rule at the top of `SKILL.md`. Concretely:
+按 `SKILL.md` 顶部的 `## Image Generation Tools` 规则执行。具体来说：
 
-- If `imagegen` is in your available-skills list (Codex), use it — invoke via the `Skill` tool with `skill: "imagegen"`.
-- Else if the EXTEND.md pin is available, use it.
-- Else if exactly one non-native backend is installed, use it.
-- Else, ask the user.
+- 如果 available-skills list 中有 `imagegen`（Codex），使用它：通过 `Skill` tool 调用 `skill: "imagegen"`。
+- 否则，如果 EXTEND.md 固定的 backend 可用，使用它。
+- 否则，如果只安装了一个非原生 backend，使用它。
+- 否则，询问用户。
 
-**Do not generate SVG, HTML, or any code-based vector as a substitute for the raster image.** If no raster backend can be resolved, ask the user how to proceed.
+**不要用 SVG、HTML 或任何 code-based vector 替代 raster image。** 如果无法解析 raster backend，询问用户如何继续。
 
 ### 5.3 Process References ⚠️ REQUIRED if references saved in Step 1.0
 
-**DO NOT SKIP if user provided reference images.** For each illustration with references:
+**如果用户提供了 reference images，不要跳过。** 对每张带 references 的插图：
 
-1. **VERIFY files exist first**:
+1. **先验证文件存在**：
    ```bash
    test -f references/NN-ref-{slug}.png && echo "exists" || echo "MISSING"
    ```
-   - If file MISSING but in frontmatter → ERROR, fix frontmatter or remove references field
-   - If file exists → proceed with processing
+   - 如果文件 MISSING 但在 frontmatter 中出现 → ERROR，修正 frontmatter 或移除 references 字段
+   - 如果文件存在 → 继续处理
 
-2. Read prompt frontmatter for reference info
-3. Process based on usage type:
+2. 读取 prompt frontmatter 中的 reference info
+3. 按 usage type 处理：
 
 | Usage | Action | Example |
 |-------|--------|---------|
-| `direct` | Add reference path to `--ref` parameter | `--ref references/01-ref-brand.png` |
-| `style` | Analyze reference, append style traits to prompt | "Style: clean lines, gradient backgrounds..." |
-| `palette` | Extract colors from reference, append to prompt | "Colors: #E8756D coral, #7ECFC0 mint..." |
+| `direct` | 将 reference path 添加到 `--ref` 参数 | `--ref references/01-ref-brand.png` |
+| `style` | 分析 reference，将 style traits 追加到 prompt | "Style: clean lines, gradient backgrounds..." |
+| `palette` | 从 reference 提取颜色并追加到 prompt | "Colors: #E8756D coral, #7ECFC0 mint..." |
 
-4. Check image generation skill capability:
+4. 检查 image generation skill capability：
 
 | Skill Supports `--ref` | Action |
 |------------------------|--------|
-| Yes (e.g., baoyu-image-gen with Google) | Pass reference images via `--ref` |
-| No | Convert to text description, append to prompt |
+| Yes（例如 baoyu-image-gen with Google） | 通过 `--ref` 传入 reference images |
+| No | 转为文字描述，追加到 prompt |
 
-**Verification**: Before generating, confirm reference processing:
-```
+**Verification**：生成前确认 reference processing：
+
+```text
 Reference Processing:
 - Illustration 1: using 01-ref-brand.png (direct) ✓
 - Illustration 2: extracted palette from 02-ref-style.png ✓
@@ -393,22 +409,22 @@ Reference Processing:
 
 ### 5.4 Apply Watermark (if enabled)
 
-Add: `Include a subtle watermark "[content]" at [position].`
+添加：`Include a subtle watermark "[content]" at [position].`
 
 ### 5.5 Generate
 
-1. Build a generation task list from saved prompt files:
+1. 从已保存 prompt files 构建 generation task list：
    - `prompt_file`: `{output-dir}/prompts/NN-{type}-{slug}.md`
    - `output_file`: `{output-dir}/NN-{type}-{slug}.png`
-   - `aspect_ratio`: from prompt frontmatter or prompt body
-   - `refs`: only verified `direct` references from prompt frontmatter
-2. **Backup rule**: Before dispatching a task, if its output image already exists, rename it to `NN-{type}-{slug}-backup-YYYYMMDD-HHMMSS.{ext}`.
-3. Dispatch tasks in batches:
-   - Native batch backend: send all eligible tasks, or chunks of `generation_batch_size` if the backend has a practical limit.
-   - Runtime parallel calls: issue up to `generation_batch_size` image calls concurrently, then continue with the next chunk.
-   - Sequential fallback: process one task at a time.
-4. After each completed task, record: "Generated X/N: filename".
-5. On failure: retry the failed task once from the same saved prompt file. Keep successful outputs and continue.
+   - `aspect_ratio`: 来自 prompt frontmatter 或 prompt body
+   - `refs`: 只包含 prompt frontmatter 中已验证的 `direct` references
+2. **Backup rule**：分发 task 前，如果 output image 已存在，将其重命名为 `NN-{type}-{slug}-backup-YYYYMMDD-HHMMSS.{ext}`。
+3. 分批分发 tasks：
+   - Native batch backend：发送所有 eligible tasks；如果 backend 有实践限制，则按 `generation_batch_size` 分块。
+   - Runtime parallel calls：一次并发最多 `generation_batch_size` 个 image calls，然后继续下一块。
+   - Sequential fallback：一次处理一个 task。
+4. 每个 task 完成后记录："Generated X/N: filename"。
+5. 失败时：从同一个已保存 prompt file 重试该 failed task 一次。保留 successful outputs 并继续。
 
 ---
 
@@ -416,20 +432,20 @@ Add: `Include a subtle watermark "[content]" at [position].`
 
 ### 6.1 Update Article
 
-Insert after corresponding paragraph, using path relative to article file:
+在对应段落后插入，使用相对文章文件的路径：
 
 | `default_output_dir` | Insert Path |
 |----------------------|-------------|
 | `imgs-subdir` | `![description](imgs/NN-{type}-{slug}.png)` |
 | `same-dir` | `![description](NN-{type}-{slug}.png)` |
 | `illustrations-subdir` | `![description](illustrations/NN-{type}-{slug}.png)` |
-| `independent` | `![description](illustrations/{topic-slug}/NN-{type}-{slug}.png)` (relative to cwd) |
+| `independent` | `![description](illustrations/{topic-slug}/NN-{type}-{slug}.png)`（相对 cwd） |
 
-Alt text: concise description in article's language.
+Alt text：使用文章语言的简洁描述。
 
 ### 6.2 Output Summary
 
-```
+```text
 Article Illustration Complete!
 
 Article: [path]

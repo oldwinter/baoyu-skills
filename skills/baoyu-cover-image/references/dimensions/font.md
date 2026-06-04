@@ -1,11 +1,11 @@
 ---
 name: font-dimension
-description: Typography style dimension for cover images
+description: 封面图的 typography style 维度
 ---
 
 # Font Dimension
 
-Controls typography style and character feel.
+控制 typography style 和字符气质。
 
 ## Values
 
@@ -20,23 +20,26 @@ Controls typography style and character feel.
 
 ### clean
 
-Modern, universal typography with neutral character.
+现代、通用、中性气质 typography。
 
-**Characteristics**:
+**Characteristics**：
+
 - Geometric sans-serif letterforms
-- Sharp, uniform line weight
-- Clean edges, no flourishes
-- High readability at all sizes
-- Minimal personality, maximum clarity
+- 锐利、统一 line weight
+- 干净边缘，无 flourishes
+- 所有尺寸下高可读
+- 最少个性，最大清晰度
 
-**Use Cases**:
+**Use Cases**：
+
 - Technical documentation
 - Professional/corporate content
 - Minimal design approaches
 - Data-driven articles
 - Modern brand aesthetics
 
-**Prompt Hints**:
+**Prompt Hints**：
+
 - Use clean geometric sans-serif typography
 - Modern, minimal letterforms
 - Sharp edges, uniform stroke weight
@@ -44,23 +47,26 @@ Modern, universal typography with neutral character.
 
 ### handwritten
 
-Warm, organic typography with personal character.
+温暖、有机、带个人气质 typography。
 
-**Characteristics**:
-- Hand-lettered or brush style
-- Organic, varied line weight
-- Natural imperfections
-- Approachable, human feel
-- Casual yet intentional
+**Characteristics**：
 
-**Use Cases**:
+- Hand-lettered 或 brush style
+- 有机、多变 line weight
+- 自然不完美
+- 亲近、人味
+- 轻松但有意图
+
+**Use Cases**：
+
 - Personal stories
 - Lifestyle content
 - Wellness and self-improvement
 - Creative tutorials
 - Friendly brand voices
 
-**Prompt Hints**:
+**Prompt Hints**：
+
 - Use warm hand-lettered typography with organic brush strokes
 - Friendly, personal feel
 - Natural variation in stroke weight
@@ -68,23 +74,26 @@ Warm, organic typography with personal character.
 
 ### serif
 
-Classic, elegant typography with editorial authority.
+经典、优雅、带 editorial 权威感 typography。
 
-**Characteristics**:
+**Characteristics**：
+
 - Traditional serif letterforms
-- Refined, structured strokes
-- Elegant proportions
+- 精致、结构化 strokes
+- 优雅 proportions
 - Timeless sophistication
-- Formal, trustworthy feel
+- 正式、可信感
 
-**Use Cases**:
+**Use Cases**：
+
 - Editorial content
 - Academic articles
 - Luxury brand content
 - Historical topics
 - Literary pieces
 
-**Prompt Hints**:
+**Prompt Hints**：
+
 - Use elegant serif typography with refined letterforms
 - Classic, editorial character
 - Structured, proportional spacing
@@ -92,23 +101,26 @@ Classic, elegant typography with editorial authority.
 
 ### display
 
-Bold, decorative typography for maximum impact.
+用于最大冲击力的大胆、装饰性 typography。
 
-**Characteristics**:
-- Heavy, expressive letterforms
+**Characteristics**：
+
+- 厚重、有表现力 letterforms
 - Decorative elements
-- Strong visual presence
-- Playful or dramatic character
-- Designed for headlines
+- 强视觉存在感
+- 俏皮或戏剧化 character
+- 为 headlines 设计
 
-**Use Cases**:
+**Use Cases**：
+
 - Announcements
 - Entertainment content
 - Promotional materials
 - Event marketing
 - Gaming topics
 
-**Prompt Hints**:
+**Prompt Hints**：
+
 - Use bold decorative display typography
 - Heavy, expressive headlines
 - Strong visual impact
@@ -116,7 +128,7 @@ Bold, decorative typography for maximum impact.
 
 ## Default
 
-`clean` — Universal, pairs well with most rendering styles.
+`clean` — 通用，能与大多数 rendering styles 搭配。
 
 ## Rendering Compatibility
 
@@ -127,7 +139,7 @@ Bold, decorative typography for maximum impact.
 | serif | ✓ | ✗ | ✓ | ✓✓ | ✗ | ✗ | ✓ |
 | display | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ |
 
-✓✓ = highly recommended | ✓ = compatible | ✗ = not recommended
+✓✓ = 强烈推荐 | ✓ = 兼容 | ✗ = 不推荐
 
 ## Type Compatibility
 
@@ -140,19 +152,19 @@ Bold, decorative typography for maximum impact.
 
 ## Palette Interaction
 
-Font style adapts to palette characteristics:
+Font style 会适配 palette 特征：
 
 | Palette Category | clean | handwritten | serif | display |
 |------------------|-------|-------------|-------|---------|
-| Warm (warm, earth, pastel) | Softer weight | Natural fit | Warm tones | Playful energy |
-| Cool (cool, mono, elegant) | Perfect match | Contrast | Classic pairing | Bold statement |
-| Dark (dark, vivid) | High contrast | Glow effects | Dramatic | Maximum impact |
-| Vintage (retro) | Modern contrast | Nostalgic fit | Period-appropriate | Retro headlines |
-| Duotone (duotone) | Sharp contrast | Not recommended | Dramatic pairing | Cinematic impact |
+| Warm (warm, earth, pastel) | 更柔和 weight | 自然适配 | Warm tones | 俏皮能量 |
+| Cool (cool, mono, elegant) | 完美匹配 | 形成对比 | 经典搭配 | 大胆 statement |
+| Dark (dark, vivid) | 高对比 | Glow effects | 戏剧化 | 最大冲击 |
+| Vintage (retro) | 现代对比 | 怀旧适配 | 符合时代 | Retro headlines |
+| Duotone (duotone) | 锐利对比 | 不推荐 | 戏剧化搭配 | 电影感冲击 |
 
 ## Auto Selection
 
-When `--font` is omitted, select based on signals:
+省略 `--font` 时，按信号选择：
 
 | Signals | Font |
 |---------|------|

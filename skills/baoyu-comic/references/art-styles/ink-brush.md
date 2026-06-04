@@ -1,58 +1,58 @@
 # ink-brush
 
-水墨画风 - Chinese ink brush aesthetics with dynamic strokes
+水墨画风 - 带动态笔触的 Chinese ink brush 美学
 
 ## Overview
 
-Traditional Chinese ink brush painting style adapted for comics. Combines calligraphic brush strokes with ink wash effects. Creates atmospheric, artistic visuals rooted in East Asian aesthetics.
+为 comics 适配的传统 Chinese ink brush painting 风格。结合书法式笔触与 ink wash effects。创造扎根于 East Asian aesthetics 的氛围化、艺术化视觉。
 
 ## Line Work
 
-- 2-3px dynamic brush strokes with varying weight
-- Ink wash effects, traditional Chinese brush feel
-- Bold, confident strokes with sharp edges
-- Flowing lines for fabric and hair
-- Pressure-sensitive stroke variation
+- 2-3px 动态笔触，线宽变化明显
+- Ink wash effects，传统中国毛笔感
+- 大胆、自信的笔触，边缘锐利
+- 用流动线条表现织物和头发
+- 具有压力感的笔触变化
 
 ## Character Design
 
-- Realistic human proportions (7.5-8 head heights)
-- Defined features with ink brush definition
-- Dynamic poses capturing movement
-- Flowing hair and clothing in motion
-- Traditional attire options (robes, hanfu)
-- Intense, expressive faces
+- 写实人体比例（7.5-8 头身）
+- 用 ink brush 定义清晰五官
+- 捕捉运动的动态姿势
+- 运动中的流动头发和衣物
+- 可选传统服饰（长袍、汉服）
+- 强烈、有表现力的面部
 
 ## Brush Techniques
 
-| Technique | Usage |
+| Technique | 用途 |
 |-----------|-------|
-| Bold strokes | Character outlines |
-| Fine lines | Details, hair |
-| Ink wash | Atmosphere, shadows |
-| Dry brush | Texture, aging |
-| Splatter | Impact, drama |
+| Bold strokes | 角色轮廓 |
+| Fine lines | 细节、头发 |
+| Ink wash | 氛围、阴影 |
+| Dry brush | 纹理、旧化 |
+| Splatter | 冲击、戏剧性 |
 
 ## Background Treatment
 
-- Dramatic landscapes: mountains, waterfalls, temples
-- Ink wash atmospheric effects
-- Misty, layered depth
-- Traditional architecture elements
-- High contrast silhouettes
-- Negative space as design element
+- 戏剧化景观：山、水瀑、寺庙
+- Ink wash 氛围效果
+- 雾气感、分层深度
+- 传统建筑元素
+- 高对比剪影
+- Negative space 作为设计元素
 
 ## Color Approach
 
-- Ink gradients as primary
-- Limited accent colors
-- Traditional Chinese palette
-- Atmospheric color washes
-- High contrast compositions
+- 以 ink gradients 为主
+- 有限强调色
+- 传统 Chinese palette
+- 氛围化 color washes
+- 高对比构图
 
 ## Default Color Palette
 
-| Role | Color | Hex |
+| 角色 | 颜色 | Hex |
 |------|-------|-----|
 | Primary | Deep black ink | #1A1A1A |
 | Accent | Crimson red | #8B0000 |
@@ -64,34 +64,34 @@ Traditional Chinese ink brush painting style adapted for comics. Combines callig
 
 ## Visual Elements
 
-- Calligraphic text integration
-- Seal stamps (optional)
+- 书法式文本融合
+- 印章（可选）
 - Ink splatter effects
-- Flowing fabric trails
-- Atmospheric mist
-- Mountain silhouettes
+- 流动衣摆轨迹
+- 氛围化雾气
+- 山脉剪影
 
 ## Quality Markers
 
-- ✓ Dynamic brush stroke quality
-- ✓ Authentic ink wash atmosphere
-- ✓ High contrast compositions
-- ✓ Flowing movement in fabric/hair
-- ✓ Traditional aesthetic elements
-- ✓ Atmospheric depth
+- ✓ 动态笔触质感
+- ✓ 真实 ink wash 氛围
+- ✓ 高对比构图
+- ✓ 织物/头发中有流动感
+- ✓ 传统美学元素
+- ✓ 氛围深度
 
 ## Compatibility
 
-| Tone | Fit | Notes |
+| Tone | Fit | 说明 |
 |------|-----|-------|
-| neutral | ✓ | Contemplative stories |
-| warm | ✓ | Nostalgic, gentle |
-| dramatic | ✓✓ | High contrast |
-| vintage | ✓✓ | Historical pieces |
-| romantic | ✗ | Style mismatch |
-| energetic | ✗ | Too refined |
-| action | ✓✓ | Martial arts |
+| neutral | ✓ | 沉思型故事 |
+| warm | ✓ | 怀旧、温和 |
+| dramatic | ✓✓ | 高对比 |
+| vintage | ✓✓ | 历史题材 |
+| romantic | ✗ | 风格不匹配 |
+| energetic | ✗ | 过于精致 |
+| action | ✓✓ | 武侠/武术 |
 
 ## Best For
 
-Chinese historical stories, martial arts, traditional tales, contemplative narratives, artistic adaptations
+中国历史故事、武侠、传统故事、沉思叙事、艺术化改编

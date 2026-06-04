@@ -1,58 +1,58 @@
 # nature
 
-Organic, earthy illustration style for environmental and wellness content
+适合环境与 wellness 内容的有机、大地系 illustration 风格。
 
-## Design Aesthetic
+## 设计美学
 
-Natural and organic visual approach inspired by the outdoors. Earth tones and natural textures that evoke calm and connection to nature. Flowing lines and organic shapes. Creates a sense of tranquility and environmental awareness.
+受户外启发的自然、有机视觉方式。大地色与自然纹理唤起平静感和与自然的连接。使用流动线条和有机形状。营造宁静感与环境意识。
 
-## Background
+## 背景
 
-- Color: Sand Beige (#F5E6D3) or Sky Blue wash (#E0F2FE)
-- Texture: Natural paper texture with organic feel
+- 颜色：Sand Beige (#F5E6D3) 或 Sky Blue wash (#E0F2FE)
+- 纹理：自然纸张纹理，带有机感
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Sand Beige | #F5E6D3 | Primary background |
-| Alt Background | Sky Blue | #E0F2FE | Alternative canvas |
-| Primary | Forest Green | #276749 | Main natural color |
-| Secondary | Sage | #9AE6B4 | Supporting green |
-| Tertiary | Earth Brown | #744210 | Grounding element |
-| Accent 1 | Sunset Orange | #ED8936 | Warm accent |
-| Accent 2 | Water Blue | #63B3ED | Cool accent |
-| Text | Deep Brown | #5D4E3C | Text elements |
+| Background | Sand Beige | #F5E6D3 | 主背景 |
+| Alt Background | Sky Blue | #E0F2FE | 备选 canvas |
+| Primary | Forest Green | #276749 | 主要自然色 |
+| Secondary | Sage | #9AE6B4 | 辅助绿色 |
+| Tertiary | Earth Brown | #744210 | 稳定元素 |
+| Accent 1 | Sunset Orange | #ED8936 | 暖色强调 |
+| Accent 2 | Water Blue | #63B3ED | 冷色强调 |
+| Text | Deep Brown | #5D4E3C | 文本元素 |
 
-## Visual Elements
+## 视觉元素
 
-- Leaf and plant motifs
-- Tree and branch silhouettes
-- Mountain and landscape shapes
-- Organic flowing lines
-- Natural textures (wood grain, stone)
-- Water and wave patterns
-- Animal silhouettes
-- Sun and moon symbols
+- 叶片与植物 motif
+- 树木和枝条剪影
+- 山形与景观形状
+- 有机流动线条
+- 自然纹理（木纹、石头）
+- 水与波浪图案
+- 动物剪影
+- 太阳和月亮符号
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Use earth-inspired colors
-- Create organic, flowing shapes
-- Include nature elements
-- Evoke outdoor atmosphere
-- Maintain calm and balance
+- 使用受大地启发的颜色
+- 创建有机、流动的形状
+- 包含自然元素
+- 唤起户外氛围
+- 保持平静与平衡
 
-### Don't
+### 不要
 
-- Use synthetic or neon colors
-- Create rigid geometric shapes
-- Add tech or digital elements
-- Use stark contrasts
-- Overcomplicate compositions
+- 使用合成感或 neon 颜色
+- 创建僵硬几何形状
+- 添加科技或 digital 元素
+- 使用强烈对比
+- 让构图过度复杂
 
-## Best For
+## 适合
 
-Sustainability articles, wellness content, outdoor topics, slow living, environmental issues, health and fitness, gardening, travel nature pieces
+可持续发展文章、wellness 内容、户外主题、慢生活、环境议题、健康与健身、园艺、自然旅行文章

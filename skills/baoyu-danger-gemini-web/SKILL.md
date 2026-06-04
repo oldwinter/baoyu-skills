@@ -1,6 +1,6 @@
 ---
 name: baoyu-danger-gemini-web
-description: Generates images and text via reverse-engineered Gemini Web API. Supports text generation, image generation from prompts, reference images for vision input, and multi-turn conversations. Use when other skills need image generation backend, or when user requests "generate image with Gemini", "Gemini text generation", or needs vision-capable AI generation.
+description: 通过 reverse-engineered Gemini Web API 生成图片和文本。支持 text generation、prompt image generation、作为 vision input 的 reference images，以及 multi-turn conversations。当其他 skills 需要 image generation backend，或用户要求 "generate image with Gemini"、"Gemini text generation"，或需要 vision-capable AI generation 时使用。
 version: 1.56.2
 metadata:
   openclaw:
@@ -13,56 +13,60 @@ metadata:
 
 # Gemini Web Client
 
-Text/image generation via Gemini Web API. Supports reference images and multi-turn conversations.
+通过 Gemini Web API 进行 text/image generation。支持 reference images 和 multi-turn conversations。
 
 ## User Input Tools
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当该 skill 需要询问用户时，遵循以下 tool-selection rule（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或任意等价工具。
+2. **Fallback**：如果没有这类工具，输出编号式纯文本消息，让用户为每个问题回复所选编号/答案。
+3. **Batching**：如果工具支持一次调用多个问题，把所有适用问题合并到一次调用；如果只支持单问题，则按优先级一次问一个。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下文中的具体 `AskUserQuestion` 只是示例；其他 runtime 中请替换成本地等价工具。
 
 ## Script Directory
 
-**Important**: All scripts are located in the `scripts/` subdirectory of this skill.
+**Important**：所有 scripts 都位于该 skill 的 `scripts/` 子目录。
 
-**Agent Execution Instructions**:
-1. Determine this SKILL.md file's directory path as `{baseDir}`
+**Agent Execution Instructions**：
+
+1. 确定当前 SKILL.md 文件的目录路径为 `{baseDir}`
 2. Script path = `{baseDir}/scripts/<script-name>.ts`
-3. Resolve `${BUN_X}` runtime: if `bun` installed → `bun`; if `npx` available → `npx -y bun`; else suggest installing bun
-4. Replace all `{baseDir}` and `${BUN_X}` in this document with actual values
+3. 解析 `${BUN_X}` runtime：如果已安装 `bun` → `bun`；如果 `npx` 可用 → `npx -y bun`；否则建议安装 bun
+4. 把本文档中的 `{baseDir}` 和 `${BUN_X}` 替换为实际值
 
-**Script Reference**:
+**Script Reference**：
+
 | Script | Purpose |
 |--------|---------|
-| `scripts/main.ts` | CLI entry point for text/image generation |
-| `scripts/gemini-webapi/*` | TypeScript port of `gemini_webapi` (GeminiClient, types, utils) |
+| `scripts/main.ts` | Text/image generation 的 CLI entry point |
+| `scripts/gemini-webapi/*` | `gemini_webapi` 的 TypeScript port（GeminiClient、types、utils） |
 
-## Consent Check (REQUIRED)
+## Consent Check（REQUIRED）
 
-Before first use, verify user consent for reverse-engineered API usage.
+首次使用前，确认用户同意使用 reverse-engineered API。
 
-**Consent file locations**:
-- macOS: `~/Library/Application Support/baoyu-skills/gemini-web/consent.json`
-- Linux: `~/.local/share/baoyu-skills/gemini-web/consent.json`
-- Windows: `%APPDATA%\baoyu-skills\gemini-web\consent.json`
+**Consent file locations**：
 
-**Flow**:
-1. Check if consent file exists with `accepted: true` and `disclaimerVersion: "1.0"`
-2. If valid consent exists → print warning with `acceptedAt` date, proceed
-3. If no consent → show disclaimer, ask user via `AskUserQuestion`:
-   - "Yes, I accept" → create consent file with ISO timestamp, proceed
-   - "No, I decline" → output decline message, stop
-4. Consent file format: `{"version":1,"accepted":true,"acceptedAt":"<ISO>","disclaimerVersion":"1.0"}`
+- macOS：`~/Library/Application Support/baoyu-skills/gemini-web/consent.json`
+- Linux：`~/.local/share/baoyu-skills/gemini-web/consent.json`
+- Windows：`%APPDATA%\baoyu-skills\gemini-web\consent.json`
+
+**Flow**：
+
+1. 检查 consent file 是否存在，且包含 `accepted: true` 和 `disclaimerVersion: "1.0"`
+2. 如果存在有效 consent → 打印包含 `acceptedAt` date 的 warning，然后继续
+3. 如果没有 consent → 展示 disclaimer，通过 `AskUserQuestion` 询问用户：
+   - "Yes, I accept" → 创建包含 ISO timestamp 的 consent file，然后继续
+   - "No, I decline" → 输出 decline message，并停止
+4. Consent file format：`{"version":1,"accepted":true,"acceptedAt":"<ISO>","disclaimerVersion":"1.0"}`
 
 ---
 
-## Preferences (EXTEND.md)
+## Preferences（EXTEND.md）
 
-Check EXTEND.md in priority order — the first one found wins:
+按优先级检查 EXTEND.md：第一个找到的文件生效。
 
 | Priority | Path | Scope |
 |----------|------|-------|
@@ -70,9 +74,9 @@ Check EXTEND.md in priority order — the first one found wins:
 | 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-danger-gemini-web/EXTEND.md` | XDG |
 | 3 | `$HOME/.baoyu-skills/baoyu-danger-gemini-web/EXTEND.md` | User home |
 
-If none found, use defaults.
+如果没有找到，使用默认值。
 
-**EXTEND.md supports**: Default model, proxy settings, custom data directory.
+**EXTEND.md supports**：default model、proxy settings、custom data directory。
 
 ## Usage
 
@@ -102,14 +106,14 @@ ${BUN_X} {baseDir}/scripts/main.ts "Hello" --json
 | Option | Description |
 |--------|-------------|
 | `--prompt`, `-p` | Prompt text |
-| `--promptfiles` | Read prompt from files (concatenated) |
-| `--model`, `-m` | Model: gemini-3-pro (default), gemini-3-flash, gemini-3-flash-thinking, gemini-3.1-pro-preview |
-| `--image [path]` | Generate image (default: generated.png) |
-| `--reference`, `--ref` | Reference images for vision input |
-| `--sessionId` | Session ID for multi-turn conversation |
-| `--list-sessions` | List saved sessions |
+| `--promptfiles` | 从 files 读取 prompt（拼接） |
+| `--model`, `-m` | Model：gemini-3-pro（default）、gemini-3-flash、gemini-3-flash-thinking、gemini-3.1-pro-preview |
+| `--image [path]` | Generate image（default: generated.png） |
+| `--reference`, `--ref` | Vision input 的 reference images |
+| `--sessionId` | Multi-turn conversation 的 Session ID |
+| `--list-sessions` | 列出 saved sessions |
 | `--json` | Output as JSON |
-| `--login` | Refresh cookies, then exit |
+| `--login` | 刷新 cookies，然后退出 |
 | `--cookie-path` | Custom cookie file path |
 | `--profile-dir` | Chrome profile directory |
 
@@ -117,22 +121,20 @@ ${BUN_X} {baseDir}/scripts/main.ts "Hello" --json
 
 | Model | Description |
 |-------|-------------|
-| `gemini-3-pro` | Default, latest 3.0 Pro |
-| `gemini-3-flash` | Fast, lightweight 3.0 Flash |
+| `gemini-3-pro` | Default，latest 3.0 Pro |
+| `gemini-3-flash` | Fast，lightweight 3.0 Flash |
 | `gemini-3-flash-thinking` | 3.0 Flash with thinking |
-| `gemini-3.1-pro-preview` | 3.1 Pro preview (empty header, auto-routed) |
+| `gemini-3.1-pro-preview` | 3.1 Pro preview（empty header，auto-routed） |
 
 ## Authentication
 
-First run opens browser for Google auth. Cookies cached automatically.
+首次运行会打开 browser 进行 Google auth。Cookies 会自动缓存。
 
-When no explicit profile dir is set, cookie refresh may reuse an already-running local Chrome/Chromium debugging session tied to a standard user-data dir.
-Set `--profile-dir` or `GEMINI_WEB_CHROME_PROFILE_DIR` to force a dedicated profile and skip existing-session reuse.
-This is a best-effort CDP session reuse path, not the Chrome DevTools MCP prompt-based `--autoConnect` flow described in Chrome's official docs.
+如果未显式设置 profile dir，cookie refresh 可能复用一个已经运行中的本地 Chrome/Chromium debugging session，该 session 绑定标准 user-data dir。设置 `--profile-dir` 或 `GEMINI_WEB_CHROME_PROFILE_DIR` 可强制使用 dedicated profile，并跳过 existing-session reuse。该路径是 best-effort CDP session reuse，不是 Chrome 官方文档中描述的 Chrome DevTools MCP prompt-based `--autoConnect` flow。
 
-Supported browsers (auto-detected): Chrome, Chrome Canary/Beta, Chromium, Edge.
+Supported browsers（auto-detected）：Chrome、Chrome Canary/Beta、Chromium、Edge。
 
-Force refresh: `--login` flag. Override browser: `GEMINI_WEB_CHROME_PATH` env var.
+强制刷新：`--login` flag。覆盖 browser：`GEMINI_WEB_CHROME_PATH` env var。
 
 ## Environment Variables
 
@@ -142,14 +144,14 @@ Force refresh: `--login` flag. Override browser: `GEMINI_WEB_CHROME_PATH` env va
 | `GEMINI_WEB_COOKIE_PATH` | Cookie file path |
 | `GEMINI_WEB_CHROME_PROFILE_DIR` | Chrome profile directory |
 | `GEMINI_WEB_CHROME_PATH` | Chrome executable path |
-| `HTTP_PROXY`, `HTTPS_PROXY` | Proxy for Google access (set inline with command) |
+| `HTTP_PROXY`, `HTTPS_PROXY` | 访问 Google 的 proxy（随 command inline 设置） |
 
 ## Sessions
 
-Session files stored in data directory under `sessions/<id>.json`.
+Session files 保存在 data directory 下的 `sessions/<id>.json`。
 
-Contains: `id`, `metadata` (Gemini chat state), `messages` array, timestamps.
+包含：`id`、`metadata`（Gemini chat state）、`messages` array、timestamps。
 
 ## Extension Support
 
-Custom configurations via EXTEND.md. See **Preferences** section for paths and supported options.
+通过 EXTEND.md 自定义配置。路径和支持选项见 **Preferences** section。

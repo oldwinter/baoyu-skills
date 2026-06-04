@@ -1,35 +1,35 @@
 # energetic
 
-活力基调 - Bright, dynamic, exciting
+活力基调 - 明亮、动态、兴奋
 
 ## Overview
 
-High-energy atmosphere for exciting, discovery-filled content. Bright colors, dynamic compositions, and movement create engaging visuals for younger audiences.
+适合充满发现感内容的高能量氛围。明亮色彩、动态构图和运动感为年轻受众创造有参与感的视觉。
 
 ## Mood Characteristics
 
-- Excitement and wonder
-- Discovery and learning
-- Energy and enthusiasm
-- Movement and action
-- Youthful spirit
+- 兴奋与惊奇
+- 发现与学习
+- 能量与热情
+- 运动与行动
+- 年轻精神
 
 ## Color Modifiers
 
-When applied to any art style:
+应用到任意 art style 时：
 
-| Adjustment | Direction |
+| 调整 | 方向 |
 |------------|-----------|
-| Saturation | High (vibrant) |
-| Contrast | Medium-high |
-| Temperature | Variable, punchy |
-| Brightness | Bright, clean |
+| Saturation | 高（鲜艳） |
+| Contrast | 中高 |
+| Temperature | 可变、有冲击 |
+| Brightness | 明亮、干净 |
 
 ## Color Palette
 
-Shift toward vibrant tones:
+转向鲜艳色调：
 
-| Role | Color | Hex |
+| 角色 | 颜色 | Hex |
 |------|-------|-----|
 | Primary Red | Bright red | #F56565 |
 | Primary Yellow | Sunny yellow | #F6E05E |
@@ -41,65 +41,65 @@ Shift toward vibrant tones:
 
 ## Lighting
 
-- Bright, clear lighting
-- Clean shadows
-- High energy
-- Spotlight effects for emphasis
-- Dynamic light sources
+- 明亮清晰的光照
+- 干净阴影
+- 高能量
+- 用 spotlight effects 做强调
+- 动态光源
 
 ## Dynamic Elements
 
 **Energy effects** (add to compositions):
 
-| Element | Usage |
+| 元素 | 用途 |
 |---------|-------|
-| Speed lines | Motion, excitement |
-| Sparkles | Discoveries |
+| Speed lines | 运动、兴奋 |
+| Sparkles | 发现 |
 | Burst effects | Aha moments |
-| Motion blur | Fast action |
-| Star bursts | Emphasis |
-| Sweat drops | Effort/surprise |
+| Motion blur | 快速动作 |
+| Star bursts | 强调 |
+| Sweat drops | 努力/惊讶 |
 
 ## Emotional Range
 
-| Emotion | Expression |
+| 情绪 | 表达 |
 |---------|-----------|
-| Excitement | Wide eyes, big smile |
-| Surprise | Dramatic reaction |
-| Determination | Intense focus |
-| Wonder | Sparkling eyes |
+| Excitement | 睁大眼、大笑 |
+| Surprise | 戏剧化反应 |
+| Determination | 强烈专注 |
+| Wonder | 闪亮眼睛 |
 
 ## Composition
 
-- Dynamic angles
-- Action-oriented layouts
-- Movement emphasis
-- Clean, punchy designs
-- Energy flows
+- 动态角度
+- 行动导向布局
+- 强调运动
+- 干净、有冲击力的设计
+- 能量流动
 
 ## Visual Style
 
-- Expressive, animated characters
-- Wide eyes, big reactions
-- Dynamic poses
-- Motion and action focus
-- Simplified backgrounds for energy
+- 有表现力、animated 的角色
+- 大眼睛、大反应
+- 动态姿势
+- 聚焦运动和动作
+- 为能量感简化背景
 
 ## Best For
 
-- Science explanations
+- 科学解释
 - "Aha" moments
-- Young audience content
-- Discovery narratives
-- Learning adventures
-- Action tutorials
+- 年轻受众内容
+- 发现叙事
+- 学习冒险
+- 动作教程
 
 ## Combination Notes
 
-Works especially well with:
-- manga: shonen energy
-- chalk: fun education
+特别适合搭配：
+- manga：shonen energy
+- chalk：趣味教育
 
-Avoid with:
-- realistic: style mismatch
-- ink-brush: style mismatch
+避免搭配：
+- realistic：风格不匹配
+- ink-brush：风格不匹配

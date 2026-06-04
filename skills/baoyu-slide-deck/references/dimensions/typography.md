@@ -1,82 +1,87 @@
 # Typography Dimension
 
-Headline and body text styling.
+Headline 和 body text styling。
 
 ## Options
 
 | Option | Headline Style | Body Style | Best For |
 |--------|----------------|------------|----------|
-| `geometric` | Modern sans-serif, clean angles | Clean sans-serif | Corporate, tech, modern |
-| `humanist` | Friendly sans-serif, warm curves | Readable sans-serif | Education, general audiences |
-| `handwritten` | Marker/brush, organic feel | Casual script or print | Creative, sketch, friendly |
-| `editorial` | Bold serif/sans mix, magazine style | Classic serif | Keynote, magazine, premium |
-| `technical` | Monospace accents, precise | Clean sans-serif | Developer, data, engineering |
+| `geometric` | 现代 sans-serif，干净角度 | 干净 sans-serif | Corporate, tech, modern |
+| `humanist` | 友好 sans-serif，温暖曲线 | 易读 sans-serif | Education, general audiences |
+| `handwritten` | Marker/brush，有机感 | Casual script or print | Creative, sketch, friendly |
+| `editorial` | 粗 serif/sans 混搭，magazine style | Classic serif | Keynote, magazine, premium |
+| `technical` | Monospace accents，精确 | 干净 sans-serif | Developer, data, engineering |
 
 ## Rendering Guidelines
 
 ### geometric
 
-**Headlines**: Modern geometric sans-serif with clean angles and consistent stroke width. Think Futura, Avenir, or Proxima Nova. Bold to semi-bold weight. Perfect circles in O, G characters.
+**Headlines**：现代 geometric sans-serif，干净角度和一致 stroke width。可参考 Futura、Avenir 或 Proxima Nova 的感觉。Bold 到 semi-bold weight。O、G 字符中有完美圆形。
 
-**Body**: Clean sans-serif optimized for readability. Regular weight. Consistent x-height. Sufficient letter spacing.
+**Body**：为可读性优化的干净 sans-serif。Regular weight。一致 x-height。充足 letter spacing。
 
-**Characteristics**:
-- Mathematical precision in letterforms
-- Consistent stroke widths
-- Perfect geometry in curves
-- Modern, authoritative presence
+**Characteristics**：
+
+- Letterforms 具有数学精度
+- Stroke widths 一致
+- Curves 中有完美几何感
+- 现代、权威的存在感
 
 ### humanist
 
-**Headlines**: Friendly sans-serif with subtle stroke variations. Think Frutiger, Open Sans, or Myriad. Medium to semi-bold weight. Warm, approachable letterforms.
+**Headlines**：友好的 sans-serif，带细微 stroke variations。可参考 Frutiger、Open Sans 或 Myriad 的感觉。Medium 到 semi-bold weight。Letterforms 温暖、亲近。
 
-**Body**: Readable humanist sans-serif. Comfortable line height. Slight calligraphic influence.
+**Body**：易读 humanist sans-serif。舒适 line height。轻微 calligraphic influence。
 
-**Characteristics**:
-- Warm, approachable feel
-- Subtle stroke contrast
-- Open counters for readability
-- Natural, human touch
+**Characteristics**：
+
+- 温暖、亲近的感觉
+- 细微 stroke contrast
+- Open counters 提升可读性
+- 自然的人味
 
 ### handwritten
 
-**Headlines**: Bold hand-written marker or brush lettering. Thick strokes with organic edges. Slightly uneven baseline. Render as actual hand-drawn letters.
+**Headlines**：粗体手写 marker 或 brush lettering。粗 strokes，有有机边缘。Baseline 略不均匀。渲染成真实手绘字母。
 
-**Body**: Clear handwritten style mimicking notes. Casual but legible. Natural variation in letter forms.
+**Body**：模仿 notes 的清晰手写风格。随意但可读。Letter forms 有自然变化。
 
-**Characteristics**:
-- Organic, imperfect letterforms
-- Visible brush/pen character
-- Casual, personal feel
-- NOT computer fonts - actual drawn letters
+**Characteristics**：
+
+- 有机、不完美 letterforms
+- 可见 brush/pen character
+- 随意、个人化感觉
+- 不是 computer fonts，而是真实绘制字母
 
 ### editorial
 
-**Headlines**: Bold serif or high-contrast sans-serif. Magazine cover style. Dramatic scale contrast. Think Playfair Display, Didot, or bold condensed sans.
+**Headlines**：粗 serif 或 high-contrast sans-serif。Magazine cover style。戏剧化 scale contrast。可参考 Playfair Display、Didot 或 bold condensed sans 的感觉。
 
-**Body**: Classic serif for extended reading. Elegant, refined letterforms. Traditional publishing quality.
+**Body**：适合长阅读的 classic serif。优雅、精致 letterforms。传统出版品质。
 
-**Characteristics**:
-- High contrast (thick/thin strokes)
-- Dramatic headlines
-- Sophisticated presence
-- Premium, publication quality
+**Characteristics**：
+
+- 高对比（thick/thin strokes）
+- 戏剧化 headlines
+- 精致存在感
+- Premium、publication quality
 
 ### technical
 
-**Headlines**: Clean sans-serif with monospace accents for data/code. Precise, engineered appearance. Think SF Mono for code, Inter for headers.
+**Headlines**：干净 sans-serif，data/code 用 monospace accents。精确、工程化外观。Code 可参考 SF Mono 的感觉，headers 可参考 Inter 的感觉。
 
-**Body**: Clean sans-serif optimized for technical content. Fixed-width for numbers and code.
+**Body**：为技术内容优化的干净 sans-serif。数字和 code 使用 fixed-width。
 
-**Characteristics**:
-- Monospace for data elements
-- Precise alignment
-- Clear number distinction (0 vs O, 1 vs l)
+**Characteristics**：
+
+- Data elements 使用 monospace
+- 精确 alignment
+- 数字区分清楚（0 vs O, 1 vs l）
 - Engineering precision
 
 ## Font Rendering Instructions
 
-Since image generators cannot use font names, describe visual characteristics:
+由于 image generators 不能使用 font names，请描述视觉特征：
 
 | Option | Headline Description | Body Description |
 |--------|---------------------|------------------|

@@ -1,25 +1,26 @@
 ---
 name: first-time-setup
-description: First-time setup flow for baoyu-article-illustrator preferences
+description: baoyu-article-illustrator preferences 的首次设置流程
 ---
 
 # First-Time Setup
 
 ## Overview
 
-When no EXTEND.md is found, guide user through preference setup.
+当没有找到 EXTEND.md 时，引导用户完成偏好设置。
 
-**⛔ BLOCKING OPERATION**: This setup MUST complete before ANY other workflow steps. Do NOT:
-- Ask about reference images
-- Ask about content/article
-- Ask about type or style preferences
-- Proceed to content analysis
+**⛔ BLOCKING OPERATION**：此设置必须在任何其他 workflow 步骤前完成。不要：
 
-ONLY ask the questions in this setup flow, save EXTEND.md, then continue.
+- 询问参考图
+- 询问内容/文章
+- 询问 type 或 style 偏好
+- 进入内容分析
+
+只询问本设置流程里的问题，保存 EXTEND.md，然后继续。
 
 ## Setup Flow
 
-```
+```text
 No EXTEND.md found
         │
         ▼
@@ -39,64 +40,64 @@ No EXTEND.md found
 
 ## Questions
 
-**Language**: Use user's input language or preferred language for all questions. Do not always use English.
+**Language**：所有问题使用用户输入语言或偏好语言。不要总是使用英文。
 
-Use single AskUserQuestion with multiple questions (AskUserQuestion auto-adds "Other" option):
+用一次 AskUserQuestion 提交多个问题（AskUserQuestion 会自动添加 "Other" option）：
 
 ### Question 1: Watermark
 
-```
+```text
 header: "Watermark"
-question: "Watermark text for generated illustrations? Type your watermark content (e.g., name, @handle)"
+question: "生成配图的 watermark text？请输入 watermark 内容（例如姓名、@handle）"
 options:
   - label: "No watermark (Recommended)"
-    description: "No watermark, can enable later in EXTEND.md"
+    description: "不加 watermark，之后可在 EXTEND.md 中启用"
 ```
 
-Position defaults to bottom-right.
+位置默认 bottom-right。
 
 ### Question 2: Preferred Style
 
-```
+```text
 header: "Style"
-question: "Default illustration style preference? Or type another style name or your custom style"
+question: "默认配图 style 偏好？也可以输入其他 style 名或你的 custom style"
 options:
   - label: "sketch-notes (Recommended)"
-    description: "Warm cream paper, black hand-drawn lines, soft pastel blocks — educational infographic feel. Great default for most articles."
+    description: "暖奶油纸张、黑色手绘线条、柔和 pastel 色块 — 教育信息图感觉。适合大多数文章的好默认值。"
   - label: "None"
-    description: "Auto-select based on content analysis (falls back to sketch-notes when no strong signal)"
+    description: "根据内容分析自动选择（无强信号时回退到 sketch-notes）"
   - label: "notion"
-    description: "Minimalist hand-drawn line art"
+    description: "极简手绘线稿"
   - label: "warm"
-    description: "Friendly, approachable, personal"
+    description: "友好、亲近、个人化"
 ```
 
 ### Question 3: Output Directory
 
-```
+```text
 header: "Output Directory"
-question: "Where to save generated illustrations when illustrating a file?"
+question: "为文件配图时，生成的插图保存在哪里？"
 options:
   - label: "imgs-subdir (Recommended)"
-    description: "{article-dir}/imgs/ — images in a subdirectory next to the article"
+    description: "{article-dir}/imgs/ — 图片保存在文章旁边的子目录"
   - label: "same-dir"
-    description: "{article-dir}/ — images alongside the article file"
+    description: "{article-dir}/ — 图片和文章文件放在一起"
   - label: "illustrations-subdir"
-    description: "{article-dir}/illustrations/ — separate illustrations subdirectory"
+    description: "{article-dir}/illustrations/ — 单独的 illustrations 子目录"
   - label: "independent"
-    description: "illustrations/{topic-slug}/ — standalone directory in cwd"
+    description: "illustrations/{topic-slug}/ — cwd 下的独立目录"
 ```
 
 ### Question 4: Save Location
 
-```
+```text
 header: "Save"
-question: "Where to save preferences?"
+question: "偏好保存到哪里？"
 options:
   - label: "Project"
-    description: ".baoyu-skills/ (this project only)"
+    description: ".baoyu-skills/（仅此项目）"
   - label: "User"
-    description: "~/.baoyu-skills/ (all projects)"
+    description: "~/.baoyu-skills/（所有项目）"
 ```
 
 ## Save Locations
@@ -108,10 +109,10 @@ options:
 
 ## After Setup
 
-1. Create directory if needed
-2. Write EXTEND.md with frontmatter
-3. Confirm: "Preferences saved to [path]"
-4. Continue to Step 1
+1. 按需创建目录。
+2. 写入带 frontmatter 的 EXTEND.md。
+3. 确认："Preferences saved to [path]"
+4. 继续 Step 1。
 
 ## EXTEND.md Template
 
@@ -134,10 +135,10 @@ custom_styles: []
 ---
 ```
 
-`preferred_image_backend: auto` is the baked-in default — first-time setup does not ask about it. The `## Image Generation Tools` rule in SKILL.md then picks the runtime-native tool (Codex `imagegen`, Hermes `image_generate`, etc.) when available, and falls back to installed backends.
+`preferred_image_backend: auto` 是内置默认值；first-time setup 不询问它。随后 `SKILL.md` 中的 `## Image Generation Tools` 规则会优先选择 runtime-native tool（Codex `imagegen`、Hermes `image_generate` 等），不可用时回退到已安装 backend。
 
-`generation_batch_size: 4` is the baked-in default for batch rendering. The current user request may override it for one run.
+`generation_batch_size: 4` 是 batch rendering 的内置默认值。当前用户请求可为单次运行覆盖它。
 
 ## Modifying Preferences Later
 
-See the `## Changing Preferences` section in `SKILL.md` for the canonical list of common edits (pin backend, change defaults, retrigger setup). Full schema: `preferences-schema.md`.
+常见修改（固定 backend、修改默认值、重新触发 setup）的 canonical 列表见 `SKILL.md` 中的 `## Changing Preferences`。完整 schema：`preferences-schema.md`。

@@ -1,16 +1,16 @@
 # Subagent Translation Prompt Template
 
-Two parts:
-1. **`02-prompt.md`** — Shared context (saved to output directory). Contains background, glossary, challenges, and principles. No task-specific instructions.
-2. **Subagent spawn prompt** — Task instructions passed when spawning each subagent. One subagent per chunk (or per source file if non-chunked).
+分为两部分：
+1. **`02-prompt.md`**：Shared context（保存到输出目录）。包含背景、glossary、challenges 和 principles。不包含具体任务指令。
+2. **Subagent spawn prompt**：启动每个 subagent 时传入的任务指令。每个 chunk 一个 subagent（如果 non-chunked，则每个 source file 一个）。
 
-The main agent reads `01-analysis.md` (if exists), inlines all relevant context into `02-prompt.md`, then spawns subagents in parallel with task instructions referencing that file.
+Main agent 读取 `01-analysis.md`（如果存在），把所有相关 context 内联到 `02-prompt.md`，然后用引用该文件的任务指令并行启动 subagents。
 
-Replace `{placeholders}` with actual values. Omit sections marked "if analysis exists" for quick mode.
+将 `{placeholders}` 替换为实际值。Quick mode 下省略标注为 "if analysis exists" 的部分。
 
 ---
 
-## Part 1: `02-prompt.md` (shared context, saved as file)
+## Part 1: `02-prompt.md`（shared context，保存为文件）
 
 ```markdown
 You are a professional translator. Your task is to translate markdown content from {source_lang} to {target_lang}.
@@ -52,9 +52,9 @@ Rewrite the content into natural, engaging {target_lang} — not merely translat
 
 ---
 
-## Part 2: Subagent spawn prompt (passed as Agent tool prompt)
+## Part 2: Subagent spawn prompt（作为 Agent tool prompt 传入）
 
-### Chunked mode (one subagent per chunk, all spawned in parallel)
+### Chunked mode（每个 chunk 一个 subagent，全部并行启动）
 
 ```
 Read the translation instructions from: {output_dir}/02-prompt.md

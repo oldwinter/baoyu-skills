@@ -1,6 +1,6 @@
 ---
 name: preferences-schema
-description: EXTEND.md YAML schema for baoyu-xhs-images user preferences
+description: baoyu-xhs-images 用户偏好的 EXTEND.md YAML schema
 ---
 
 # Preferences Schema
@@ -46,38 +46,38 @@ custom_styles:
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `version` | int | 1 | Schema version |
-| `watermark.enabled` | bool | false | Enable watermark |
-| `watermark.content` | string | "" | Watermark text (@username or custom) |
-| `watermark.position` | enum | bottom-right | Position on image |
-| `preferred_style.name` | string | null | Style name or null |
-| `preferred_style.description` | string | "" | Custom notes/override |
-| `preferred_layout` | string | null | Layout preference or null |
-| `language` | string | null | Output language (null = auto-detect) |
-| `preferred_image_backend` | string | `auto` | Image backend selection. `auto` = prefer runtime-native tool, fall back to the only installed backend, ask if multiple non-native are present. `ask` = always confirm on every run. `<backend-id>` (e.g., `codex-imagegen`, `baoyu-image-gen`, `image_generate`) = pin this backend when available; fall back to `auto` when it isn't. Absent = `auto`. Resolution logic is documented in `SKILL.md`'s `## Image Generation Tools` section. |
-| `generation_batch_size` | int | 4 | Number of images to dispatch per batch when the backend has native batch support or the runtime can issue parallel generation calls. Clamp invalid values to 1-8. Current user request overrides this value. |
-| `custom_styles` | array | [] | User-defined styles |
+| `watermark.enabled` | bool | false | 启用 watermark |
+| `watermark.content` | string | "" | Watermark text（@username 或自定义） |
+| `watermark.position` | enum | bottom-right | 图片上的位置 |
+| `preferred_style.name` | string | null | Style name 或 null |
+| `preferred_style.description` | string | "" | 自定义 notes/override |
+| `preferred_layout` | string | null | Layout preference 或 null |
+| `language` | string | null | 输出语言（null = auto-detect） |
+| `preferred_image_backend` | string | `auto` | 图片 backend 选择。`auto` = 优先 runtime-native tool，回退到唯一已安装 backend，如存在多个非原生 backend 则询问。`ask` = 每次运行都确认。`<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`image_generate`）= 可用时固定此 backend，不可用时回退到 `auto`。缺省 = `auto`。解析逻辑见 `SKILL.md` 的 `## Image Generation Tools` 部分。 |
+| `generation_batch_size` | int | 4 | 当 backend 有原生 batch 支持或 runtime 可发起并行生成调用时，每批分发的图片数。无效值限制到 1-8。当前用户请求会覆盖此值。 |
+| `custom_styles` | array | [] | 用户自定义 styles |
 
 ## Position Options
 
 | Value | Description |
 |-------|-------------|
-| `bottom-right` | Lower right corner (default, most common) |
-| `bottom-left` | Lower left corner |
-| `bottom-center` | Bottom center |
-| `top-right` | Upper right corner |
+| `bottom-right` | 右下角（默认，最常见） |
+| `bottom-left` | 左下角 |
+| `bottom-center` | 底部居中 |
+| `top-right` | 右上角 |
 
 ## Custom Style Fields
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `name` | Yes | Unique style identifier (kebab-case) |
-| `description` | Yes | What the style conveys |
-| `color_palette.primary` | No | Main colors (array) |
-| `color_palette.background` | No | Background color |
-| `color_palette.accents` | No | Accent colors (array) |
-| `visual_elements` | No | Decorative elements |
+| `name` | Yes | 唯一 style identifier（kebab-case） |
+| `description` | Yes | 该 style 传达什么 |
+| `color_palette.primary` | No | 主色（array） |
+| `color_palette.background` | No | 背景色 |
+| `color_palette.accents` | No | 强调色（array） |
+| `visual_elements` | No | 装饰元素 |
 | `typography` | No | Font/lettering style |
-| `best_for` | No | Recommended content types |
+| `best_for` | No | 推荐内容类型 |
 
 ## Example: Minimal Preferences
 

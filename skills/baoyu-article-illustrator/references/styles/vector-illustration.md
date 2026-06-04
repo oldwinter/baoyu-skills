@@ -1,57 +1,57 @@
 # vector-illustration
 
-Flat vector illustration style with clear black outlines and retro soft colors
+扁平 vector illustration 风格，使用清晰黑色描边和复古柔和配色。
 
-## Design Aesthetic
+## 设计美学
 
-Flat vector illustration with no gradients or 3D effects. Clear, uniform-thickness black outlines on all elements. Geometric simplification reducing complex objects to basic shapes. Toy model aesthetic that's cute, playful, and approachable. Coloring book style with closed outlines.
+扁平 vector illustration，不使用渐变或 3D 效果。所有元素都有清晰、粗细统一的黑色描边。通过几何简化把复杂对象归纳为基础形状。整体呈现可爱、俏皮、亲近的玩具模型气质。采用封闭描边的涂色书风格。
 
-## Background
+## 背景
 
-- Color: Cream Off-White (#F5F0E6)
-- Texture: Subtle paper texture, warm nostalgic feel
+- 颜色：Cream Off-White (#F5F0E6)
+- 纹理：细微纸张纹理，温暖怀旧感
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Cream Off-White | #F5F0E6 | Primary background |
-| Outlines | Deep Charcoal | #2D2D2D | All element outlines |
-| Primary | Coral Red | #E07A5F | Primary accent, warmth |
-| Secondary | Mint Green | #81B29A | Nature, growth |
-| Tertiary | Mustard Yellow | #F2CC8F | Highlights, energy |
-| Accent 1 | Burnt Orange | #D4764A | Warm accents |
-| Accent 2 | Rock Blue | #577590 | Cool balance |
-| Text | Black | #1A1A1A | Text elements |
+| Background | Cream Off-White | #F5F0E6 | 主背景 |
+| Outlines | Deep Charcoal | #2D2D2D | 所有元素描边 |
+| Primary | Coral Red | #E07A5F | 主要强调色、温暖感 |
+| Secondary | Mint Green | #81B29A | 自然、成长 |
+| Tertiary | Mustard Yellow | #F2CC8F | 高光、能量 |
+| Accent 1 | Burnt Orange | #D4764A | 暖色强调 |
+| Accent 2 | Rock Blue | #577590 | 冷色平衡 |
+| Text | Black | #1A1A1A | 文本元素 |
 
-## Visual Elements
+## 视觉元素
 
-- All objects have closed black outlines (coloring book style)
-- Rounded line endings, avoid sharp corners
-- Trees simplified to lollipop or triangle shapes
-- Buildings as rectangular blocks with grid windows
-- Depth through layering and overlap
-- Decorative elements: sunbursts, pill-shaped clouds, dots, stars
-- People as simple geometric figures
+- 所有对象都有封闭黑色描边（涂色书风格）
+- 线条端点圆润，避免尖锐转角
+- 树木简化为棒棒糖形或三角形
+- 建筑表现为带网格窗的矩形块
+- 通过分层和重叠营造深度
+- 装饰元素：放射阳光、胶囊形云朵、圆点、星星
+- 人物使用简单几何形体
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Maintain consistent outline thickness
-- Use soft, vintage color palette
-- Simplify objects to basic geometric shapes
-- Create depth through layering
-- Add playful decorative elements
+- 保持一致的描边粗细
+- 使用柔和、复古的调色板
+- 把对象简化为基础几何形状
+- 通过分层建立深度
+- 加入俏皮的装饰元素
 
-### Don't
+### 不要
 
-- Use gradients or realistic shading
-- Create photorealistic elements
-- Use thin or varying line weights
-- Include complex detailed illustrations
-- Add textures inside shapes
+- 使用渐变或写实阴影
+- 创建 photorealistic 元素
+- 使用过细或变化明显的线宽
+- 加入复杂精细的插画
+- 在形状内部添加纹理
 
-## Best For
+## 适合
 
-Educational content, creative articles, children's content, brand showcases, explainer pieces, warm approachable topics
+教育内容、创意文章、儿童内容、品牌展示、解释型文章、温暖亲近的主题

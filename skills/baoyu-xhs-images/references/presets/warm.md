@@ -5,9 +5,9 @@ category: cozy
 
 # Warm Style
 
-Cozy, friendly, approachable aesthetic.
+舒适、友好、亲近的美学。
 
-## Element Combination
+## 元素组合
 
 ```yaml
 canvas:
@@ -31,42 +31,42 @@ decorations:
   frames: polaroid | tape-corners
 ```
 
-## Color Palette
+## 调色板
 
-| Role | Colors | Hex |
+| 角色 | 颜色 | Hex |
 |------|--------|-----|
 | Primary | Warm orange, golden yellow, terracotta | #ED8936, #F6AD55, #C05621 |
 | Background | Cream, soft peach | #FFFAF0, #FED7AA |
 | Accents | Deep brown, soft red | #744210, #E57373 |
 
-## Visual Elements
+## 视觉元素
 
-- Sun rays, coffee cups, cozy items
-- Warm lighting effects
-- Friendly, inviting decorations
-- Soft, comfortable shapes
+- 阳光光线、咖啡杯、舒适物件
+- 暖光效果
+- 友好、亲切的装饰
+- 柔软舒适的形状
 
 ## Typography
 
-- Friendly, rounded hand lettering
-- Warm color accents
-- Comfortable, approachable feel
+- 友好圆润的 hand lettering
+- 暖色强调
+- 舒适、亲近的感觉
 
-## Best Layout Pairings
+## 最佳 Layout 搭配
 
-| Layout | Compatibility | Use Case |
+| Layout | 兼容性 | 使用场景 |
 |--------|---------------|----------|
-| sparse | ✓✓ | Emotional covers |
-| balanced | ✓✓ | Personal stories |
-| dense | ✓ | Detailed experiences |
-| list | ✓ | Life lessons |
-| comparison | ✓✓ | Before/after stories |
-| flow | ✓ | Journey narratives |
+| sparse | ✓✓ | 情绪化封面 |
+| balanced | ✓✓ | 个人故事 |
+| dense | ✓ | 详细经历 |
+| list | ✓ | 人生经验 |
+| comparison | ✓✓ | Before/after 故事 |
+| flow | ✓ | 旅程叙事 |
 
-## Best For
+## 适合
 
-- Personal stories
-- Life lessons
-- Emotional content
-- Comfort and lifestyle
-- Heartfelt shares
+- 个人故事
+- 人生经验
+- 情感内容
+- 舒适与生活方式
+- 真诚分享

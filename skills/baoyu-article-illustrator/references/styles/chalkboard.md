@@ -1,19 +1,19 @@
 # chalkboard
 
-Black chalkboard background with colorful chalk drawing style
+黑色 chalkboard 背景和彩色粉笔绘图风格。
 
 ## Design Aesthetic
 
-Classic classroom chalkboard aesthetic with hand-drawn chalk illustrations. Nostalgic educational feel with imperfect, sketchy lines that capture the warmth of traditional teaching. Colorful chalk creates visual hierarchy while maintaining the authentic chalkboard experience.
+经典课堂 chalkboard 美学，配手绘粉笔插图。怀旧教育感，带不完美、sketchy lines，体现传统教学的温度。彩色 chalk 建立视觉层级，同时保持真实 chalkboard 体验。
 
 ## Background
 
-- Color: Chalkboard Black (#1A1A1A) or Dark Green-Black (#1C2B1C)
-- Texture: Realistic chalkboard texture with subtle scratches, dust particles, and faint eraser marks
+- Color: Chalkboard Black (#1A1A1A) 或 Dark Green-Black (#1C2B1C)
+- Texture: 真实 chalkboard texture，带细微 scratches、dust particles 和 faint eraser marks
 
 ## Typography
 
-Hand-drawn chalk lettering style with visible chalk texture. Imperfect baseline adds authenticity. White or bright colored chalk for emphasis.
+手绘 chalk lettering 风格，带可见粉笔 texture。不完美 baseline 增加真实感。用白色或亮色 chalk 做强调。
 
 ## Color Palette
 
@@ -30,33 +30,33 @@ Hand-drawn chalk lettering style with visible chalk texture. Imperfect baseline 
 
 ## Visual Elements
 
-- Hand-drawn chalk illustrations with sketchy, imperfect lines
-- Chalk dust effects around text and key elements
-- Doodles: stars, arrows, underlines, circles, checkmarks
-- Mathematical formulas and simple diagrams
-- Eraser smudges and chalk residue textures
-- Wooden frame border optional
-- Stick figures and simple icons
-- Connection lines with hand-drawn feel
+- 带 sketchy、不完美线条的手绘 chalk illustrations
+- 文字和关键元素周围的 chalk dust effects
+- Doodles：stars、arrows、underlines、circles、checkmarks
+- Mathematical formulas 和 simple diagrams
+- Eraser smudges 与 chalk residue textures
+- 可选 wooden frame border
+- Stick figures 和 simple icons
+- 带手绘感的 connection lines
 
 ## Style Rules
 
 ### Do
 
-- Maintain authentic chalk texture on all elements
-- Use imperfect, hand-drawn quality throughout
-- Add subtle chalk dust and smudge effects
-- Create visual hierarchy with color variety
-- Include playful doodles and annotations
+- 所有元素都保持真实 chalk texture
+- 全程使用不完美、hand-drawn quality
+- 添加细微 chalk dust 和 smudge effects
+- 用多样颜色创建视觉层级
+- 包含 playful doodles 和 annotations
 
 ### Don't
 
-- Use perfect geometric shapes
-- Create clean digital-looking lines
-- Add photorealistic elements
-- Use gradients or glossy effects
-- Make it look computerized
+- 使用完美几何形
+- 创建干净 digital-looking lines
+- 添加 photorealistic elements
+- 使用 gradients 或 glossy effects
+- 让它看起来 computerized
 
 ## Best For
 
-Educational articles, tutorials, teaching content, workshops, informal learning, knowledge sharing, how-to guides, classroom-style explanations
+Educational articles、tutorials、teaching content、workshops、informal learning、knowledge sharing、how-to guides、classroom-style explanations

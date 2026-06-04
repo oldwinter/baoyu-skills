@@ -1,10 +1,10 @@
-# Auto-Selection Rules
+# 自动选择规则
 
-When a dimension is omitted, select based on content signals.
+当某个 dimension 被省略时，根据 content signals 选择。
 
-## Auto Type Selection
+## 自动选择 Type
 
-| Signals | Type |
+| 信号 | Type |
 |---------|------|
 | Product, launch, announcement, release, reveal | `hero` |
 | Architecture, framework, system, API, technical, model | `conceptual` |
@@ -29,9 +29,9 @@ When a dimension is omitted, select based on content signals.
 | Movie poster, album cover, concert, cinematic, dramatic, two-color | `duotone` |
 | Education, tutorial, knowledge, onboarding, concept explainer | `macaron` |
 
-## Auto Rendering Selection
+## 自动选择 Rendering
 
-| Signals | Rendering |
+| 信号 | Rendering |
 |---------|-----------|
 | Clean, modern, tech, WeChat, icon-based, infographic | `flat-vector` |
 | Sketch, note, personal, casual, doodle, warm | `hand-drawn` |
@@ -41,34 +41,34 @@ When a dimension is omitted, select based on content signals.
 | Education, tutorial, classroom, teaching | `chalk` |
 | Poster, movie, album, concert, silhouette, mondo, limited-edition | `screen-print` |
 
-## Auto Text Selection
+## 自动选择 Text
 
-| Signals | Text Level |
+| 信号 | Text 级别 |
 |---------|------------|
 | Visual-only, photography, abstract, art | `none` |
 | Article, blog, standard cover | `title-only` |
 | Series, tutorial, technical with context | `title-subtitle` |
 | Announcement, features, multiple points, infographic | `text-rich` |
 
-Default: `title-only`
+默认：`title-only`
 
-## Auto Mood Selection
+## 自动选择 Mood
 
-| Signals | Mood Level |
+| 信号 | Mood 级别 |
 |---------|------------|
 | Professional, corporate, thought leadership, academic, luxury | `subtle` |
 | General, educational, standard, blog, documentation | `balanced` |
 | Launch, announcement, promotion, event, gaming, entertainment | `bold` |
 
-Default: `balanced`
+默认：`balanced`
 
-## Auto Font Selection
+## 自动选择 Font
 
-| Signals | Font |
+| 信号 | Font |
 |---------|------|
 | Personal, lifestyle, human, warm, friendly, story | `handwritten` |
 | Technical, professional, clean, modern, minimal, data | `clean` |
 | Editorial, academic, luxury, classic, literary | `serif` |
 | Announcement, entertainment, promotion, bold, event, gaming | `display` |
 
-Default: `clean`
+默认：`clean`

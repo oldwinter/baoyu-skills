@@ -1,46 +1,46 @@
 # ligne-claire
 
-清线画风 - Uniform lines, flat colors, European comic tradition
+清线画风 - 统一线条、扁平色彩、European comic 传统
 
 ## Overview
 
-Classic European comic style originating from Hergé's Tintin. Characterized by clean, uniform outlines and flat color fills without gradients. Creates a timeless, accessible aesthetic suitable for educational and narrative content.
+源自 Hergé 的 Tintin 的经典 European comic 风格。以干净、统一的描边和无渐变的扁平色彩填充为特征。创造经久不过时、易读易懂的美学，适合教育与叙事内容。
 
 ## Line Work
 
-- Uniform, clean outlines with consistent weight (2px)
-- No hatching or cross-hatching for shading
-- Sharp, precise edges on all elements
-- Black ink outlines on all figures and objects
-- Shadows indicated through flat color areas, not line techniques
+- 统一、干净的描边，线宽一致（2px）
+- 不用 hatching 或 cross-hatching 做阴影
+- 所有元素边缘锐利、精确
+- 所有人物和对象都有黑色 ink 描边
+- 阴影通过扁平色块表示，而不是线条技法
 
 ## Character Design
 
-- Slightly stylized/cartoonish characters with realistic proportions
-- Distinctive, recognizable facial features
-- Expressive faces with clear emotions
-- Period-appropriate clothing with attention to detail
-- Consistent character appearance across panels
-- 6-7 head height proportions
+- 略 stylized/cartoonish 的角色，但比例写实
+- 面部特征鲜明、可识别
+- 面部有表现力，情绪清晰
+- 符合时代背景的服装，并注意细节
+- 跨 panels 保持角色外观一致
+- 6-7 头身比例
 
 ## Background Treatment
 
-- Detailed, realistic backgrounds with architectural accuracy
-- Period-specific props and technology
-- Clear spatial depth and perspective
-- Environmental storytelling through details
-- Contrast between simplified characters and detailed backgrounds
+- 背景细致写实，建筑准确
+- 时代特定道具和技术
+- 清晰空间深度和透视
+- 通过环境细节讲故事
+- 简化角色与细致背景形成对比
 
 ## Color Approach
 
-- Flat colors without gradients (true to Ligne Claire tradition)
-- Limited palette per page for cohesion
-- Colors support narrative mood
-- Consistent lighting logic within scenes
+- 无渐变的扁平色彩（符合 Ligne Claire 传统）
+- 每页使用有限调色板保持统一
+- 颜色服务叙事情绪
+- 场景内保持一致光照逻辑
 
 ## Default Color Palette
 
-| Role | Color | Hex |
+| 角色 | 颜色 | Hex |
 |------|-------|-----|
 | Primary Blue | Clean blue | #3182CE |
 | Primary Red | Classic red | #E53E3E |
@@ -51,25 +51,25 @@ Classic European comic style originating from Hergé's Tintin. Characterized by 
 
 ## Quality Markers
 
-- ✓ Clean, uniform line weight throughout
-- ✓ Flat colors without gradients
-- ✓ Detailed backgrounds, stylized characters
-- ✓ Clear panel borders and reading flow
-- ✓ Hand-drawn text style
-- ✓ Proper perspective in environments
+- ✓ 全程干净、统一线宽
+- ✓ 无渐变的扁平色彩
+- ✓ 背景细致，角色 stylized
+- ✓ panel 边框和阅读流清晰
+- ✓ 手绘文本风格
+- ✓ 环境中透视正确
 
 ## Compatibility
 
-| Tone | Fit | Notes |
+| Tone | Fit | 说明 |
 |------|-----|-------|
-| neutral | ✓✓ | Classic combination |
-| warm | ✓✓ | Nostalgic stories |
-| dramatic | ✓ | Works with high contrast |
-| vintage | ✓ | Period pieces |
-| romantic | ✗ | Style mismatch |
-| energetic | ✓ | Lighter stories |
-| action | ✗ | Lacks dynamic lines |
+| neutral | ✓✓ | 经典组合 |
+| warm | ✓✓ | 怀旧故事 |
+| dramatic | ✓ | 可通过高对比成立 |
+| vintage | ✓ | 时代作品 |
+| romantic | ✗ | 风格不匹配 |
+| energetic | ✓ | 轻松故事 |
+| action | ✗ | 缺少动态线条 |
 
 ## Best For
 
-Educational content, balanced narratives, biography comics, historical stories
+教育内容、平衡叙事、传记漫画、历史故事

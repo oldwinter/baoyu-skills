@@ -1,11 +1,11 @@
 ---
 name: watermark-guide
-description: Watermark configuration guide for baoyu-comic
+description: baoyu-comic 的水印配置指南
 ---
 
-# Watermark Guide
+# 水印指南
 
-## Position Diagram
+## 位置示意图
 
 ```
 ┌─────────────────────────────┐
@@ -19,35 +19,35 @@ description: Watermark configuration guide for baoyu-comic
 └─────────────────────────────┘
 ```
 
-## Position Recommendations
+## 位置建议
 
-| Position | Best For | Avoid When |
+| 位置 | 适合 | 避免场景 |
 |----------|----------|------------|
-| `bottom-right` | Default choice, works with most panel layouts | Key panel in bottom-right |
-| `bottom-left` | Right-heavy layouts | Key panel in bottom-left |
-| `bottom-center` | Webtoon vertical scroll, centered designs | Text-heavy bottom area |
-| `top-right` | **Not recommended for comics** | Always - conflicts with page numbers |
+| `bottom-right` | 默认选择，适合大多数 panel layouts | 关键 panel 在右下角 |
+| `bottom-left` | 右侧偏重布局 | 关键 panel 在左下角 |
+| `bottom-center` | Webtoon 纵向滚动、居中设计 | 底部文字密集 |
+| `top-right` | **不推荐用于 comics** | 始终避免，会与页码冲突 |
 
-## Content Format
+## 内容格式
 
-| Format | Example | Style |
+| 格式 | 示例 | 风格 |
 |--------|---------|-------|
 | Handle | `@username` | Social media style |
-| Text | `Studio Name` | Professional branding |
-| Chinese | `漫画工作室` | Chinese market |
-| Initials | `ABC` | Minimal, clean |
+| Text | `Studio Name` | 专业品牌标识 |
+| Chinese | `漫画工作室` | 中文市场 |
+| Initials | `ABC` | Minimal、干净 |
 
-## Best Practices for Comics
+## Comics 最佳实践
 
-1. **Panel-aware placement**: Avoid placing over speech bubbles or key action
-2. **Consistency**: Use same watermark across all pages in comic
-3. **Size**: Keep subtle - should not distract from storytelling
-4. **Style matching**: Watermark style should complement comic's visual style
-5. **Webtoon special**: Use `bottom-center` for vertical scroll format
+1. **Panel-aware placement**：避免覆盖 speech bubbles 或关键动作
+2. **一致性**：comic 所有页面使用同一水印
+3. **大小**：保持克制，不应干扰 storytelling
+4. **风格匹配**：水印风格应补充 comic 的视觉风格
+5. **Webtoon special**：纵向滚动格式使用 `bottom-center`
 
-## Prompt Integration
+## Prompt 集成
 
-When watermark is enabled, add to image generation prompt:
+启用水印时，在 image generation prompt 中加入：
 
 ```
 Include a subtle watermark "[content]" positioned at [position].
@@ -55,12 +55,12 @@ The watermark should be legible but not distracting from the comic panels
 and storytelling. Ensure watermark does not overlap speech bubbles or key action.
 ```
 
-## Common Issues
+## 常见问题
 
-| Issue | Solution |
+| 问题 | 解决方案 |
 |-------|----------|
-| Watermark invisible on dark panels | Adjust contrast or add subtle outline |
-| Watermark overlaps speech bubble | Change position or lower on page |
-| Watermark inconsistent across pages | Use session ID for consistency |
-| Watermark too prominent | Change position or reduce size |
-| Conflicts with page number | Never use top-right position |
+| 水印在暗色 panels 上不可见 | 调整对比度或添加细微描边 |
+| 水印与 speech bubble 重叠 | 改变位置或下移 |
+| 水印跨页面不一致 | 使用 session ID 保持一致性 |
+| 水印过于显眼 | 更改位置或缩小尺寸 |
+| 与页码冲突 | 永远不要使用 top-right 位置 |

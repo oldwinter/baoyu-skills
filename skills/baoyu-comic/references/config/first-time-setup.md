@@ -1,23 +1,23 @@
 ---
 name: first-time-setup
-description: First-time setup flow for baoyu-comic preferences
+description: baoyu-comic 偏好的首次设置流程
 ---
 
-# First-Time Setup
+# 首次设置
 
-## Overview
+## 概述
 
-When no EXTEND.md is found, guide user through preference setup.
+当找不到 EXTEND.md 时，引导用户完成偏好设置。
 
-**⛔ BLOCKING OPERATION**: This setup MUST complete before ANY other workflow steps. Do NOT:
-- Ask about content/source material
-- Ask about art style or tone
-- Ask about layout preferences
-- Proceed to content analysis
+**⛔ 阻塞操作**：必须先完成此设置，才能执行任何其他 workflow 步骤。不要：
+- 询问内容或源材料
+- 询问 art style 或 tone
+- 询问 layout 偏好
+- 进入内容分析
 
-ONLY ask the questions in this setup flow, save EXTEND.md, then continue.
+只询问本设置流程中的问题，保存 EXTEND.md，然后继续。
 
-## Setup Flow
+## 设置流程
 
 ```
 No EXTEND.md found
@@ -37,13 +37,13 @@ No EXTEND.md found
     Continue to Step 1
 ```
 
-## Questions
+## 问题
 
-**Language**: Use user's input language or preferred language for all questions. Do not always use English.
+**Language**：所有问题都使用用户的输入语言或偏好语言。不要总是使用 English。
 
-Use single AskUserQuestion with multiple questions (AskUserQuestion auto-adds "Other" option):
+使用一次包含多个问题的 AskUserQuestion（AskUserQuestion 会自动添加 "Other" 选项）：
 
-### Question 1: Watermark
+### 问题 1：Watermark
 
 ```
 header: "Watermark"
@@ -53,9 +53,9 @@ options:
     description: "No watermark, can enable later in EXTEND.md"
 ```
 
-Position defaults to bottom-right.
+位置默认为 bottom-right。
 
-### Question 2: Preferred Art Style
+### 问题 2：Preferred Art Style
 
 ```
 header: "Art"
@@ -71,7 +71,7 @@ options:
     description: "Digital painting, sophisticated and professional"
 ```
 
-### Question 3: Preferred Tone
+### 问题 3：Preferred Tone
 
 ```
 header: "Tone"
@@ -87,7 +87,7 @@ options:
     description: "High contrast, intense, powerful"
 ```
 
-### Question 4: Language
+### 问题 4：Language
 
 ```
 header: "Language"
@@ -101,7 +101,7 @@ options:
     description: "English"
 ```
 
-### Question 5: Save Location
+### 问题 5：Save Location
 
 ```
 header: "Save"
@@ -113,21 +113,21 @@ options:
     description: "~/.baoyu-skills/ (all projects)"
 ```
 
-## Save Locations
+## 保存位置
 
-| Choice | Path | Scope |
+| 选择 | 路径 | 范围 |
 |--------|------|-------|
-| Project | `.baoyu-skills/baoyu-comic/EXTEND.md` | Current project |
-| User | `~/.baoyu-skills/baoyu-comic/EXTEND.md` | All projects |
+| Project | `.baoyu-skills/baoyu-comic/EXTEND.md` | 当前 project |
+| User | `~/.baoyu-skills/baoyu-comic/EXTEND.md` | 所有 projects |
 
-## After Setup
+## 设置后
 
-1. Create directory if needed
-2. Write EXTEND.md with frontmatter
-3. Confirm: "Preferences saved to [path]"
-4. Continue to Step 1
+1. 按需创建目录
+2. 写入带 frontmatter 的 EXTEND.md
+3. 确认："Preferences saved to [path]"
+4. 继续 Step 1
 
-## EXTEND.md Template
+## EXTEND.md 模板
 
 ```yaml
 ---
@@ -148,10 +148,10 @@ character_presets: []
 ---
 ```
 
-`preferred_image_backend: auto` is the baked-in default — first-time setup does not ask about it. The `## Image Generation Tools` rule in SKILL.md then picks the runtime-native tool (Codex `imagegen`, Hermes `image_generate`, etc.) when available, and falls back to installed backends.
+`preferred_image_backend: auto` 是内置默认值，首次设置不会询问它。随后 SKILL.md 中的 `## Image Generation Tools` 规则会在可用时选择 runtime-native tool（Codex `imagegen`、Hermes `image_generate` 等），并在需要时 fallback 到已安装的 backends。
 
-`generation_batch_size: 4` is the baked-in default for page batch rendering. The current user request may override it for one run.
+`generation_batch_size: 4` 是页面批量渲染的内置默认值。当前用户请求可以对单次运行覆盖它。
 
-## Modifying Preferences Later
+## 后续修改偏好
 
-See the `## Changing Preferences` section in `SKILL.md` for the canonical list of common edits (pin backend, change defaults, retrigger setup). Full schema: `config/preferences-schema.md`.
+常见修改（固定 backend、修改默认值、重新触发设置）的 canonical 清单见 `SKILL.md` 的 `## Changing Preferences` 章节。完整 schema：`config/preferences-schema.md`。
