@@ -5,7 +5,7 @@ category: minimal
 
 # Notion Style
 
-Minimalist hand-drawn line art, intellectual aesthetic.
+极简 hand-drawn line art，带 intellectual aesthetic。
 
 ## Element Combination
 
@@ -31,43 +31,43 @@ decorations:
   frames: none | rounded-rect
 ```
 
-## Color Palette
+## 调色板
 
-| Role | Colors | Hex |
+| 角色 | 颜色 | Hex |
 |------|--------|-----|
 | Primary | Black, dark gray | #1A1A1A, #4A4A4A |
 | Background | Pure white, off-white | #FFFFFF, #FAFAFA |
 | Accents | Pastel blue, pastel yellow, pastel pink | #A8D4F0, #F9E79F, #FADBD8 |
 
-## Visual Elements
+## 视觉元素
 
-- Simple line doodles, hand-drawn wobble effect
-- Geometric shapes, stick figures
-- Maximum whitespace, single-weight ink lines
-- Clean, uncluttered compositions
+- Simple line doodles、hand-drawn wobble effect
+- Geometric shapes、stick figures
+- Maximum whitespace、single-weight ink lines
+- Clean、uncluttered compositions
 
 ## Typography
 
 - Clean hand-drawn lettering
 - Simple sans-serif labels
-- Minimal decoration on text
+- text 上保持 minimal decoration
 
-## Best Layout Pairings
+## 最佳 Layout 搭配
 
-| Layout | Compatibility | Use Case |
+| Layout | 兼容性 | 使用场景 |
 |--------|---------------|----------|
-| sparse | ✓✓ | Concept covers |
-| balanced | ✓✓ | Standard explanations |
-| dense | ✓✓ | Knowledge cards, cheat sheets |
-| list | ✓✓ | Productivity tips, tool lists |
-| comparison | ✓✓ | Data comparisons |
-| flow | ✓✓ | Process diagrams |
+| sparse | ✓✓ | 概念封面 |
+| balanced | ✓✓ | 标准解释 |
+| dense | ✓✓ | 知识卡、cheat sheets |
+| list | ✓✓ | 生产力技巧、工具清单 |
+| comparison | ✓✓ | 数据对比 |
+| flow | ✓✓ | 流程 diagrams |
 
-## Best For
+## 适合
 
-- Knowledge sharing
-- Concept explanations
-- SaaS content
-- Productivity tips
-- Tech tutorials
-- Professional content
+- 知识分享
+- 概念解释
+- SaaS 内容
+- 生产力技巧
+- 技术教程
+- 专业内容

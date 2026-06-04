@@ -1,11 +1,11 @@
 ---
 name: preferences-schema
-description: EXTEND.md YAML schema for baoyu-comic user preferences
+description: baoyu-comic 用户偏好的 EXTEND.md YAML schema
 ---
 
 # Preferences Schema
 
-## Full Schema
+## 完整 Schema
 
 ```yaml
 ---
@@ -37,66 +37,66 @@ character_presets:
 ---
 ```
 
-## Field Reference
+## 字段参考
 
-| Field | Type | Default | Description |
+| 字段 | 类型 | 默认值 | 说明 |
 |-------|------|---------|-------------|
-| `version` | int | 2 | Schema version |
-| `watermark.enabled` | bool | false | Enable watermark |
-| `watermark.content` | string | "" | Watermark text (@username or custom) |
-| `watermark.position` | enum | bottom-right | Position on image |
-| `preferred_art` | string | null | Art style (ligne-claire, manga, realistic, ink-brush, chalk, minimalist) |
-| `preferred_tone` | string | null | Tone (neutral, warm, dramatic, romantic, energetic, vintage, action) |
-| `preferred_layout` | string | null | Layout preference or null |
-| `preferred_aspect` | string | null | Aspect ratio (3:4, 4:3, 16:9) |
-| `language` | string | null | Output language (null = auto-detect) |
-| `preferred_image_backend` | string | `auto` | Image backend selection. `auto` = prefer runtime-native tool, fall back to the only installed backend, ask if multiple non-native are present. `ask` = always confirm on every run. `<backend-id>` (e.g., `codex-imagegen`, `baoyu-image-gen`, `image_generate`) = pin this backend when available; fall back to `auto` when it isn't. Absent = `auto`. Resolution logic is documented in `SKILL.md`'s `## Image Generation Tools` section. |
-| `generation_batch_size` | int | 4 | Number of page images to dispatch per batch when the backend has native batch support or the runtime can issue parallel generation calls. Clamp invalid values to 1-8. Current user request overrides this value. |
-| `character_presets` | array | [] | Preset character roles for styles like ohmsha |
+| `version` | int | 2 | Schema 版本 |
+| `watermark.enabled` | bool | false | 启用 watermark |
+| `watermark.content` | string | "" | Watermark 文本（@username 或 custom） |
+| `watermark.position` | enum | bottom-right | 图片上的位置 |
+| `preferred_art` | string | null | Art style（ligne-claire、manga、realistic、ink-brush、chalk、minimalist） |
+| `preferred_tone` | string | null | Tone（neutral、warm、dramatic、romantic、energetic、vintage、action） |
+| `preferred_layout` | string | null | Layout 偏好，或 null |
+| `preferred_aspect` | string | null | Aspect ratio（3:4、4:3、16:9） |
+| `language` | string | null | 输出语言（null = auto-detect） |
+| `preferred_image_backend` | string | `auto` | Image backend 选择。`auto` = 优先 runtime-native tool，fallback 到唯一 installed backend，多个 non-native 时询问。`ask` = 每次运行都确认。`<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`image_generate`）= 该 backend 可用时固定使用，不可用时 fallback 到 `auto`。Absent = `auto`。Resolution logic 见 `SKILL.md` 的 `## Image Generation Tools` section。 |
+| `generation_batch_size` | int | 4 | 当 backend 支持原生 batch，或 runtime 可发起并行生成调用时，每批派发的页面图片数量。无效值限制到 1-8。当前用户请求会覆盖此值。 |
+| `character_presets` | array | [] | ohmsha 等风格使用的预设角色分工 |
 
-## Art Style Options
+## Art Style 选项
 
-| Value | 中文 | Description |
+| 值 | 中文 | 说明 |
 |-------|------|-------------|
-| `ligne-claire` | 清线 | Uniform lines, flat colors, European comic tradition |
-| `manga` | 日漫 | Large eyes, manga conventions, expressive emotions |
-| `realistic` | 写实 | Digital painting, realistic proportions |
-| `ink-brush` | 水墨 | Chinese brush strokes, ink wash effects |
-| `chalk` | 粉笔 | Chalkboard aesthetic, hand-drawn warmth |
-| `minimalist` | 极简 | Clean black line art, limited spot color, stick-figure characters |
+| `ligne-claire` | 清线 | 统一线条、平涂色彩、欧洲漫画传统 |
+| `manga` | 日漫 | 大眼睛、manga 惯例、情绪表现力强 |
+| `realistic` | 写实 | Digital painting，真实比例 |
+| `ink-brush` | 水墨 | 中国笔触、ink wash 效果 |
+| `chalk` | 粉笔 | Blackboard 美学，手绘温度 |
+| `minimalist` | 极简 | 干净黑色线稿、有限 spot color、火柴人角色 |
 
-## Tone Options
+## Tone 选项
 
-| Value | 中文 | Description |
+| 值 | 中文 | 说明 |
 |-------|------|-------------|
-| `neutral` | 中性 | Balanced, rational, educational |
-| `warm` | 温馨 | Nostalgic, personal, comforting |
-| `dramatic` | 戏剧 | High contrast, intense, powerful |
-| `romantic` | 浪漫 | Soft, beautiful, decorative elements |
-| `energetic` | 活力 | Bright, dynamic, exciting |
-| `vintage` | 复古 | Historical, aged, period authenticity |
-| `action` | 动作 | Speed lines, impact effects, combat |
+| `neutral` | 中性 | 平衡、理性、教育感 |
+| `warm` | 温馨 | 怀旧、个人化、有安慰感 |
+| `dramatic` | 戏剧 | 高对比、强烈、有力量 |
+| `romantic` | 浪漫 | 柔和、美丽、装饰元素 |
+| `energetic` | 活力 | 明亮、动态、令人兴奋 |
+| `vintage` | 复古 | 历史感、旧化、时代真实性 |
+| `action` | 动作 | Speed lines、impact effects、战斗感 |
 
-## Position Options
+## Position 选项
 
-| Value | Description |
+| 值 | 说明 |
 |-------|-------------|
-| `bottom-right` | Lower right corner (default, works with most panel layouts) |
-| `bottom-left` | Lower left corner |
-| `bottom-center` | Bottom center (good for webtoon vertical scroll) |
-| `top-right` | Upper right corner (avoid - conflicts with page numbers) |
+| `bottom-right` | 右下角（默认，适合大多数分镜布局） |
+| `bottom-left` | 左下角 |
+| `bottom-center` | 底部居中（适合 webtoon 竖向滚动） |
+| `top-right` | 右上角（避免使用 - 会和页码冲突） |
 
-## Character Preset Fields
+## Character Preset 字段
 
-| Field | Required | Description |
+| 字段 | 必填 | 说明 |
 |-------|----------|-------------|
-| `name` | Yes | Unique preset identifier |
-| `roles.learner` | No | Character representing the learner/protagonist |
-| `roles.mentor` | No | Character representing the teacher/guide |
-| `roles.challenge` | No | Character representing obstacles/antagonist |
-| `roles.support` | No | Character providing support/comic relief |
+| `name` | Yes | 唯一 preset identifier |
+| `roles.learner` | No | 代表学习者/主角的角色 |
+| `roles.mentor` | No | 代表老师/向导的角色 |
+| `roles.challenge` | No | 代表障碍/反派的角色 |
+| `roles.support` | No | 提供支持/comic relief 的角色 |
 
-## Example: Minimal Preferences
+## 示例：最小偏好
 
 ```yaml
 ---
@@ -109,7 +109,7 @@ preferred_tone: neutral
 ---
 ```
 
-## Example: Full Preferences
+## 示例：完整偏好
 
 ```yaml
 ---
@@ -148,11 +148,11 @@ character_presets:
 ---
 ```
 
-## Migration from v1
+## 从 v1 迁移
 
-If you have a v1 preferences file with `preferred_style`, migrate as follows:
+如果你有包含 `preferred_style` 的 v1 preferences 文件，请按下面方式迁移：
 
-| Old `preferred_style.name` | New `preferred_art` | New `preferred_tone` |
+| 旧 `preferred_style.name` | 新 `preferred_art` | 新 `preferred_tone` |
 |---------------------------|---------------------|---------------------|
 | classic | ligne-claire | neutral |
 | dramatic | ligne-claire | dramatic |

@@ -34,7 +34,7 @@ generated: "YYYY-MM-DD HH:mm"
 - Subtitle / time span notation
 
 **Visual Prompt**:
-[Detailed image generation prompt]
+[详细 image generation prompt]
 
 ---
 
@@ -43,7 +43,7 @@ generated: "YYYY-MM-DD HH:mm"
 **Filename**: 01-page-[slug].png
 **Layout**: [standard/cinematic/dense/splash/mixed]
 **Narrative Layer**: [Main narrative / Narrator layer / Mixed]
-**Core Message**: [What this page conveys]
+**Core Message**: [此页传达什么]
 
 ### Panel Layout
 
@@ -52,12 +52,12 @@ generated: "YYYY-MM-DD HH:mm"
 
 #### Panel 1 (Size: 1/3 page, Position: Top)
 
-**Scene**: [Time, location]
+**Scene**: [时间、地点]
 **Image Description**:
 - Camera angle: [bird's eye / low angle / eye level / close-up / wide shot]
-- Characters: [pose, expression, action]
-- Environment: [scene details, period markers]
-- Lighting: [atmosphere description]
+- Characters: [姿势、表情、动作]
+- Environment: [场景细节、时代标记]
+- Lighting: [氛围描述]
 - Color tone: [palette reference]
 
 **Text Elements**:
@@ -67,10 +67,10 @@ generated: "YYYY-MM-DD HH:mm"
 
 #### Panel 2...
 
-**Page Hook**: [Cliffhanger or transition at page end]
+**Page Hook**: [页尾 cliffhanger 或 transition]
 
 **Visual Prompt**:
-[Full page image generation prompt]
+[完整 page image generation prompt]
 
 ---
 
@@ -80,61 +80,61 @@ generated: "YYYY-MM-DD HH:mm"
 
 ## Cover Design Principles
 
-- Academic gravitas with visual appeal
-- Title typography reflecting knowledge/science theme
-- Composition hinting at core theme (character silhouette, iconic symbol, concept diagram)
-- Subtitle or time span for epic scope
+- 具有学术分量，同时保持视觉吸引力
+- 标题 typography 体现 knowledge/science theme
+- 构图暗示 core theme（character silhouette、iconic symbol、concept diagram）
+- 使用 subtitle 或 time span 呈现史诗感范围
 
 ## Panel Composition Guidelines
 
 | Panel Type | Recommended Count | Usage |
 |-----------|-------------------|-------|
-| Main narrative | 3-5 per page | Story progression |
-| Concept diagram | 1-2 per page | Visualize abstractions |
-| Narrator panel | 0-1 per page | Commentary, transition |
-| Splash (full/half) | Occasional | Major moments |
+| Main narrative | 每页 3-5 个 | Story progression |
+| Concept diagram | 每页 1-2 个 | 可视化抽象概念 |
+| Narrator panel | 每页 0-1 个 | Commentary、transition |
+| Splash (full/half) | 偶尔使用 | 重大时刻 |
 
 ## Panel Size Reference
 
-- **Full page (Splash)**: Major moments, key breakthroughs
-- **Half page**: Important scenes, turning points
-- **1/3 page**: Standard narrative panels
-- **1/4 or smaller**: Quick progression, sequential action
+- **Full page (Splash)**：重大时刻、关键突破
+- **Half page**：重要场景、turning points
+- **1/3 page**：标准 narrative panels
+- **1/4 or smaller**：快速推进、连续动作
 
 ## Concept Visualization Techniques
 
-Transform abstract concepts into concrete visuals:
+将 abstract concepts 转成 concrete visuals：
 
 | Abstract Concept | Visual Approach |
 |-----------------|-----------------|
-| Neural network | Glowing nodes with connecting lines |
-| Gradient descent | Ball rolling down valley terrain |
-| Data flow | Luminous particles flowing through pipes |
-| Algorithm iteration | Ascending spiral staircase |
-| Breakthrough moment | Shattering barrier, piercing light |
-| Logical proof | Building blocks assembling |
-| Uncertainty | Forking paths, fog, multiple shadows |
+| Neural network | 发光节点和连接线 |
+| Gradient descent | 球沿山谷地形滚下 |
+| Data flow | 发光粒子流过管道 |
+| Algorithm iteration | 向上盘旋的楼梯 |
+| Breakthrough moment | 破碎屏障、穿透光线 |
+| Logical proof | 积木组装 |
+| Uncertainty | 分叉路径、雾、多重影子 |
 
 ## Text Element Design
 
 | Text Type | Style | Usage |
 |-----------|-------|-------|
-| Character dialogue | Oval speech bubble | Main narrative speech |
-| Narrator commentary | Rectangular box | Explanation, commentary |
-| Caption bar | Edge-mounted rectangle | Time, location info |
-| Thought bubble | Cloud shape | Character inner monologue |
-| Term label | Bold / special color | First appearance of technical terms |
+| Character dialogue | Oval speech bubble | 主叙事对白 |
+| Narrator commentary | Rectangular box | 解释、评论 |
+| Caption bar | Edge-mounted rectangle | 时间、地点信息 |
+| Thought bubble | Cloud shape | 角色内心独白 |
+| Term label | Bold / special color | 技术术语首次出现 |
 
 ## Prompt Structure for Consistency
 
-Each page prompt should include character reference:
+每个 page prompt 都应包含 character reference：
 
-```
+```text
 [CHARACTER REFERENCE]
-(Key details from characters.md for characters in this page)
+（本页出现角色在 characters.md 中的关键细节）
 
 [PAGE CONTENT]
-(Specific scene, panel layout, and visual elements)
+（具体场景、panel layout 和 visual elements）
 
 [CONSISTENCY REMINDER]
 Maintain exact character appearances as defined in character reference.

@@ -1,26 +1,26 @@
 # Sequence Diagram Layout
 
-## Core Elements
+## 核心元素
 
-| Element | Visual | Description |
+| Element | Visual | 说明 |
 |---------|--------|-------------|
-| Actor/Participant | Box at top + dashed vertical lifeline | Each entity in the interaction |
-| Sync message | Solid arrow → | Request or call |
+| Actor/Participant | 顶部 box + dashed vertical lifeline | interaction 中的每个实体 |
+| Sync message | Solid arrow → | Request 或 call |
 | Async message | Open arrowhead → | Fire-and-forget |
 | Return message | Dashed arrow ← | Response |
-| Activation bar | Narrow filled rect on lifeline | Entity is processing |
-| Self-message | Arrow looping back to same lifeline | Internal processing |
-| Note | Rounded rect with folded corner | Annotation |
-| Alt/Opt frame | Dashed boundary with label tab | Conditional block |
-| Loop frame | Dashed boundary with "loop" tab | Repetition |
+| Activation bar | lifeline 上的窄 filled rect | 实体正在 processing |
+| Self-message | 回到同一 lifeline 的 loop arrow | Internal processing |
+| Note | 带折角的 rounded rect | Annotation |
+| Alt/Opt frame | 带 label tab 的 dashed boundary | Conditional block |
+| Loop frame | 带 "loop" tab 的 dashed boundary | Repetition |
 
 ## Layout Algorithm
 
-1. **Place actors** horizontally across the top, evenly spaced (150-200px apart)
-2. **Draw lifelines** as vertical dashed lines from each actor box downward
-3. **Place messages** as horizontal arrows between lifelines, top to bottom in time order
-4. **Vertical spacing** between messages: 40-50px
-5. **Activation bars:** 10px wide, centered on lifeline, spanning from incoming to outgoing message
+1. **放置 actors**：在顶部横向均匀排列（间距 150-200px）
+2. **绘制 lifelines**：从每个 actor box 向下绘制 vertical dashed lines
+3. **放置 messages**：在 lifelines 之间绘制 horizontal arrows，按时间顺序从上到下排列
+4. **Vertical spacing**：messages 之间 40-50px
+5. **Activation bars**：宽 10px，居中放在 lifeline 上，从 incoming message 延伸到 outgoing message
 
 ## Actor Box
 
@@ -73,16 +73,16 @@
 
 ## Numbering
 
-For complex sequences (8+ messages), number each message:
+对复杂 sequences（8+ messages），为每条 message 编号：
 
 ```svg
 <circle cx="FROM_CX-15" cy="Y" r="8" fill="rgba(59,130,246,0.3)" stroke="#60a5fa" stroke-width="1"/>
 <text x="FROM_CX-15" y="Y+3" fill="#60a5fa" font-size="7" font-weight="600" text-anchor="middle">1</text>
 ```
 
-## Color Assignment
+## 颜色分配
 
-Assign each actor a distinct color from the palette. Use that color for:
+为每个 actor 从 palette 中分配一种不同颜色。该颜色用于：
 - Actor box stroke
-- Activation bar on that lifeline
-- Outgoing arrows from that actor (optional, for visual clarity in complex diagrams)
+- 该 lifeline 上的 activation bar
+- 该 actor 发出的 outgoing arrows（可选，用于提升复杂 diagrams 的视觉清晰度）

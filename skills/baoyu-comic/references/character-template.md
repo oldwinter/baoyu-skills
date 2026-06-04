@@ -2,7 +2,7 @@
 
 ## Character Document Format
 
-Create `characters/characters.md` with the following structure:
+按以下结构创建 `characters/characters.md`：
 
 ```markdown
 # Character Definitions - [Comic Title]
@@ -15,28 +15,28 @@ Create `characters/characters.md` with the following structure:
 ## Character 1: [Name]
 
 **Role**: [Protagonist / Mentor / Antagonist / Narrator]
-**Age**: [approximate age or age range in story]
+**Age**: [故事中的大致年龄或年龄范围]
 
 **Appearance**:
 - Face shape: [oval/square/round]
-- Hair: [color, style, length]
-- Eyes: [color, shape, distinctive features]
-- Build: [height, body type]
-- Distinguishing features: [glasses, beard, scar, etc.]
+- Hair: [颜色、发型、长度]
+- Eyes: [颜色、形状、显著特征]
+- Build: [身高、体型]
+- Distinguishing features: [眼镜、胡须、疤痕等]
 
 **Costume**:
-- Default outfit: [detailed description]
-- Color palette: [primary colors for this character]
-- Accessories: [hat, bag, tools, etc.]
+- Default outfit: [详细描述]
+- Color palette: [此角色的主色]
+- Accessories: [帽子、包、工具等]
 
 **Expression Range**:
-- Neutral: [description]
-- Happy/Excited: [description]
-- Thinking/Confused: [description]
-- Determined: [description]
+- Neutral: [描述]
+- Happy/Excited: [描述]
+- Thinking/Confused: [描述]
+- Determined: [描述]
 
 **Visual Reference Notes**:
-[Any specific artistic direction]
+[任何具体艺术方向]
 
 ---
 
@@ -46,7 +46,7 @@ Create `characters/characters.md` with the following structure:
 
 ## Reference Sheet Image Prompt
 
-After character definitions, include a prompt for generating the reference sheet:
+角色定义之后，加入一个用于生成 reference sheet 的 prompt：
 
 ```markdown
 ## Reference Sheet Prompt
@@ -54,8 +54,8 @@ After character definitions, include a prompt for generating the reference sheet
 Character reference sheet in [style] style, clean lines, flat colors:
 
 [ROW 1 - Character Name]:
-- Front view: [detailed description]
-- 3/4 view: [description]
+- Front view: [详细描述]
+- 3/4 view: [描述]
 - Expression sheet: Neutral | Happy | Focused | Worried
 
 [ROW 2 - Character Name]:
@@ -141,40 +141,41 @@ White background, clear labels under each character.
 
 ## Handling Age Variants
 
-For biographies spanning many years, define age variants:
+对跨越多年的 biographies，定义 age variants：
 
 ```markdown
 ## Alan Turing - Age Variants
 
 ### Young (1920s, age 10-18)
-- Boyish features, round face
-- School uniform (Sherborne)
-- Curious, eager expression
+- 少年感特征，圆脸
+- 校服（Sherborne）
+- 好奇、热切的表情
 
 ### Adult (1930s-40s, age 25-35)
-- Angular face, defined jaw
-- Tweed jacket, rumpled appearance
-- Intense, focused expression
+- 更有棱角的脸，清晰下颌线
+- Tweed jacket，略显凌乱
+- 强烈、专注的表情
 
 ### Later (1950s, age 40+)
-- Slightly weathered
-- More casual dress
-- Thoughtful, sometimes melancholic
+- 略带风霜
+- 更休闲的穿着
+- 沉思，有时忧郁
 ```
 
 ## Best Practices
 
 | Practice | Description |
 |----------|-------------|
-| Be specific | "Short dark wavy hair, parted left" not just "dark hair" |
-| Use distinguishing features | Glasses, scars, accessories that identify character |
-| Define color codes | Use specific color names or hex codes |
-| Include age markers | Wrinkles, posture, clothing style matching era |
-| Reference real people | For historical figures, note "based on 1940s photographs" |
+| Be specific | 写 "Short dark wavy hair, parted left"，不要只写 "dark hair" |
+| Use distinguishing features | 使用眼镜、疤痕、配件等能识别角色的特征 |
+| Define color codes | 使用具体颜色名或 hex codes |
+| Include age markers | 皱纹、姿态、符合时代的服饰 |
+| Reference real people | 对历史人物，注明 "based on 1940s photographs" |
 
 ## Why Character Reference Matters
 
-Without unified character definition, AI generates inconsistent appearances. The reference sheet provides:
-1. Visual anchors for consistent features
-2. Color palettes for consistent coloring
-3. Expression documentation for emotional portrayals
+没有统一 character definition，AI 会生成不一致的外观。Reference sheet 提供：
+
+1. 保持特征一致的 visual anchors
+2. 保持上色一致的 color palettes
+3. 用于情绪刻画的 expression documentation

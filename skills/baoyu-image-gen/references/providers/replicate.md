@@ -1,43 +1,43 @@
 # Replicate
 
-Read when the user picks `--provider replicate`. Replicate support is intentionally scoped to model families baoyu-image-gen can validate locally and save without dropping outputs.
+当用户选择 `--provider replicate` 时阅读。Replicate support 有意限制在 baoyu-image-gen 能够本地验证并保存、不会丢失 outputs 的 model families。
 
 ## Supported Families
 
 **`google/nano-banana*`** (default: `google/nano-banana-2`)
 
-- Supports prompt-only and reference-image generation
-- Uses Replicate `aspect_ratio`, `resolution`, and `output_format`
-- `--size <WxH>` is accepted only as a shorthand for a documented `aspect_ratio` plus `1K` / `2K`
+- 支持 prompt-only 和 reference-image generation
+- 使用 Replicate `aspect_ratio`、`resolution` 和 `output_format`
+- `--size <WxH>` 只作为已文档化 `aspect_ratio` 加 `1K` / `2K` 的 shorthand 接受
 
 **`bytedance/seedream-4.5`**
 
-- Supports prompt-only and reference-image generation
-- Uses Replicate `size`, `aspect_ratio`, and `image_input`
-- Local validation blocks unsupported `1K` requests before the API call
+- 支持 prompt-only 和 reference-image generation
+- 使用 Replicate `size`、`aspect_ratio` 和 `image_input`
+- Local validation 会在 API call 前阻止不支持的 `1K` requests
 
 **`bytedance/seedream-5-lite`**
 
-- Supports prompt-only and reference-image generation
-- Uses Replicate `size`, `aspect_ratio`, and `image_input`
-- Local validation currently accepts `2K` / `3K` only
+- 支持 prompt-only 和 reference-image generation
+- 使用 Replicate `size`、`aspect_ratio` 和 `image_input`
+- Local validation 目前只接受 `2K` / `3K`
 
 **`wan-video/wan-2.7-image`**
 
-- Supports prompt-only and reference-image generation
-- Uses Replicate `size` and `images`
-- Max output is 2K
+- 支持 prompt-only 和 reference-image generation
+- 使用 Replicate `size` 和 `images`
+- Max output 为 2K
 
 **`wan-video/wan-2.7-image-pro`**
 
-- Supports prompt-only and reference-image generation
-- Uses Replicate `size` and `images`
-- 4K is allowed only for text-to-image; local validation blocks `4K + --ref`
+- 支持 prompt-only 和 reference-image generation
+- 使用 Replicate `size` 和 `images`
+- 4K 仅允许用于 text-to-image；local validation 会阻止 `4K + --ref`
 
 ## Guardrails
 
-- Replicate currently supports only single-output save semantics in this tool — keep `--n 1`
-- If a model is outside the compatibility list above, baoyu-image-gen treats it as prompt-only and rejects advanced local options instead of guessing a nano-banana-style schema
+- 在此工具中，Replicate 当前只支持 single-output save semantics；保持 `--n 1`
+- 如果某个 model 不在上面的 compatibility list 中，baoyu-image-gen 会将它视为 prompt-only，并拒绝 advanced local options，而不是猜测 nano-banana-style schema
 
 ## Examples
 

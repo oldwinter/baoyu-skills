@@ -11,37 +11,37 @@ metadata:
         - npx
 ---
 
-# Post to WeChat Official Account
+# 发布到 WeChat Official Account
 
 ## User Input Tools
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当此 skill 需要向用户提问时，按以下工具选择规则执行（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或等价工具。
+2. **Fallback**：如果没有此类工具，输出带编号的纯文本消息，请用户对每个问题回复所选编号/答案。
+3. **批量提问**：如果工具支持一次调用多个问题，将所有适用问题合并到一次调用；如果只支持单问题，则按优先级顺序逐个询问。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下文具体的 `AskUserQuestion` 引用只是示例；在其他 runtimes 中请替换成本地等价工具。
 
 ## Language
 
-Respond in the user's language. If they write in Chinese, reply in Chinese; if English, English. Keep technical tokens (paths, flags, field names) in English.
+用用户的语言回复。用户写中文就用中文回复，写英文就用英文。技术 token（路径、flags、字段名）保持英文。
 
 ## Script Directory
 
-`{baseDir}` = this SKILL.md's directory. Resolve `${BUN_X}`: prefer `bun`; else `npx -y bun`; else suggest `brew install oven-sh/bun/bun`.
+`{baseDir}` = 此 SKILL.md 所在目录。解析 `${BUN_X}`：优先 `bun`；否则 `npx -y bun`；否则建议 `brew install oven-sh/bun/bun`。
 
-| Script | Purpose |
+| Script | 用途 |
 |--------|---------|
 | `scripts/wechat-browser.ts` | Image-text posts (图文) |
 | `scripts/wechat-article.ts` | Article posting via browser (文章) |
 | `scripts/wechat-api.ts` | Article posting via API (文章) |
 | `scripts/md-to-wechat.ts` | Markdown → WeChat-ready HTML with image placeholders |
-| `scripts/check-permissions.ts` | Verify environment & permissions |
+| `scripts/check-permissions.ts` | 验证环境和权限 |
 
 ## Preferences (EXTEND.md)
 
-Check these paths in order; first hit wins:
+按顺序检查这些路径，第一个命中生效：
 
 | Path | Scope |
 |------|-------|
@@ -49,13 +49,13 @@ Check these paths in order; first hit wins:
 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-post-to-wechat/EXTEND.md` | XDG |
 | `$HOME/.baoyu-skills/baoyu-post-to-wechat/EXTEND.md` | User home |
 
-Found → read, parse, apply. Not found → run first-time setup (`references/config/first-time-setup.md`) before anything else.
+Found → 读取、解析、应用。Not found → 先运行 first-time setup（`references/config/first-time-setup.md`），再做其他事。
 
-**Minimum keys** (case-insensitive, accept `1/0` or `true/false`):
+**Minimum keys**（大小写不敏感，接受 `1/0` 或 `true/false`）：
 
 | Key | Default | Mapping |
 |-----|---------|---------|
-| `default_author` | empty | Fallback for `author` when CLI/frontmatter not provided |
+| `default_author` | empty | CLI/frontmatter 未提供 `author` 时的 fallback |
 | `need_open_comment` | `1` | `articles[].need_open_comment` in `draft/add` |
 | `only_fans_can_comment` | `0` | `articles[].only_fans_can_comment` in `draft/add` |
 
@@ -82,48 +82,48 @@ chrome_profile_path: /path/to/chrome/profile
 # remote_publish_proxy_jump: bastion.example.com
 ```
 
-Raw `ssh` / `scp` options are intentionally not supported; only the typed keys above are honored. Authentication is SSH key only (no passwords).
+有意不支持原始 `ssh` / `scp` options；只识别上方 typed keys。认证仅支持 SSH key（无密码）。
 
 **Theme options**: default, grace, simple, modern. **Color presets**: blue, green, vermilion, yellow, purple, sky, rose, olive, black, gray, pink, red, orange (or hex).
 
-**Value priority**: CLI args → frontmatter → EXTEND.md (account-level → global) → skill defaults.
+**Value priority**：CLI args → frontmatter → EXTEND.md（account-level → global）→ skill defaults。
 
 ## Multi-Account Support
 
-EXTEND.md supports an `accounts:` block for managing multiple Official Accounts. With 2+ entries, the workflow inserts a Step 0.5 to prompt for account selection (or auto-selects based on `default: true` or `--account <alias>`).
+EXTEND.md 支持用 `accounts:` block 管理多个 Official Accounts。存在 2+ entries 时，workflow 会插入 Step 0.5 提示选择 account（或基于 `default: true` / `--account <alias>` 自动选择）。
 
-Full details — compatibility rules, per-account keys, credential resolution, per-account Chrome profiles, CLI usage — in `references/multi-account.md`.
+完整细节，包括兼容规则、per-account keys、credential resolution、per-account Chrome profiles、CLI 用法，见 `references/multi-account.md`。
 
 ## Pre-flight Check (Optional)
 
-Before first use, suggest the environment check (user can skip):
+首次使用前，建议运行环境检查（用户可跳过）：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/check-permissions.ts
 ```
 
-Checks: Chrome, profile isolation, Bun, Accessibility, clipboard, paste keystroke, API credentials, Chrome conflicts.
+检查：Chrome、profile isolation、Bun、Accessibility、clipboard、paste keystroke、API credentials、Chrome conflicts。
 
-| Check fails | Fix |
+| 检查失败 | 修复 |
 |-------------|-----|
-| Chrome | Install Chrome or set `WECHAT_BROWSER_CHROME_PATH` |
-| Profile dir | Shared profile at `baoyu-skills/chrome-profile` |
+| Chrome | 安装 Chrome 或设置 `WECHAT_BROWSER_CHROME_PATH` |
+| Profile dir | 位于 `baoyu-skills/chrome-profile` 的共享 profile |
 | Bun runtime | `brew install oven-sh/bun/bun` or `npm install -g bun` |
-| Accessibility (macOS) | System Settings → Privacy & Security → Accessibility → enable terminal app |
-| Clipboard copy | Ensure Swift/AppKit (macOS: `xcode-select --install`) |
-| Paste keystroke (Linux) | Install `xdotool` (X11) or `ydotool` (Wayland) |
-| API credentials | Follow guided setup in Step 2, or set in `.baoyu-skills/.env` |
+| Accessibility (macOS) | System Settings → Privacy & Security → Accessibility → 启用 terminal app |
+| Clipboard copy | 确保 Swift/AppKit 可用（macOS: `xcode-select --install`） |
+| Paste keystroke (Linux) | 安装 `xdotool` (X11) 或 `ydotool` (Wayland) |
+| API credentials | 按 Step 2 的 guided setup，或在 `.baoyu-skills/.env` 中设置 |
 
 ## Image-Text Posting (图文)
 
-Short posts with multiple images (up to 9):
+带多张图片的短帖（最多 9 张）：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/wechat-browser.ts --markdown article.md --images ./images/
 ${BUN_X} {baseDir}/scripts/wechat-browser.ts --title "标题" --content "内容" --image img.png --submit
 ```
 
-Details: `references/image-text-posting.md`.
+详情：`references/image-text-posting.md`。
 
 ## Article Posting Workflow (文章)
 
@@ -137,37 +137,37 @@ Details: `references/image-text-posting.md`.
 - [ ] Step 5: Report completion
 ```
 
-### Step 0: Load Preferences
+### Step 0: 加载 Preferences
 
-Check and load EXTEND.md (see "Preferences" above). If not found, complete first-time setup before any other questions. Resolve and cache for later steps: `default_theme`, `default_color`, `default_author`, `need_open_comment`, `only_fans_can_comment`.
+检查并加载 EXTEND.md（见上方 "Preferences"）。如果找不到，在询问任何其他问题前完成 first-time setup。解析并缓存供后续步骤使用：`default_theme`, `default_color`, `default_author`, `need_open_comment`, `only_fans_can_comment`。
 
-### Step 1: Determine Input Type
+### Step 1: 确定输入类型
 
-| Input | Detection | Next |
+| 输入 | 检测 | 下一步 |
 |-------|-----------|------|
-| HTML file | Path ends `.html`, file exists | Skip to Step 3 |
-| Markdown file | Path ends `.md`, file exists | Step 2 |
-| Plain text | Not a file path, or file doesn't exist | Save to markdown, then Step 2 |
+| HTML file | 路径以 `.html` 结尾且文件存在 | 跳到 Step 3 |
+| Markdown file | 路径以 `.md` 结尾且文件存在 | Step 2 |
+| Plain text | 不是文件路径，或文件不存在 | 保存为 markdown，然后 Step 2 |
 
 **Plain-text handling**:
 
-1. Generate slug (first 2-4 meaningful words, kebab-case; translate Chinese to English for the slug).
-2. Save to `post-to-wechat/YYYY-MM-DD/<slug>.md` (create directory if needed).
-3. Continue as a markdown file.
+1. 生成 slug（前 2-4 个有意义词，kebab-case；中文需要翻译成英文作为 slug）。
+2. 保存到 `post-to-wechat/YYYY-MM-DD/<slug>.md`（需要时创建目录）。
+3. 作为 markdown 文件继续。
 
-### Step 2: Select Publishing Method and Configure
+### Step 2: 选择发布方式并配置
 
-Ask method unless specified in EXTEND.md or CLI:
+除非 EXTEND.md 或 CLI 已指定，否则询问 method：
 
-| Method | Speed | Requires |
+| Method | 速度 | 要求 |
 |--------|-------|----------|
-| `api` (Recommended) | Fast | API credentials (local IP allowlisted) |
-| `browser` | Slow | Chrome + logged-in session |
-| `remote-api` | Fast | API credentials + an SSH-reachable server whose IP is on the WeChat allowlist |
+| `api` (Recommended) | 快 | API credentials（本机 IP 已加入 allowlist） |
+| `browser` | 慢 | Chrome + 已登录 session |
+| `remote-api` | 快 | API credentials + IP 位于 WeChat allowlist 且可 SSH 访问的服务器 |
 
-**API selected + missing credentials** → run guided setup per `references/api-setup.md` (writes to `.baoyu-skills/.env`).
+**选择 API 且缺少 credentials** → 按 `references/api-setup.md` 运行 guided setup（写入 `.baoyu-skills/.env`）。
 
-**`remote-api` method**: WeChat's "公众号设置 → IP 白名单" often limits API access to one or two fixed IPs. If your local machine's IP is not on that list but a cloud server's is, use `remote-api`: all markdown rendering, image processing, draft assembly, and HTML rewriting still happen locally, and only the outbound HTTPS calls to `api.weixin.qq.com` (token, uploadimg, add_material, draft/add) are tunneled through an SSH SOCKS5 dynamic port forward (`ssh -N -D`) so that WeChat sees the remote server as the source IP. No files are written to the remote host; `AppSecret` never leaves the local process. Requires only `sshd` and outbound network on the remote host — no Python, no agent process. See "Remote API Method" below.
+**`remote-api` method**：WeChat 的“公众号设置 → IP 白名单”通常把 API 访问限制在一两个固定 IP。如果本机 IP 不在白名单中，但某台云服务器在白名单中，则使用 `remote-api`：所有 markdown rendering、image processing、draft assembly 和 HTML rewriting 仍在本地完成，只有发往 `api.weixin.qq.com` 的 outbound HTTPS calls（token、uploadimg、add_material、draft/add）通过 SSH SOCKS5 dynamic port forward（`ssh -N -D`）走隧道，让 WeChat 看到的源 IP 是 remote server。不向 remote host 写入文件；`AppSecret` 永不离开本地进程。Remote host 只需要 `sshd` 和 outbound network，不需要 Python 或 agent process。见下方 "Remote API Method"。
 
 ### Step 3: Resolve Theme/Color and Validate Metadata
 
@@ -177,52 +177,52 @@ Ask method unless specified in EXTEND.md or CLI:
 
 | Field | Missing → |
 |-------|-----------|
-| Title | Ask, or press Enter to auto-generate from content |
-| Summary | Frontmatter `description` → `summary` → ask or auto-generate |
+| Title | 询问，或按 Enter 从内容自动生成 |
+| Summary | Frontmatter `description` → `summary` → 询问或自动生成 |
 | Author | CLI `--author` → frontmatter `author` → EXTEND.md `default_author` |
 | Source URL | CLI `--source-url` → frontmatter `sourceUrl`/`contentSourceUrl`/`content_source_url` |
 
-Auto-generation: title = first H1/H2 or first sentence; summary = first paragraph, truncated to 120 chars.
+自动生成：title = 第一个 H1/H2 或第一句话；summary = 第一段，截断到 120 字符。
 
-4. **Cover image** (required for API `article_type=news`): CLI `--cover` → frontmatter (`coverImage` / `featureImage` / `cover` / `image`) → `imgs/cover.png` → first inline image → stop and request one if still missing.
+4. **Cover image**（API `article_type=news` 必需）：CLI `--cover` → frontmatter（`coverImage` / `featureImage` / `cover` / `image`）→ `imgs/cover.png` → 第一张 inline image → 如果仍缺失则停止并请求提供。
 
-### Step 4: Publish
+### Step 4: 发布
 
-**Important — never pre-convert markdown to HTML.** Publishing scripts handle the conversion internally and the two methods render images differently: API renders `<img>` tags for upload, browser uses placeholders for paste-and-replace. Passing a pre-converted HTML breaks one or the other.
+**重要：永远不要预先把 markdown 转成 HTML。** 发布脚本会在内部处理转换，而且两种方法渲染图片的方式不同：API 渲染 `<img>` tags 用于上传，browser 使用 placeholders 进行 paste-and-replace。传入预转换 HTML 会破坏其中一种方式。
 
-**Markdown citation default**: for markdown input, ordinary external links are converted to bottom citations by default. Use `--no-cite` only if the user explicitly wants to keep inline links. Existing HTML input is left as-is.
+**Markdown citation default**：对 markdown 输入，普通外部链接默认转换为底部引用。只有用户明确希望保留 inline links 时才使用 `--no-cite`。已有 HTML 输入保持原样。
 
-**API method** (accepts `.md` or `.html`):
+**API method**（接受 `.md` 或 `.html`）：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/wechat-api.ts <file> --theme <theme> [--color <color>] [--title <title>] [--summary <summary>] [--author <author>] [--cover <cover_path>] [--source-url <url>] [--no-cite]
 ```
 
-Always pass `--theme` even if it's `default`. Only pass `--color` when explicitly set by the user or EXTEND.md.
+始终传入 `--theme`，即使它是 `default`。只有用户或 EXTEND.md 明确设置时才传 `--color`。
 
-**Remote API method** (same script, adds `--remote`):
+**Remote API method**（同一脚本，增加 `--remote`）：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/wechat-api.ts <file> --theme <theme> --remote [--remote-host <host>] [--remote-user <user>] [--remote-port <port>] [--remote-identity-file <path>] [--remote-known-hosts-file <path>] [--remote-strict-host-key-checking yes|no|accept-new] [--remote-connect-timeout <s>] [--remote-proxy-jump <spec>]
 ```
 
-Any `--remote-*` flag implies `--remote`. CLI values override account-level then global `remote_publish_*` keys from EXTEND.md. Setting `default_publish_method: remote-api` also enables remote mode without `--remote`.
+任何 `--remote-*` flag 都隐含 `--remote`。CLI values 会覆盖 EXTEND.md 中 account-level 再到 global 的 `remote_publish_*` keys。设置 `default_publish_method: remote-api` 也会在不传 `--remote` 时启用 remote mode。
 
-**`draft/add` payload rules**:
+**`draft/add` payload 规则**：
 - Endpoint: `POST https://api.weixin.qq.com/cgi-bin/draft/add?access_token=ACCESS_TOKEN`
 - `article_type`: `news` (default) or `newspic`
-- For `news`, include `thumb_media_id` (cover required)
-- Always include `need_open_comment` (default `1`) and `only_fans_can_comment` (default `0`) in the request body, even if the CLI doesn't expose them
-- For `news`, optionally include `content_source_url` (original article URL, shown as "阅读原文" link, max 1KB). Provide via `--source-url` CLI flag or frontmatter `sourceUrl`/`contentSourceUrl`/`content_source_url`
+- 对 `news`，包含 `thumb_media_id`（cover 必需）
+- request body 中始终包含 `need_open_comment`（默认 `1`）和 `only_fans_can_comment`（默认 `0`），即使 CLI 没有暴露它们
+- 对 `news`，可选包含 `content_source_url`（原文 URL，显示为“阅读原文”链接，最大 1KB）。通过 `--source-url` CLI flag 或 frontmatter `sourceUrl`/`contentSourceUrl`/`content_source_url` 提供
 
-**Browser method** (accepts `--markdown` or `--html`):
+**Browser method**（接受 `--markdown` 或 `--html`）：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/wechat-article.ts --markdown <markdown_file> --theme <theme> [--color <color>] [--no-cite]
 ${BUN_X} {baseDir}/scripts/wechat-article.ts --html <html_file>
 ```
 
-### Step 5: Completion Report
+### Step 5: 完成报告
 
 ```
 WeChat Publishing Complete!
@@ -249,50 +249,50 @@ Files created:
 [• slug.html (converted)]
 ```
 
-## Feature Comparison
+## 功能对比
 
-| Feature | Image-Text | Article (API) | Article (Remote API) | Article (Browser) |
+| 功能 | Image-Text | Article (API) | Article (Remote API) | Article (Browser) |
 |---------|:---:|:---:|:---:|:---:|
-| Plain text input | ✗ | ✓ | ✓ | ✓ |
+| Plain text 输入 | ✗ | ✓ | ✓ | ✓ |
 | HTML input | ✗ | ✓ | ✓ | ✓ |
 | Markdown input | Title/content | ✓ | ✓ | ✓ |
-| Multiple images | ✓ (up to 9) | ✓ (inline) | ✓ (inline) | ✓ (inline) |
+| 多图 | ✓ (up to 9) | ✓ (inline) | ✓ (inline) | ✓ (inline) |
 | Themes | ✗ | ✓ | ✓ | ✓ |
-| Auto-generate metadata | ✗ | ✓ | ✓ | ✓ |
+| 自动生成 metadata | ✗ | ✓ | ✓ | ✓ |
 | Default cover fallback (`imgs/cover.png`) | ✗ | ✓ | ✓ | ✗ |
-| Comment control | ✗ | ✓ | ✓ | ✗ |
-| Requires Chrome | ✓ | ✗ | ✗ | ✓ |
-| Requires API credentials | ✗ | ✓ | ✓ | ✗ |
-| Requires SSH-reachable server with allowlisted IP | ✗ | ✗ | ✓ | ✗ |
-| Speed | Medium | Fast | Fast | Slow |
+| 评论控制 | ✗ | ✓ | ✓ | ✗ |
+| 需要 Chrome | ✓ | ✗ | ✗ | ✓ |
+| 需要 API credentials | ✗ | ✓ | ✓ | ✗ |
+| 需要 IP 在 allowlist 且可 SSH 访问的服务器 | ✗ | ✗ | ✓ | ✗ |
+| 速度 | Medium | Fast | Fast | Slow |
 
 ## Troubleshooting
 
-| Issue | Fix |
+| 问题 | 修复 |
 |-------|-----|
-| Missing API credentials | Follow guided setup in Step 2 |
-| Access token error | Verify credentials valid and not expired |
-| Not logged in (browser) | First run opens browser — scan QR to log in. Set `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` to receive the QR image via Telegram |
-| Chrome not found | Set `WECHAT_BROWSER_CHROME_PATH` |
-| Title/summary missing | Use auto-generation or provide manually |
-| No cover image | Add frontmatter cover or place `imgs/cover.png` in article directory |
-| Wrong comment defaults | Check `need_open_comment` / `only_fans_can_comment` in EXTEND.md |
-| Paste fails | Check system clipboard permissions |
-| `Remote publish host is required` | Set `--remote-host` or `remote_publish_host` in EXTEND.md |
-| `SOCKS proxy on 127.0.0.1:… not ready` | SSH could not start the tunnel — check key, host, `StrictHostKeyChecking`, or use `--remote-connect-timeout` |
-| `ssh exited early` during remote publish | Verify the user can `ssh` non-interactively to the server; raise `--remote-connect-timeout` if the link is slow |
-| Remote API call returns `errcode 40164` (invalid IP) | The remote server's egress IP is not on WeChat's allowlist; add it in 公众号设置 → IP 白名单 |
+| Missing API credentials | 按 Step 2 的 guided setup |
+| Access token error | 验证 credentials 有效且未过期 |
+| Not logged in (browser) | 首次运行会打开 browser，扫码登录。设置 `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` 可通过 Telegram 接收二维码图片 |
+| Chrome not found | 设置 `WECHAT_BROWSER_CHROME_PATH` |
+| Title/summary missing | 使用自动生成或手动提供 |
+| No cover image | 添加 frontmatter cover，或在文章目录放置 `imgs/cover.png` |
+| Wrong comment defaults | 检查 EXTEND.md 中的 `need_open_comment` / `only_fans_can_comment` |
+| Paste fails | 检查系统 clipboard 权限 |
+| `Remote publish host is required` | 在 EXTEND.md 中设置 `--remote-host` 或 `remote_publish_host` |
+| `SOCKS proxy on 127.0.0.1:… not ready` | SSH 无法启动隧道，检查 key、host、`StrictHostKeyChecking`，或使用 `--remote-connect-timeout` |
+| remote publish 期间 `ssh exited early` | 验证用户可非交互式 `ssh` 到服务器；如果链路慢，提高 `--remote-connect-timeout` |
+| Remote API call 返回 `errcode 40164` (invalid IP) | remote server 的 egress IP 不在 WeChat allowlist 中；在 公众号设置 → IP 白名单 中添加 |
 
-## References
+## 参考
 
-| File | Content |
+| File | 内容 |
 |------|---------|
-| `references/image-text-posting.md` | Image-text parameters, auto-compression |
-| `references/article-posting.md` | Article themes, image handling |
-| `references/multi-account.md` | Multi-account compatibility, credentials, Chrome profiles, CLI |
+| `references/image-text-posting.md` | Image-text 参数、auto-compression |
+| `references/article-posting.md` | Article themes、图片处理 |
+| `references/multi-account.md` | Multi-account 兼容性、credentials、Chrome profiles、CLI |
 | `references/api-setup.md` | Guided credential setup |
-| `references/config/first-time-setup.md` | First-time EXTEND.md setup |
+| `references/config/first-time-setup.md` | 首次 EXTEND.md setup |
 
 ## Extension Support
 
-Custom configurations via EXTEND.md. See "Preferences" for paths and supported options.
+通过 EXTEND.md 自定义配置。路径和支持选项见 "Preferences"。

@@ -1,23 +1,23 @@
-# Type Composition Guidelines
+# Type 构图指南
 
 ## Type Gallery
 
-| Type | Description | Best For |
+| Type | 说明 | 适合 |
 |------|-------------|----------|
-| `hero` | Large visual impact, title overlay | Product launch, brand promotion, major announcements |
-| `conceptual` | Concept visualization, abstract core ideas | Technical articles, methodology, architecture design |
-| `typography` | Text-focused layout, prominent title | Opinion pieces, quotes, insights |
-| `metaphor` | Visual metaphor, concrete expressing abstract | Philosophy, growth, personal development |
-| `scene` | Atmospheric scene, narrative feel | Stories, travel, lifestyle |
-| `minimal` | Minimalist composition, generous whitespace | Zen, focus, core concepts |
+| `hero` | 大视觉冲击，标题叠加在画面上 | 产品发布、品牌推广、重大公告 |
+| `conceptual` | 概念可视化、抽象核心想法 | 技术文章、方法论、架构设计 |
+| `typography` | 以文本为中心的布局，标题突出 | 观点文章、引语、洞察 |
+| `metaphor` | 视觉隐喻，用具体表达抽象 | 哲学、成长、个人发展 |
+| `scene` | 有氛围的场景、叙事感 | 故事、旅行、生活方式 |
+| `minimal` | 极简构图，充足留白 | 禅意、聚焦、核心概念 |
 
-## Type-Specific Composition
+## Type 专属构图
 
-| Type | Composition Guidelines |
+| Type | 构图指南 |
 |------|------------------------|
-| `hero` | Large focal visual (60-70% area), title overlay on visual, dramatic composition |
-| `conceptual` | Abstract shapes representing core concepts, information hierarchy, clean zones |
-| `typography` | Title as primary element (40%+ area), minimal supporting visuals, strong hierarchy |
-| `metaphor` | Concrete object/scene representing abstract idea, symbolic elements, emotional resonance |
-| `scene` | Atmospheric environment, narrative elements, mood-setting lighting and colors |
-| `minimal` | Single focal element, generous whitespace (60%+), essential shapes only |
+| `hero` | 大焦点视觉（60-70% 面积），标题叠加在视觉上，戏剧化构图 |
+| `conceptual` | 用抽象形状表现核心概念、信息层级、干净区域 |
+| `typography` | 标题作为主要元素（40%+ 面积），最少辅助视觉，强层级 |
+| `metaphor` | 用具体对象/场景表现抽象想法，包含象征元素和情感共鸣 |
+| `scene` | 有氛围的环境、叙事元素、设定情绪的光线和色彩 |
+| `minimal` | 单一焦点元素，充足留白（60%+），只保留必要形状 |

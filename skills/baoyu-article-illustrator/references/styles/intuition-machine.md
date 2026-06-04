@@ -1,57 +1,57 @@
 # intuition-machine
 
-Technical briefing infographic style with aged paper and bilingual labels
+技术 briefing infographic 风格，使用旧纸质感和双语标签。
 
-## Design Aesthetic
+## 设计美学
 
-Academic/technical briefing style with clean 2D or isometric technical illustrations. Information-dense but organized with clear visual hierarchy. Vintage blueprint aesthetic with modern clarity. Multiple explanatory elements with bilingual callouts.
+学术/技术 briefing 风格，使用干净的 2D 或 isometric 技术插画。信息密度高，但组织清楚，并有明确视觉层级。带有 vintage blueprint 美学，同时保持现代清晰度。包含多个解释性元素和双语 callout。
 
-## Background
+## 背景
 
-- Color: Aged Cream (#F5F0E6)
-- Texture: Subtle paper texture with light creases, vintage technical print feel
+- 颜色：Aged Cream (#F5F0E6)
+- 纹理：细微纸张纹理，带轻微折痕，呈现 vintage 技术印刷感
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Aged Cream | #F5F0E6 | Primary background |
-| Paper Texture | Warm White | #F5F0E1 | Blueprint effect |
-| Primary Text | Dark Maroon | #5D3A3A | Headlines, titles |
-| Body Text | Near Black | #1A1A1A | Content text |
-| Accent 1 | Teal | #2F7373 | Primary illustrations |
-| Accent 2 | Warm Brown | #8B7355 | Secondary elements |
-| Accent 3 | Maroon | #722F37 | Emphasis |
-| Outline | Deep Charcoal | #2D2D2D | Element outlines |
+| Background | Aged Cream | #F5F0E6 | 主背景 |
+| Paper Texture | Warm White | #F5F0E1 | Blueprint 效果 |
+| Primary Text | Dark Maroon | #5D3A3A | 大标题、标题 |
+| Body Text | Near Black | #1A1A1A | 正文文本 |
+| Accent 1 | Teal | #2F7373 | 主要插画 |
+| Accent 2 | Warm Brown | #8B7355 | 次级元素 |
+| Accent 3 | Maroon | #722F37 | 强调 |
+| Outline | Deep Charcoal | #2D2D2D | 元素描边 |
 
-## Visual Elements
+## 视觉元素
 
-- Isometric 3D or flat 2D technical diagrams
-- Explanatory text boxes with labeled content
-- Bilingual callout labels (English + Chinese)
-- Faded thematic background patterns
-- Clean black outlines on elements
-- Split or triptych layouts
-- Key insight boxes
+- Isometric 3D 或扁平 2D 技术图解
+- 带标签内容的解释性文本框
+- 双语 callout 标签（English + Chinese）
+- 淡化的主题背景图案
+- 元素使用干净黑色描边
+- 分栏或三联画布局
+- 关键洞察框
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Include multiple text boxes with content
-- Use bilingual labels for key elements
-- Add faded thematic background patterns
-- Maintain aged paper texture
-- Create clear visual hierarchy
+- 包含多个带内容的文本框
+- 为关键元素使用双语标签
+- 添加淡化的主题背景图案
+- 保持旧纸质感
+- 建立清晰视觉层级
 
-### Don't
+### 不要
 
-- Create photorealistic 3D renders
-- Leave illustrations without explanatory text
-- Add stamps or watermarks in corners
-- Use gradients or glossy effects
-- Make it look too modern/digital
+- 创建 photorealistic 3D render
+- 让插画缺少解释性文本
+- 在角落添加印章或水印
+- 使用渐变或光泽效果
+- 让画面显得过于现代/digital
 
-## Best For
+## 适合
 
-Technical explanations, concept breakdowns, academic content, research summaries, bilingual audiences, knowledge documentation
+技术解释、概念拆解、学术内容、研究摘要、双语受众、知识文档

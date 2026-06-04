@@ -5,9 +5,9 @@ category: vintage
 
 # Retro Style
 
-Vintage, nostalgic, trendy aesthetic.
+Vintage、怀旧、潮流感美学。
 
-## Element Combination
+## 元素组合
 
 ```yaml
 canvas:
@@ -31,42 +31,42 @@ decorations:
   frames: polaroid | film-strip | stamp-border
 ```
 
-## Color Palette
+## 调色板
 
-| Role | Colors | Hex |
+| 角色 | 颜色 | Hex |
 |------|--------|-----|
 | Primary | Muted orange, dusty pink, faded teal | #E07A4D, #D4A5A5, #6B9999 |
 | Background | Aged paper, sepia tones | #F5E6D3, #E8DCC8 |
 | Accents | Faded red, vintage gold | #C55A5A, #B8860B |
 
-## Visual Elements
+## 视觉元素
 
-- Halftone dots, vintage badges
-- Classic icons, tape effects
-- Aged texture overlays
-- Nostalgic decorative elements
+- Halftone 圆点、vintage 徽章
+- 经典图标、胶带效果
+- 旧化纹理叠层
+- 怀旧装饰元素
 
 ## Typography
 
 - Vintage-style hand lettering
-- Classic feel with imperfections
-- Aged texture on text
+- 带不完美细节的经典感
+- 文本上有旧化纹理
 
-## Best Layout Pairings
+## 最佳 Layout 搭配
 
-| Layout | Compatibility | Use Case |
+| Layout | 兼容性 | 使用场景 |
 |--------|---------------|----------|
-| sparse | ✓✓ | Vintage covers |
-| balanced | ✓✓ | Classic content |
-| dense | ✓ | Vintage knowledge cards |
-| list | ✓✓ | Classic rankings |
+| sparse | ✓✓ | Vintage 封面 |
+| balanced | ✓✓ | 经典内容 |
+| dense | ✓ | Vintage 知识卡 |
+| list | ✓✓ | 经典榜单 |
 | comparison | ✓ | Then vs now |
-| flow | ✓ | Historical timelines |
+| flow | ✓ | 历史时间线 |
 
-## Best For
+## 适合
 
-- Throwback content
-- Classic tips
-- Timeless advice
-- Vintage aesthetics
-- Nostalgic shares
+- 回忆杀内容
+- 经典技巧
+- 经久不过时的建议
+- Vintage 美学
+- 怀旧分享

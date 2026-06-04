@@ -2,7 +2,7 @@
 
 ## Shape Vocabulary
 
-| Shape | Meaning | SVG Element |
+| Shape | 含义 | SVG Element |
 |-------|---------|-------------|
 | Rounded rect (large radius) | Start / End | `<rect rx="25">` |
 | Rectangle | Process / Action | `<rect rx="6">` |
@@ -12,26 +12,26 @@
 
 ## Flow Direction
 
-Primary flow: **top to bottom**. Branch flows go left/right from decisions.
+Primary flow：**top to bottom**。Branch flows 从 decisions 向左/右展开。
 
 ## Layout Algorithm
 
-1. **Identify the main path** (happy path / most common flow) — this runs straight down the center
-2. **Branch from decisions:** "Yes" continues down center, "No" branches right (or left if space is tight)
-3. **Merge paths:** Route branches back to the main path using L-shaped connectors
-4. **Loop-backs:** Route upward on the far left/right side of the diagram with curved paths
+1. **识别 main path**（happy path / most common flow），它沿中心直线向下
+2. **从 decisions 分支**："Yes" 沿中心继续向下，"No" 向右分支（空间紧张时向左）
+3. **合并 paths**：使用 L-shaped connectors 将 branches 路由回 main path
+4. **Loop-backs**：在 diagram 最左/右侧用 curved paths 向上路由
 
 ## Spacing
 
-- Step-to-step vertical gap: 60-80px (enough for arrow + optional label)
-- Decision diamond height: 70px (point to point)
-- Decision diamond width: 100px (point to point)
-- Branch horizontal offset: 200px from center
-- Merge connector clearance: 20px from any box
+- Step-to-step vertical gap：60-80px（足够容纳 arrow + optional label）
+- Decision diamond height：70px（point to point）
+- Decision diamond width：100px（point to point）
+- Branch horizontal offset：距中心 200px
+- Merge connector clearance：距任意 box 20px
 
 ## Decision Labels
 
-Place "Yes" / "No" (or "True" / "False", "是" / "否") labels directly on the exit arrows, 10px from the diamond edge:
+将 "Yes" / "No"（或 "True" / "False"、"是" / "否"）labels 直接放在 exit arrows 上，距 diamond edge 10px：
 
 ```svg
 <!-- Decision diamond at center (400, 200) -->
@@ -46,15 +46,15 @@ Place "Yes" / "No" (or "True" / "False", "是" / "否") labels directly on the e
 
 ## Coloring Strategy
 
-- **Start/End nodes:** Highlight color (blue)
-- **Process steps:** Primary (cyan) or Secondary (emerald)
-- **Decision diamonds:** Accent (amber) — they draw the eye naturally
-- **Error/exception paths:** Alert (rose) dashed arrows
-- **Happy path arrows:** Slightly brighter than branch arrows (`stroke-opacity` difference)
+- **Start/End nodes:** Highlight color（blue）
+- **Process steps:** Primary（cyan）或 Secondary（emerald）
+- **Decision diamonds:** Accent（amber），自然吸引视线
+- **Error/exception paths:** Alert（rose）dashed arrows
+- **Happy path arrows:** 比 branch arrows 略亮（通过 `stroke-opacity` 区分）
 
 ## Complex Flowcharts
 
-For flowcharts with 10+ steps:
-- Group related steps into swim lanes (vertical columns with header bars)
-- Add a "phase" row header at the top of each swim lane
-- Use the region boundary pattern from Architecture for swim lanes
+对于 10+ steps 的 flowcharts：
+- 将相关 steps 分组到 swim lanes（带 header bars 的 vertical columns）
+- 在每个 swim lane 顶部添加 "phase" row header
+- 对 swim lanes 使用 Architecture 中的 region boundary pattern

@@ -1,63 +1,63 @@
 # Speaker & Chapter Transcript Processing
 
-You are an expert transcript specialist. Process the raw transcript file (with YAML frontmatter metadata and SRT-formatted transcript) into a structured, verbatim transcript with speaker identification and chapter segmentation.
+你是专业 transcript specialist。将原始 transcript 文件（包含 YAML frontmatter metadata 和 SRT-formatted transcript）处理成结构化、逐字保真的 transcript，并包含 speaker identification 和 chapter segmentation。
 
-## Output Structure
+## 输出结构
 
-Produce a single cohesive markdown file containing:
-1. YAML frontmatter (keep the original frontmatter from the raw file, which includes `description`)
-2. `# Title` heading (from frontmatter title)
-3. Description/summary paragraph (from frontmatter `description`)
+产出一个连贯的 markdown 文件，包含：
+1. YAML frontmatter（保留原始文件中的 frontmatter，其中包含 `description`）
+2. `# Title` 标题（来自 frontmatter title）
+3. Description/summary 段落（来自 frontmatter `description`）
 4. Table of Contents
-5. Cover image (if `cover` exists in frontmatter): `![cover](imgs/cover.jpg)` — right after the ToC
-6. Full chapter-segmented transcript with speaker labels
+5. 封面图（如果 frontmatter 中存在 `cover`）：`![cover](imgs/cover.jpg)`，紧跟在 ToC 后
+6. 带 speaker labels 的完整 chapter-segmented transcript
 
-Use the same language as the transcription for the title and ToC.
+标题和 ToC 使用与 transcription 相同的语言。
 
 ## Rules
 
 ### Transcription Fidelity
-- Preserve every spoken word exactly, including filler words (`um`, `uh`, `like`) and stutters
-- **NEVER translate.** If the audio mixes languages (e.g., "这个 feature 很酷"), replicate that mix exactly
+- 精确保留每个说出口的词，包括 filler words（`um`、`uh`、`like`）和结巴
+- **绝不翻译。** 如果音频混合语言（例如 "这个 feature 很酷"），精确复制这种混合
 
 ### Speaker Identification
-- **Priority 1: Use metadata.** Analyze the video's title, channel name, and description to identify speakers
-- **Priority 2: Use transcript content.** Look for introductions, how speakers address each other, contextual cues
-- **Fallback:** Use consistent generic labels (`**Speaker 1:**`, `**Host:**`, etc.)
-- **Consistency:** If a speaker's name is revealed later, update ALL previous labels for that speaker
+- **优先级 1：使用 metadata。** 分析视频标题、频道名和 description 来识别 speakers
+- **优先级 2：使用 transcript content。** 查找自我介绍、说话人如何互相称呼、上下文线索
+- **Fallback：** 使用一致的通用 labels（`**Speaker 1:**`、`**Host:**` 等）
+- **一致性：** 如果后文揭示某个 speaker 的名字，更新该 speaker 前面所有 labels
 
 ### Chapter Generation
-- If the raw file contains a `# Chapters` section, use those as the primary basis for segmenting
-- Otherwise, create chapters based on significant topic shifts in the conversation
+- 如果原始文件包含 `# Chapters` section，将其作为分段的主要依据
+- 否则，根据对话中的显著话题变化创建 chapters
 
 ### Input Format
-- The `# Transcript` section contains SRT-formatted subtitles with pre-computed start/end timestamps
-- Each SRT block has: sequence number, `HH:MM:SS,mmm --> HH:MM:SS,mmm` timestamp line, and text
-- Use the SRT timestamps directly — no need to calculate paragraph start/end times, just merge adjacent blocks
+- `# Transcript` section 包含 SRT-formatted subtitles，并带有预先计算好的 start/end timestamps
+- 每个 SRT block 包含：序号、`HH:MM:SS,mmm --> HH:MM:SS,mmm` timestamp line 和文本
+- 直接使用 SRT timestamps，无需计算段落 start/end times，只需要合并相邻 blocks
 
 ### Formatting
 
-**Timestamps:** Use `[HH:MM:SS → HH:MM:SS]` format (start → end) at the end of each paragraph. No milliseconds.
+**Timestamps：** 在每段末尾使用 `[HH:MM:SS → HH:MM:SS]` 格式（start → end）。不要毫秒。
 
-**Table of Contents:**
+**Table of Contents：**
 ```
 ## Table of Contents
 * [HH:MM:SS] Chapter Title
 ```
 
-**Chapters:**
+**Chapters：**
 ```
 ## Chapter Title [HH:MM:SS]
 ```
 Two blank lines between chapters.
 
-**Dialogue Paragraphs:**
-- First paragraph of a speaker's turn starts with `**Speaker Name:** `
-- Split long monologues into 2-4 sentence paragraphs separated by blank lines
-- Subsequent paragraphs from the SAME speaker do NOT repeat the speaker label
-- Every paragraph ends with exactly ONE timestamp range `[HH:MM:SS → HH:MM:SS]`
+**Dialogue Paragraphs：**
+- 每个 speaker turn 的第一段以 `**Speaker Name:** ` 开头
+- 将长独白拆成 2-4 句的段落，段落之间用空行分隔
+- 同一个 speaker 的后续段落不要重复 speaker label
+- 每个段落结尾必须且只能有一个 timestamp range `[HH:MM:SS → HH:MM:SS]`
 
-Correct example:
+正确示例：
 ```
 **Jane Doe:** The study focuses on long-term effects of dietary changes. We tracked two groups over five years. [00:00:15 → 00:00:21]
 
@@ -66,14 +66,14 @@ The first group followed the new regimen, while the second group maintained a tr
 **Host:** Fascinating. And what did you find? [00:00:28 → 00:00:31]
 ```
 
-Wrong (multiple timestamps in one paragraph):
+错误示例（一个段落中有多个 timestamps）：
 ```
 **Host:** Welcome back. [00:00:01] Today we have a guest. [00:00:02]
 ```
 
-**Non-Speech Audio:** On its own line: `[Laughter] [HH:MM:SS]`
+**Non-Speech Audio：** 单独成行：`[Laughter] [HH:MM:SS]`
 
-## Example Output
+## 示例输出
 
 ```markdown
 ---

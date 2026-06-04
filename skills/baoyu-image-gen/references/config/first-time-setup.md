@@ -1,43 +1,44 @@
 ---
 name: first-time-setup
-description: First-time setup and default model selection flow for baoyu-image-gen
+description: baoyu-image-gen 的首次设置与默认模型选择流程
 ---
 
 # First-Time Setup
 
-## Overview
+## 概览
 
-Triggered when:
-1. No EXTEND.md found → full setup (provider + model + preferences)
-2. EXTEND.md found but `default_model.[provider]` is null → model selection only
+触发条件：
+
+1. 未找到 EXTEND.md → 完整 setup（provider + model + preferences）
+2. 找到 EXTEND.md，但 `default_model.[provider]` 为 null → 只选择 model
 
 ## Setup Flow
 
-```
+```text
 No EXTEND.md found          EXTEND.md found, model null
         │                            │
         ▼                            ▼
 ┌─────────────────────┐    ┌──────────────────────┐
-│ AskUserQuestion     │    │ AskUserQuestion      │
-│ (full setup)        │    │ (model only)         │
+│ AskUserQuestion     │    │ AskUserQuestion       │
+│ (full setup)        │    │ (model only)          │
 └─────────────────────┘    └──────────────────────┘
         │                            │
         ▼                            ▼
 ┌─────────────────────┐    ┌──────────────────────┐
-│ Create EXTEND.md    │    │ Update EXTEND.md     │
+│ Create EXTEND.md    │    │ Update EXTEND.md      │
 └─────────────────────┘    └──────────────────────┘
         │                            │
         ▼                            ▼
     Continue                     Continue
 ```
 
-## Flow 1: No EXTEND.md (Full Setup)
+## Flow 1：No EXTEND.md（Full Setup）
 
-**Language**: Use user's input language or saved language preference.
+**Language**：使用用户输入语言或已保存 language preference。
 
-Use AskUserQuestion with ALL questions in ONE call:
+使用 AskUserQuestion，并把所有问题放入 **一次调用**：
 
-### Question 1: Default Provider
+### Question 1：Default Provider
 
 ```yaml
 header: "Provider"
@@ -61,9 +62,9 @@ options:
     description: "Curated Replicate image families - nano-banana-2, Seedream, and Wan image models"
 ```
 
-### Question 2: Default Google Model
+### Question 2：Default Google Model
 
-Only show if user selected Google or auto-detect (no explicit provider).
+仅当用户选择 Google 或 auto-detect（没有 explicit provider）时展示。
 
 ```yaml
 header: "Google Model"
@@ -77,9 +78,9 @@ options:
     description: "Fast generation, balanced quality and speed"
 ```
 
-### Question 2b: Default OpenRouter Model
+### Question 2b：Default OpenRouter Model
 
-Only show if user selected OpenRouter.
+仅当用户选择 OpenRouter 时展示。
 
 ```yaml
 header: "OpenRouter Model"
@@ -93,9 +94,9 @@ options:
     description: "Strong text-to-image quality through OpenRouter"
 ```
 
-### Question 2c: Default Azure Deployment
+### Question 2c：Default Azure Deployment
 
-Only show if user selected Azure OpenAI.
+仅当用户选择 Azure OpenAI 时展示。
 
 ```yaml
 header: "Azure Deploy"
@@ -109,9 +110,9 @@ options:
     description: "Earlier GPT Image deployment name"
 ```
 
-### Question 2d: Default MiniMax Model
+### Question 2d：Default MiniMax Model
 
-Only show if user selected MiniMax.
+仅当用户选择 MiniMax 时展示。
 
 ```yaml
 header: "MiniMax Model"
@@ -123,9 +124,9 @@ options:
     description: "Faster variant, use aspect ratio instead of custom size"
 ```
 
-### Question 2e: Default Z.AI Model
+### Question 2e：Default Z.AI Model
 
-Only show if user selected Z.AI.
+仅当用户选择 Z.AI 时展示。
 
 ```yaml
 header: "Z.AI Model"
@@ -137,7 +138,7 @@ options:
     description: "Legacy Z.AI image model on the same endpoint"
 ```
 
-### Question 3: Default Quality
+### Question 3：Default Quality
 
 ```yaml
 header: "Quality"
@@ -149,7 +150,7 @@ options:
     description: "1024px - quick previews, drafts"
 ```
 
-### Question 4: Save Location
+### Question 4：Save Location
 
 ```yaml
 header: "Save"
@@ -163,7 +164,7 @@ options:
 
 ### Save Locations
 
-| Choice | Path | Scope |
+| 选择 | Path | Scope |
 |--------|------|-------|
 | Project | `.baoyu-skills/baoyu-image-gen/EXTEND.md` | Current project |
 | User | `$HOME/.baoyu-skills/baoyu-image-gen/EXTEND.md` | All projects |
@@ -190,11 +191,11 @@ default_model:
 ---
 ```
 
-If the user selects `OpenAI` but says their endpoint is only OpenAI-compatible and fronts another image model family, save `default_image_api_dialect: ratio-metadata` when they explicitly confirm the gateway expects aspect-ratio `size` plus metadata-based resolution. Otherwise leave it `null` / `openai-native`.
+如果用户选择 `OpenAI`，但说明 endpoint 只是 OpenAI-compatible 且前面接的是其他 image model family，只有在用户明确确认该 gateway 期望 aspect-ratio `size` + metadata-based resolution 时，保存 `default_image_api_dialect: ratio-metadata`。否则保持 `null` / `openai-native`。
 
-## Flow 2: EXTEND.md Exists, Model Null
+## Flow 2：EXTEND.md Exists, Model Null
 
-When EXTEND.md exists but `default_model.[current_provider]` is null, ask ONLY the model question for the current provider.
+当 EXTEND.md 存在但 `default_model.[current_provider]` 为 null 时，只询问当前 provider 的 model question。
 
 ### Google Model Selection
 
@@ -238,10 +239,10 @@ options:
     description: "Use when your Azure deployment name matches GPT-image-1"
 ```
 
-Notes for Azure setup:
+Azure setup notes：
 
-- In `baoyu-image-gen`, Azure `--model` / `default_model.azure` should be the Azure deployment name, not just the underlying model family.
-- If the deployment name is custom, save that exact deployment name in `default_model.azure`.
+- 在 `baoyu-image-gen` 中，Azure `--model` / `default_model.azure` 应该是 Azure deployment name，而不只是底层 model family。
+- 如果 deployment name 是 custom，就把 exact deployment name 保存到 `default_model.azure`。
 
 ### OpenRouter Model Selection
 
@@ -281,12 +282,12 @@ options:
     description: "Legacy DashScope model, higher quality but slower"
 ```
 
-Notes for DashScope setup:
+DashScope setup notes：
 
-- Prefer `qwen-image-2.0-pro` when the user needs custom `--size`, uncommon ratios like `21:9`, or strong Chinese/English text rendering.
-- `qwen-image-max` / `qwen-image-plus` / `qwen-image` only support five fixed sizes: `1664*928`, `1472*1104`, `1328*1328`, `1104*1472`, `928*1664`.
-- `wan2.7-image-pro` and `wan2.7-image` are the only DashScope models that accept `--ref`. Pick one of these when the user wants reference-image editing or multi-image fusion via DashScope.
-- In `baoyu-image-gen`, `quality` is a compatibility preset. It is not a native DashScope parameter.
+- 当用户需要 custom `--size`、`21:9` 这类 uncommon ratios，或强 Chinese/English text rendering 时，优先 `qwen-image-2.0-pro`。
+- `qwen-image-max` / `qwen-image-plus` / `qwen-image` 只支持五个 fixed sizes：`1664*928`、`1472*1104`、`1328*1328`、`1104*1472`、`928*1664`。
+- `wan2.7-image-pro` 和 `wan2.7-image` 是唯一接受 `--ref` 的 DashScope models。用户想通过 DashScope 做 reference-image editing 或 multi-image fusion 时，选择其中之一。
+- 在 `baoyu-image-gen` 中，`quality` 是 compatibility preset，不是 native DashScope parameter。
 
 ### Z.AI Model Selection
 
@@ -300,11 +301,11 @@ options:
     description: "Legacy model on the sync image endpoint"
 ```
 
-Notes for Z.AI setup:
+Z.AI setup notes：
 
-- Prefer `glm-image` for posters, diagrams, and Chinese/English text-heavy layouts.
-- In `baoyu-image-gen`, Z.AI currently exposes text-to-image only; reference images are not wired for this provider.
-- The sync Z.AI image API returns a downloadable image URL, which the runtime saves locally after download.
+- Posters、diagrams 和 Chinese/English text-heavy layouts 优先 `glm-image`。
+- 在 `baoyu-image-gen` 中，Z.AI 当前只暴露 text-to-image；该 provider 还未接入 reference images。
+- Sync Z.AI image API 返回 downloadable image URL，runtime 下载后保存到本地。
 
 ### Replicate Model Selection
 
@@ -334,19 +335,19 @@ options:
     description: "Lower-latency MiniMax image model using aspect ratios"
 ```
 
-Notes for MiniMax setup:
+MiniMax setup notes：
 
-- `image-01` is the safest default. It supports official `aspect_ratio` values and documented custom `width` / `height` output sizes.
-- `image-01-live` is useful when the user prefers faster generation and can work with aspect-ratio-based sizing.
-- MiniMax subject reference currently uses `subject_reference[].type = character`; docs recommend front-facing portrait references in JPG/JPEG/PNG under 10MB.
+- `image-01` 是最稳默认值。它支持官方 `aspect_ratio` values 和 documented custom `width` / `height` output sizes。
+- 当用户更偏好快速生成且可接受 aspect-ratio-based sizing 时，`image-01-live` 很有用。
+- MiniMax subject reference 当前使用 `subject_reference[].type = character`；文档建议使用 10MB 以下的 JPG/JPEG/PNG 正面人像 references。
 
 ### Update EXTEND.md
 
-After user selects a model:
+用户选择 model 后：
 
-1. Read existing EXTEND.md
-2. If `default_model:` section exists → update the provider-specific key
-3. If `default_model:` section missing → add the full section:
+1. 读取现有 EXTEND.md
+2. 如果存在 `default_model:` section → 更新 provider-specific key
+3. 如果缺少 `default_model:` section → 添加完整 section：
 
 ```yaml
 default_model:
@@ -360,11 +361,11 @@ default_model:
   replicate: [value or null]
 ```
 
-Only set the selected provider's model; leave others as their current value or null.
+只设置所选 provider 的 model；其他 provider 保持当前值或 null。
 
-## After Setup
+## Setup 后
 
-1. Create directory if needed
-2. Write/update EXTEND.md with frontmatter
-3. Confirm: "Preferences saved to [path]"
-4. Continue with image generation
+1. 如有需要，创建目录
+2. 写入/更新带 frontmatter 的 EXTEND.md
+3. 确认："Preferences saved to [path]"
+4. 继续 image generation

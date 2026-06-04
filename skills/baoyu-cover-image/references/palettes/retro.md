@@ -1,6 +1,6 @@
 # retro
 
-Nostalgic, vintage, classic
+Nostalgic、vintage、classic
 
 ## Color Palette
 
@@ -19,16 +19,16 @@ Nostalgic, vintage, classic
 
 ## Decorative Hints
 
-- Halftone dots and vintage badges
-- Aged textures with subtle paper grain
-- Sunburst/radiating lines for energy
-- Pill-shaped clouds, small dots and stars
-- Classic icons and retro motifs
+- Halftone dots 和 vintage badges
+- 带 subtle paper grain 的 aged textures
+- 用 sunburst/radiating lines 表现 energy
+- Pill-shaped clouds、small dots 和 stars
+- Classic icons 和 retro motifs
 
 ## Semantic Constraint
 
-Do NOT render color names, hex codes, or role labels as visible text in the image.
+不要把 color names、hex codes 或 role labels 渲染成图片中的可见文字。
 
 ## Best For
 
-History, vintage, retro, classic, exploration, retrospectives, throwback content, creative proposals, educational
+History、vintage、retro、classic、exploration、retrospectives、throwback content、creative proposals、educational

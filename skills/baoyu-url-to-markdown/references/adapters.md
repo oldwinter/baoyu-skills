@@ -1,77 +1,77 @@
 # Adapters & Media
 
-Read when choosing an adapter, handling media, or answering adapter-specific questions.
+选择 adapter、处理 media，或回答 adapter-specific 问题时阅读。
 
-## Built-in Adapters
+## 内置 Adapters
 
-| Adapter | URLs | Key Features |
+| Adapter | URLs | 关键能力 |
 |---------|------|-------------|
-| `x` | x.com, twitter.com | Tweets, threads, X Articles, media, login detection |
-| `youtube` | youtube.com, youtu.be | Transcript/captions, chapters, cover image, metadata |
-| `hn` | news.ycombinator.com | Threaded comments, story metadata, nested replies |
-| `generic` | Any URL (fallback) | Defuddle extraction, Readability fallback, auto-scroll, network idle detection |
+| `x` | x.com, twitter.com | Tweets、threads、X Articles、media、login detection |
+| `youtube` | youtube.com, youtu.be | Transcript/captions、chapters、cover image、metadata |
+| `hn` | news.ycombinator.com | Threaded comments、story metadata、nested replies |
+| `generic` | Any URL (fallback) | Defuddle extraction、Readability fallback、auto-scroll、network idle detection |
 
-Adapter is auto-selected based on URL. Override with `--adapter <name>`.
+Adapter 会根据 URL 自动选择。可用 `--adapter <name>` 覆盖。
 
 ### YouTube
 
-- Extracts transcripts/captions when available
-- Transcript format: `[MM:SS] Text segment` with chapter headings
-- Availability depends on YouTube exposing a caption track; videos with captions disabled or restricted playback may produce description-only output
-- Use `--wait-for force` if the page needs time to finish loading player metadata
+- 可用时提取 transcripts/captions
+- Transcript format：`[MM:SS] Text segment`，带 chapter headings
+- 可用性取决于 YouTube 是否暴露 caption track；禁用 captions 或受限播放的视频可能只产生 description-only output
+- 如果页面需要时间加载完 player metadata，使用 `--wait-for force`
 
 ### X/Twitter
 
-- Extracts single tweets, threads, and X Articles
-- Auto-detects login state; if logged out and content requires auth, JSON output shows `"status": "needs_interaction"`
-- Use `--wait-for interaction` for login-protected content
+- 提取 single tweets、threads 和 X Articles
+- 自动检测 login state；如果已登出且内容需要 auth，JSON output 会显示 `"status": "needs_interaction"`
+- 对 login-protected content 使用 `--wait-for interaction`
 
 ### Hacker News
 
-- Parses threaded comments with proper nesting and reply hierarchy
-- Includes story metadata (title, URL, author, score, comment count)
-- Shows comment deletion/dead status
+- 解析 threaded comments，并保留正确 nesting 与 reply hierarchy
+- 包含 story metadata（title、URL、author、score、comment count）
+- 显示 comment deletion/dead status
 
 ## Media Download Workflow
 
-Driven by `download_media` in EXTEND.md:
+由 EXTEND.md 中的 `download_media` 驱动：
 
-| Setting | Behavior |
+| Setting | 行为 |
 |---------|----------|
-| `1` (always) | Run CLI with `--download-media --output <path>` |
-| `0` (never) | Run CLI with `--output <path>` (no media download) |
-| `ask` (default) | Follow the ask-each-time flow below |
+| `1` (always) | 使用 `--download-media --output <path>` 运行 CLI |
+| `0` (never) | 使用 `--output <path>` 运行 CLI（不下载 media） |
+| `ask` (default) | 遵循下面的 ask-each-time flow |
 
 ### Ask-Each-Time Flow
 
-1. Run the CLI **without** `--download-media` with `--output <path>` → markdown saved
-2. Check the saved markdown for remote media URLs (`https://` in image/video links)
-3. **If no remote media found** → done, no prompt needed
-4. **If remote media found** → ask via `AskUserQuestion`:
+1. 使用 `--output <path>` 运行 CLI，但**不带** `--download-media` → markdown 已保存
+2. 检查已保存 markdown 中是否有 remote media URLs（image/video links 中的 `https://`）
+3. **如果没有 remote media** → 完成，不需要提问
+4. **如果发现 remote media** → 通过 `AskUserQuestion` 询问：
    - header: "Media", question: "Download N images/videos to local files?"
-   - "Yes" — Download to local directories
-   - "No" — Keep remote URLs
-5. If the user confirms → run the CLI **again** with `--download-media --output <same-path>` (overwrites markdown with localized links)
+   - "Yes" — 下载到本地目录
+   - "No" — 保留 remote URLs
+5. 如果用户确认 → 使用 `--download-media --output <same-path>` **再次**运行 CLI（用本地化 links 覆盖 markdown）
 
 ### Media Layout
 
-When `--download-media` is enabled:
+启用 `--download-media` 时：
 
-- Images → `imgs/` next to the output file (or `--media-dir`)
-- Videos → `videos/` next to the output file (or `--media-dir`)
-- Markdown media links are rewritten to local relative paths
+- Images → 输出文件旁的 `imgs/`（或 `--media-dir`）
+- Videos → 输出文件旁的 `videos/`（或 `--media-dir`）
+- Markdown media links 会改写为本地相对路径
 
 ## Output Format
 
-Markdown to stdout (or file with `--output`).
+Markdown 输出到 stdout（或通过 `--output` 输出到文件）。
 
-JSON output (`--format json`) returns structured data:
+JSON output（`--format json`）返回结构化数据：
 
-- `adapter` — which adapter handled the URL
-- `status` — `"ok"` or `"needs_interaction"`
-- `login` — login state detection (`logged_in`, `logged_out`, `unknown`)
-- `interaction` — interaction gate details (kind, provider, prompt)
-- `document` — structured content (url, title, author, publishedAt, content blocks, metadata)
-- `media` — collected media assets with url, kind, role
-- `markdown` — converted markdown text
-- `downloads` — media download results (when `--download-media` used)
+- `adapter` — 处理该 URL 的 adapter
+- `status` — `"ok"` 或 `"needs_interaction"`
+- `login` — login state detection（`logged_in`、`logged_out`、`unknown`）
+- `interaction` — interaction gate details（kind、provider、prompt）
+- `document` — structured content（url、title、author、publishedAt、content blocks、metadata）
+- `media` — 收集到的 media assets，包含 url、kind、role
+- `markdown` — 转换后的 markdown text
+- `downloads` — media download results（使用 `--download-media` 时）

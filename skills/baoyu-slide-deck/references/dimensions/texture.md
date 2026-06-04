@@ -1,57 +1,57 @@
 # Texture Dimension
 
-Visual texture and background treatment.
+视觉 texture 和 background treatment。
 
-## Options
+## 选项
 
-| Option | Background | Visual Elements | Best For |
+| 选项 | Background | Visual Elements | 适合 |
 |--------|------------|-----------------|----------|
-| `clean` | Pure solid color, no texture | Clean lines, geometric shapes | Executive, minimal, corporate |
-| `grid` | Subtle grid overlay | Grid lines, schematics, technical diagrams | Technical, architecture, engineering |
-| `organic` | Soft textures, hand-drawn feel | Brush strokes, watercolor, sketchy lines | Creative, educational, friendly |
-| `pixel` | Chunky pixels, 8-bit aesthetic | Pixel art, retro game elements | Gaming, developer, nostalgic |
-| `paper` | Aged/textured paper | Vintage elements, stamps, weathering | Historical, heritage, storytelling |
+| `clean` | 纯色背景，无 texture | 干净线条、geometric shapes | Executive、minimal、corporate |
+| `grid` | 细微 grid overlay | Grid lines、schematics、technical diagrams | Technical、architecture、engineering |
+| `organic` | 柔和 textures、hand-drawn feel | Brush strokes、watercolor、sketchy lines | Creative、educational、friendly |
+| `pixel` | 粗颗粒 pixels、8-bit aesthetic | Pixel art、retro game elements | Gaming、developer、nostalgic |
+| `paper` | 旧化/textured paper | Vintage elements、stamps、weathering | Historical、heritage、storytelling |
 
-## Rendering Guidelines
+## Rendering 指南
 
 ### clean
 
-- Solid background colors with no visible texture
-- Crisp, sharp edges on all elements
-- Digital precision and clarity
-- Maximum contrast for readability
+- 纯色背景，无 visible texture
+- 所有元素使用 crisp、sharp edges
+- Digital precision 和清晰度
+- 最大化 contrast 以保证 readability
 
 ### grid
 
-- Light grid overlay (5-10% opacity)
-- Engineering paper or blueprint feel
-- Alignment guides visible but subtle
+- 轻量 grid overlay（5-10% opacity）
+- Engineering paper 或 blueprint feel
+- Alignment guides 可见但 subtle
 - Technical drawing aesthetic
 
 ### organic
 
-- Paper grain or canvas texture
-- Imperfect edges, natural variations
+- Paper grain 或 canvas texture
+- Imperfect edges、natural variations
 - Hand-painted color fills
-- Casual, approachable feel
+- Casual、approachable feel
 
 ### pixel
 
-- Visible pixel grid (chunky, not fine)
+- Visible pixel grid（chunky，不要 fine）
 - 8-bit color palette aesthetic
-- Aliased edges (no smoothing)
+- Aliased edges（no smoothing）
 - Retro game UI elements
 
 ### paper
 
-- Aged paper texture (subtle creases, discoloration)
+- Aged paper texture（subtle creases、discoloration）
 - Vintage printing artifacts
-- Sepia or warm tones
+- Sepia 或 warm tones
 - Historical document feel
 
-## Combination Notes
+## 组合说明
 
-| Texture | Works Best With | Avoid With |
+| Texture | 最适合搭配 | 避免搭配 |
 |---------|-----------------|------------|
 | clean | professional, neutral moods | handwritten typography |
 | grid | cool, professional moods | handwritten, vibrant moods |

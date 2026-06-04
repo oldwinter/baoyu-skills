@@ -1,29 +1,29 @@
 # vintage
 
-Vintage aged-paper aesthetic for historical and expedition-style presentations
+用于历史和 expedition-style presentations 的 vintage aged-paper aesthetic
 
 ## Design Aesthetic
 
-Nostalgic vintage aesthetic with aged paper textures and historical document styling. Think explorer's journals, antique maps, and museum exhibits. Rich warm tones with weathered textures. Evokes discovery, heritage, and timeless knowledge.
+Nostalgic vintage aesthetic，带 aged paper textures 和 historical document styling。想象 explorer's journals、antique maps 和 museum exhibits。Rich warm tones 搭配 weathered textures。唤起 discovery、heritage 和 timeless knowledge。
 
 ## Background
 
-- Color: Aged Parchment (#F5E6D3) or Sepia Cream (#FFF8DC)
-- Texture: Heavy aged paper texture with subtle creases, coffee stains, and worn edges
+- Color: Aged Parchment (#F5E6D3) 或 Sepia Cream (#FFF8DC)
+- Texture: 厚重 aged paper texture，带 subtle creases、coffee stains 和 worn edges
 
 ## Typography
 
 ### Primary Font (Headlines)
 
-Classic serif with historical character (Garamond, Baskerville, or similar). Elegant, authoritative, timeless. May include decorative flourishes.
+使用带 historical character 的 classic serif（Garamond、Baskerville 或类似字体）。Elegant、authoritative、timeless。可包含 decorative flourishes。
 
 ### Secondary Font (Labels)
 
-Condensed serif or clean sans-serif for map labels and annotations. Period-appropriate styling. Consistent with vintage aesthetic.
+Map labels 和 annotations 使用 condensed serif 或 clean sans-serif。Period-appropriate styling。与 vintage aesthetic 保持一致。
 
 ### Body Font
 
-Readable serif for longer text. Traditional book typography. Comfortable reading experience.
+长文本使用 readable serif。Traditional book typography。阅读体验舒适。
 
 ## Color Palette
 
@@ -31,43 +31,43 @@ Readable serif for longer text. Traditional book typography. Comfortable reading
 |------|-------|-----|-------|
 | Background | Aged Parchment | #F5E6D3 | Primary background |
 | Alt Background | Sepia Cream | #FFF8DC | Secondary areas |
-| Primary Text | Dark Brown | #3D2914 | Headlines, body |
+| Primary Text | Dark Brown | #3D2914 | Headlines、body |
 | Secondary Text | Medium Brown | #6B4423 | Annotations |
-| Accent 1 | Forest Green | #2D5A3D | Maps, nature |
-| Accent 2 | Navy Blue | #1E3A5F | Ocean, lines |
-| Accent 3 | Burgundy | #722F37 | Emphasis, borders |
-| Accent 4 | Gold | #C9A227 | Highlights, compass |
+| Accent 1 | Forest Green | #2D5A3D | Maps、nature |
+| Accent 2 | Navy Blue | #1E3A5F | Ocean、lines |
+| Accent 3 | Burgundy | #722F37 | Emphasis、borders |
+| Accent 4 | Gold | #C9A227 | Highlights、compass |
 | Ink | Sepia Black | #3D3D3D | Fine details |
 
 ## Visual Elements
 
-- Antique maps with route lines and landmarks
-- Compass roses and nautical elements
-- Expedition ship or vehicle illustrations
-- Specimen drawings (flora, fauna, fossils)
+- 带 route lines 和 landmarks 的 antique maps
+- Compass roses 和 nautical elements
+- Expedition ship 或 vehicle illustrations
+- Specimen drawings（flora、fauna、fossils）
 - Handwritten-style annotations
-- Rope, leather, and brass decorative motifs
-- Wave and terrain texture patterns
+- Rope、leather 和 brass decorative motifs
+- Wave 与 terrain texture patterns
 - Vintage photograph-style image frames
 
 ## Style Rules
 
 ### Do
 
-- Apply consistent aged texture throughout
-- Use period-appropriate visual language
-- Include map and journey elements where relevant
-- Create layered collage compositions
-- Maintain warm sepia-toned palette
+- 全篇应用一致 aged texture
+- 使用 period-appropriate visual language
+- 在相关场景加入 map 和 journey elements
+- 创建 layered collage compositions
+- 保持 warm sepia-toned palette
 
 ### Don't
 
-- Use modern digital styling
-- Create crisp clean edges
-- Use cold or bright colors
-- Add contemporary elements
-- Add slide numbers, footers, or logos
+- 使用 modern digital styling
+- 创建 crisp clean edges
+- 使用 cold 或 bright colors
+- 添加 contemporary elements
+- 添加 slide numbers、footers 或 logos
 
 ## Best For
 
-Historical presentations, travel and exploration content, museum exhibits, heritage brand storytelling, biography presentations, scientific discovery narratives, educational history content
+Historical presentations、travel and exploration content、museum exhibits、heritage brand storytelling、biography presentations、scientific discovery narratives、educational history content

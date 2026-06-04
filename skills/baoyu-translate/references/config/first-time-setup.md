@@ -5,16 +5,16 @@ description: First-time setup flow for baoyu-translate preferences
 
 # First-Time Setup
 
-## Overview
+## 概览
 
-When no EXTEND.md is found, guide user through preference setup.
+找不到 EXTEND.md 时，引导用户完成 preference setup。
 
-**BLOCKING OPERATION**: This setup MUST complete before ANY translation. Do NOT:
-- Start translating content
-- Ask about files or output paths
-- Proceed to any workflow steps
+**阻塞操作**：此 setup 必须在任何翻译之前完成。不要：
+- 开始翻译内容
+- 询问文件或输出路径
+- 进入任何 workflow steps
 
-ONLY ask the questions in this setup flow, save EXTEND.md, then continue.
+只询问此 setup flow 中的问题，保存 EXTEND.md，然后继续。
 
 ## Setup Flow
 
@@ -36,11 +36,11 @@ No EXTEND.md found
     Continue translation
 ```
 
-## Questions
+## 问题
 
-**Language**: Use user's input language or saved language preference.
+**语言**：使用用户输入语言或已保存的语言偏好。
 
-Use AskUserQuestion with ALL questions in ONE call:
+使用 AskUserQuestion 在一次调用中提出所有问题：
 
 ### Question 1: Target Language
 
@@ -58,7 +58,7 @@ options:
     description: "Translate to Japanese"
 ```
 
-Note: User may type a custom language code.
+注意：用户可以输入自定义语言代码。
 
 ### Question 2: Translation Mode
 
@@ -90,7 +90,7 @@ options:
     description: "Business-friendly tone, explain tech concepts"
 ```
 
-Note: User may type a custom audience description.
+注意：用户可以输入自定义 audience 描述。
 
 ### Question 4: Translation Style
 
@@ -118,7 +118,7 @@ options:
     description: "Literary, polished, aesthetically refined"
 ```
 
-Note: User may type a custom style description.
+注意：用户可以输入自定义 style 描述。
 
 ### Question 5: Save Location
 
@@ -132,20 +132,20 @@ options:
     description: ".baoyu-skills/ (this project only)"
 ```
 
-## Save Locations
+## 保存位置
 
-| Choice | Path | Scope |
+| 选项 | Path | Scope |
 |--------|------|-------|
 | User | `$HOME/.baoyu-skills/baoyu-translate/EXTEND.md` | All projects |
 | Project | `.baoyu-skills/baoyu-translate/EXTEND.md` | Current project |
 
-## After Setup
+## Setup 后
 
-1. Create directory if needed
-2. Write EXTEND.md with selected values
-3. Confirm: "Preferences saved to [path]"
-4. Mention: "You can add custom glossary terms to EXTEND.md anytime. See the `glossary` section in the file for the format."
-5. Continue with translation using saved preferences
+1. 如有需要，创建目录
+2. 用所选值写入 EXTEND.md
+3. 确认："Preferences saved to [path]"
+4. 提醒："You can add custom glossary terms to EXTEND.md anytime. See the `glossary` section in the file for the format."
+5. 使用已保存 preferences 继续翻译
 
 ## EXTEND.md Template
 
@@ -155,7 +155,7 @@ default_mode: [quick/normal/refined]
 audience: [general/technical/academic/business/custom]
 style: [storytelling/formal/technical/literal/academic/business/humorous/conversational/elegant]
 
-# Custom glossary (optional) — add your own term translations here
+# Custom glossary (optional) — 在这里添加你自己的术语翻译
 # glossary:
 #   - from: "Term"
 #     to: "翻译"
@@ -164,6 +164,6 @@ style: [storytelling/formal/technical/literal/academic/business/humorous/convers
 #     note: "Usage context"
 ```
 
-## Modifying Preferences Later
+## 之后修改 Preferences
 
-Users can edit EXTEND.md directly or delete it to trigger setup again.
+用户可直接编辑 EXTEND.md，或删除它以再次触发 setup。

@@ -1,6 +1,6 @@
 # Style Presets
 
-`--style X` expands to a palette + rendering combination. Users can override either dimension.
+`--style X` 会展开为 palette + rendering 组合。用户可以覆盖任一维度。
 
 | --style | Palette | Rendering |
 |---------|---------|-----------|
@@ -31,9 +31,9 @@
 | `propaganda` | `vivid` | `screen-print` |
 | `cinematic` | `duotone` | `screen-print` |
 
-## Override Examples
+## 覆盖示例
 
-- `--style blueprint --rendering hand-drawn` = cool palette with hand-drawn rendering
-- `--style elegant --palette warm` = warm palette with hand-drawn rendering
+- `--style blueprint --rendering hand-drawn` = cool palette + hand-drawn rendering
+- `--style elegant --palette warm` = warm palette + hand-drawn rendering
 
-Explicit `--palette`/`--rendering` flags always override preset values.
+显式 `--palette`/`--rendering` flags 始终覆盖 preset 值。

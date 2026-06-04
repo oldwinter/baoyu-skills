@@ -1,22 +1,22 @@
 ---
 name: first-time-setup
-description: First-time setup flow for baoyu-url-to-markdown preferences
+description: baoyu-url-to-markdown 偏好的首次设置流程
 ---
 
-# First-Time Setup
+# 首次设置
 
-## Overview
+## 概述
 
-When no EXTEND.md is found, guide user through preference setup.
+当找不到 EXTEND.md 时，引导用户完成偏好设置。
 
-**BLOCKING OPERATION**: This setup MUST complete before ANY other workflow steps. Do NOT:
-- Start converting URLs
-- Ask about URLs or output paths
-- Proceed to any conversion
+**阻塞操作**：必须先完成此设置，才能执行任何其他 workflow 步骤。不要：
+- 开始转换 URLs
+- 询问 URLs 或 output paths
+- 进入任何 conversion
 
-ONLY ask the questions in this setup flow, save EXTEND.md, then continue.
+只询问本设置流程中的问题，保存 EXTEND.md，然后继续。
 
-## Setup Flow
+## 设置流程
 
 ```
 No EXTEND.md found
@@ -36,13 +36,13 @@ No EXTEND.md found
     Continue conversion
 ```
 
-## Questions
+## 问题
 
-**Language**: Use user's input language or saved language preference.
+**Language**：使用用户的输入语言或已保存语言偏好。
 
-Use AskUserQuestion with ALL questions in ONE call:
+使用 AskUserQuestion，在一次调用中包含所有问题：
 
-### Question 1: Download Media
+### 问题 1：Download Media
 
 ```yaml
 header: "Media"
@@ -56,7 +56,7 @@ options:
     description: "Keep original remote URLs in markdown"
 ```
 
-### Question 2: Default Output Directory
+### 问题 2：Default Output Directory
 
 ```yaml
 header: "Output"
@@ -66,9 +66,9 @@ options:
     description: "Save to ./url-to-markdown/{domain}/{slug}.md"
 ```
 
-Note: User will likely choose "Other" to type a custom path.
+注意：用户可能会选择 "Other" 来输入自定义路径。
 
-### Question 3: Save Location
+### 问题 3：Save Location
 
 ```yaml
 header: "Save"
@@ -80,27 +80,27 @@ options:
     description: ".baoyu-skills/ (this project only)"
 ```
 
-## Save Locations
+## 保存位置
 
-| Choice | Path | Scope |
+| 选择 | Path | 范围 |
 |--------|------|-------|
-| User | `~/.baoyu-skills/baoyu-url-to-markdown/EXTEND.md` | All projects |
-| Project | `.baoyu-skills/baoyu-url-to-markdown/EXTEND.md` | Current project |
+| User | `~/.baoyu-skills/baoyu-url-to-markdown/EXTEND.md` | 所有 projects |
+| Project | `.baoyu-skills/baoyu-url-to-markdown/EXTEND.md` | 当前 project |
 
-## After Setup
+## 设置后
 
-1. Create directory if needed
-2. Write EXTEND.md
-3. Confirm: "Preferences saved to [path]"
-4. Continue with conversion using saved preferences
+1. 按需创建目录
+2. 写入 EXTEND.md
+3. 确认："Preferences saved to [path]"
+4. 使用已保存 preferences 继续 conversion
 
-## EXTEND.md Template
+## EXTEND.md 模板
 
 ```md
 download_media: [ask/1/0]
 default_output_dir: [path or empty]
 ```
 
-## Modifying Preferences Later
+## 后续修改偏好
 
-Users can edit EXTEND.md directly or delete it to trigger setup again.
+用户可以直接编辑 EXTEND.md，或删除它以再次触发设置。

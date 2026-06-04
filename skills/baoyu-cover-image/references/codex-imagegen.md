@@ -1,10 +1,10 @@
 # `codex-imagegen` Wrapper Invocation
 
-Load this reference only when the [Image Generation Tools](../SKILL.md#image-generation-tools) rule has resolved to `codex-imagegen` — i.e., the current runtime exposes no native `imagegen` skill but `codex` CLI is on `PATH` with an active `codex login`.
+仅当 [Image Generation Tools](../SKILL.md#image-generation-tools) 规则解析到 `codex-imagegen` 时加载此 reference，也就是当前 runtime 没有暴露原生 `imagegen` skill，但 `PATH` 上有 `codex` CLI 且已完成有效 `codex login`。
 
 ## Preferred path: route through `baoyu-image-gen`
 
-If the `baoyu-image-gen` skill is available in this runtime, **always** invoke through it rather than calling the wrapper directly. It handles retry/cache/batch/EXTEND.md preferences uniformly with every other provider.
+如果当前 runtime 中可用 `baoyu-image-gen` skill，**始终**通过它调用，而不是直接调用 wrapper。它会以与其他 provider 一致的方式处理 retry/cache/batch/EXTEND.md preferences。
 
 ```bash
 ${BUN_X} <baoyu-image-gen-base>/scripts/main.ts \
@@ -15,17 +15,17 @@ ${BUN_X} <baoyu-image-gen-base>/scripts/main.ts \
   [--ref <ABSOLUTE_file>]...
 ```
 
-Resolve `<baoyu-image-gen-base>` the same way you resolve any sibling skill — through your runtime's skill registry (`Skill` tool, plugin marketplace, or `$HOME/.baoyu-skills/baoyu-image-gen/`).
+像解析任何 sibling skill 一样解析 `<baoyu-image-gen-base>`：通过 runtime 的 skill registry（`Skill` tool、plugin marketplace，或 `$HOME/.baoyu-skills/baoyu-image-gen/`）。
 
 ## Fallback: spawn the wrapper directly
 
-Only when `baoyu-image-gen` is NOT installed in the current runtime. Discover the wrapper's location at runtime — do NOT hard-code `../../packages/...` from this skill:
+仅当当前 runtime 未安装 `baoyu-image-gen` 时使用。必须在 runtime 中发现 wrapper 位置，不要从此 skill 硬编码 `../../packages/...`：
 
-1. **Honor explicit override**: if `$BAOYU_CODEX_IMAGEGEN_BIN` is set and points to a real file, use that path. It may be `.ts` (spawn `bun <path>`) or `.sh`/binary (spawn directly).
-2. **Search the plugin root**: walk up from this skill's directory looking for `packages/baoyu-codex-imagegen/src/main.ts`. If found, that is the wrapper. Spawn it with `bun`.
-3. **Last resort**: tell the user that `codex-imagegen` is not available in this runtime and ask whether to install the `baoyu-skills` plugin (or set `BAOYU_CODEX_IMAGEGEN_BIN`) or pick another backend.
+1. **Honor explicit override**：如果 `$BAOYU_CODEX_IMAGEGEN_BIN` 已设置且指向真实文件，使用该路径。它可以是 `.ts`（启动 `bun <path>`）或 `.sh`/binary（直接启动）。
+2. **Search the plugin root**：从此 skill 目录向上查找 `packages/baoyu-codex-imagegen/src/main.ts`。如果找到，那就是 wrapper，用 `bun` 启动。
+3. **Last resort**：告诉用户此 runtime 中 `codex-imagegen` 不可用，并询问是否安装 `baoyu-skills` plugin（或设置 `BAOYU_CODEX_IMAGEGEN_BIN`）或选择其他 backend。
 
-Once located, the invocation shape is:
+定位后，调用形态如下：
 
 ```bash
 bun <WRAPPER>/main.ts \
@@ -38,28 +38,28 @@ bun <WRAPPER>/main.ts \
   [--log-file <ABSOLUTE_jsonl_log_path>]
 ```
 
-If `bun` is missing, `npx -y bun <WRAPPER>/main.ts ...` works as a fallback.
+如果缺少 `bun`，可用 `npx -y bun <WRAPPER>/main.ts ...` 作为 fallback。
 
 ## Parameter notes
 
-- **All filesystem inputs** are auto-resolved against `process.cwd()` when relative, but agents should pass absolute paths to be robust against cwd drift.
-- **`--timeout`** defaults to `300000` (5 min) per `codex exec` attempt. Raise (e.g. `--timeout 600000` for 10 min) on slow networks or large prompts.
-- **`--cache-dir`** is off by default. Enable for repeatable runs to skip redundant generations of the same prompt+aspect+refs.
-- **Authentication**: the wrapper uses the user's Codex subscription — no `OPENAI_API_KEY` is read or sent.
+- **所有 filesystem inputs** 在相对路径时会自动按 `process.cwd()` 解析，但 agent 应传 absolute paths，以抵抗 cwd drift。
+- **`--timeout`** 默认每次 `codex exec` attempt 为 `300000`（5 min）。慢网络或大 prompt 时可调高（例如 `--timeout 600000` 表示 10 min）。
+- **`--cache-dir`** 默认关闭。可为可重复运行启用，以跳过相同 prompt+aspect+refs 的冗余生成。
+- **Authentication**：wrapper 使用用户的 Codex subscription，不读取或发送 `OPENAI_API_KEY`。
 
 ## Stdout contract
 
-Single JSON line:
+单行 JSON：
 
 - Success: `{"status":"ok","path":"...","bytes":N,"elapsed_seconds":N,"thread_id":"...","attempts":N,"cached":bool,...}`
 - Failure: `{"status":"error","path":"...","bytes":0,"error":"...","error_kind":"..."}`
 
 `error_kind` values: `codex_not_installed`, `invalid_args`, `prompt_file_missing`, `spawn_failed`, `timeout`, `no_image_gen_tool_use`, `output_missing`, `invalid_png`, `agent_refused`, `lock_busy`.
 
-On retryable errors (timeout, spawn_failed, no_image_gen_tool_use, output_missing, invalid_png, agent_refused), ask the user whether to retry or fall back to another backend.
+遇到 retryable errors（timeout, spawn_failed, no_image_gen_tool_use, output_missing, invalid_png, agent_refused）时，询问用户是重试还是回退到其他 backend。
 
 ## Batch semantics
 
-- Codex `image_gen` returns **one image per call** (`n=1` only). Multi-image jobs must dispatch one wrapper call per image.
-- The wrapper does NOT accept a `--sessionId` flag. Chain/scene consistency must come from `--ref` reference images.
-- `--size` and `--quality` are silently ignored — Codex picks pixel dimensions from `--aspect`.
+- Codex `image_gen` 每次调用返回**一张图**（仅 `n=1`）。Multi-image jobs 必须为每张图分发一次 wrapper call。
+- Wrapper 不接受 `--sessionId` flag。Chain/scene consistency 必须来自 `--ref` reference images。
+- `--size` 和 `--quality` 会被静默忽略；Codex 根据 `--aspect` 选择 pixel dimensions。

@@ -1,59 +1,59 @@
 # X Articles - Detailed Guide
 
-Publish Markdown articles to X Articles editor with rich text formatting and images.
+把 Markdown articles 发布到 X Articles editor，并保留 rich text formatting 和 images。
 
 ## Mode Selection
 
-In Codex, choose the browser-control mode from the user's wording:
+在 Codex 中，根据用户措辞选择 browser-control mode：
 
-1. If the user says "Codex Chrome plugin", "Codex 自带的 Chrome 插件", `@chrome`, or Chrome Extension, use **Codex Chrome Plugin Workflow**. Do not try Computer Use first.
-2. If the user explicitly asks for Chrome Computer Use, use **Computer Use Workflow**.
-3. If the user explicitly asks for CDP/script mode, use **CDP Script Workflow**.
-4. Otherwise, use Computer Use when available; if unavailable or blocked, use CDP Script Workflow.
+1. 如果用户说 "Codex Chrome plugin"、"Codex 自带的 Chrome 插件"、`@chrome` 或 Chrome Extension，使用 **Codex Chrome Plugin Workflow**。不要先尝试 Computer Use。
+2. 如果用户明确要求 Chrome Computer Use，使用 **Computer Use Workflow**。
+3. 如果用户明确要求 CDP/script mode，使用 **CDP Script Workflow**。
+4. 否则，可用时使用 Computer Use；不可用或被阻塞时，使用 CDP Script Workflow。
 
-Never use the in-app Browser for X Article publishing. Never switch away from an explicitly requested mode without explaining the blocker and getting approval.
+绝不要使用 in-app Browser 发布 X Article。对于用户明确要求的 mode，除非解释 blocker 并获得同意，否则不要切换。
 
 ## Prerequisites
 
-- X Premium subscription (required for Articles)
-- Google Chrome installed
-- `bun` installed
+- X Premium subscription（Articles 必需）
+- 已安装 Google Chrome
+- 已安装 `bun`
 
 ## Usage
 
-### Codex Chrome Plugin (When Requested)
+### Codex Chrome Plugin（When Requested）
 
-Use the `chrome:Chrome` skill and its Node REPL browser client. Verify the connection with a lightweight call such as `browser.user.openTabs()`. If it fails, wait 2 seconds and retry once, then follow the Chrome skill's health checks.
+使用 `chrome:Chrome` skill 及其 Node REPL browser client。用 `browser.user.openTabs()` 等轻量调用验证连接。如果失败，等待 2 秒并 retry 一次，然后按 Chrome skill 的 health checks 处理。
 
-Prepare the article HTML and image map:
+准备 article HTML 和 image map：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/md-to-html.ts article.md --save-html /tmp/x-article-body.html > /tmp/x-article.json
 ```
 
-Copy generated HTML as rich text:
+把生成的 HTML 作为 rich text 复制：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts html --file /tmp/x-article-body.html
 ```
 
-Use the Chrome plugin's tab, Playwright-wrapper, CUA, clipboard, and file chooser APIs for all X UI operations. If upload fails with `Not allowed`, stop and tell the user to enable file URL access for the Codex Chrome Extension in `chrome://extensions` → Details.
+对所有 X UI operations 使用 Chrome plugin 的 tab、Playwright-wrapper、CUA、clipboard 和 file chooser APIs。如果 upload 报 `Not allowed`，停止并告诉用户在 `chrome://extensions` → Details 中为 Codex Chrome Extension 启用 file URL access。
 
 ### Chrome Computer Use
 
-Prepare the article HTML and image map:
+准备 article HTML 和 image map：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/md-to-html.ts article.md --save-html /tmp/x-article-body.html > /tmp/x-article.json
 ```
 
-Copy the generated HTML as rich text:
+把生成的 HTML 作为 rich text 复制：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts html --file /tmp/x-article-body.html
 ```
 
-Then use Codex Computer Use against `Google Chrome` for all X UI operations.
+然后通过 Codex Computer Use 操作 `Google Chrome` 完成所有 X UI operations。
 
 ### CDP Script Fallback
 
@@ -68,7 +68,7 @@ ${BUN_X} {baseDir}/scripts/x-article.ts article.md --cover ./cover.jpg
 ${BUN_X} {baseDir}/scripts/x-article.ts article.md --submit
 ```
 
-Do not use `--submit` unless the user has explicitly confirmed the final public publish action.
+除非用户已经明确确认最终 public publish action，否则不要使用 `--submit`。
 
 ## Markdown Format
 
@@ -107,21 +107,21 @@ Code blocks become blockquotes (X doesn't support code)
 
 | Field | Description |
 |-------|-------------|
-| `title` | Article title (or uses first H1) |
-| `cover_image` | Cover image path or URL |
-| `cover` | Alias for cover_image |
-| `image` | Alias for cover_image |
+| `title` | Article title（或使用第一个 H1） |
+| `cover_image` | Cover image path 或 URL |
+| `cover` | `cover_image` 的 alias |
+| `image` | `cover_image` 的 alias |
 
 ## Image Handling
 
-1. **Cover Image**: First image or `cover_image` from frontmatter
-2. **Remote Images**: Automatically downloaded to temp directory
-3. **Placeholders**: Images in content use `XIMGPH_N` format
-4. **Insertion**: Placeholders are found, selected, and replaced with actual images
+1. **Cover Image**：第一个 image 或 frontmatter 中的 `cover_image`
+2. **Remote Images**：自动下载到 temp directory
+3. **Placeholders**：正文 images 使用 `XIMGPH_N` format
+4. **Insertion**：找到并选中 placeholders，然后替换为实际 images
 
 ## Markdown to HTML Script
 
-Convert markdown and inspect structure:
+转换 markdown 并检查结构：
 
 ```bash
 # Get JSON with all metadata
@@ -134,7 +134,8 @@ ${BUN_X} {baseDir}/scripts/md-to-html.ts article.md --html-only
 ${BUN_X} {baseDir}/scripts/md-to-html.ts article.md --save-html /tmp/article.html
 ```
 
-JSON output:
+JSON output：
+
 ```json
 {
   "title": "Article Title",
@@ -155,99 +156,99 @@ JSON output:
 
 | Markdown | HTML Output |
 |----------|-------------|
-| `# H1` | Title only (not in body) |
+| `# H1` | 仅作为 title（不进入 body） |
 | `## H2` - `###### H6` | `<h2>` |
 | `**bold**` | `<strong>` |
 | `*italic*` | `<em>` |
 | `[text](url)` | `<a href>` |
 | `> quote` | `<blockquote>` |
 | `` `code` `` | `<code>` |
-| ```` ``` ```` | `<blockquote>` (X limitation) |
+| ```` ``` ```` | `<blockquote>`（X limitation） |
 | `- item` | `<ul><li>` |
 | `1. item` | `<ol><li>` |
 | `![](img)` | Image placeholder |
 
 ## Codex Chrome Plugin Workflow
 
-1. **Load Chrome skill**: use `chrome:Chrome`, not Computer Use.
-2. **Connect**: initialize the Chrome plugin browser client and verify with `browser.user.openTabs()`.
-3. **Parse Markdown**: run `md-to-html.ts --save-html /tmp/x-article-body.html > /tmp/x-article.json`.
-4. **Read the map**: use `/tmp/x-article.json` for `title`, `coverImage`, and `contentImages`.
-5. **Open X Articles**: open or claim a Chrome tab for `https://x.com/compose/articles`.
-6. **Create Draft**: click the create/write button if needed, or open the target draft.
-7. **Upload Cover**: use the Chrome plugin file chooser flow. If file upload returns `Not allowed`, report the Chrome Extension file-access fix and stop.
-8. **Fill Title**: fill the title field.
-9. **Paste Content**:
-   - Run `copy-to-clipboard.ts html --file /tmp/x-article-body.html`.
-   - Click the article body.
-   - Press `Meta+V` on macOS or `Control+V` on Windows/Linux through the Chrome plugin.
-   - Verify the article body appeared and contains `XIMGPH_` placeholders. On macOS, use `pbpaste` to verify shell-written system clipboard contents if paste is suspicious; `tab.clipboard.readText()` may not reflect the system clipboard after shell writes.
-10. **Insert Images**: for each `contentImages` item in placeholder order:
-   - Locate the exact visible placeholder text (`XIMGPH_N`) and click it to put the insertion point there.
-   - Open the editor toolbar dropdown `Insert` and choose `Media`.
-   - In the `Insert` modal, click the icon button with `aria-label="Add photos or video"`; do not click the "Choose a file or drag it here" text/dropzone or hidden file input.
-   - Use the Chrome plugin file chooser flow to upload that image's `localPath`.
-   - Wait until the image block appears. If `XIMGPH_N` remains above the image, select exactly that placeholder and press `Delete` first; use `Backspace` only if `Delete` fails and the selected text is confirmed to be exactly the placeholder.
-   - Verify that placeholder's count is `0` before continuing.
-11. **Verify**:
-   - Inspect the editor for `XIMGPH_` residue.
-   - Confirm the expected number of image blocks is visible.
-   - Open Preview and verify title, cover, body, links, and images.
-12. **Publish Safety**: ask the user for explicit final confirmation before clicking `Publish`.
+1. **Load Chrome skill**：使用 `chrome:Chrome`，不是 Computer Use。
+2. **Connect**：初始化 Chrome plugin browser client，并用 `browser.user.openTabs()` 验证。
+3. **Parse Markdown**：运行 `md-to-html.ts --save-html /tmp/x-article-body.html > /tmp/x-article.json`。
+4. **Read the map**：从 `/tmp/x-article.json` 读取 `title`、`coverImage` 和 `contentImages`。
+5. **Open X Articles**：打开或接管 `https://x.com/compose/articles` 的 Chrome tab。
+6. **Create Draft**：如需要，点击 create/write button，或打开目标 draft。
+7. **Upload Cover**：使用 Chrome plugin file chooser flow。如果 file upload 返回 `Not allowed`，报告 Chrome Extension file-access fix 并停止。
+8. **Fill Title**：填写 title field。
+9. **Paste Content**：
+   - 运行 `copy-to-clipboard.ts html --file /tmp/x-article-body.html`。
+   - 点击 article body。
+   - 通过 Chrome plugin 按 macOS `Meta+V` 或 Windows/Linux `Control+V`。
+   - 验证 article body 已出现，并包含 `XIMGPH_` placeholders。macOS 上，如果 paste 可疑，可用 `pbpaste` 验证 shell 写入的 system clipboard；shell 写入后 `tab.clipboard.readText()` 可能不反映 system clipboard。
+10. **Insert Images**：按 placeholder 顺序处理每个 `contentImages` item：
+   - 定位精确可见 placeholder text（`XIMGPH_N`），点击使 insertion point 位于该处。
+   - 打开 editor toolbar dropdown `Insert` 并选择 `Media`。
+   - 在 `Insert` modal 中点击带 `aria-label="Add photos or video"` 的 icon button；不要点击 "Choose a file or drag it here" text/dropzone 或 hidden file input。
+   - 使用 Chrome plugin file chooser flow 上传该 image 的 `localPath`。
+   - 等待 image block 出现。如果 `XIMGPH_N` 仍留在 image 上方，先精确选中该 placeholder 并按 `Delete`；只有当 `Delete` 失败且选中文本确认正好是 placeholder 时，才使用 `Backspace`。
+   - 继续前验证该 placeholder 的 count 为 `0`。
+11. **Verify**：
+   - 检查 editor 中是否残留 `XIMGPH_`。
+   - 确认可见 image blocks 数量符合预期。
+   - 打开 Preview，验证 title、cover、body、links 和 images。
+12. **Publish Safety**：点击 `Publish` 前，向用户请求 explicit final confirmation。
 
-If the Chrome plugin reports `native pipe is closed`, retry one lightweight browser call after 2 seconds, then run the Chrome skill health checks. If Chrome, the extension, and native host are healthy, ask the user before opening a new Chrome window and retrying.
+如果 Chrome plugin 报 `native pipe is closed`，2 秒后 retry 一次轻量 browser call，然后运行 Chrome skill health checks。如果 Chrome、extension 和 native host 都健康，打开新 Chrome window 并 retry 前先询问用户。
 
 ## Computer Use Workflow
 
-1. **Detect Computer Use**: call `get_app_state` for `Google Chrome`; use `tool_search` first if the tools are not visible.
-2. **Parse Markdown**: run `md-to-html.ts --save-html /tmp/x-article-body.html > /tmp/x-article.json`.
-3. **Read the map**: use `/tmp/x-article.json` for `title`, `coverImage`, and `contentImages`.
-4. **Open X Articles**: use Chrome Computer Use to navigate to `https://x.com/compose/articles`.
-5. **Create Draft**: click the create/write button if needed, or open the target draft.
-6. **Upload Cover**: if `coverImage` exists, use Chrome's visible upload/file picker UI. If the file picker cannot be operated reliably, stop and ask for help rather than switching to CDP silently.
-7. **Fill Title**: type the title into the title field.
-8. **Paste Content**:
-   - Run `copy-to-clipboard.ts html --file /tmp/x-article-body.html`.
-   - Click the article body.
-   - Press `super+v` on macOS or `control+v` on Windows/Linux with Computer Use.
-9. **Insert Images**: for each `contentImages` item in placeholder order:
-   - Locate the exact visible placeholder text (`XIMGPH_N`) and click it to put the insertion point there.
-   - Open the editor toolbar dropdown `Insert`, choose `Media`, then click the icon button with `aria-label="Add photos or video"` inside the modal.
-   - Use the native file picker to choose that image's `localPath`.
-   - Wait until the image block appears and upload activity is complete.
-   - If `XIMGPH_N` remains above the inserted image, reselect exactly that placeholder text and press `Delete` first; use `Backspace` only if `Delete` fails and the Computer Use state confirms the selected text is exactly the placeholder.
-   - Confirm that placeholder is gone before continuing.
-10. **Verify**:
-   - Inspect the Computer Use state for `XIMGPH_` residue.
-   - Confirm the expected number of image blocks is visible.
-   - Open Preview and verify title, cover, body, links, and images.
-11. **Publish Safety**: ask the user for explicit final confirmation before clicking `Publish`.
+1. **Detect Computer Use**：对 `Google Chrome` 调用 `get_app_state`；如果 tools 不可见，先用 `tool_search`。
+2. **Parse Markdown**：运行 `md-to-html.ts --save-html /tmp/x-article-body.html > /tmp/x-article.json`。
+3. **Read the map**：从 `/tmp/x-article.json` 读取 `title`、`coverImage` 和 `contentImages`。
+4. **Open X Articles**：用 Chrome Computer Use 导航到 `https://x.com/compose/articles`。
+5. **Create Draft**：如需要，点击 create/write button，或打开目标 draft。
+6. **Upload Cover**：如果存在 `coverImage`，使用 Chrome 可见 upload/file picker UI。如果 file picker 无法可靠操作，停止并请求帮助，而不是静默切换到 CDP。
+7. **Fill Title**：把 title 输入 title field。
+8. **Paste Content**：
+   - 运行 `copy-to-clipboard.ts html --file /tmp/x-article-body.html`。
+   - 点击 article body。
+   - 用 Computer Use 按 macOS `super+v` 或 Windows/Linux `control+v`。
+9. **Insert Images**：按 placeholder 顺序处理每个 `contentImages` item：
+   - 定位精确可见 placeholder text（`XIMGPH_N`），点击使 insertion point 位于该处。
+   - 打开 editor toolbar dropdown `Insert`，选择 `Media`，然后在 modal 中点击带 `aria-label="Add photos or video"` 的 icon button。
+   - 使用 native file picker 选择该 image 的 `localPath`。
+   - 等待 image block 出现并且 upload activity 完成。
+   - 如果 `XIMGPH_N` 仍留在插入图片上方，先重新精确选中该 placeholder text 并按 `Delete`；只有当 `Delete` 失败且 Computer Use state 确认选中文本正好是 placeholder 时，才使用 `Backspace`。
+   - 继续前确认 placeholder 已消失。
+10. **Verify**：
+   - 检查 Computer Use state 中是否残留 `XIMGPH_`。
+   - 确认可见 image blocks 数量符合预期。
+   - 打开 Preview，验证 title、cover、body、links 和 images。
+11. **Publish Safety**：点击 `Publish` 前，向用户请求 explicit final confirmation。
 
-## CDP Script Workflow (Fallback)
+## CDP Script Workflow（Fallback）
 
-1. **Parse Markdown**: Extract title, cover, content images, generate HTML
-2. **Launch Chrome**: Real browser with CDP, persistent login
-3. **Navigate**: Open `x.com/compose/articles`
-4. **Create Article**: Click create button if on list page
-5. **Upload Cover**: Use file input for cover image
-6. **Fill Title**: Type title into title field
-7. **Paste Content**: Copy HTML to clipboard, paste into editor
-8. **Insert Images**: For each placeholder in placeholder order:
-   - Find and click the placeholder text in the editor
-   - Use `Insert` -> `Media`
-   - Click the modal's icon button labeled `Add photos or video`
-   - Upload the matching image file
-   - Delete the leftover placeholder text with `Delete` after the image appears
-9. **Post-Composition Check** (automatic):
-   - Scan editor for remaining `XIMGPH_` placeholders
-   - Compare expected vs actual image count
-   - Warn if issues found
-10. **Review**: Browser stays open for 60s preview
-11. **Publish**: Only with `--submit` flag and explicit user confirmation
+1. **Parse Markdown**：提取 title、cover、content images，并生成 HTML
+2. **Launch Chrome**：通过 CDP 使用真实 browser 和 persistent login
+3. **Navigate**：打开 `x.com/compose/articles`
+4. **Create Article**：如果在 list page，点击 create button
+5. **Upload Cover**：对 cover image 使用 file input
+6. **Fill Title**：把 title 输入 title field
+7. **Paste Content**：把 HTML 复制到 clipboard，并粘贴到 editor
+8. **Insert Images**：按 placeholder 顺序处理每个 placeholder：
+   - 在 editor 中找到并点击 placeholder text
+   - 使用 `Insert` -> `Media`
+   - 点击 modal 中标记为 `Add photos or video` 的 icon button
+   - 上传匹配的 image file
+   - Image 出现后，用 `Delete` 删除残留 placeholder text
+9. **Post-Composition Check**（automatic）：
+   - 扫描 editor 中剩余的 `XIMGPH_` placeholders
+   - 比较 expected vs actual image count
+   - 如发现问题则 warning
+10. **Review**：Browser 保持打开 60s 供 preview
+11. **Publish**：仅在有 `--submit` flag 且用户明确确认时执行
 
 ## Example Session
 
-```
+```text
 User: /post-to-x article ./blog/my-post.md --cover ./thumbnail.png
 
 Claude:
@@ -264,41 +265,41 @@ Claude:
 
 ## Troubleshooting
 
-- **No create button**: Ensure X Premium subscription is active
-- **Cover upload fails**: Check file path and format (PNG, JPEG)
-- **Images not inserting**: Verify placeholders exist in pasted content; use `Insert` -> `Media` -> modal icon button `Add photos or video`, not image clipboard paste, the dropzone text, or the hidden file input.
-- **Content not pasting**: Check HTML clipboard: `${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts html --file /tmp/test.html`
-- **Chrome plugin `native pipe is closed`**: retry once after 2 seconds, then run Chrome skill checks; ask before opening a new Chrome window if checks pass.
-- **Chrome plugin upload `Not allowed`**: enable file URL access for the Codex Chrome Extension in `chrome://extensions` → Details.
-- **Computer Use unavailable**: Use the CDP fallback script, unless the user explicitly required Chrome Computer Use.
-- **Placeholder remains after upload**: Select only the placeholder text and press `Delete` after upload completes. Use `Backspace` only if `Delete` fails and the selection is exactly the placeholder.
+- **No create button**：确认 X Premium subscription 已生效
+- **Cover upload fails**：检查 file path 和 format（PNG、JPEG）
+- **Images not inserting**：确认 pasted content 中存在 placeholders；使用 `Insert` -> `Media` -> modal icon button `Add photos or video`，不要用 image clipboard paste、dropzone text 或 hidden file input。
+- **Content not pasting**：检查 HTML clipboard：`${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts html --file /tmp/test.html`
+- **Chrome plugin `native pipe is closed`**：2 秒后 retry 一次，然后运行 Chrome skill checks；如果 checks 通过，打开新 Chrome window 前先询问。
+- **Chrome plugin upload `Not allowed`**：在 `chrome://extensions` → Details 中为 Codex Chrome Extension 启用 file URL access。
+- **Computer Use unavailable**：使用 CDP fallback script，除非用户明确要求 Chrome Computer Use。
+- **Placeholder remains after upload**：Upload 完成后，只选中 placeholder text 并按 `Delete`。只有当 `Delete` 失败且选中内容正好是 placeholder 时，才使用 `Backspace`。
 
 ## How It Works
 
-1. `md-to-html.ts` converts Markdown to HTML:
-   - Extracts frontmatter (title, cover)
-   - Converts markdown to HTML
-   - Replaces images with unique placeholders
-   - Downloads remote images locally
-   - Returns structured JSON
+1. `md-to-html.ts` 把 Markdown 转换为 HTML：
+   - 提取 frontmatter（title、cover）
+   - 将 markdown 转为 HTML
+   - 把 images 替换为 unique placeholders
+   - 把 remote images 下载到本地
+   - 返回 structured JSON
 
-2. The Codex Chrome plugin publishes through the user's real Chrome session when explicitly requested:
-   - Uses the user's active Chrome profile and logged-in X session
-   - Uses the Chrome Extension browser client rather than Computer Use or CDP
-   - Uses `copy-to-clipboard.ts` for rich HTML body paste
-   - Inserts body images through X's toolbar `Insert` -> `Media` modal and its `Add photos or video` icon button
-   - Keeps the final publish click under user confirmation
+2. 当用户明确要求时，Codex Chrome plugin 通过用户真实 Chrome session 发布：
+   - 使用用户 active Chrome profile 和 logged-in X session
+   - 使用 Chrome Extension browser client，而不是 Computer Use 或 CDP
+   - 使用 `copy-to-clipboard.ts` 粘贴 rich HTML body
+   - 通过 X toolbar `Insert` -> `Media` modal 及其 `Add photos or video` icon button 插入 body images
+   - 最终 publish click 受用户确认约束
 
-3. Chrome Computer Use publishes through the user's visible Chrome UI:
-   - Uses the user's active Chrome profile and logged-in X session
-   - Uses `copy-to-clipboard.ts` for rich HTML body paste
-   - Inserts body images through X's toolbar `Insert` -> `Media` modal and its `Add photos or video` icon button
-   - Uses real keystrokes (`super+v`/`control+v`) through Codex Computer Use
-   - Keeps the final publish click under user confirmation
+3. Chrome Computer Use 通过用户可见 Chrome UI 发布：
+   - 使用用户 active Chrome profile 和 logged-in X session
+   - 使用 `copy-to-clipboard.ts` 粘贴 rich HTML body
+   - 通过 X toolbar `Insert` -> `Media` modal 及其 `Add photos or video` icon button 插入 body images
+   - 通过 Codex Computer Use 使用真实 keystrokes（`super+v`/`control+v`）
+   - 最终 publish click 受用户确认约束
 
-4. `x-article.ts` publishes via CDP as a fallback:
-   - Launches real Chrome (bypasses detection)
-   - Uses persistent profile (saved login)
-   - Navigates and fills editor via DOM manipulation
-   - Pastes HTML from system clipboard
-   - Finds/selects/replaces each image placeholder
+4. `x-article.ts` 作为 fallback 通过 CDP 发布：
+   - 启动真实 Chrome（绕过 detection）
+   - 使用 persistent profile（saved login）
+   - 通过 DOM manipulation 导航并填写 editor
+   - 从 system clipboard 粘贴 HTML
+   - 找到、选中并替换每个 image placeholder

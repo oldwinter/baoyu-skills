@@ -1,58 +1,58 @@
 # minimal
 
-Ultra-clean, zen-like illustration style for focused content
+适合聚焦内容的超干净、禅意 illustration 风格。
 
-## Design Aesthetic
+## 设计美学
 
-Maximum simplicity with purposeful restraint. Every element serves a function. Zen-like calm and focus through extensive negative space. Single focal point approach that guides attention naturally. Quiet elegance through reduction.
+以有目的的克制追求最大简洁。每个元素都服务一个功能。通过大量 negative space 呈现禅意般的平静与专注。使用单一焦点自然引导注意力。通过减法获得安静的优雅。
 
-## Background
+## 背景
 
-- Color: Pure White (#FFFFFF) or Off-White (#FAFAFA)
-- Texture: None - clean solid backgrounds
+- 颜色：Pure White (#FFFFFF) 或 Off-White (#FAFAFA)
+- 纹理：无，干净纯色背景
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | White | #FFFFFF | Primary background |
-| Alt Background | Off-White | #FAFAFA | Subtle variation |
-| Primary | Pure Black | #000000 | Main elements |
-| Accent | Content-Derived | varies | Single accent color |
-| Text | Black | #000000 | Text elements |
-| Alt Text | Medium Gray | #6B6B6B | Secondary text |
+| Background | White | #FFFFFF | 主背景 |
+| Alt Background | Off-White | #FAFAFA | 细微变化 |
+| Primary | Pure Black | #000000 | 主要元素 |
+| Accent | Content-Derived | varies | 单一强调色 |
+| Text | Black | #000000 | 文本元素 |
+| Alt Text | Medium Gray | #6B6B6B | 次级文本 |
 
-Note: Accent color is derived from content context. Use sparingly.
+注意：强调色来自内容上下文。请克制使用。
 
-## Visual Elements
+## 视觉元素
 
-- Single focal element per illustration
-- Maximum negative space
-- Thin, precise lines
-- Simple geometric forms
-- Subtle shadows if any
-- Typography as primary element
-- Strategic use of single accent
-- Clean, uncluttered compositions
+- 每张插画只有一个焦点元素
+- 最大化 negative space
+- 细而精确的线条
+- 简单几何形式
+- 如需阴影，只使用细微阴影
+- typography 作为主要元素
+- 策略性使用单一强调色
+- 干净、不杂乱的构图
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Embrace empty space
-- Use single focal points
-- Keep lines thin and precise
-- Let content breathe
-- Question every element
+- 拥抱空白空间
+- 使用单一焦点
+- 保持线条细而精确
+- 让内容有呼吸感
+- 审视每一个元素是否必要
 
-### Don't
+### 不要
 
-- Add decorative elements
-- Use multiple accent colors
-- Fill available space
-- Add textures or patterns
-- Create visual complexity
+- 添加装饰元素
+- 使用多个强调色
+- 填满可用空间
+- 添加纹理或图案
+- 制造视觉复杂度
 
-## Best For
+## 适合
 
-Philosophy articles, minimalism content, focused explanations, meditation and mindfulness, essential concepts, clarity-focused writing
+哲学文章、极简主义内容、聚焦解释、冥想与 mindfulness、核心概念、强调清晰度的写作

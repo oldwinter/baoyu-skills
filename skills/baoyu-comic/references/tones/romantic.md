@@ -1,35 +1,35 @@
 # romantic
 
-浪漫基调 - Soft, beautiful, emotionally delicate
+浪漫基调 - 柔软、美丽、情感细腻
 
 ## Overview
 
-Soft, dreamy atmosphere for romantic and emotionally delicate content. Features decorative elements, sparkles, and beautiful compositions that emphasize feeling and beauty.
+适合浪漫和情感细腻内容的柔软、梦幻氛围。包含装饰元素、闪光和美丽构图，强调感受与美。
 
 ## Mood Characteristics
 
-- Romance and love
-- Beauty and elegance
-- Emotional delicacy
-- Dreams and hopes
-- Youth and idealism
+- 浪漫与爱
+- 美与优雅
+- 情感细腻
+- 梦想与希望
+- 青春与理想主义
 
 ## Color Modifiers
 
-When applied to any art style:
+应用到任意 art style 时：
 
-| Adjustment | Direction |
+| 调整 | 方向 |
 |------------|-----------|
-| Saturation | Soft pastels |
-| Contrast | Low, gentle |
-| Temperature | Slightly warm pink |
-| Brightness | Soft, glowing |
+| Saturation | 柔和 pastels |
+| Contrast | 低、温柔 |
+| Temperature | 略偏暖粉 |
+| Brightness | 柔软、发光 |
 
 ## Color Palette
 
-Shift toward romantic tones:
+转向浪漫色调：
 
-| Role | Color | Hex |
+| 角色 | 颜色 | Hex |
 |------|-------|-----|
 | Primary | Soft pink | #FFB6C1 |
 | Secondary | Lavender | #E6E6FA |
@@ -42,59 +42,59 @@ Shift toward romantic tones:
 
 ## Lighting
 
-- Soft, diffused light
-- Glowing effects
-- Backlighting halos
-- Sparkle highlights
-- Dreamy atmospheres
+- 柔和漫射光
+- 发光效果
+- 逆光光环
+- 闪光高光
+- 梦幻氛围
 
 ## Decorative Elements
 
 **Essential decorations** (add to compositions):
 
-| Element | Usage |
+| 元素 | 用途 |
 |---------|-------|
-| Flower petals | Floating, framing |
-| Sparkles | Emotional highlights |
-| Bubbles | Dreamy moments |
-| Feathers | Gentle floating |
-| Stars | Night scenes, wonder |
-| Hearts | Love emphasis |
-| Light halos | Character highlights |
+| Flower petals | 飘浮、framing |
+| Sparkles | 情绪高光 |
+| Bubbles | 梦幻时刻 |
+| Feathers | 轻柔飘浮 |
+| Stars | 夜景、惊叹 |
+| Hearts | 爱情强调 |
+| Light halos | 角色高光 |
 
 ## Emotional Range
 
-| Emotion | Expression |
+| 情绪 | 表达 |
 |---------|-----------|
-| Love | Soft gaze, blush |
-| Longing | Distant, beautiful sadness |
-| Joy | Radiant smile, sparkles |
-| Shyness | Downcast eyes, blush |
+| Love | 柔和凝视、脸红 |
+| Longing | 遥远、优美的忧伤 |
+| Joy | 明亮笑容、闪光 |
+| Shyness | 低垂眼神、脸红 |
 
 ## Composition
 
-- Elegant, flowing layouts
-- Soft focus backgrounds
-- Characters framed by decorations
-- Beautiful angles (3/4 profiles)
+- 优雅、流动布局
+- Soft focus 背景
+- 角色由装饰 framing
+- 美丽角度（3/4 profiles）
 - Screen tone gradients
 
 ## Best For
 
-- Romance stories
-- Coming-of-age
-- Friendship narratives
-- Emotional drama
-- School life
-- Beautiful moments
+- 浪漫故事
+- 成长故事
+- 友谊叙事
+- 情感 drama
+- 校园生活
+- 美丽时刻
 
 ## Combination Notes
 
-Works especially well with:
-- manga: classic shoujo style
+特别适合搭配：
+- manga：classic shoujo style
 
-Avoid with:
-- realistic: style mismatch
-- ink-brush: style mismatch
-- ligne-claire: style mismatch
-- chalk: style mismatch
+避免搭配：
+- realistic：风格不匹配
+- ink-brush：风格不匹配
+- ligne-claire：风格不匹配
+- chalk：风格不匹配

@@ -1,55 +1,55 @@
 # chalk
 
-粉笔画风 - Chalkboard aesthetic with hand-drawn warmth
+粉笔画风 - 带手绘温度的 chalkboard 美学
 
 ## Overview
 
-Classic classroom chalkboard aesthetic with hand-drawn chalk illustrations. Nostalgic educational feel with imperfect, sketchy lines that capture the warmth of traditional teaching.
+经典课堂 chalkboard 美学，使用手绘粉笔插画。带有怀旧教育感，不完美、sketchy 的线条捕捉传统教学的温度。
 
 ## Line Work
 
-- Sketchy, imperfect hand-drawn lines
-- Chalk texture on all strokes
-- Varying line weight from chalk pressure
-- Soft edges, no sharp digital lines
-- Visible chalk dust effects
+- Sketchy、不完美的手绘线条
+- 所有笔画都有粉笔纹理
+- 线宽随粉笔压力变化
+- 边缘柔软，没有尖锐 digital 线条
+- 可见粉笔灰效果
 
 ## Character Design
 
-- Simplified, friendly character designs
-- Stick figures to semi-detailed range
-- Expressive through simple gestures
-- Approachable, non-intimidating
-- Educational presenter style
+- 简化、友好的角色设计
+- 从火柴人到半细节角色均可
+- 通过简单手势表达
+- 亲近、不吓人
+- 教育 presenter 风格
 
 ## Background
 
-- Chalkboard Black (#1A1A1A) or Dark Green-Black (#1C2B1C)
-- Realistic chalkboard texture
-- Subtle scratches and dust particles
-- Faint eraser marks for authenticity
-- Wooden frame border optional
+- Chalkboard Black (#1A1A1A) 或 Dark Green-Black (#1C2B1C)
+- 写实 chalkboard 纹理
+- 细微划痕和粉尘颗粒
+- 淡淡板擦痕迹增强真实感
+- 可选木质边框
 
 ## Typography
 
-- Hand-drawn chalk lettering style
-- Visible chalk texture on text
-- Imperfect baseline adds authenticity
-- White or bright colored chalk for emphasis
+- 手绘粉笔 lettering 风格
+- 文本上有可见粉笔纹理
+- 不完美 baseline 增加真实感
+- 使用白色或明亮彩色粉笔做强调
 
 ## Visual Elements
 
-- Hand-drawn chalk illustrations
-- Chalk dust effects around elements
-- Doodles: stars, arrows, underlines, circles
-- Mathematical formulas and diagrams
-- Eraser smudges and chalk residue
-- Stick figures and simple icons
-- Connection lines with hand-drawn feel
+- 手绘粉笔插画
+- 元素周围的粉笔灰效果
+- Doodles：星星、箭头、下划线、圆圈
+- 数学公式和 diagrams
+- 板擦污迹与粉笔残留
+- 火柴人和简单图标
+- 带手绘感的连接线
 
 ## Default Color Palette
 
-| Role | Color | Hex |
+| 角色 | 颜色 | Hex |
 |------|-------|-----|
 | Background | Chalkboard Black | #1A1A1A |
 | Alt Background | Green-Black | #1C2B1C |
@@ -63,39 +63,39 @@ Classic classroom chalkboard aesthetic with hand-drawn chalk illustrations. Nost
 ## Style Rules
 
 ### Do
-- Maintain authentic chalk texture on all elements
-- Use imperfect, hand-drawn quality throughout
-- Add subtle chalk dust and smudge effects
-- Create visual hierarchy with color variety
-- Include playful doodles and annotations
+- 所有元素保持真实粉笔纹理
+- 全程使用不完美的手绘质感
+- 添加细微粉笔灰和污迹效果
+- 用颜色变化建立视觉层级
+- 包含俏皮 doodles 和注释
 
 ### Don't
-- Use perfect geometric shapes
-- Create clean digital-looking lines
-- Add photorealistic elements
-- Use gradients or glossy effects
+- 使用完美几何形状
+- 创建干净 digital-looking 线条
+- 添加 photorealistic 元素
+- 使用渐变或光泽效果
 
 ## Quality Markers
 
-- ✓ Authentic chalk texture throughout
-- ✓ Imperfect, hand-drawn quality
-- ✓ Readable despite sketchy style
-- ✓ Nostalgic classroom feel
-- ✓ Effective color hierarchy
-- ✓ Playful educational aesthetic
+- ✓ 全程真实粉笔纹理
+- ✓ 不完美、手绘质感
+- ✓ 尽管 sketchy，仍保持可读
+- ✓ 怀旧课堂感
+- ✓ 有效色彩层级
+- ✓ 俏皮教育美学
 
 ## Compatibility
 
-| Tone | Fit | Notes |
+| Tone | Fit | 说明 |
 |------|-----|-------|
-| neutral | ✓✓ | Classic educational |
-| warm | ✓✓ | Nostalgic feel |
-| dramatic | ✗ | Style mismatch |
-| vintage | ✓ | Old school feel |
-| romantic | ✗ | Style mismatch |
-| energetic | ✓✓ | Fun learning |
-| action | ✗ | Style mismatch |
+| neutral | ✓✓ | 经典教育感 |
+| warm | ✓✓ | 怀旧感 |
+| dramatic | ✗ | 风格不匹配 |
+| vintage | ✓ | 老派学校感 |
+| romantic | ✗ | 风格不匹配 |
+| energetic | ✓✓ | 有趣学习感 |
+| action | ✗ | 风格不匹配 |
 
 ## Best For
 
-Educational content, tutorials, classroom themes, teaching materials, workshops, informal learning, knowledge sharing
+教育内容、教程、课堂主题、教学材料、workshops、非正式学习、知识分享

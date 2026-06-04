@@ -1,114 +1,114 @@
 # ohmsha
 
-Ohmsha预设 - Educational manga with visual metaphors
+Ohmsha 预设 - 带 visual metaphors 的 educational manga
 
 ## Base Configuration
 
-| Dimension | Value |
+| 维度 | 值 |
 |-----------|-------|
 | Art Style | manga |
 | Tone | neutral |
 | Layout | webtoon (default) |
 
-Equivalent to: `--art manga --tone neutral`
+等价于：`--art manga --tone neutral`
 
 ## Unique Rules
 
-This preset includes special rules beyond the art+tone combination. When `--style ohmsha` is used, ALL rules below must be applied.
+此 preset 包含超出 art+tone 组合的特殊规则。使用 `--style ohmsha` 时，必须应用下方所有规则。
 
 ### Visual Metaphor Requirements (CRITICAL)
 
-Every technical concept MUST be visualized as a metaphor:
+每个技术概念都必须可视化为 metaphor：
 
-| Concept Type | Visualization Approach |
+| 概念类型 | 可视化方式 |
 |-------------|----------------------|
-| Algorithm | Gadget/machine that demonstrates the process |
-| Data structure | Physical space characters can enter/explore |
-| Mathematical formula | Transformation visible in environment |
-| Abstract process | Tangible flow of particles/objects |
+| Algorithm | 展示流程的 gadget/machine |
+| Data structure | 角色可以进入/探索的物理空间 |
+| Mathematical formula | 环境中可见的变化 |
+| Abstract process | 可触知的粒子/对象流动 |
 
-**Wrong approach**: Character points at blackboard explaining
-**Right approach**: Character uses "Concept Visualizer" gadget, steps into metaphorical space
+**错误方式**：角色指着黑板解释
+**正确方式**：角色使用 "Concept Visualizer" gadget，走进 metaphorical space
 
 ### Visual Metaphor Examples
 
-| Concept | Wrong (Talking Head) | Right (Visual Metaphor) |
+| Concept | 错误（Talking Head） | 正确（Visual Metaphor） |
 |---------|---------------------|------------------------|
-| Attention mechanism | Character points at formula on blackboard | "Attention Flashlight" gadget illuminates key words in dark room |
-| Gradient descent | "The algorithm minimizes loss" | Character rides ball rolling down mountain valley |
-| Neural network | Diagram with arrows | Living network of glowing creatures passing messages |
-| Overfitting | "The model memorized the data" | Character wearing clothes that fit only one specific pose |
+| Attention mechanism | 角色指着黑板上的公式 | "Attention Flashlight" gadget 照亮暗室中的关键词 |
+| Gradient descent | "The algorithm minimizes loss" | 角色骑着球滚下山谷 |
+| Neural network | 带箭头的 diagram | 发光生物组成的活网络传递消息 |
+| Overfitting | "The model memorized the data" | 角色穿着只适合某一个特定姿势的衣服 |
 
 ### Character Roles (Required)
 
-**DEFAULT: Use Doraemon characters** unless user explicitly specifies `--characters` or has character presets in EXTEND.md.
+**默认：使用 Doraemon characters**，除非用户显式指定 `--characters` 或在 EXTEND.md 中有 character presets。
 
-| Role | Default Character | Visual | Traits |
+| 角色 | 默认角色 | 视觉 | 特质 |
 |------|-------------------|--------|--------|
-| Student (Role A) | 大雄 (Nobita) | Boy, 10yo, round glasses, black hair, yellow shirt, navy shorts | Confused, asks basic but crucial questions, represents reader |
-| Mentor (Role B) | 哆啦A梦 (Doraemon) | Blue robot cat, white belly, 4D pocket, red nose, golden bell | Knowledgeable, patient, uses gadgets as technical metaphors |
-| Challenge (Role C) | 胖虎 (Gian) | Stocky boy, small eyes, orange shirt | Represents misunderstanding, or "noise" in the data |
-| Support (Role D) | 静香 (Shizuka) | Cute girl, black short hair, pink dress | Asks clarifying questions, provides alternative perspectives |
+| Student (Role A) | 大雄 (Nobita) | 男孩，10 岁，圆眼镜，黑发，黄色上衣，藏青短裤 | 困惑，提出基础但关键的问题，代表读者 |
+| Mentor (Role B) | 哆啦A梦 (Doraemon) | 蓝色机器猫，白肚子，4D 口袋，红鼻子，金铃铛 | 博学、有耐心，用 gadgets 作为技术 metaphors |
+| Challenge (Role C) | 胖虎 (Gian) | 壮实男孩，小眼睛，橙色上衣 | 代表误解，或数据中的 "noise" |
+| Support (Role D) | 静香 (Shizuka) | 可爱女孩，黑色短发，粉色连衣裙 | 提出澄清问题，提供替代视角 |
 
-**IMPORTANT**: These Doraemon characters ARE the default for ohmsha preset. Generate character definitions using these exact characters unless user requests otherwise.
+**重要**：这些 Doraemon characters 就是 ohmsha preset 的默认角色。除非用户另有要求，否则用这些精确角色生成 character definitions。
 
-To use custom characters: `--characters "Student:小明,Mentor:教授"` or define in EXTEND.md.
+如需使用自定义角色：`--characters "Student:小明,Mentor:教授"`，或在 EXTEND.md 中定义。
 
 ### Page Title Convention
 
-Every page MUST have a narrative title (not section header):
+每页都必须有叙事标题（不是 section header）：
 
 **Wrong**: "Chapter 1: Introduction to Transformers"
 **Right**: "The Day Nobita Couldn't Understand Anyone"
 
 ### Gadget Reveal Pattern
 
-When introducing a concept:
+引入概念时：
 
-1. Student expresses confusion with visual indicator (？, spiral eyes)
-2. Mentor dramatically produces gadget with sparkle effects
-3. Gadget name announced in bold with explanation
-4. Demonstration begins - student enters metaphorical space
+1. Student 用视觉符号表达困惑（？、螺旋眼）
+2. Mentor 戏剧化拿出 gadget，并带 sparkle effects
+3. 用粗体宣布 gadget 名称并附解释
+4. 演示开始，student 进入 metaphorical space
 
 ### Ending Requirements
 
-Final page MUST include:
+最终页必须包含：
 
-1. Student demonstrating understanding (applying the concept)
-2. Callback to opening problem (now resolved)
-3. Mentor's satisfied expression
-4. Optional: hint at next topic
+1. Student 展示理解（应用概念）
+2. Callback 到开场问题（现在已解决）
+3. Mentor 满意的表情
+4. 可选：暗示下一个主题
 
 ### NO Talking Heads Rule
 
-**Critical**: Characters must DO things, not just explain.
+**关键**：角色必须做事情，而不只是解释。
 
-Every panel should show:
-- Action being performed
-- Metaphor being demonstrated
-- Character interaction with concept-space
-- NOT: two characters facing each other talking
+每个 panel 都应展示：
+- 正在执行的动作
+- 正在演示的 metaphor
+- 角色与 concept-space 的互动
+- 不要：两个角色面对面讲话
 
 ### Special Visual Elements
 
-| Element | Usage |
+| 元素 | 用途 |
 |---------|-------|
-| Gadget reveals | Dramatic unveiling with sparkle effects |
-| Concept spaces | Rounded borders, glowing edges for "imagination mode" |
-| Information displays | Holographic UI style for technical details |
-| Aha moments | Radial lines, light burst effects |
-| Confusion | Spiral eyes, question marks floating above head |
+| Gadget reveals | 带 sparkle effects 的戏剧化揭示 |
+| Concept spaces | 圆角边框、发光边缘，用于 "imagination mode" |
+| Information displays | 技术细节使用 holographic UI style |
+| Aha moments | 放射线、light burst effects |
+| Confusion | 螺旋眼、头顶飘浮问号 |
 
 ## Quality Markers
 
-- ✓ Every concept is a visual metaphor
-- ✓ Characters are DOING things, not just talking
-- ✓ Clear student/mentor dynamic
-- ✓ Gadgets and props drive the explanation
-- ✓ Expressive manga-style emotions
-- ✓ Information density through visual design, not text walls
-- ✓ Narrative page titles
+- ✓ 每个概念都是 visual metaphor
+- ✓ 角色在做事，而不只是讲话
+- ✓ 清晰 student/mentor 动态
+- ✓ Gadgets 和 props 驱动解释
+- ✓ 有表现力的 manga-style emotions
+- ✓ 通过视觉设计承载信息密度，而不是文字墙
+- ✓ 叙事性页面标题
 
 ## Reference
 
-For complete guidelines, see `references/ohmsha-guide.md`
+完整指南见 `references/ohmsha-guide.md`

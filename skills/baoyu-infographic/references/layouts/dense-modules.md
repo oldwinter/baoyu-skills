@@ -1,73 +1,73 @@
 # dense-modules
 
-High-density modular layout with 6-7 typed information modules packed with concrete data.
+高密度模块化 layout，包含 6-7 个带类型的信息模块，并填充具体数据。
 
-## Structure
+## 结构
 
-- 6-7 distinct modules per image, each serving a specific information function
-- Every module contains concrete data: brand names, numbers, percentages, parameters
-- Minimal whitespace—compact spacing prioritized over breathing room
-- Smaller text acceptable to maximize information density
-- Each module identified by coordinate label or section marker (e.g., MOD-1, SEC-A)
+- 每张图片有 6-7 个不同模块，每个模块服务特定信息功能
+- 每个模块都包含具体数据：品牌名、数字、百分比、参数
+- 留白最少，紧凑间距优先于呼吸感
+- 为最大化信息密度，可接受较小文本
+- 每个模块用坐标标签或 section marker 标识（例如 MOD-1、SEC-A）
 
 ## Module Archetypes
 
-| Module | Purpose | Content Requirements |
+| 模块 | 用途 | 内容要求 |
 |--------|---------|---------------------|
-| **Brand/Selection Array** | Grid of options with recommendations | 4-8 items with icons, names, brief descriptions; highlight "best choice" |
-| **Specification Scale** | Quality/measurement gauge | 3-5 levels with precise numerical increments, quality indicators (emoji faces, checkmarks) |
-| **Deep Dive/Detail** | Technical breakdown of key item | Zoom-in callouts, internal components, cross-section or exploded view |
-| **Scenario Comparison** | Side-by-side use cases | 3-6 scenarios with specific recommendations and data per scenario |
-| **Identification Tips** | How-to checklist | 3-5 inspection methods: look/test/check/ask format |
-| **Warning/Pitfall Zone** | Critical mistakes to avoid | 3-5 pitfalls with consequences, 1-2 correct approaches; high visual contrast |
-| **Quick Reference** | Compact summary | Dense table, one-line summaries, decision flowchart, or key takeaways |
+| **Brand/Selection Array** | 带推荐的选项网格 | 4-8 个项目，含图标、名称、简短说明；高亮 "best choice" |
+| **Specification Scale** | 质量/测量标尺 | 3-5 个等级，带精确数值增量和质量指示（emoji 表情、勾选） |
+| **Deep Dive/Detail** | 关键项目的技术拆解 | 放大 callouts、内部组件、剖面或爆炸图 |
+| **Scenario Comparison** | 并列使用场景 | 3-6 个场景，每个场景有具体推荐和数据 |
+| **Identification Tips** | How-to checklist | 3-5 个检查方法：look/test/check/ask 格式 |
+| **Warning/Pitfall Zone** | 需要避免的关键错误 | 3-5 个 pitfall 及后果，1-2 个正确做法；高视觉对比 |
+| **Quick Reference** | 紧凑摘要 | 密集表格、单行摘要、decision flowchart 或 key takeaways |
 
 ## Variants
 
-| Variant | Focus | Visual Emphasis |
+| 变体 | 重点 | 视觉强调 |
 |---------|-------|-----------------|
-| **Coordinate-labeled** | Precision and systematicity | Each module has alphanumeric coordinate (A-01, B-05, C-12), ruler/axis markers |
-| **Grid-cell** | Order and structure | Modules in strict rectangular cells divided by thick lines, Swiss grid feel |
-| **Free-flowing** | Organic density | Magazine-style layout with dotted frames, varying module sizes, connected by arrows |
+| **Coordinate-labeled** | 精确性和系统性 | 每个模块有字母数字坐标（A-01、B-05、C-12）、尺规/轴线标记 |
+| **Grid-cell** | 秩序和结构 | 模块位于严格矩形单元中，用粗线分隔，Swiss grid 感 |
+| **Free-flowing** | 有机密度 | 杂志式布局，点线框、不同模块大小，并用箭头连接 |
 
 ## Best For
 
-- Product selection guides and buying guides
-- Multi-dimensional comparison content
-- Data-rich educational materials
-- "Avoid pitfalls" / "complete guide" formats
-- Content targeting platforms like Xiaohongshu with high-density visual requirements
+- 产品选择指南和购买指南
+- 多维对比内容
+- 数据丰富的教育材料
+- "Avoid pitfalls" / "complete guide" 格式
+- 面向 Xiaohongshu 等有高密度视觉要求平台的内容
 
 ## Visual Elements
 
-- Module boundary markers (thick lines, dotted frames, or coordinate grids)
-- Quality indicators per module (emoji faces, checkmarks, crosses, crowns)
-- Data callout boxes with highlighted numbers
-- Comparison arrows and progression indicators
-- Warning/alert visual markers for pitfall modules
-- Metadata in corners (page numbers, timestamps, small barcodes)
+- 模块边界标记（粗线、点线框或坐标网格）
+- 每个模块的质量指示（emoji 表情、勾选、叉号、皇冠）
+- 带高亮数字的数据 callout boxes
+- 对比箭头和进展指示器
+- pitfall 模块的 warning/alert 视觉标记
+- 角落 metadata（页码、timestamps、小条码）
 
 ## Text Placement
 
-- Main title at top, prominent and impactful
-- Subtitle with module count ("X大维度全面解析...")
-- Module headers inside colored badges or labeled frames
-- Body text compact, multiple columns within modules
-- Numbers highlighted with accent colors, slightly larger than body text
+- 主标题位于顶部，醒目且有冲击力
+- 副标题包含模块数量（"X大维度全面解析..."）
+- 模块标题放在彩色徽章或带标签框内
+- 正文紧凑，模块内部可多列
+- 数字用强调色高亮，略大于正文
 
 ## Information Density Rules
 
-- Every corner should contain useful information or metadata
-- No decorative-only empty space
-- Text size may be reduced to fit more content—information over font size
-- Each module must have specific data points, not generic descriptions
-- Balance between density and readability: dense but organized
+- 每个角落都应包含有用信息或 metadata
+- 不要只有装饰作用的空白
+- 可缩小文本以容纳更多内容，信息优先于字号
+- 每个模块必须有具体数据点，而不是泛泛描述
+- 在密度和可读性之间平衡：密集但有组织
 
 ## Recommended Pairings
 
-- `pop-laboratory`: Technical precision with coordinate markers and blueprint grid
-- `morandi-journal`: Hand-drawn warmth with doodle illustrations and organic frames
-- `retro-pop-grid`: 1970s pop art with strict grid cells and bold contrast
-- `retro-popup-pop`: Vintage desktop popups with chunky pixel UI for retro-tech dense guides
-- `corporate-memphis`: Clean business feel for product comparisons
-- `technical-schematic`: Engineering precision for technical product guides
+- `pop-laboratory`：带坐标标记和 blueprint grid 的技术精度
+- `morandi-journal`：doodle illustration 和有机框架带来的手绘温暖感
+- `retro-pop-grid`：1970s pop art，严格网格单元和大胆对比
+- `retro-popup-pop`：vintage desktop popups，chunky pixel UI，适合 retro-tech 密集指南
+- `corporate-memphis`：适合产品对比的干净商务感
+- `technical-schematic`：适合技术产品指南的工程精度

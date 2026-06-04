@@ -5,7 +5,7 @@ category: realistic
 
 # Study Notes Style
 
-Realistic handwritten photo aesthetic - student notes style, dense and messy but readable.
+Realistic handwritten photo aesthetic：student notes style，dense and messy 但可读。
 
 ## Element Combination
 
@@ -31,7 +31,7 @@ decorations:
   frames: none
 ```
 
-## Color Palette (Three-Color Annotation System)
+## Color Palette（三色批注系统）
 
 | Role | Colors | Hex |
 |------|--------|-----|
@@ -42,49 +42,49 @@ decorations:
 
 ## Visual Elements
 
-- Realistic photo perspective: top-down view of study desk
-- Hand holding blue ballpoint pen, actively underlining
-- Extremely dense handwritten content, filling entire page
-- Red pen annotations: circles, underlines, stars, boxes
-- Yellow highlighter marking key terms
-- Correction marks, cramped notes squeezed into margins
-- Simple hand-drawn symbols: → * ✓ ✗ !
-- Varying pen pressure creating lighter and darker strokes
+- Realistic photo perspective：study desk 的 top-down view
+- 手持 blue ballpoint pen，正在 actively underlining
+- 极高密度 handwritten content，填满整页
+- Red pen annotations：circles、underlines、stars、boxes
+- Yellow highlighter 标记 key terms
+- Correction marks，以及挤在 margins 中的 cramped notes
+- Simple hand-drawn symbols：→ * ✓ ✗ !
+- 通过 varying pen pressure 形成深浅 strokes
 
 ## Typography
 
 - Authentic student handwriting
-- Messy but readable, clear structure maintained
-- Varying font sizes (large titles, small body, tiny margin notes)
+- Messy 但 readable，并保持 clear structure
+- 字号变化（large titles、small body、tiny margin notes）
 - CJK optimized
 
 ## Content Structure
 
-Three-section layout:
+三段式 layout：
 
 ### Top Section
-- Core topic (circled multiple times in red)
-- First section title + 3-4 key points
-- Arrow connections, red underlines
+- Core topic（用红笔圈多次）
+- First section title + 3-4 个 key points
+- Arrow connections、red underlines
 
 ### Middle Section
-- Second section title (red pen box)
+- Second section title（red pen box）
 - Numbered steps ①②③
-- Specific methods and supplementary notes
+- Specific methods 和 supplementary notes
 
 ### Bottom Section
-- Third section title (red star)
+- Third section title（red star）
 - Time points / key metrics
-- Key quotes / core tips (tiny corner notes)
+- Key quotes / core tips（tiny corner notes）
 
 ## Best Layout Pairings
 
 | Layout | Compatibility | Use Case |
 |--------|---------------|----------|
-| sparse | ✗ | Not suitable - style requires dense content |
-| balanced | ✓ | When content is lighter |
-| dense | ✓✓ | Best fit - knowledge notes, summaries |
-| list | ✓✓ | Step checklists, rankings |
+| sparse | ✗ | 不适合；此 style 需要 dense content |
+| balanced | ✓ | 内容较轻时 |
+| dense | ✓✓ | 最适合 knowledge notes、summaries |
+| list | ✓✓ | Step checklists、rankings |
 | comparison | ✓ | Comparative analysis |
 | flow | ✓ | Process flows |
 | mindmap | ✓✓ | Mind map notes |
@@ -92,24 +92,24 @@ Three-section layout:
 
 ## Best For
 
-- Study guides, exam notes
-- Knowledge organization, framework summaries
-- Tutorial summaries, quick notes
+- Study guides、exam notes
+- Knowledge organization、framework summaries
+- Tutorial summaries、quick notes
 - "Top student notes" style content
-- Knowledge sharing requiring authentic feel
+- 需要 authentic feel 的 knowledge sharing
 
 ## Style Rules
 
 ### DO ✓
-- Keep content extremely dense
-- Use simple symbols (→ * ✓ ✗ !)
-- Annotate key points with red pen
-- Include correction marks
-- Squeeze tiny notes into margins
+- 保持 content extremely dense
+- 使用 simple symbols（→ * ✓ ✗ !）
+- 用 red pen 批注 key points
+- 包含 correction marks
+- 将 tiny notes 挤入 margins
 
 ### DON'T ✗
-- Use complex emojis
-- Leave too much whitespace
-- Make neat, tidy layouts
-- Add colorful decorations
-- Include cartoon elements
+- 使用 complex emojis
+- 留下过多 whitespace
+- 做成 neat、tidy layouts
+- 添加 colorful decorations
+- 包含 cartoon elements

@@ -1,85 +1,85 @@
-# Slide Modification Guide
+# Slide 修改指南
 
-Workflows for modifying individual slides after initial generation.
+初次生成后修改单张 slide 的工作流。
 
-## Edit Single Slide
+## 编辑单张 Slide
 
-Regenerate a specific slide with modified content:
+用修改后的内容重新生成指定 slide：
 
-1. Identify slide to edit (e.g., `03-slide-key-findings.png`)
-2. Update prompt in `prompts/03-slide-key-findings.md`
-3. If content changes significantly, update slug in filename
-4. Regenerate image using same session ID
-5. Regenerate PPTX and PDF
+1. 确认要编辑的 slide（例如 `03-slide-key-findings.png`）
+2. 更新 `prompts/03-slide-key-findings.md` 中的 prompt
+3. 如果内容变化较大，更新文件名里的 slug
+4. 使用相同的 session ID 重新生成图片
+5. 重新生成 PPTX 和 PDF
 
-## Add New Slide
+## 新增 Slide
 
-Insert a new slide at specified position:
+在指定位置插入一张新 slide：
 
-1. Specify insertion position (e.g., after slide 3)
-2. Create new prompt with appropriate slug (e.g., `04-slide-new-section.md`)
-3. Generate new slide image
-4. **Renumber files**: All subsequent slides increment NN by 1
+1. 指定插入位置（例如第 3 张 slide 之后）
+2. 创建带有合适 slug 的新 prompt（例如 `04-slide-new-section.md`）
+3. 生成新的 slide 图片
+4. **重新编号文件**：所有后续 slide 的 NN 都加 1
    - `04-slide-conclusion.png` → `05-slide-conclusion.png`
-   - Slugs remain unchanged
-5. Update `outline.md` with new slide entry
-6. Regenerate PPTX and PDF
+   - slug 保持不变
+5. 更新 `outline.md`，加入新的 slide 条目
+6. 重新生成 PPTX 和 PDF
 
-## Delete Slide
+## 删除 Slide
 
-Remove a slide and renumber:
+删除一张 slide 并重新编号：
 
-1. Identify slide to delete (e.g., `03-slide-key-findings.png`)
-2. Remove image file and prompt file
-3. **Renumber files**: All subsequent slides decrement NN by 1
+1. 确认要删除的 slide（例如 `03-slide-key-findings.png`）
+2. 删除图片文件和 prompt 文件
+3. **重新编号文件**：所有后续 slide 的 NN 都减 1
    - `04-slide-conclusion.png` → `03-slide-conclusion.png`
-   - Slugs remain unchanged
-4. Update `outline.md` to remove slide entry
-5. Regenerate PPTX and PDF
+   - slug 保持不变
+4. 更新 `outline.md`，移除该 slide 条目
+5. 重新生成 PPTX 和 PDF
 
-## File Naming Convention
+## 文件命名约定
 
-Files use meaningful slugs for better readability:
+文件使用有意义的 slug，以提升可读性：
 
 ```
 NN-slide-[slug].png
 NN-slide-[slug].md (in prompts/)
 ```
 
-Examples:
+示例：
 - `01-slide-cover.png`
 - `02-slide-problem-statement.png`
 - `03-slide-key-findings.png`
 - `04-slide-back-cover.png`
 
-## Slug Rules
+## Slug 规则
 
-| Rule | Description |
+| 规则 | 说明 |
 |------|-------------|
-| Format | Kebab-case (lowercase, hyphens) |
-| Source | Derived from slide title/content |
-| Uniqueness | Must be unique within the deck |
-| Updates | Change slug when content changes significantly |
+| 格式 | Kebab-case（小写，用连字符） |
+| 来源 | 来自 slide 标题/内容 |
+| 唯一性 | 在同一个 deck 内必须唯一 |
+| 更新 | 内容变化较大时更新 slug |
 
-## Renumbering Rules
+## 重新编号规则
 
-| Scenario | Action |
+| 场景 | 操作 |
 |----------|--------|
-| Add slide | Increment NN for all subsequent slides |
-| Delete slide | Decrement NN for all subsequent slides |
-| Reorder slides | Update NN to match new positions |
-| Edit slide | NN unchanged, update slug if needed |
+| 新增 slide | 所有后续 slide 的 NN 加 1 |
+| 删除 slide | 所有后续 slide 的 NN 减 1 |
+| 重新排序 slide | 更新 NN，使其匹配新位置 |
+| 编辑 slide | NN 不变，必要时更新 slug |
 
-**Important**: Slugs remain unchanged during renumbering. Only the NN prefix changes.
+**重要**：重新编号时 slug 保持不变。只修改 NN 前缀。
 
-## Post-Modification Checklist
+## 修改后检查清单
 
-After any modification:
+任何修改之后：
 
-- [ ] Image file renamed/created correctly
-- [ ] Prompt file renamed/created correctly
-- [ ] Subsequent files renumbered (if add/delete)
-- [ ] `outline.md` updated to reflect changes
-- [ ] PPTX regenerated
-- [ ] PDF regenerated
-- [ ] Slide count in outline header updated
+- [ ] 图片文件已正确重命名/创建
+- [ ] Prompt 文件已正确重命名/创建
+- [ ] 后续文件已重新编号（如果新增/删除）
+- [ ] `outline.md` 已更新并反映变更
+- [ ] PPTX 已重新生成
+- [ ] PDF 已重新生成
+- [ ] outline header 中的 slide 数量已更新

@@ -1,10 +1,10 @@
 # Confirmation Questions
 
-Concrete option copy for Step 2 Smart Confirm. SKILL.md states which question to ask and when — this file supplies the verbatim options used in Claude Code. Other runtimes should adapt the wording to their native user-input tool while preserving intent.
+Step 2 Smart Confirm 使用的具体选项文案。SKILL.md 说明何时询问哪个问题；本文件提供 Claude Code 中使用的逐字选项。其他 runtimes 应根据自己的 user-input tool 调整措辞，但保留意图。
 
 ## Step 2 — Smart Confirm Entry
 
-Single-question confirmation presented right after the auto-recommended plan.
+自动推荐计划后立即展示的单问题确认。
 
 ```yaml
 header: Mode
@@ -20,7 +20,7 @@ options:
 
 ## Path B — Customize (Option 2)
 
-Batch these five questions. Leaving a field blank keeps the recommended value.
+批量询问这五个问题。字段留空则保留推荐值。
 
 ```yaml
 header: Style/Strategy
@@ -59,7 +59,7 @@ optional: true
 
 ### Step 2a: Content Understanding
 
-Batch these questions.
+批量询问这些问题。
 
 ```yaml
 header: SellingPoints
@@ -90,7 +90,7 @@ optional: true
 
 ### Step 2c: Outline & Style Selection
 
-Batch these three questions.
+批量询问这三个问题。
 
 ```yaml
 header: Strategy
@@ -124,7 +124,7 @@ options:
 
 ## Outline Variant Frontmatter
 
-Used by Path C when writing the three `outline-strategy-{a,b,c}.md` files. Each variant MUST have a different structure AND a different recommended style — include `style_reason` explaining why the style fits the strategy.
+Path C 写入三个 `outline-strategy-{a,b,c}.md` 文件时使用。每个 variant 都必须有不同结构和不同推荐 style，并包含 `style_reason` 解释该 style 为什么适合该 strategy。
 
 ```yaml
 ---
@@ -153,4 +153,4 @@ image_count: 5
 ...
 ```
 
-Page-count heuristic: strategy A typically 4-6 pages, B typically 3-5, C typically 3-4.
+页数启发式：strategy A 通常 4-6 页，B 通常 3-5 页，C 通常 3-4 页。

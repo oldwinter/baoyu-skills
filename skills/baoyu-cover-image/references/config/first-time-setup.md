@@ -1,25 +1,26 @@
 ---
 name: first-time-setup
-description: First-time setup flow for baoyu-cover-image preferences
+description: baoyu-cover-image preferences 的首次设置流程
 ---
 
 # First-Time Setup
 
 ## Overview
 
-When no EXTEND.md is found, guide user through preference setup.
+当找不到 EXTEND.md 时，引导用户完成 preference setup。
 
-**⛔ BLOCKING OPERATION**: This setup MUST complete before ANY other workflow steps. Do NOT:
-- Ask about reference images
-- Ask about content/article
-- Ask about dimensions (type, palette, rendering)
-- Proceed to content analysis
+**⛔ BLOCKING OPERATION**：任何其他 workflow steps 前必须完成该 setup。不要：
 
-ONLY ask the questions in this setup flow, save EXTEND.md, then continue.
+- 询问 reference images
+- 询问 content/article
+- 询问 dimensions（type、palette、rendering）
+- 继续 content analysis
+
+只询问本 setup flow 中的问题，保存 EXTEND.md，然后继续。
 
 ## Setup Flow
 
-```
+```text
 No EXTEND.md found
         │
         ▼
@@ -39,11 +40,11 @@ No EXTEND.md found
 
 ## Questions
 
-**Language**: Use user's input language or saved language preference.
+**Language**：使用用户输入语言或已保存 language preference。
 
-Use AskUserQuestion with ALL questions in ONE call:
+使用 AskUserQuestion，并把所有问题放入 **一次调用**：
 
-### Question 1: Watermark
+### Question 1：Watermark
 
 ```yaml
 header: "Watermark"
@@ -53,7 +54,7 @@ options:
     description: "Clean covers, can enable later in EXTEND.md"
 ```
 
-### Question 2: Preferred Type
+### Question 2：Preferred Type
 
 ```yaml
 header: "Type"
@@ -67,7 +68,7 @@ options:
     description: "Concept visualization - technical, architecture"
 ```
 
-### Question 3: Preferred Palette
+### Question 3：Preferred Palette
 
 ```yaml
 header: "Palette"
@@ -83,7 +84,7 @@ options:
     description: "Technical - engineering blue, navy, cyan"
 ```
 
-### Question 4: Preferred Rendering
+### Question 4：Preferred Rendering
 
 ```yaml
 header: "Rendering"
@@ -99,7 +100,7 @@ options:
     description: "Polished precise digital illustration"
 ```
 
-### Question 5: Default Aspect Ratio
+### Question 5：Default Aspect Ratio
 
 ```yaml
 header: "Aspect"
@@ -115,9 +116,9 @@ options:
     description: "Portrait - Xiaohongshu, Pinterest, mobile content"
 ```
 
-Note: More ratios (4:3, 3:2) available during generation. This sets the default recommendation.
+Note：更多 ratios（4:3、3:2）可在 generation 时选择。这里设置默认推荐项。
 
-### Question 6: Default Output Directory
+### Question 6：Default Output Directory
 
 ```yaml
 header: "Output"
@@ -131,7 +132,7 @@ options:
     description: "{article-dir}/imgs/ - images folder near article"
 ```
 
-### Question 7: Quick Mode
+### Question 7：Quick Mode
 
 ```yaml
 header: "Quick"
@@ -143,7 +144,7 @@ options:
     description: "Skip confirmation, use auto-selection"
 ```
 
-### Question 8: Save Location
+### Question 8：Save Location
 
 ```yaml
 header: "Save"
@@ -164,10 +165,10 @@ options:
 
 ## After Setup
 
-1. Create directory if needed
-2. Write EXTEND.md with frontmatter
-3. Confirm: "Preferences saved to [path]"
-4. Continue to Step 1
+1. 如有需要，创建目录
+2. 写入带 frontmatter 的 EXTEND.md
+3. 确认："Preferences saved to [path]"
+4. 继续 Step 1
 
 ## EXTEND.md Template
 
@@ -193,10 +194,10 @@ custom_palettes: []
 ---
 ```
 
-`preferred_image_backend: auto` is the baked-in default — first-time setup does not ask about it. The `## Image Generation Tools` rule in SKILL.md then picks the runtime-native tool (Codex `imagegen`, Hermes `image_generate`, etc.) when available, and falls back to installed backends.
+`preferred_image_backend: auto` 是 baked-in default；first-time setup 不询问它。随后由 SKILL.md 中的 `## Image Generation Tools` rule 选择 runtime-native tool（Codex `imagegen`、Hermes `image_generate` 等），并 fallback 到已安装 backends。
 
 ## Modifying Preferences Later
 
-See the `## Changing Preferences` section in `SKILL.md` for the canonical list of common edits (pin backend, change defaults, retrigger setup). Full schema: `preferences-schema.md`.
+Canonical common edits（pin backend、change defaults、retrigger setup）见 `SKILL.md` 的 `## Changing Preferences` section。完整 schema：`preferences-schema.md`。
 
-**EXTEND.md Supports**: Watermark | Preferred type | Preferred palette | Preferred rendering | Preferred text | Preferred mood | Default aspect ratio | Default output directory | Quick mode | Image backend preference | Custom palette definitions | Language preference
+**EXTEND.md Supports**：Watermark | Preferred type | Preferred palette | Preferred rendering | Preferred text | Preferred mood | Default aspect ratio | Default output directory | Quick mode | Image backend preference | Custom palette definitions | Language preference

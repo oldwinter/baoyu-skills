@@ -1,56 +1,56 @@
 # elegant
 
-Refined, sophisticated illustration style for professional content
+适合专业内容的精致、成熟 illustration 风格。
 
-## Design Aesthetic
+## 设计美学
 
-Elegant and refined visual approach with sophisticated color palette. Professional polish with subtle artistic touches. Emphasizes clarity and thoughtful composition. Conveys authority and trustworthiness without being cold or clinical.
+优雅精致的视觉方式，配合成熟的调色板。拥有专业完成度，并带有细微艺术点缀。强调清晰度与经过思考的构图。传达权威和可信度，同时避免冷漠或临床感。
 
-## Background
+## 背景
 
-- Color: Warm Cream (#F5F0E6) or Soft Beige (#FAF6F0)
-- Texture: Subtle paper texture, very light grain
+- 颜色：Warm Cream (#F5F0E6) 或 Soft Beige (#FAF6F0)
+- 纹理：细微纸张纹理，极轻颗粒
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Warm Cream | #F5F0E6 | Primary background |
-| Primary | Soft Coral | #E8A598 | Main accent color |
-| Secondary | Muted Teal | #5B8A8A | Supporting elements |
-| Tertiary | Dusty Rose | #D4A5A5 | Subtle highlights |
-| Accent | Gold | #C9A962 | Premium touches |
-| Alt Accent | Copper | #B87333 | Warm metallic notes |
-| Text | Charcoal | #3D3D3D | Text and outlines |
+| Background | Warm Cream | #F5F0E6 | 主背景 |
+| Primary | Soft Coral | #E8A598 | 主要强调色 |
+| Secondary | Muted Teal | #5B8A8A | 辅助元素 |
+| Tertiary | Dusty Rose | #D4A5A5 | 细微高光 |
+| Accent | Gold | #C9A962 | 高级感点缀 |
+| Alt Accent | Copper | #B87333 | 温暖金属感 |
+| Text | Charcoal | #3D3D3D | 文本和描边 |
 
-## Visual Elements
+## 视觉元素
 
-- Delicate line work with refined strokes
-- Subtle icons with balanced weight
-- Graceful curves and flowing compositions
-- Soft gradients with smooth transitions
-- Balanced whitespace and breathing room
-- Thin borders and elegant dividers
-- Subtle drop shadows for depth
+- 精细线条与克制笔触
+- 权重均衡的细微图标
+- 优雅曲线和流动构图
+- 平滑过渡的柔和渐变
+- 均衡留白和呼吸感
+- 细边框与优雅分隔线
+- 用细微 drop shadow 营造深度
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Use refined color combinations
-- Create balanced, harmonious compositions
-- Keep elements light and airy
-- Use subtle gradients sparingly
-- Maintain generous margins
+- 使用精致配色组合
+- 创建均衡、和谐的构图
+- 保持元素轻盈通透
+- 克制使用细微渐变
+- 保持宽裕边距
 
-### Don't
+### 不要
 
-- Use harsh contrasts
-- Overcrowd the composition
-- Add playful or casual elements
-- Use neon or overly bright colors
-- Create busy or cluttered layouts
+- 使用强烈对比
+- 让构图过度拥挤
+- 添加俏皮或随意元素
+- 使用 neon 或过亮颜色
+- 创建繁忙杂乱的布局
 
-## Best For
+## 适合
 
-Professional articles, thought leadership pieces, business topics, executive communications, corporate blogs, strategy discussions, industry analysis
+专业文章、thought leadership 文章、商业主题、高管沟通、企业博客、战略讨论、行业分析

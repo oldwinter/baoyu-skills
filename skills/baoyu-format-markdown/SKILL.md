@@ -1,6 +1,6 @@
 ---
 name: baoyu-format-markdown
-description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md.
+description: 为纯文本或 markdown 文件添加/优化 frontmatter、标题、摘要、headings、bold、lists 和 code blocks。当用户要求 "format markdown"、"beautify article"、"add formatting"，或改进文章版式时使用。输出到 {filename}-formatted.md。
 version: 1.57.0
 metadata:
   openclaw:
@@ -13,33 +13,33 @@ metadata:
 
 # Markdown Formatter
 
-Transforms plain text or markdown into well-structured, reader-friendly markdown. The goal is to help readers quickly grasp key points, highlights, and structure — without changing any original content.
+把纯文本或 markdown 转换为结构清晰、便于阅读的 markdown。目标是帮助读者快速抓住重点、亮点和结构，同时 **不改变任何原始内容**。
 
-**Core principle**: Only adjust formatting and fix obvious typos. Never add, delete, or rewrite content.
+**核心原则**：只调整格式并修正明显 typo。绝不新增、删除或改写内容。
 
 ## User Input Tools
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当该 skill 需要询问用户时，遵循以下 tool-selection rule（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或任意等价工具。
+2. **Fallback**：如果没有这类工具，输出编号式纯文本消息，让用户为每个问题回复所选编号/答案。
+3. **Batching**：如果工具支持一次调用多个问题，把所有适用问题合并到一次调用；如果只支持单问题，则按优先级一次问一个。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下文中的具体 `AskUserQuestion` 只是示例；其他 runtime 中请替换成本地等价工具。
 
 ## Script Directory
 
-Scripts in `scripts/` subdirectory. `{baseDir}` = this SKILL.md's directory path. Resolve `${BUN_X}` runtime: if `bun` installed → `bun`; if `npx` available → `npx -y bun`; else suggest installing bun. Replace `{baseDir}` and `${BUN_X}` with actual values.
+Scripts 位于 `scripts/` 子目录。`{baseDir}` = 当前 SKILL.md 所在目录路径。解析 `${BUN_X}` runtime：如果已安装 `bun` → `bun`；如果 `npx` 可用 → `npx -y bun`；否则建议安装 bun。把本文档中的 `{baseDir}` 和 `${BUN_X}` 替换为实际值。
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/main.ts` | Main entry point with CLI options (uses remark-cjk-friendly for CJK emphasis) |
-| `scripts/quotes.ts` | Replace ASCII quotes with fullwidth quotes |
-| `scripts/autocorrect.ts` | Add CJK/English spacing via autocorrect |
+| `scripts/main.ts` | 带 CLI options 的 main entry point（使用 remark-cjk-friendly 处理 CJK emphasis） |
+| `scripts/quotes.ts` | 将 ASCII quotes 替换为全角引号 |
+| `scripts/autocorrect.ts` | 通过 autocorrect 添加 CJK/English spacing |
 
-## Preferences (EXTEND.md)
+## Preferences（EXTEND.md）
 
-Check EXTEND.md in priority order — the first one found wins:
+按优先级检查 EXTEND.md：第一个找到的文件生效。
 
 | Priority | Path | Scope |
 |----------|------|-------|
@@ -47,37 +47,37 @@ Check EXTEND.md in priority order — the first one found wins:
 | 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-format-markdown/EXTEND.md` | XDG |
 | 3 | `$HOME/.baoyu-skills/baoyu-format-markdown/EXTEND.md` | User home |
 
-If none found, use defaults — no first-time setup required for this skill.
+如果没有找到，使用默认值；该 skill 不需要 first-time setup。
 
-**EXTEND.md supports**:
+**EXTEND.md supports**：
 
 | Setting | Values | Default | Description |
 |---------|--------|---------|-------------|
-| `auto_select` | `true`/`false` | `false` | Skip both title and summary selection, auto-pick best |
-| `auto_select_title` | `true`/`false` | `false` | Skip title selection only |
-| `auto_select_summary` | `true`/`false` | `false` | Skip summary selection only |
-| Other | — | — | Default formatting options, typography preferences |
+| `auto_select` | `true`/`false` | `false` | 跳过 title 和 summary 选择，自动选最佳 |
+| `auto_select_title` | `true`/`false` | `false` | 只跳过 title 选择 |
+| `auto_select_summary` | `true`/`false` | `false` | 只跳过 summary 选择 |
+| Other | — | — | 默认 formatting options、typography preferences |
 
 ## Usage
 
-The workflow has two phases: **Analyze** (understand the content) then **Format** (apply formatting). Claude performs content analysis and formatting (Steps 1-5), then runs the script for typography fixes (Step 6).
+Workflow 分为两个阶段：**Analyze**（理解内容）和 **Format**（应用格式）。Claude 负责内容分析和格式调整（Steps 1-5），然后运行 script 做 typography fixes（Step 6）。
 
 ## Workflow
 
-### Step 1: Read & Detect Content Type
+### Step 1：Read & Detect Content Type
 
-Read the user-specified file, then detect content type:
+读取用户指定的文件，然后检测 content type：
 
 | Indicator | Classification |
 |-----------|----------------|
-| Has `---` YAML frontmatter | Markdown |
-| Has `#`, `##`, `###` headings | Markdown |
-| Has `**bold**`, `*italic*`, lists, code blocks, blockquotes | Markdown |
-| None of above | Plain text |
+| 有 `---` YAML frontmatter | Markdown |
+| 有 `#`、`##`、`###` headings | Markdown |
+| 有 `**bold**`、`*italic*`、lists、code blocks、blockquotes | Markdown |
+| 以上都没有 | Plain text |
 
-**If Markdown detected, use `AskUserQuestion` to ask:**
+**如果检测到 Markdown，使用 `AskUserQuestion` 询问：**
 
-```
+```text
 Detected existing markdown formatting. What would you like to do?
 
 1. Optimize formatting (Recommended)
@@ -95,43 +95,48 @@ Detected existing markdown formatting. What would you like to do?
    - No copy created, modifies original file directly
 ```
 
-**Based on user choice:**
-- **Optimize**: Continue to Step 2 (full workflow)
-- **Keep original**: Skip to Step 5, copy file then run Step 6
-- **Typography only**: Skip to Step 6, run on original file directly
+**根据用户选择：**
 
-### Step 2: Analyze Content (Reader's Perspective)
+- **Optimize**：继续 Step 2（完整 workflow）
+- **Keep original**：跳到 Step 5，复制文件后运行 Step 6
+- **Typography only**：跳到 Step 6，直接在原文件上运行
 
-Read the entire content carefully. Think from a reader's perspective: what would help them quickly understand and remember the key information?
+### Step 2：Analyze Content（Reader's Perspective）
 
-Produce an analysis covering these dimensions:
+仔细阅读全文。站在读者视角思考：什么能帮助读者快速理解并记住关键信息？
+
+产出覆盖以下维度的 analysis：
 
 **2.1 Highlights & Key Insights**
-- Core arguments or conclusions the author makes
-- Surprising facts, data points, or counterintuitive claims
-- Memorable quotes or well-phrased sentences (golden quotes)
+
+- 作者提出的核心论点或结论
+- 令人意外的事实、数据点或反直觉观点
+- 值得记住的引用或精炼句子（金句）
 
 **2.2 Structure Assessment**
-- Does the content have a clear logical flow? What is it?
-- Are there natural section boundaries that lack headings?
-- Are there long walls of text that could benefit from visual breaks?
+
+- 内容是否有清晰的逻辑流？是什么？
+- 是否存在自然段落边界但缺少 headings？
+- 是否有大段文字适合做视觉分隔？
 
 **2.3 Reader-Important Information**
-- Actionable advice or takeaways
-- Definitions, explanations of key concepts
-- Lists or enumerations buried in prose
-- Comparisons or contrasts that would be clearer as tables
+
+- 可执行建议或 takeaways
+- 关键概念的定义、解释
+- 埋在 prose 中的列表或枚举
+- 更适合用 tables 表达的比较或对照
 
 **2.4 Formatting Issues**
-- Missing or inconsistent heading hierarchy
-- Paragraphs that mix multiple topics
-- Parallel items written as prose instead of lists
-- Code, commands, or technical terms not marked as code
-- Obvious typos or formatting errors
 
-**Save analysis to file**: `{original-filename}-analysis.md`
+- 缺失或不一致的 heading hierarchy
+- 一个段落混合多个主题
+- 并列项写成了 prose，而不是 lists
+- Code、commands、technical terms 没有标成 code
+- 明显 typos 或 formatting errors
 
-The analysis file serves as the blueprint for Step 3. Use this format:
+**保存 analysis 到文件**：`{original-filename}-analysis.md`
+
+Analysis file 是 Step 3 的 blueprint。使用以下格式：
 
 ```markdown
 # Content Analysis: {filename}
@@ -153,38 +158,39 @@ The analysis file serves as the blueprint for Step 3. Use this format:
 - [list any obvious typos with corrections, or "None found"]
 ```
 
-### Step 3: Check/Create Frontmatter, Title & Summary
+### Step 3：Check/Create Frontmatter, Title & Summary
 
-Check for YAML frontmatter (`---` block). Create if missing.
+检查 YAML frontmatter（`---` block）。如果缺失则创建。
 
 | Field | Processing |
 |-------|------------|
-| `title` | See **Title Generation** below |
-| `slug` | Infer from file path or generate from title |
-| `summary` | One-sentence concise summary (see **Summary Generation** below) |
-| `description` | Longer descriptive summary (see **Summary Generation** below) |
-| `coverImage` | Check if `imgs/cover.png` exists in same directory; if so, use relative path |
+| `title` | 见下方 **Title Generation** |
+| `slug` | 从 file path 推断，或从 title 生成 |
+| `summary` | 一句话简明摘要（见下方 **Summary Generation**） |
+| `description` | 更长的描述性摘要（见下方 **Summary Generation**） |
+| `coverImage` | 检查同目录是否存在 `imgs/cover.png`；如存在，使用 relative path |
 
 #### Title Generation
 
-Whether or not a title already exists, run the title optimization flow unless `auto_select_title` is set.
+无论 title 是否已存在，只要没有设置 `auto_select_title`，都运行 title optimization flow。
 
-**Preparation** — read the full text and extract:
-- Core argument (one sentence: "what is this article about?")
-- Most impactful opinion or conclusion
-- Reader pain point or curiosity trigger
-- Most memorable metaphor or golden quote
+**Preparation**：阅读全文并提取：
 
-**Generate candidates** using formulas from `references/title-formulas.md`:
+- Core argument（一句话："what is this article about?"）
+- 最有冲击力的观点或结论
+- 读者痛点或好奇心 trigger
+- 最有记忆点的 metaphor 或 golden quote
 
-1. Select the **2-3 best-matching hook formulas** based on the article's content, tone, and structure (see "When to pick each formula" in the reference)
-2. Generate **1-2 straightforward titles** (descriptive or declarative, no formula — clear and accurate)
-3. If the user specifies a direction (e.g., "make it suspenseful"), prioritize that direction
-4. Total: **4-5 candidates**
+**Generate candidates**：使用 `references/title-formulas.md` 中的 formulas。
 
-Present via `AskUserQuestion`:
+1. 根据文章内容、语气和结构，选择 **2-3 个最匹配的 hook formulas**（见 reference 中的 "When to pick each formula"）
+2. 生成 **1-2 个 straightforward titles**（描述性或陈述性，不套公式，清晰准确）
+3. 如果用户指定方向（例如 "make it suspenseful"），优先该方向
+4. 总数：**4-5 个 candidates**
 
-```
+通过 `AskUserQuestion` 展示：
+
+```text
 Pick a title:
 
 1. [Hook title A] — (recommended) [formula name]
@@ -196,74 +202,76 @@ Pick a title:
 Enter number, or type a custom title:
 ```
 
-Put the strongest hook first and mark it `(recommended)`. See `references/title-formulas.md` for principles and prohibited patterns.
+把最强 hook 放在第一项，并标记 `(recommended)`。原则和禁用模式见 `references/title-formulas.md`。
 
-If the first line is an H1, extract it to frontmatter and remove it from the body. If frontmatter already has a `title`, include it as context but still generate fresh candidates — the existing title may be weak.
+如果第一行是 H1，把它提取到 frontmatter 并从正文中移除。如果 frontmatter 已有 `title`，把它作为 context，但仍生成新的 candidates：现有 title 可能较弱。
 
-**Skip behavior**: If `auto_select: true` or `auto_select_title: true`, skip the user prompt and use the top candidate directly.
+**Skip behavior**：如果 `auto_select: true` 或 `auto_select_title: true`，跳过用户询问，直接使用 top candidate。
 
 #### Summary Generation
 
-Generate two versions directly (no user selection), both stored in frontmatter:
+直接生成两个版本（无需用户选择），都存入 frontmatter：
 
 | Field | Length | Purpose |
 |-------|--------|---------|
-| `summary` | 1 sentence, ~50-80 chars | Concise hook — for feeds, social sharing, SEO meta |
-| `description` | 2-3 sentences, ~100-200 chars | Richer context — for article previews, newsletter blurbs |
+| `summary` | 1 sentence，约 50-80 chars | Concise hook，用于 feeds、social sharing、SEO meta |
+| `description` | 2-3 sentences，约 100-200 chars | 更丰富的 context，用于 article previews、newsletter blurbs |
 
-**Principles**:
+**Principles**：
 
-- Convey **core value** to the reader, not just the topic
-- Use concrete details (numbers, outcomes, specific methods) over vague descriptions
-- `summary` should be punchy and self-contained; `description` can expand with supporting details
-- If frontmatter already has `summary` or `description`, keep the existing one and only generate the missing field
+- 传达给读者的 **core value**，而不只是主题
+- 使用具体细节（数字、结果、具体方法），避免模糊描述
+- `summary` 应短促、有力、自包含；`description` 可展开 supporting details
+- 如果 frontmatter 已有 `summary` 或 `description`，保留已有字段，只生成缺失字段
 
-**Prohibited patterns**:
+**Prohibited patterns**：
 
-- "This article introduces...", "This article explores..."
-- Pure topic description without value proposition
-- Repeating the title in different words
+- "This article introduces..."、"This article explores..."
+- 只有 topic description，没有 value proposition
+- 用不同措辞重复 title
 
-Once the title is in frontmatter, the body should NOT contain an H1 (avoid duplication).
+Title 进入 frontmatter 后，正文中不应再包含 H1（避免重复）。
 
-### Step 4: Format Content
+### Step 4：Format Content
 
-Apply formatting guided by the Step 2 analysis. The goal is making the content scannable and the key points impossible to miss.
+根据 Step 2 analysis 应用格式。目标是让内容更易扫读，让关键点不容易被错过。
 
-**Formatting toolkit:**
+**Formatting toolkit：**
 
 | Element | When to use | Format |
 |---------|-------------|--------|
-| Headings | Natural topic boundaries, section breaks | `##`, `###` hierarchy |
-| Bold | Key conclusions, important terms, core takeaways | `**bold**` |
-| Unordered lists | Parallel items, feature lists, examples | `- item` |
-| Ordered lists | Sequential steps, ranked items, procedures | `1. item` |
-| Tables | Comparisons, structured data, option matrices | Markdown table |
-| Code | Commands, file paths, technical terms, variable names | `` `inline` `` or fenced blocks |
-| Blockquotes | Notable quotes, important warnings, cited text | `> quote` |
-| Separators | Major topic transitions | `---` |
+| Headings | 自然主题边界、section breaks | `##`、`###` hierarchy |
+| Bold | 关键结论、重要术语、核心 takeaways | `**bold**` |
+| Unordered lists | 并列项、feature lists、examples | `- item` |
+| Ordered lists | 连续步骤、ranked items、procedures | `1. item` |
+| Tables | 比较、结构化数据、option matrices | Markdown table |
+| Code | Commands、file paths、technical terms、variable names | `` `inline` `` 或 fenced blocks |
+| Blockquotes | 重要引用、重要 warnings、cited text | `> quote` |
+| Separators | 重大 topic transitions | `---` |
 
-**Formatting principles — what NOT to do:**
-- Do NOT add sentences, explanations, or commentary
-- Do NOT delete or shorten any content
-- Do NOT rephrase or rewrite the author's words
-- Do NOT add headings that editorialize (e.g., "Amazing Discovery" — use neutral descriptive headings)
-- Do NOT over-format: not every sentence needs bold, not every paragraph needs a heading
+**Formatting principles — what NOT to do：**
 
-**Formatting principles — what TO do:**
-- Preserve the author's voice, tone, and every word
-- **Bold key conclusions and core takeaways** — the sentences a reader would highlight
-- Extract parallel items from prose into lists only when the structure is clearly there
-- Add headings where the topic genuinely shifts — prefer vivid, specific headings over generic ones (e.g., "3 天搞定 vs 传统方案" over "方案对比")
-- Use tables for comparisons or structured data buried in prose
-- Use blockquotes for golden quotes, memorable statements, or important warnings
-- Fix obvious typos (based on Step 2 findings)
+- 不要添加 sentences、explanations 或 commentary
+- 不要删除或缩短任何内容
+- 不要改写或重写作者原话
+- 不要添加带 editorialize 的 headings（例如 "Amazing Discovery"；使用中性描述性 headings）
+- 不要过度格式化：不是每句话都需要 bold，也不是每段都需要 heading
 
-### Step 5: Save Formatted File
+**Formatting principles — what TO do：**
 
-Save as `{original-filename}-formatted.md`
+- 保留作者 voice、tone 和每一个字词
+- **Bold key conclusions and core takeaways**：读者会划线的句子
+- 只有当 prose 中结构已经清晰存在时，才把并列项抽成 lists
+- 在主题真正切换处添加 headings：优先使用生动、具体的 headings，而非泛泛标题（例如 "3 天搞定 vs 传统方案" 优于 "方案对比"）
+- 对埋在 prose 中的比较或结构化数据使用 tables
+- 对 golden quotes、memorable statements 或 important warnings 使用 blockquotes
+- 修正明显 typos（基于 Step 2 findings）
 
-**Backup existing file:**
+### Step 5：Save Formatted File
+
+保存为 `{original-filename}-formatted.md`
+
+**Backup existing file：**
 
 ```bash
 if [ -f "{filename}-formatted.md" ]; then
@@ -271,26 +279,26 @@ if [ -f "{filename}-formatted.md" ]; then
 fi
 ```
 
-### Step 6: Execute Typography Script
+### Step 6：Execute Typography Script
 
-Run the formatting script on the output file:
+对 output file 运行 formatting script：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/main.ts {output-file-path} [options]
 ```
 
-**Script Options:**
+**Script Options：**
 
 | Option | Short | Description | Default |
 |--------|-------|-------------|---------|
-| `--quotes` | `-q` | Replace ASCII quotes with fullwidth quotes `"..."` | false |
-| `--no-quotes` | | Do not replace quotes | |
-| `--spacing` | `-s` | Add CJK/English spacing via autocorrect | true |
-| `--no-spacing` | | Do not add CJK/English spacing | |
-| `--emphasis` | `-e` | Fix CJK emphasis punctuation issues | true |
-| `--no-emphasis` | | Do not fix CJK emphasis issues | |
+| `--quotes` | `-q` | 将 ASCII quotes 替换为全角引号 `"..."` | false |
+| `--no-quotes` | | 不替换 quotes | |
+| `--spacing` | `-s` | 通过 autocorrect 添加 CJK/English spacing | true |
+| `--no-spacing` | | 不添加 CJK/English spacing | |
+| `--emphasis` | `-e` | 修复 CJK emphasis punctuation issues | true |
+| `--no-emphasis` | | 不修复 CJK emphasis issues | |
 
-**Examples:**
+**Examples：**
 
 ```bash
 # Default: spacing + emphasis enabled, quotes disabled
@@ -303,17 +311,18 @@ ${BUN_X} {baseDir}/scripts/main.ts article.md --quotes
 ${BUN_X} {baseDir}/scripts/main.ts article.md --no-spacing
 ```
 
-**Script performs (based on options):**
-1. Fix CJK emphasis/bold punctuation issues (default: enabled)
-2. Add CJK/English mixed text spacing via autocorrect (default: enabled)
-3. Replace ASCII quotes with fullwidth quotes (default: disabled)
-4. Format frontmatter YAML (always enabled)
+**Script performs（based on options）：**
 
-### Step 7: Completion Report
+1. 修复 CJK emphasis/bold punctuation issues（default: enabled）
+2. 通过 autocorrect 添加 CJK/English mixed text spacing（default: enabled）
+3. 将 ASCII quotes 替换为全角引号（default: disabled）
+4. 格式化 frontmatter YAML（always enabled）
 
-Display a report summarizing all changes made:
+### Step 7：Completion Report
 
-```
+展示总结所有变更的报告：
+
+```markdown
 **Formatting Complete**
 
 **Files:**
@@ -341,15 +350,15 @@ Display a report summarizing all changes made:
 - Quote replacement: [applied/skipped]
 ```
 
-Adjust the report to reflect actual changes — omit categories where no changes were made.
+按实际变更调整报告；没有发生的类别要省略。
 
 ## Notes
 
-- Preserve original writing style and tone
-- Specify correct language for code blocks (e.g., `python`, `javascript`)
-- Maintain CJK/English spacing standards
-- The analysis file is a working document — it helps maintain consistency between what was identified and what was formatted
+- 保留原始 writing style 和 tone
+- 为 code blocks 指定正确语言（例如 `python`、`javascript`）
+- 维护 CJK/English spacing standards
+- Analysis file 是 working document：它帮助保持“发现的问题”和“实际格式化内容”之间的一致性
 
 ## Extension Support
 
-Custom configurations via EXTEND.md. See **Preferences** section for paths and supported options.
+通过 EXTEND.md 自定义配置。路径和支持选项见 **Preferences** section。

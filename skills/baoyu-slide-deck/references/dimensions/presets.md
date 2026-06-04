@@ -1,6 +1,6 @@
 # Preset → Dimension Mapping
 
-Maps 16 preset styles to their dimension combinations.
+将 16 个 preset styles 映射到它们的 dimension combinations。
 
 ## Mapping Table
 
@@ -27,93 +27,110 @@ Maps 16 preset styles to their dimension combinations.
 ## Preset Details
 
 ### blueprint
+
 - **Dimensions**: grid + cool + technical + balanced
-- **Feel**: Engineering precision, analytical clarity
+- **Feel**: 工程精度，分析清晰
 - **Auto-select**: architecture, system, data, analysis, technical
 
 ### chalkboard
+
 - **Dimensions**: organic + warm + handwritten + balanced
-- **Feel**: Classroom warmth, educational
+- **Feel**: 课堂温度，教育感
 - **Auto-select**: classroom, teaching, school, chalkboard
 
 ### corporate
+
 - **Dimensions**: clean + professional + geometric + balanced
-- **Feel**: Business credibility, institutional trust
+- **Feel**: 商业可信度，机构信任感
 - **Auto-select**: investor, quarterly, business, corporate
 
 ### minimal
+
 - **Dimensions**: clean + neutral + geometric + minimal
-- **Feel**: Maximum sophistication, executive focus
+- **Feel**: 极致精致，executive focus
 - **Auto-select**: executive, minimal, clean, simple
 
 ### sketch-notes
+
 - **Dimensions**: organic + warm + handwritten + balanced
-- **Feel**: Friendly learning, approachable education
+- **Feel**: 友好的学习感，亲近的教育表达
 - **Auto-select**: tutorial, learn, education, guide, beginner
 
 ### hand-drawn-edu
+
 - **Dimensions**: organic + macaron + handwritten + balanced
-- **Feel**: Hand-drawn educational infographic, macaron pastel zones
+- **Feel**: 手绘教育信息图，macaron pastel zones
 - **Auto-select**: hand-drawn, infographic, diagram, process, onboarding
 
 ### watercolor
+
 - **Dimensions**: organic + warm + humanist + minimal
-- **Feel**: Artistic, natural, lifestyle
+- **Feel**: 艺术、自然、生活方式
 - **Auto-select**: lifestyle, wellness, travel, artistic
 
 ### dark-atmospheric
+
 - **Dimensions**: clean + dark + editorial + balanced
-- **Feel**: Cinematic, entertainment
+- **Feel**: 电影感、娱乐感
 - **Auto-select**: entertainment, music, gaming, atmospheric
 
 ### notion
+
 - **Dimensions**: clean + neutral + geometric + dense
-- **Feel**: SaaS professional, data-forward
+- **Feel**: SaaS 专业感，data-forward
 - **Auto-select**: saas, product, dashboard, metrics
 
 ### bold-editorial
+
 - **Dimensions**: clean + vibrant + editorial + balanced
-- **Feel**: Magazine impact, keynote drama
+- **Feel**: Magazine impact，keynote drama
 - **Auto-select**: launch, marketing, keynote, magazine
 
 ### editorial-infographic
+
 - **Dimensions**: clean + cool + editorial + dense
-- **Feel**: Publication quality, informative
+- **Feel**: Publication quality，信息充分
 - **Auto-select**: explainer, journalism, science communication
 
 ### fantasy-animation
+
 - **Dimensions**: organic + vibrant + handwritten + minimal
-- **Feel**: Magical, storytelling
+- **Feel**: 魔法感、storytelling
 - **Auto-select**: story, fantasy, animation, magical
 
 ### intuition-machine
+
 - **Dimensions**: clean + cool + technical + dense
-- **Feel**: Technical briefing, bilingual documentation
+- **Feel**: Technical briefing，双语文档感
 - **Auto-select**: briefing, academic, research, bilingual
 
 ### pixel-art
+
 - **Dimensions**: pixel + vibrant + technical + balanced
-- **Feel**: Retro gaming, developer culture
+- **Feel**: 复古游戏、developer culture
 - **Auto-select**: gaming, retro, pixel, developer
 
 ### scientific
+
 - **Dimensions**: clean + cool + technical + dense
-- **Feel**: Academic precision, research quality
+- **Feel**: 学术精度，research quality
 - **Auto-select**: biology, chemistry, medical, scientific
 
 ### vector-illustration
+
 - **Dimensions**: clean + vibrant + humanist + balanced
-- **Feel**: Flat design, friendly creative
+- **Feel**: Flat design，友好创意
 - **Auto-select**: creative, children, kids, cute
 
 ### vintage
+
 - **Dimensions**: paper + warm + editorial + balanced
-- **Feel**: Historical, heritage storytelling
+- **Feel**: 历史、heritage storytelling
 - **Auto-select**: history, heritage, vintage, expedition
 
 ## Building Custom Combinations
 
-When user selects "Custom dimensions", combine any:
+当用户选择 "Custom dimensions" 时，可任意组合：
 
 - **Texture** (5): clean, grid, organic, pixel, paper
 - **Mood** (6): professional, warm, cool, vibrant, dark, neutral

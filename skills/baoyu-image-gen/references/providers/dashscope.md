@@ -1,44 +1,44 @@
 # DashScope (阿里通义万象)
 
-Read when the user picks `--provider dashscope`, sets `default_model.dashscope`, or asks for Qwen-Image behavior. The SKILL.md only names the default — this file covers model families, sizing rules, and limits.
+当用户选择 `--provider dashscope`、设置 `default_model.dashscope`，或询问 Qwen-Image 行为时读取。SKILL.md 只说明默认值，本文件覆盖 model families、尺寸规则和限制。
 
 ## Model Families
 
-**`qwen-image-2.0*`** — recommended modern family. Members: `qwen-image-2.0-pro`, `qwen-image-2.0-pro-2026-03-03`, `qwen-image-2.0`, `qwen-image-2.0-2026-03-03`.
+**`qwen-image-2.0*`**：推荐的现代 family。成员：`qwen-image-2.0-pro`, `qwen-image-2.0-pro-2026-03-03`, `qwen-image-2.0`, `qwen-image-2.0-2026-03-03`。
 
-- Free-form `size` in `宽*高` format
-- Total pixels must be between `512*512` and `2048*2048`
-- Default ≈ `1024*1024`
-- Best choice for custom ratios (e.g. `21:9`) and text-heavy Chinese/English layouts
+- 自由格式 `size`，使用 `宽*高` 格式
+- 总像素必须在 `512*512` 到 `2048*2048` 之间
+- 默认 ≈ `1024*1024`
+- 最适合自定义比例（例如 `21:9`）和文字密集的中英文布局
 
-**Fixed-size family** — `qwen-image-max`, `qwen-image-max-2025-12-30`, `qwen-image-plus`, `qwen-image-plus-2026-01-09`, `qwen-image`.
+**Fixed-size family**：`qwen-image-max`, `qwen-image-max-2025-12-30`, `qwen-image-plus`, `qwen-image-plus-2026-01-09`, `qwen-image`。
 
-- Only five sizes allowed: `1664*928`, `1472*1104`, `1328*1328`, `1104*1472`, `928*1664`
-- Default is `1664*928`
-- `qwen-image` currently has the same capability as `qwen-image-plus`
+- 只允许五种尺寸：`1664*928`, `1472*1104`, `1328*1328`, `1104*1472`, `928*1664`
+- 默认是 `1664*928`
+- `qwen-image` 当前能力与 `qwen-image-plus` 相同
 
-**`wan2.7-image*`** — multimodal Wan 2.7 family. Members: `wan2.7-image-pro`, `wan2.7-image`.
+**`wan2.7-image*`**：multimodal Wan 2.7 family。成员：`wan2.7-image-pro`, `wan2.7-image`。
 
-- Free-form `size` in `宽*高` format, plus aspect-ratio inference
-- `wan2.7-image-pro` text-to-image (no `--ref`): total pixels in `[768*768, 4096*4096]`, ratio in `[1:8, 8:1]`
-- `wan2.7-image-pro` with reference images and `wan2.7-image` (all scenarios): total pixels in `[768*768, 2048*2048]`, ratio in `[1:8, 8:1]`
-- Default: `1024*1024` (`--quality normal`) or `2048*2048` (`--quality 2k`); 4K requires explicit `--size`
-- Supports up to 9 reference images in `--ref` (image editing / multi-image fusion)
-- Reference images are sent inline as base64 (or passed through if the path is an `http(s)://` URL)
-- API does NOT use `prompt_extend`; the skill omits it for this family
-- The Wan 2.7 API defaults `n` to **4** in non-collage mode and bills per generated image. baoyu-image-gen forces `n: 1` and rejects `--n > 1` to avoid silently paying for and discarding extra images.
+- 自由格式 `size`，使用 `宽*高` 格式，并支持 aspect-ratio 推断
+- `wan2.7-image-pro` text-to-image（无 `--ref`）：总像素在 `[768*768, 4096*4096]`，比例在 `[1:8, 8:1]`
+- 带 reference images 的 `wan2.7-image-pro` 以及 `wan2.7-image`（所有场景）：总像素在 `[768*768, 2048*2048]`，比例在 `[1:8, 8:1]`
+- 默认：`1024*1024`（`--quality normal`）或 `2048*2048`（`--quality 2k`）；4K 需要显式 `--size`
+- `--ref` 支持最多 9 张 reference images（image editing / multi-image fusion）
+- Reference images 以内联 base64 发送（如果路径是 `http(s)://` URL，则原样传递）
+- API 不使用 `prompt_extend`；此 family 中 skill 会省略它
+- Wan 2.7 API 在 non-collage mode 下默认 `n` 为 **4**，并按生成图片计费。baoyu-image-gen 强制 `n: 1` 并拒绝 `--n > 1`，避免静默为额外图片付费又丢弃它们。
 
-**Legacy** — `z-image-turbo`, `z-image-ultra`, `wanx-v1`. Only use when the user explicitly asks for legacy behavior.
+**Legacy**：`z-image-turbo`, `z-image-ultra`, `wanx-v1`。只有用户明确要求 legacy behavior 时才使用。
 
 ## Size Resolution
 
-- `--size` wins over `--ar`
-- For `qwen-image-2.0*`: prefer explicit `--size`; otherwise infer from `--ar` using the recommended table below
-- For `qwen-image-max/plus/image`: only use the five fixed sizes; if the requested ratio doesn't fit, switch to `qwen-image-2.0-pro`
-- For `wan2.7-image*`: explicit `--size` is validated against the per-mode pixel/ratio limits; otherwise the size is derived from `--ar` and `--quality` (`normal` ≈ 1K, `2k` ≈ 2K). To request 4K with `wan2.7-image-pro` text-to-image, pass `--size` explicitly (e.g. `4096*4096`, `3840*2160`)
-- `--quality` is a baoyu-image-gen preset, not an official DashScope field. The mapping of `normal`/`2k` onto the `qwen-image-2.0*` and `wan2.7-image*` tables is an implementation choice, not an API guarantee
+- `--size` 优先于 `--ar`
+- 对 `qwen-image-2.0*`：优先使用显式 `--size`；否则用下方推荐表从 `--ar` 推断
+- 对 `qwen-image-max/plus/image`：只使用五种固定尺寸；如果请求比例不合适，切换到 `qwen-image-2.0-pro`
+- 对 `wan2.7-image*`：显式 `--size` 会按对应模式的像素/比例限制验证；否则从 `--ar` 和 `--quality` 推导尺寸（`normal` ≈ 1K，`2k` ≈ 2K）。如需用 `wan2.7-image-pro` text-to-image 请求 4K，请显式传入 `--size`（例如 `4096*4096`, `3840*2160`）
+- `--quality` 是 baoyu-image-gen preset，不是 DashScope 官方字段。将 `normal`/`2k` 映射到 `qwen-image-2.0*` 和 `wan2.7-image*` 表是实现选择，不是 API 保证
 
-### Recommended `qwen-image-2.0*` sizes
+### 推荐 `qwen-image-2.0*` 尺寸
 
 | Ratio | `normal` | `2k` |
 |-------|----------|------|
@@ -53,15 +53,15 @@ Read when the user picks `--provider dashscope`, sets `default_model.dashscope`,
 
 ## Reference Images
 
-- Only `wan2.7-image-pro` and `wan2.7-image` accept `--ref`. Other DashScope models (qwen-image-2.0*, qwen-image-max/plus/image, legacy) reject `--ref` and the user is steered to a different provider/model.
-- Up to 9 reference images per request. Local files are inlined as base64 data URLs; `http(s)://` URLs are forwarded as-is.
-- Supplying any `--ref` automatically clamps the wan2.7-image-pro pixel ceiling from 4K to 2K (the API only supports 4K for pure text-to-image with no image input).
+- 只有 `wan2.7-image-pro` 和 `wan2.7-image` 接受 `--ref`。其他 DashScope models（qwen-image-2.0*、qwen-image-max/plus/image、legacy）会拒绝 `--ref`，并引导用户换 provider/model。
+- 每次请求最多 9 张 reference images。本地文件会以内联 base64 data URLs 发送；`http(s)://` URLs 原样转发。
+- 提供任何 `--ref` 都会自动把 wan2.7-image-pro 的像素上限从 4K 限制到 2K（API 只对无图片输入的纯 text-to-image 支持 4K）。
 
-## Not Exposed
+## 未暴露
 
-DashScope APIs also support `negative_prompt`, `prompt_extend`, `watermark`, `thinking_mode`, `seed`, `bbox_list`, `enable_sequential`, and `color_palette`. `baoyu-image-gen` does not expose them as CLI flags today; the wan2.7 family relies on the API defaults (e.g. `thinking_mode=true`). The skill always sends `n=1` for wan2.7 — if you want grid/collage mode you currently need to call the API directly.
+DashScope APIs 还支持 `negative_prompt`, `prompt_extend`, `watermark`, `thinking_mode`, `seed`, `bbox_list`, `enable_sequential`, `color_palette`。`baoyu-image-gen` 目前没有把它们暴露为 CLI flags；wan2.7 family 依赖 API 默认值（例如 `thinking_mode=true`）。此 skill 对 wan2.7 始终发送 `n=1`；如果你需要 grid/collage mode，目前需要直接调用 API。
 
-## Official References
+## 官方参考
 
 - [Qwen-Image API](https://help.aliyun.com/zh/model-studio/qwen-image-api)
 - [Text-to-image guide](https://help.aliyun.com/zh/model-studio/text-to-image)

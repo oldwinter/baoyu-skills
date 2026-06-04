@@ -1,16 +1,16 @@
 # Creating New Skills
 
-**REQUIRED READING**: [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+**必读**：[Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
 
 ## Key Requirements
 
 | Requirement | Details |
 |-------------|---------|
-| **Prefix** | All skills MUST use `baoyu-` prefix |
-| **name field** | Max 64 chars, lowercase letters/numbers/hyphens only, no "anthropic"/"claude" |
-| **description** | Max 1024 chars, third person, include what + when to use |
-| **SKILL.md body** | Keep under 500 lines; use `references/` for additional content |
-| **References** | One level deep from SKILL.md; avoid nested references |
+| **Prefix** | 所有 skills 必须使用 `baoyu-` 前缀 |
+| **name field** | 最多 64 个字符，只允许小写字母/数字/连字符，不能包含 "anthropic"/"claude" |
+| **description** | 最多 1024 个字符，使用第三人称，包含做什么 + 何时使用 |
+| **SKILL.md body** | 保持在 500 行以内；更多内容放到 `references/` |
+| **References** | 从 SKILL.md 起只深入一层；避免 nested references |
 
 ## SKILL.md Frontmatter Template
 
@@ -31,29 +31,29 @@ metadata:
 
 ## Steps
 
-1. Create `skills/baoyu-<name>/SKILL.md` with YAML front matter
-2. Add TypeScript in `skills/baoyu-<name>/scripts/` (if applicable)
-3. Add prompt templates in `skills/baoyu-<name>/prompts/` if needed
-4. Register the skill in `.claude-plugin/marketplace.json` under the `baoyu-skills` plugin entry
-5. Add Script Directory section to SKILL.md if skill has scripts
-6. Add openclaw metadata to frontmatter
+1. 创建带 YAML front matter 的 `skills/baoyu-<name>/SKILL.md`
+2. 如适用，在 `skills/baoyu-<name>/scripts/` 中添加 TypeScript
+3. 如需要，在 `skills/baoyu-<name>/prompts/` 中添加 prompt templates
+4. 在 `.claude-plugin/marketplace.json` 的 `baoyu-skills` plugin entry 下注册该 skill
+5. 如果 skill 有 scripts，在 SKILL.md 中添加 Script Directory section
+6. 在 frontmatter 中添加 openclaw metadata
 
 ## Skill Grouping
 
-All skills are registered under the single `baoyu-skills` plugin. Use these logical groups when deciding where the skill should appear in the docs:
+所有 skills 都注册在单一 `baoyu-skills` plugin 下。决定 skill 在文档中出现的位置时，使用以下逻辑分组：
 
 | If your skill... | Use group |
 |------------------|-----------|
-| Generates visual content (images, slides, comics) | Content Skills |
-| Publishes to platforms (X, WeChat, Weibo) | Content Skills |
-| Provides AI generation backend | AI Generation Skills |
-| Converts or processes content | Utility Skills |
+| 生成视觉内容（图片、幻灯片、漫画） | Content Skills |
+| 发布到平台（X、WeChat、Weibo） | Content Skills |
+| 提供 AI generation backend | AI Generation Skills |
+| 转换或处理内容 | Utility Skills |
 
-If you add a new logical group, update the docs that present grouped skills, but keep the skill registered under the single `baoyu-skills` plugin entry.
+如果新增逻辑分组，请更新展示 grouped skills 的文档，但仍保持该 skill 注册在单一 `baoyu-skills` plugin entry 下。
 
 ## Writing Descriptions
 
-**MUST write in third person**:
+**必须使用第三人称**：
 
 ```yaml
 # Good
@@ -65,7 +65,7 @@ description: I can help you create Xiaohongshu images
 
 ## Script Directory Template
 
-Every SKILL.md with scripts MUST include:
+每个带 scripts 的 SKILL.md 都必须包含：
 
 ```markdown
 ## Script Directory
@@ -86,9 +86,9 @@ Every SKILL.md with scripts MUST include:
 
 ## Progressive Disclosure
 
-For skills with extensive content:
+内容较多的 skills：
 
-```
+```text
 skills/baoyu-example/
 ├── SKILL.md              # Main instructions (<500 lines)
 ├── references/
@@ -98,14 +98,15 @@ skills/baoyu-example/
     └── main.ts
 ```
 
-Link from SKILL.md (one level deep only):
+从 SKILL.md 链接（只深入一层）：
+
 ```markdown
 **Available styles**: See [references/styles.md](references/styles.md)
 ```
 
-## Extension Support (EXTEND.md)
+## Extension Support（EXTEND.md）
 
-Every SKILL.md MUST include EXTEND.md loading. Add as Step 1.1 (workflow skills) or "Preferences" section (utility skills):
+每个 SKILL.md 都必须包含 EXTEND.md 加载逻辑。对 workflow skills，添加为 Step 1.1；对 utility skills，放在 "Preferences" section：
 
 ```markdown
 **1.1 Load Preferences (EXTEND.md)**
@@ -130,17 +131,18 @@ test -f "$HOME/.baoyu-skills/<skill-name>/EXTEND.md" && echo "user"
 | Not found | Ask user via the runtime's user-input tool (see [user-input-tools.md](user-input-tools.md)) |
 ```
 
-End of SKILL.md should include:
+SKILL.md 结尾应包含：
+
 ```markdown
 ## Extension Support
 Custom configurations via EXTEND.md. See **Step 1.1** for paths and supported options.
 ```
 
-## User Input Tools Section (Required)
+## User Input Tools Section（Required）
 
-Every SKILL.md that prompts the user for choices MUST include exactly one `## User Input Tools` section near the top (right after the intro, before the main workflow). The rule must be **inlined** — do NOT link to `docs/user-input-tools.md` (skills are self-contained; see [CLAUDE.md → Skill Self-Containment](../CLAUDE.md)). The author-side canonical reference lives at [user-input-tools.md](user-input-tools.md); copy its body into each new SKILL.md.
+每个会向用户询问选项的 SKILL.md，必须在靠前位置包含恰好一个 `## User Input Tools` section（intro 之后、main workflow 之前）。该规则必须 **内联**，不要链接到 `docs/user-input-tools.md`（skills 是自包含的；见 [CLAUDE.md → Skill Self-Containment](../CLAUDE.md)）。作者侧 canonical reference 位于 [user-input-tools.md](user-input-tools.md)；把其正文复制到每个新的 SKILL.md。
 
-Standard snippet (copy verbatim):
+标准 snippet（原样复制）：
 
 ```markdown
 ## User Input Tools
@@ -154,11 +156,11 @@ When this skill prompts the user, follow this tool-selection rule (priority orde
 Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
 ```
 
-## Image Generation Tools Section (Required for image-gen skills)
+## Image Generation Tools Section（image-gen skills 必需）
 
-Every SKILL.md that renders images — whether by calling an image-generation API directly or by delegating to another skill — MUST include exactly one `## Image Generation Tools` section near the top (after `## User Input Tools`, before the main workflow). The rule must be **inlined** — do NOT link to `docs/image-generation-tools.md` (skills are self-contained; see [CLAUDE.md → Skill Self-Containment](../CLAUDE.md)). The author-side canonical reference lives at [image-generation-tools.md](image-generation-tools.md); copy its body into each new SKILL.md.
+每个渲染图片的 SKILL.md（无论是直接调用 image-generation API，还是委托给其他 skill），必须在靠前位置包含恰好一个 `## Image Generation Tools` section（位于 `## User Input Tools` 之后、main workflow 之前）。该规则必须 **内联**，不要链接到 `docs/image-generation-tools.md`（skills 是自包含的；见 [CLAUDE.md → Skill Self-Containment](../CLAUDE.md)）。作者侧 canonical reference 位于 [image-generation-tools.md](image-generation-tools.md)；把其正文复制到每个新的 SKILL.md。
 
-Standard snippet (copy verbatim):
+标准 snippet（原样复制）：
 
 ```markdown
 ## Image Generation Tools

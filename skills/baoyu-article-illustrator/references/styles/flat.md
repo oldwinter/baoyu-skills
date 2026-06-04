@@ -1,59 +1,59 @@
 # flat
 
-Modern flat vector illustration style for contemporary content
+适合当代内容的现代 flat vector illustration 风格。
 
-## Design Aesthetic
+## 设计美学
 
-Contemporary flat design aesthetic with bold shapes and limited depth. Clean geometric forms with no gradients or shadows. Modern, accessible, and highly readable. Optimized for digital consumption with scalable vector quality.
+当代 flat design 美学，使用大胆形状和有限深度。干净几何形态，不使用渐变或阴影。现代、易接近，并且高度可读。以可缩放 vector 质量面向 digital 阅读优化。
 
-## Background
+## 背景
 
-- Color: White (#FFFFFF) or Soft Gray (#F5F5F5)
-- Texture: None - clean solid backgrounds
+- 颜色：White (#FFFFFF) 或 Soft Gray (#F5F5F5)
+- 纹理：无，干净纯色背景
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | White | #FFFFFF | Primary background |
-| Alt Background | Soft Gray | #F5F5F5 | Accent areas |
-| Primary | Vibrant Blue | #3B82F6 | Main elements |
-| Secondary | Coral | #F97316 | Supporting elements |
-| Tertiary | Emerald | #10B981 | Accent elements |
-| Accent 1 | Purple | #8B5CF6 | Additional accent |
-| Accent 2 | Amber | #F59E0B | Highlight |
-| Text | Dark Slate | #1E293B | Text elements |
-| Light | Light Gray | #E5E7EB | Subtle elements |
+| Background | White | #FFFFFF | 主背景 |
+| Alt Background | Soft Gray | #F5F5F5 | 强调区域 |
+| Primary | Vibrant Blue | #3B82F6 | 主要元素 |
+| Secondary | Coral | #F97316 | 辅助元素 |
+| Tertiary | Emerald | #10B981 | 强调元素 |
+| Accent 1 | Purple | #8B5CF6 | 附加强调 |
+| Accent 2 | Amber | #F59E0B | 高光 |
+| Text | Dark Slate | #1E293B | 文本元素 |
+| Light | Light Gray | #E5E7EB | 细微元素 |
 
-## Visual Elements
+## 视觉元素
 
-- Bold geometric shapes
-- Flat color fills with no gradients
-- Simple character illustrations
-- Clean icon designs
-- Minimal line work
-- Overlapping shape compositions
-- Abstract concept visualizations
-- Consistent stroke weights
+- 大胆几何形状
+- 无渐变的扁平色块填充
+- 简单角色插画
+- 干净图标设计
+- 极简线条
+- 重叠形状构图
+- 抽象概念可视化
+- 一致 stroke weight
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Use flat solid colors
-- Create clean geometric shapes
-- Keep elements simple
-- Maintain consistent styling
-- Use bold color combinations
+- 使用扁平纯色
+- 创建干净几何形状
+- 保持元素简单
+- 保持一致 styling
+- 使用大胆配色组合
 
-### Don't
+### 不要
 
-- Add shadows or depth
-- Use gradients or textures
-- Create realistic illustrations
-- Add unnecessary details
-- Use photographic elements
+- 添加阴影或深度
+- 使用渐变或纹理
+- 创建写实插画
+- 添加不必要细节
+- 使用摄影元素
 
-## Best For
+## 适合
 
-Modern articles, app and product content, startup stories, digital topics, contemporary business, tech company blogs, social media content
+现代文章、app 与产品内容、startup 故事、digital 主题、当代商业、科技公司博客、社交媒体内容

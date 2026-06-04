@@ -1,42 +1,42 @@
 # mono-ink
 
-Black ink on pure white with sparse semantic accent colors
+纯白底上的黑色 ink，少量使用语义强调色。
 
-## Background
+## 背景
 
-- Color: Pure White (#FFFFFF)
-- Texture: Clean, no grain, no tint
+- 颜色：Pure White (#FFFFFF)
+- 纹理：干净，无颗粒，无染色
 
-## Colors
+## 颜色
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
 | Background | Pure White | #FFFFFF | Canvas |
-| Primary | Near Black | #1A1A1A | All lines, text, figures, arrows |
-| Accent (risk/emphasis) | Coral Red | #E8655A | Risk, problem, gap, key emphasis |
-| Accent (positive) | Muted Teal | #5FA8A8 | Positive, solution, "after" state |
-| Accent (neutral tag) | Dusty Lavender | #9B8AB5 | Neutral tags, category labels |
-| Soft Fill | Pale Gray | #F0F0F0 | Subtle zone backgrounds (optional) |
+| Primary | Near Black | #1A1A1A | 所有线条、文本、图形、箭头 |
+| Accent (risk/emphasis) | Coral Red | #E8655A | 风险、问题、缺口、关键强调 |
+| Accent (positive) | Muted Teal | #5FA8A8 | 正向、解决方案、"after" 状态 |
+| Accent (neutral tag) | Dusty Lavender | #9B8AB5 | 中性标签、分类标签 |
+| Soft Fill | Pale Gray | #F0F0F0 | 细微区域背景（可选） |
 
-## Accent
+## 强调色
 
-Use black ink for all structural elements — lines, text, figures. Accent colors appear only for semantic highlighting: coral red for risks/gaps/problems, muted teal for positive/solution/after-states, dusty lavender for neutral category tags. Total colored pixels must remain under 10% of canvas. Pale gray may back a subtle zone but must never dominate.
+所有结构性元素都使用黑色 ink：线条、文本、图形。强调色只用于语义高亮：coral red 用于风险/缺口/问题，muted teal 用于正向/解决方案/after-state，dusty lavender 用于中性分类标签。彩色像素总量必须低于 canvas 的 10%。Pale gray 可以支撑细微区域背景，但绝不能占主导。
 
-## Semantic Constraint
+## 语义约束
 
-Black ink on white canvas. Accent colors for semantic highlighting only — total colored pixels under 10% of canvas. Do NOT render color names, hex codes, or role labels as visible text in the image.
+白色 canvas 上使用黑色 ink。强调色仅用于语义高亮，彩色像素总量低于 canvas 的 10%。不要把颜色名称、Hex code 或角色标签渲染为图片中的可见文本。
 
-## Compatible With
+## 兼容
 
 - `ink-notes` (primary, default pairing)
-- `minimal` (strict monochrome variation, drops the style's built-in accent)
-- `sketch` (pencil + ink hybrid look)
+- `minimal`（严格 monochrome 变体，去掉该 style 内置强调色）
+- `sketch`（pencil + ink 混合外观）
 
-## Not Recommended With
+## 不推荐搭配
 
-- `sketch-notes` — its "no pure white backgrounds" rule conflicts
-- `warm`, `elegant`, `watercolor`, `fantasy-animation` — color-heavy by design, mono-ink strips their identity
+- `sketch-notes`，其“no pure white backgrounds”规则冲突
+- `warm`、`elegant`、`watercolor`、`fantasy-animation`，这些风格设计上依赖大量颜色，mono-ink 会削弱它们的身份特征
 
-## Best For
+## 适合
 
-Professional visual notes, Before/After essays, tech manifestos, framework analogies, whiteboard-presentation explainers
+专业视觉笔记、Before/After 文章、技术宣言、框架类比、白板演示式解释内容

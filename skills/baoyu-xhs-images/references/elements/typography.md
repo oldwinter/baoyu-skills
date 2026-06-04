@@ -1,96 +1,96 @@
 # Typography System
 
-Text styling elements for Xiaohongshu infographics.
+用于 Xiaohongshu infographics 的文本 styling 元素。
 
 ## Decorated Text (花字)
 
-Stylized text treatments for emphasis and visual appeal.
+用于强调和视觉吸引力的 stylized text treatments。
 
-| Name | Description | Use Case |
+| Name | 说明 | 使用场景 |
 |------|-------------|----------|
-| gradient | Gradient color fill | Title emphasis, modern feel |
-| stroke-text | Outlined text with stroke | Cover headlines, high visibility |
-| shadow-3d | 3D shadow/extrusion effect | Key terms, depth |
-| highlight | Highlighter marker effect | Critical information, key points |
-| neon | Neon glow effect | Tech content, night aesthetic |
-| handwritten | Authentic handwritten style | Personal touch, casual |
-| bubble | Rounded, inflated letterforms | Cute, playful content |
-| brush | Brush stroke texture | Artistic, dynamic |
+| gradient | 渐变色填充 | 标题强调、现代感 |
+| stroke-text | 带 stroke 的描边文本 | 封面标题、高可见性 |
+| shadow-3d | 3D shadow/extrusion 效果 | 关键词、深度 |
+| highlight | 荧光笔效果 | 关键信息、重点 |
+| neon | Neon glow 效果 | 科技内容、夜间美学 |
+| handwritten | 真实手写风格 | 个人触感、轻松 |
+| bubble | 圆润、膨胀字形 | 可爱、俏皮内容 |
+| brush | 笔刷纹理 | 艺术化、动态 |
 
 ## Tags & Labels (标签)
 
-Structured text containers.
+结构化文本容器。
 
-| Name | Description | Use Case |
+| Name | 说明 | 使用场景 |
 |------|-------------|----------|
-| black-white | Black background, white text | Brand names, prices, categories |
-| white-black | White background, black text | Clean labels, minimal style |
-| bubble | Speech bubble style | Dialogue, annotations, callouts |
-| pointer | Arrow pointer with label | Product callouts, pointing to features |
-| ribbon | Ribbon/banner shape | Special offers, highlights |
-| stamp | Stamp/seal style | Authenticity, recommendations |
-| pill | Rounded pill shape | Tags, categories, keywords |
+| black-white | 黑底白字 | 品牌名、价格、分类 |
+| white-black | 白底黑字 | 干净标签、minimal style |
+| bubble | Speech bubble style | 对话、注释、callouts |
+| pointer | 带标签的箭头指示 | 产品 callouts、指向功能 |
+| ribbon | Ribbon/banner 形状 | 特价、亮点 |
+| stamp | 印章/seal 风格 | 真实性、推荐 |
+| pill | 圆角 pill 形状 | 标签、分类、关键词 |
 
 ## Text Hierarchy
 
-Recommended text sizing for visual hierarchy.
+视觉层级的建议文本尺寸。
 
-| Level | Role | Relative Size | Style |
+| Level | 角色 | 相对尺寸 | Style |
 |-------|------|---------------|-------|
-| H1 | Main title | 100% | Bold, decorated |
+| H1 | 主标题 | 100% | Bold, decorated |
 | H2 | Section header | 70-80% | Semi-bold |
 | H3 | Subsection | 50-60% | Medium weight |
-| Body | Content text | 40-50% | Regular |
-| Caption | Small notes | 30-35% | Light |
+| Body | 正文文本 | 40-50% | Regular |
+| Caption | 小注 | 30-35% | Light |
 
 ## Text Direction
 
-| Direction | Description | Use Case |
+| Direction | 说明 | 使用场景 |
 |-----------|-------------|----------|
-| horizontal | Standard left-to-right | Default for most content |
-| vertical | Top-to-bottom columns | Magazine style, traditional Chinese |
-| curved | Text following a curve | Decorative, around shapes |
-| diagonal | Angled text | Dynamic compositions |
+| horizontal | 标准从左到右 | 大多数内容的默认值 |
+| vertical | 自上而下的列 | 杂志风格、传统中文 |
+| curved | 沿曲线排布文本 | 装饰性、围绕形状 |
+| diagonal | 倾斜文本 | 动态构图 |
 
 ## Text Effects
 
-| Effect | Description | Use Case |
+| Effect | 说明 | 使用场景 |
 |--------|-------------|----------|
-| shadow | Drop shadow behind text | Readability on busy backgrounds |
-| outline | Outline around letterforms | High contrast visibility |
-| glow | Soft glow around text | Dreamy, emphasis |
-| underline-wavy | Wavy underline decoration | Playful emphasis |
-| strikethrough | Crossed out text | Before/after, corrections |
+| shadow | 文本后方的 drop shadow | 忙碌背景上的可读性 |
+| outline | 字形周围描边 | 高对比可见性 |
+| glow | 文本周围柔光 | 梦幻、强调 |
+| underline-wavy | 波浪下划线装饰 | 俏皮强调 |
+| strikethrough | 划掉文本 | Before/after、修正 |
 
 ## Language Considerations
 
 ### Chinese Text (中文)
-- Punctuation: 「」（）、。！？
-- Spacing: No spaces between characters
-- Line height: 1.5-1.8x for readability
+- 标点： 「」（）、。！？
+- 间距：字符之间不加空格
+- 行高：1.5-1.8x 以保证可读性
 
 ### Mixed Text
-- English in Chinese context: Maintain consistent baseline
-- Numbers: Use consistent number style (lining vs old-style)
+- 中文语境中的 English：保持一致 baseline
+- 数字：使用一致数字风格（lining vs old-style）
 
 ## Style-Specific Typography
 
 ### Cute Style
-- Rounded, bubbly hand lettering
-- Soft shadows, playful decorations
-- Pink/pastel color accents
+- 圆润、泡泡感 hand lettering
+- 柔和阴影、俏皮装饰
+- Pink/pastel 色彩强调
 
 ### Notion Style
-- Clean hand-drawn lettering
-- Simple sans-serif labels
-- Minimal decoration
+- 干净 hand-drawn lettering
+- 简单 sans-serif labels
+- 极少装饰
 
 ### Bold Style
-- Impactful hand lettering with shadows
-- High contrast colors
-- Strong outlines
+- 带阴影、有冲击力的 hand lettering
+- 高对比颜色
+- 强描边
 
 ### Chalkboard Style
-- Chalk texture on all text
-- Visible imperfections
-- Multi-color chalk variety
+- 所有文本都有粉笔纹理
+- 可见不完美
+- 多色粉笔变化

@@ -1,59 +1,62 @@
 # Density Dimension
 
-Information density per slide.
+每张 slide 的信息密度。
 
 ## Options
 
 | Option | Content/Slide | Whitespace | Best For |
 |--------|---------------|------------|----------|
-| `minimal` | One focus point | Maximum | Executive briefings, keynotes, emotional impact |
-| `balanced` | 2-3 key points | Standard | General presentations, mixed audiences |
-| `dense` | Multiple data points | Compact | Data-heavy, technical reviews, detailed analysis |
+| `minimal` | 一个 focus point | 最大 | Executive briefings, keynotes, emotional impact |
+| `balanced` | 2-3 个 key points | 标准 | General presentations, mixed audiences |
+| `dense` | 多个 data points | 紧凑 | Data-heavy, technical reviews, detailed analysis |
 
 ## Rendering Guidelines
 
 ### minimal
 
-- ONE main idea per slide
-- Large visuals dominate
-- Minimal text (headline + 1-2 lines max)
-- Generous margins (15%+ from edges)
-- Maximum breathing room between elements
-- Let single element carry full weight
+- 每张 slide 只放一个 main idea
+- 大视觉占主导
+- 最少文字（headline + 最多 1-2 行）
+- 大边距（距边缘 15%+）
+- 元素之间有最大 breathing room
+- 让单个元素承载全部重量
 
-**Principles**:
+**Principles**：
+
 - "One slide, one message"
 - Visual > text
-- Empty space is intentional
-- Every element must earn its space
+- Empty space 是有意设计
+- 每个元素都必须值得占据空间
 
 ### balanced
 
-- 2-3 key points per slide
-- Standard margins (10% from edges)
-- Balanced text/visual ratio
-- Clear hierarchy with supporting details
-- Comfortable reading experience
+- 每张 slide 2-3 个 key points
+- 标准 margins（距边缘 10%）
+- Text/visual ratio 平衡
+- 清楚层级和支撑细节
+- 舒适阅读体验
 
-**Principles**:
+**Principles**：
+
 - Primary point + supporting context
-- Visuals complement text
-- Structured but not crowded
-- Good for diverse audiences
+- Visuals 补充 text
+- 结构化但不拥挤
+- 适合多样 audiences
 
 ### dense
 
-- Multiple data points acceptable
-- Compact margins (5-8% from edges)
-- Information-rich layouts
-- Charts, tables, detailed annotations
-- Assume engaged, attentive audience
+- 可接受多个 data points
+- 紧凑 margins（距边缘 5-8%）
+- 信息丰富 layouts
+- Charts、tables、详细 annotations
+- 假设 audience 专注且愿意投入阅读
 
-**Principles**:
+**Principles**：
+
 - Data speaks louder than decoration
-- Annotations explain insights
-- White space is strategic
-- Every pixel serves a purpose
+- Annotations 解释 insights
+- White space 是策略性的
+- 每个 pixel 都服务目的
 
 ## Audience → Density Mapping
 
@@ -83,36 +86,36 @@ Information density per slide.
 
 | Element | Guideline |
 |---------|-----------|
-| Headlines | Large (40-60pt equivalent) |
-| Body text | Minimal or none |
-| Bullet points | 0-2 max |
-| Visual elements | 1 dominant element |
-| Charts/Data | 1 key stat only |
+| Headlines | 大号（约 40-60pt） |
+| Body text | 最少或无 |
+| Bullet points | 最多 0-2 个 |
+| Visual elements | 1 个 dominant element |
+| Charts/Data | 只放 1 个 key stat |
 
 ### balanced
 
 | Element | Guideline |
 |---------|-----------|
-| Headlines | Medium-large (32-48pt equivalent) |
-| Body text | 2-4 lines |
-| Bullet points | 2-4 |
-| Visual elements | 1-2 elements |
-| Charts/Data | Simple charts OK |
+| Headlines | 中大号（约 32-48pt） |
+| Body text | 2-4 行 |
+| Bullet points | 2-4 个 |
+| Visual elements | 1-2 个元素 |
+| Charts/Data | 可用 simple charts |
 
 ### dense
 
 | Element | Guideline |
 |---------|-----------|
-| Headlines | Medium (24-36pt equivalent) |
-| Body text | Multiple paragraphs OK |
+| Headlines | 中号（约 24-36pt） |
+| Body text | 可有多个 paragraphs |
 | Bullet points | 4-6+ |
-| Visual elements | Multiple allowed |
-| Charts/Data | Complex charts, tables OK |
+| Visual elements | 可有多个 |
+| Charts/Data | 可用 complex charts、tables |
 
 ## Combination Notes
 
 | Density | Works Best With | Avoid With |
 |---------|-----------------|------------|
 | minimal | neutral mood, geometric typography | dense data content |
-| balanced | any mood/typography | extremes (too sparse or too packed) |
+| balanced | any mood/typography | extremes（过空或过满） |
 | dense | cool mood, technical typography | handwritten typography, organic texture |

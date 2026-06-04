@@ -1,57 +1,57 @@
 # sketch
 
-Raw, authentic notebook-style illustration for ideas and processes
+适合想法与流程的原始、真实 notebook 风格 illustration。
 
-## Design Aesthetic
+## 设计美学
 
-Hand-drawn sketch aesthetic that feels authentic and in-progress. Pencil-on-paper quality with intentional imperfection. Suggests thinking, brainstorming, and creative exploration. Raw and honest visual approach that invites collaboration.
+手绘 sketch 美学，呈现真实且进行中的感觉。铅笔画在纸上的质感，保留刻意的不完美。暗示思考、头脑风暴和创意探索。原始、坦诚的视觉方式，会邀请协作。
 
-## Background
+## 背景
 
-- Color: Off-White Paper (#F7FAFC) or Cream (#FAFAFA)
-- Texture: Paper texture with visible grain
+- 颜色：Off-White Paper (#F7FAFC) 或 Cream (#FAFAFA)
+- 纹理：带可见颗粒的纸张纹理
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Paper White | #F7FAFC | Primary background |
-| Primary | Pencil Gray | #4A5568 | Main sketch lines |
-| Secondary | Light Gray | #A0AEC0 | Shading, soft marks |
-| Highlight Blue | Note Blue | #3182CE | Highlight color |
-| Highlight Red | Mark Red | #E53E3E | Emphasis color |
-| Highlight Yellow | Marker Yellow | #F6E05E | Highlighter effect |
-| Text | Charcoal | #2D3748 | Text elements |
+| Background | Paper White | #F7FAFC | 主背景 |
+| Primary | Pencil Gray | #4A5568 | 主要 sketch 线条 |
+| Secondary | Light Gray | #A0AEC0 | 阴影、柔和标记 |
+| Highlight Blue | Note Blue | #3182CE | 高光色 |
+| Highlight Red | Mark Red | #E53E3E | 强调色 |
+| Highlight Yellow | Marker Yellow | #F6E05E | 荧光笔效果 |
+| Text | Charcoal | #2D3748 | 文本元素 |
 
-## Visual Elements
+## 视觉元素
 
-- Rough sketch lines with natural variation
-- Arrows and directional pointers
-- Handwritten labels and notes
-- Crossed-out marks and corrections
-- Underlines and emphasis marks
-- Simple diagram shapes
-- Margin notes style
-- Quick icon sketches
+- 带自然变化的粗糙 sketch 线条
+- 箭头与方向指示
+- 手写标签和笔记
+- 划掉标记与修正
+- 下划线和强调标记
+- 简单 diagram 形状
+- 页边注风格
+- 快速图标 sketch
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Use pencil-like line quality
-- Include natural imperfections
-- Add handwritten annotations
-- Create diagram-style layouts
-- Show thinking process
+- 使用铅笔般的线条质感
+- 包含自然不完美
+- 添加手写注释
+- 创建 diagram 风格布局
+- 展示思考过程
 
-### Don't
+### 不要
 
-- Use perfect geometric shapes
-- Add polished or refined elements
-- Create colorful compositions
-- Use digital effects
-- Make it look finished
+- 使用完美几何形状
+- 添加 polished 或 refined 元素
+- 创建多彩构图
+- 使用 digital 效果
+- 让画面看起来像最终稿
 
-## Best For
+## 适合
 
-Ideas in progress, brainstorming articles, thought processes, concept exploration, draft-stage thinking, planning content, problem-solving pieces
+进行中的想法、头脑风暴文章、思考过程、概念探索、草稿阶段思考、规划内容、问题解决文章

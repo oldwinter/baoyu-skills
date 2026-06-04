@@ -1,57 +1,57 @@
 # blueprint
 
-Precise technical blueprint style with engineering precision
+精确的技术 blueprint 风格，强调工程级精度。
 
-## Design Aesthetic
+## 设计美学
 
-Clean, structured visual metaphors using blueprints, diagrams, and schematics. Precise, analytical and aesthetically refined. Information presented in grid-based layouts with engineering precision. Technical drawing quality with professional polish.
+使用 blueprint、diagram 和 schematic 构建干净、有结构的视觉隐喻。精确、分析性强，并具有审美上的克制。信息以基于网格的布局呈现，具有工程级精度。具备技术制图质感和专业完成度。
 
-## Background
+## 背景
 
-- Color: Blueprint Off-White (#FAF8F5)
-- Texture: Subtle grid overlay, engineering paper feel
+- 颜色：Blueprint Off-White (#FAF8F5)
+- 纹理：细微网格叠层，工程纸质感
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Blueprint Paper | #FAF8F5 | Primary background |
-| Grid | Light Gray | #E5E5E5 | Background grid lines |
-| Primary Text | Deep Slate | #334155 | Headlines, body |
-| Primary Accent | Engineering Blue | #2563EB | Key elements |
-| Secondary Accent | Navy Blue | #1E3A5F | Supporting elements |
-| Tertiary | Light Blue | #BFDBFE | Fills, backgrounds |
-| Warning | Amber | #F59E0B | Warnings, emphasis |
+| Background | Blueprint Paper | #FAF8F5 | 主背景 |
+| Grid | Light Gray | #E5E5E5 | 背景网格线 |
+| Primary Text | Deep Slate | #334155 | 标题、正文 |
+| Primary Accent | Engineering Blue | #2563EB | 关键元素 |
+| Secondary Accent | Navy Blue | #1E3A5F | 辅助元素 |
+| Tertiary | Light Blue | #BFDBFE | 填充、背景 |
+| Warning | Amber | #F59E0B | 警告、强调 |
 
-## Visual Elements
+## 视觉元素
 
-- Precise lines with consistent stroke weights
-- Technical schematics and clean vector graphics
-- Thin line work in technical drawing style
-- Connection lines: straight or 90-degree angles only
-- Data visualization with minimal charts
-- Dimension lines and measurement indicators
-- Cross-section style diagrams
-- Isometric or orthographic projections
+- 精确线条，stroke weight 保持一致
+- 技术 schematic 和干净 vector graphics
+- 技术制图风格的细线条
+- 连接线：只使用直线或 90 度折线
+- 使用极简图表进行数据可视化
+- 尺寸线与测量指示
+- 剖面风格 diagram
+- Isometric 或 orthographic projection
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Maintain consistent line weights
-- Use grid alignment for all elements
-- Keep color palette restrained
-- Create clear visual hierarchy through scale
-- Use geometric precision for all shapes
+- 保持一致线宽
+- 所有元素使用网格对齐
+- 保持调色板克制
+- 通过尺度建立清晰视觉层级
+- 所有形状都使用几何精度
 
-### Don't
+### 不要
 
-- Use hand-drawn or organic shapes
-- Add decorative flourishes
-- Use curved connection lines
-- Include photographic elements
-- Add unnecessary embellishments
+- 使用手绘或有机形状
+- 添加装饰性花样
+- 使用弯曲连接线
+- 包含摄影元素
+- 加入不必要的装饰
 
-## Best For
+## 适合
 
-Technical architecture, system design, data analysis, engineering documentation, process flows, infrastructure articles
+技术架构、系统设计、数据分析、工程文档、流程图、基础设施文章

@@ -1,26 +1,26 @@
 # MiniMax
 
-Read when the user picks `--provider minimax` or sets `default_model.minimax`. Default model is `image-01`.
+当用户选择 `--provider minimax` 或设置 `default_model.minimax` 时读取。默认 model 是 `image-01`。
 
 ## Models
 
-**`image-01`** (recommended default)
+**`image-01`**（推荐默认）
 
-- Supports text-to-image and subject-reference image generation
-- Supports official `aspect_ratio` values: `1:1`, `16:9`, `4:3`, `3:2`, `2:3`, `3:4`, `9:16`, `21:9`
-- Supports documented custom `width` / `height` via `--size <WxH>`
-- Both width and height must be in `[512, 2048]` and divisible by `8`
+- 支持 text-to-image 和 subject-reference image generation
+- 支持官方 `aspect_ratio` values：`1:1`、`16:9`、`4:3`、`3:2`、`2:3`、`3:4`、`9:16`、`21:9`
+- 通过 `--size <WxH>` 支持 documented custom `width` / `height`
+- Width 和 height 都必须在 `[512, 2048]` 内，且能被 `8` 整除
 
-**`image-01-live`** — lower-latency variant
+**`image-01-live`** - lower-latency variant
 
-- Use `--ar` for sizing; MiniMax documents custom `width`/`height` only for `image-01`
+- 使用 `--ar` 控制 sizing；MiniMax 只为 `image-01` 文档化 custom `width`/`height`
 
 ## Subject Reference
 
-- `--ref` files are sent as MiniMax `subject_reference`
-- `subject_reference[].type` is currently `character`
-- Official docs say `image_file` supports public URLs or Base64 Data URLs; baoyu-image-gen sends local refs as Data URLs
-- Recommended refs: front-facing portraits, JPG/JPEG/PNG, under 10MB
+- `--ref` files 会作为 MiniMax `subject_reference` 发送
+- `subject_reference[].type` 当前为 `character`
+- Official docs 表示 `image_file` 支持 public URLs 或 Base64 Data URLs；baoyu-image-gen 将 local refs 作为 Data URLs 发送
+- 推荐 refs：front-facing portraits、JPG/JPEG/PNG、10MB 以下
 
 ## Official References
 

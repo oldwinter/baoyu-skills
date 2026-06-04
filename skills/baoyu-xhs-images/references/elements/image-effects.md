@@ -1,75 +1,75 @@
 # Image Processing Layer
 
-Visual effects applied to image elements in Xiaohongshu infographics.
+应用于 Xiaohongshu infographics 中图片元素的视觉效果。
 
 ## AI Cutout (抠图)
 
-Subject extraction styles for product/figure isolation.
+用于产品/人物隔离的主体提取风格。
 
-| Name | Description | Use Case |
+| Name | 说明 | 使用场景 |
 |------|-------------|----------|
-| clean | Sharp edges, precise boundaries | Product photography, tech items |
-| soft | Soft transition, feathered edges | Portrait cutout, organic subjects |
-| stylized | Hand-drawn edge treatment | Artistic compositions |
+| clean | 边缘锐利、边界精确 | 产品摄影、科技物件 |
+| soft | 柔和过渡、羽化边缘 | 人像抠图、有机主体 |
+| stylized | 手绘边缘处理 | 艺术构图 |
 
 ## Stroke Effects (描边)
 
-Border treatments for cutout elements.
+抠图元素的边框处理。
 
-| Name | Description | Use Case |
+| Name | 说明 | 使用场景 |
 |------|-------------|----------|
-| white-solid | White solid line border | Classic sticker feel, high contrast |
-| colored-solid | Colored solid line border | Playful vibe, brand colors |
-| dashed | Dashed/dotted border | Handmade aesthetic, casual |
-| double | Double-layer stroke | Emphasis effect, premium feel |
-| glow | Soft outer glow | Dreamy, soft aesthetic |
-| shadow | Drop shadow effect | Depth, floating element |
+| white-solid | 白色实线边框 | 经典 sticker 感、高对比 |
+| colored-solid | 彩色实线边框 | 俏皮氛围、品牌色 |
+| dashed | 虚线/点线边框 | 手作美学、轻松 |
+| double | 双层 stroke | 强调效果、高级感 |
+| glow | 柔和外发光 | 梦幻、柔软美学 |
+| shadow | Drop shadow effect | 深度、漂浮元素 |
 
-**Stroke Width Guidelines**:
-- Thin: 2-4px - Subtle, elegant
-- Medium: 5-8px - Standard visibility
-- Thick: 10-15px - Bold emphasis
+**Stroke 宽度指南**：
+- Thin: 2-4px，细微、优雅
+- Medium: 5-8px，标准可见性
+- Thick: 10-15px，大胆强调
 
 ## Filters (滤镜)
 
-Color grading and mood presets popular on XHS.
+XHS 上常见的 color grading 和情绪 presets。
 
-| Name | Chinese | Description | Mood |
+| Name | Chinese | 说明 | Mood |
 |------|---------|-------------|------|
-| clear-glow | 清透感 | Transparent, radiant, luminous | Fresh, youthful |
-| film-grain | 胶片感 | Vintage film aesthetic, grain texture | Nostalgic, artistic |
-| cream-skin | 奶油肌 | Smooth, creamy complexion tones | Soft, flattering |
+| clear-glow | 清透感 | 通透、发光、明亮 | Fresh, youthful |
+| film-grain | 胶片感 | Vintage film aesthetic、颗粒纹理 | Nostalgic, artistic |
+| cream-skin | 奶油肌 | 平滑、奶油感肤色 | Soft, flattering |
 | japanese-magazine | 日杂感 | Lifestyle magazine aesthetic | Curated, aspirational |
-| high-saturation | 高饱和 | Vibrant, punchy colors | Energetic, eye-catching |
-| muted-tones | 莫兰迪 | Morandi-style desaturated palette | Sophisticated, calm |
-| warm-tone | 暖色调 | Golden hour warmth | Cozy, inviting |
-| cool-tone | 冷色调 | Blue-shifted coolness | Modern, clean |
+| high-saturation | 高饱和 | 鲜艳、有冲击力的颜色 | Energetic, eye-catching |
+| muted-tones | 莫兰迪 | Morandi-style 低饱和 palette | Sophisticated, calm |
+| warm-tone | 暖色调 | Golden hour 温暖感 | Cozy, inviting |
+| cool-tone | 冷色调 | 偏蓝冷感 | Modern, clean |
 
 ## Texture Overlays
 
-Additional texture effects.
+附加纹理效果。
 
-| Name | Description | Use Case |
+| Name | 说明 | 使用场景 |
 |------|-------------|----------|
-| paper | Paper or fabric texture | Handmade feel |
-| noise | Fine grain noise | Analog aesthetic |
-| halftone | Dot pattern | Retro print style |
-| scratch | Light scratch marks | Vintage wear |
+| paper | 纸张或织物纹理 | 手作感 |
+| noise | 细颗粒噪点 | Analog aesthetic |
+| halftone | 圆点图案 | Retro print style |
+| scratch | 轻微划痕 | Vintage wear |
 
 ## Blending Modes
 
-For layered compositions.
+用于分层构图。
 
-| Mode | Effect | Use Case |
+| Mode | 效果 | 使用场景 |
 |------|--------|----------|
-| multiply | Darken, merge | Shadow effects |
-| screen | Lighten, glow | Light effects |
-| overlay | Contrast boost | Vibrant compositions |
-| soft-light | Subtle blending | Natural layering |
+| multiply | 变暗、融合 | 阴影效果 |
+| screen | 变亮、发光 | 光效 |
+| overlay | 增强对比 | 鲜艳构图 |
+| soft-light | 细微混合 | 自然分层 |
 
 ## Effect Combinations
 
-Common effect stacks for different styles:
+不同 styles 的常见效果栈：
 
 ### Cute Style
 - Filter: clear-glow or cream-skin

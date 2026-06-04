@@ -1,6 +1,6 @@
 # Outline Template
 
-Standard structure for slide deck outlines with style instructions.
+带 style instructions 的 slide deck outline 标准结构。
 
 ## Outline Format
 
@@ -18,15 +18,15 @@ Standard structure for slide deck outlines with style instructions.
 ---
 
 <STYLE_INSTRUCTIONS>
-Design Aesthetic: [2-3 sentence description combining dimension characteristics]
+Design Aesthetic: [结合各 dimension 特征的 2-3 句描述]
 
 Background:
   Texture: [from texture dimension]
   Base Color: [from mood dimension palette]
 
 Typography:
-  Headlines: [from typography dimension - describe visual appearance]
-  Body: [from typography dimension - describe visual appearance]
+  Headlines: [from typography dimension - 描述视觉外观]
+  Body: [from typography dimension - 描述视觉外观]
 
 Color Palette:
   Primary Text: [Name] ([Hex]) - [usage]
@@ -55,11 +55,11 @@ Style Rules:
 
 ## Building STYLE_INSTRUCTIONS from Dimensions
 
-When using custom dimensions or presets, build STYLE_INSTRUCTIONS by combining:
+使用 custom dimensions 或 presets 时，通过组合以下内容构建 STYLE_INSTRUCTIONS：
 
 ### 1. Design Aesthetic
 
-Combine characteristics from all four dimensions into 2-3 sentences:
+把四个 dimensions 的特征组合成 2-3 句话：
 
 | Texture | Contribution |
 |---------|--------------|
@@ -80,27 +80,30 @@ Combine characteristics from all four dimensions into 2-3 sentences:
 
 ### 2. Background
 
-From `references/dimensions/texture.md`:
+来自 `references/dimensions/texture.md`：
+
 - Texture description
 - Base color from mood palette
 
 ### 3. Typography
 
-From `references/dimensions/typography.md`:
-- Headline visual description (NOT font names)
-- Body text visual description (NOT font names)
+来自 `references/dimensions/typography.md`：
 
-**Important**: Describe appearance for image generation: "bold geometric sans-serif with perfect circular O shapes" NOT "Inter font".
+- Headline visual description（不是 font names）
+- Body text visual description（不是 font names）
+
+**Important**：为 image generation 描述外观，例如 "bold geometric sans-serif with perfect circular O shapes"，不要写 "Inter font"。
 
 ### 4. Color Palette
 
-From `references/dimensions/mood.md`:
-- Copy the palette specifications for the selected mood
-- Include hex codes and usage notes
+来自 `references/dimensions/mood.md`：
+
+- 复制所选 mood 的 palette specifications
+- 包含 hex codes 和 usage notes
 
 ### 5. Visual Elements
 
-Combine texture and mood characteristics:
+组合 texture 和 mood 特征：
 
 | Combination | Visual Elements |
 |-------------|-----------------|
@@ -112,28 +115,31 @@ Combine texture and mood characteristics:
 
 ### 6. Density Guidelines
 
-From `references/dimensions/density.md`:
+来自 `references/dimensions/density.md`：
+
 - Content per slide limits
 - Whitespace requirements
 - Element count guidelines
 
 ### 7. Style Rules
 
-Combine dimension-specific rules:
+组合 dimension-specific rules：
 
-**Do rules by texture**:
-- clean: Maintain sharp edges, use grid alignment
-- grid: Show precise measurements, use technical diagrams
-- organic: Allow imperfection, layer with subtle overlaps
-- pixel: Keep aliased edges, use chunky elements
-- paper: Add subtle aging effects, use warm tones
+**Do rules by texture**：
 
-**Don't rules by texture**:
-- clean: Don't use hand-drawn elements
-- grid: Don't use organic curves
-- organic: Don't use perfect geometry
-- pixel: Don't smooth edges
-- paper: Don't use bright digital colors
+- clean：保持 sharp edges，使用 grid alignment
+- grid：展示 precise measurements，使用 technical diagrams
+- organic：允许 imperfection，使用 subtle overlaps 叠层
+- pixel：保持 aliased edges，使用 chunky elements
+- paper：添加 subtle aging effects，使用 warm tones
+
+**Don't rules by texture**：
+
+- clean：不要使用 hand-drawn elements
+- grid：不要使用 organic curves
+- organic：不要使用 perfect geometry
+- pixel：不要 smooth edges
+- paper：不要使用 bright digital colors
 
 ## Cover Slide Template
 
@@ -144,14 +150,14 @@ Combine dimension-specific rules:
 **Filename**: 01-slide-cover.png
 
 // NARRATIVE GOAL
-[What this slide achieves in the story arc]
+[这张 slide 在 story arc 中达成什么]
 
 // KEY CONTENT
 Headline: [main title]
 Sub-headline: [supporting tagline]
 
 // VISUAL
-[Detailed visual description - specific elements, composition, mood]
+[详细视觉描述 - 具体元素、构图、mood]
 
 // LAYOUT
 Layout: [optional: layout name from gallery, e.g., title-hero]
@@ -167,7 +173,7 @@ Layout: [optional: layout name from gallery, e.g., title-hero]
 **Filename**: {NN}-slide-{slug}.png
 
 // NARRATIVE GOAL
-[What this slide achieves in the story arc]
+[这张 slide 在 story arc 中达成什么]
 
 // KEY CONTENT
 Headline: [main message - narrative, not label]
@@ -178,7 +184,7 @@ Body:
 - [point 3 with specific detail]
 
 // VISUAL
-[Detailed visual description]
+[详细视觉描述]
 
 // LAYOUT
 Layout: [optional: layout name from gallery]
@@ -194,14 +200,14 @@ Layout: [optional: layout name from gallery]
 **Filename**: {NN}-slide-back-cover.png
 
 // NARRATIVE GOAL
-[Meaningful closing - not just "thank you"]
+[有意义的收尾，不只是 "thank you"]
 
 // KEY CONTENT
 Headline: [memorable closing statement or call-to-action]
 Body: [optional summary points or next steps]
 
 // VISUAL
-[Visual that reinforces the core message]
+[强化 core message 的视觉]
 
 // LAYOUT
 Layout: [optional: layout name from gallery]
@@ -210,25 +216,26 @@ Layout: [optional: layout name from gallery]
 
 ## STYLE_INSTRUCTIONS Block
 
-The `<STYLE_INSTRUCTIONS>` block is the SINGLE SOURCE OF TRUTH for style information in this outline.
+`<STYLE_INSTRUCTIONS>` block 是此 outline 中 style information 的 SINGLE SOURCE OF TRUTH。
 
 | Section | Content | Source |
 |---------|---------|--------|
-| Design Aesthetic | Overall visual direction | Combined from all dimensions |
-| Background | Base color and texture details | texture + mood dimensions |
-| Typography | Font descriptions (visual, not names) | typography dimension |
-| Color Palette | Named colors with hex codes and usage | mood dimension |
-| Visual Elements | Graphic elements with rendering instructions | texture + mood dimensions |
-| Density Guidelines | Content limits and whitespace | density dimension |
+| Design Aesthetic | 整体视觉方向 | Combined from all dimensions |
+| Background | Base color 和 texture details | texture + mood dimensions |
+| Typography | Font descriptions（视觉描述，不是名称） | typography dimension |
+| Color Palette | 带 hex codes 和 usage 的命名颜色 | mood dimension |
+| Visual Elements | 带 rendering instructions 的图形元素 | texture + mood dimensions |
+| Density Guidelines | Content limits 和 whitespace | density dimension |
 | Style Rules | Do/Don't guidelines | Combined from dimensions |
 
-**Important**:
-- Typography descriptions must describe visual appearance (e.g., "rounded sans-serif", "bold geometric") since image generators cannot use font names
-- Prompts should extract STYLE_INSTRUCTIONS from this outline, NOT re-read style files
+**Important**：
+
+- Typography descriptions 必须描述视觉外观（例如 "rounded sans-serif"、"bold geometric"），因为 image generators 无法使用 font names
+- Prompts 应从此 outline 提取 STYLE_INSTRUCTIONS，而不是重新读取 style files
 
 ## Preset → Dimensions Reference
 
-When using a preset, look up dimensions in `references/dimensions/presets.md`:
+使用 preset 时，在 `references/dimensions/presets.md` 中查找 dimensions：
 
 | Preset | Dimensions |
 |--------|------------|
@@ -236,25 +243,26 @@ When using a preset, look up dimensions in `references/dimensions/presets.md`:
 | sketch-notes | organic + warm + handwritten + balanced |
 | corporate | clean + professional + geometric + balanced |
 | minimal | clean + neutral + geometric + minimal |
-| ... | See presets.md for full mapping |
+| ... | 完整 mapping 见 presets.md |
 
 ## Section Dividers
 
-Use `---` (horizontal rule) between:
-- Header metadata and STYLE_INSTRUCTIONS
-- STYLE_INSTRUCTIONS and first slide
-- Each slide entry
+在以下位置使用 `---`（horizontal rule）：
+
+- Header metadata 和 STYLE_INSTRUCTIONS 之间
+- STYLE_INSTRUCTIONS 和第一张 slide 之间
+- 每个 slide entry 之间
 
 ## Slide Numbering
 
-- Cover is always Slide 1
-- Content slides use sequential numbers
-- Back Cover is always final slide (N)
-- Filename prefix matches slide position: `01-`, `02-`, etc.
+- Cover 始终是 Slide 1
+- Content slides 使用连续编号
+- Back Cover 始终是最后一张 slide (N)
+- Filename prefix 匹配 slide position：`01-`、`02-` 等
 
 ## Filename Slugs
 
-Generate meaningful slugs from slide content:
+从 slide content 生成有意义的 slugs：
 
 | Slide Type | Slug Pattern | Example |
 |------------|--------------|---------|
@@ -262,8 +270,9 @@ Generate meaningful slugs from slide content:
 | Content | `{topic-slug}` | `02-slide-problem-statement.png` |
 | Back Cover | `back-cover` | `10-slide-back-cover.png` |
 
-Slug rules:
-- Kebab-case (lowercase, hyphens)
-- Derived from headline or main topic
-- Maximum 30 characters
-- Unique within deck
+Slug rules：
+
+- Kebab-case（小写、hyphens）
+- 从 headline 或 main topic 派生
+- 最多 30 个字符
+- 在 deck 内唯一

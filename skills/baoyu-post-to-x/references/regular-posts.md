@@ -1,29 +1,29 @@
 # Regular Posts - Detailed Guide
 
-Detailed documentation for posting text and images to X.
+向 X 发布文本和图片的详细文档。
 
 ## Manual Workflow
 
-If you prefer step-by-step control:
+如果需要 step-by-step control：
 
-### Step 0: Prefer Chrome Computer Use in Codex
+### Step 0：Codex 中优先使用 Chrome Computer Use
 
-When running inside Codex, first detect whether Chrome Computer Use is enabled:
+在 Codex 内运行时，先检测 Chrome Computer Use 是否启用：
 
-1. If Computer Use tools are already visible, call `get_app_state` for `Google Chrome`.
-2. If not, use `tool_search` for `computer-use get_app_state click press_key drag scroll Google Chrome`, then call `get_app_state`.
-3. If `get_app_state` succeeds, use the user's real Chrome with Computer Use for all X UI actions.
-4. Use CDP scripts only when Computer Use is unavailable or explicitly requested.
+1. 如果 Computer Use tools 已可见，对 `Google Chrome` 调用 `get_app_state`。
+2. 如果不可见，用 `tool_search` 查找 `computer-use get_app_state click press_key drag scroll Google Chrome`，然后调用 `get_app_state`。
+3. 如果 `get_app_state` 成功，对所有 X UI actions 使用用户真实 Chrome + Computer Use。
+4. 只有在 Computer Use 不可用或用户明确要求时，才使用 CDP scripts。
 
-If the user explicitly asks for Chrome Computer Use, do not use Playwright, the in-app Browser, or CDP without approval.
+如果用户明确要求 Chrome Computer Use，未经同意不要使用 Playwright、in-app Browser 或 CDP。
 
-### Step 1: Copy Image to Clipboard
+### Step 1：Copy Image to Clipboard
 
 ```bash
 ${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts image /path/to/image.png
 ```
 
-### Step 2: Paste from Clipboard
+### Step 2：Paste from Clipboard
 
 ```bash
 # Simple paste to frontmost app
@@ -36,25 +36,25 @@ ${BUN_X} {baseDir}/scripts/paste-from-clipboard.ts --app "Google Chrome" --retri
 ${BUN_X} {baseDir}/scripts/paste-from-clipboard.ts --delay 200
 ```
 
-### Step 3: Use Chrome Computer Use (Preferred)
+### Step 3：Use Chrome Computer Use（Preferred）
 
-1. Use `get_app_state` for `Google Chrome`.
-2. Navigate Chrome to `https://x.com/compose/post` if needed.
-3. Click the composer and type the post text.
-4. Copy each image to the clipboard with `copy-to-clipboard.ts image <path>`.
-5. Press `super+v` on macOS or `control+v` on Windows/Linux with Computer Use.
-6. Wait until X finishes media upload.
-7. Ask for explicit confirmation before clicking `Post`.
+1. 对 `Google Chrome` 使用 `get_app_state`。
+2. 如有需要，将 Chrome 导航到 `https://x.com/compose/post`。
+3. 点击 composer，并输入 post text。
+4. 用 `copy-to-clipboard.ts image <path>` 把每张图片复制到 clipboard。
+5. 用 Computer Use 按 `super+v`（macOS）或 `control+v`（Windows/Linux）。
+6. 等待 X 完成 media upload。
+7. 点击 `Post` 前请求 explicit confirmation。
 
 ## Image Support
 
-- Formats: PNG, JPEG, GIF, WebP
-- Max 4 images per post
-- Images copied to system clipboard, then pasted via keyboard shortcut
+- Formats：PNG、JPEG、GIF、WebP
+- 每条 post 最多 4 张图片
+- 图片先复制到 system clipboard，再通过 keyboard shortcut 粘贴
 
 ## Example Session
 
-```
+```text
 User: /post-to-x "Hello from Claude!" --image ./screenshot.png
 
 Claude:
@@ -68,38 +68,40 @@ Claude:
 
 ## Troubleshooting
 
-- **Chrome not found**: Set `X_BROWSER_CHROME_PATH` environment variable
-- **Not logged in**: First run opens Chrome - log in manually, cookies are saved
-- **Image paste fails**:
-  - Verify clipboard script: `${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts image <path>`
-  - On macOS, grant "Accessibility" permission to Terminal/iTerm in System Settings > Privacy & Security > Accessibility
-  - Keep Chrome window visible and in front during paste operations
-- **osascript permission denied**: Grant Terminal accessibility permissions in System Preferences
-- **Rate limited**: Wait a few minutes before retrying
+- **Chrome not found**：设置 `X_BROWSER_CHROME_PATH` environment variable
+- **Not logged in**：首次运行会打开 Chrome；手动登录后 cookies 会保存
+- **Image paste fails**：
+  - 验证 clipboard script：`${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts image <path>`
+  - macOS 上，在 System Settings > Privacy & Security > Accessibility 中授予 Terminal/iTerm "Accessibility" permission
+  - 粘贴操作期间保持 Chrome window 可见且在前台
+- **osascript permission denied**：在 System Preferences 中授予 Terminal accessibility permissions
+- **Rate limited**：等待几分钟后 retry
 
 ## How It Works
 
-In Chrome Computer Use mode:
-1. Codex controls the user's visible Google Chrome window
-2. Text is typed through the real UI
-3. Images are copied to the system clipboard and pasted with real keystrokes
-4. The user confirms before the final public post
+在 Chrome Computer Use mode 中：
 
-The `x-browser.ts` script is the CDP fallback. It uses Chrome DevTools Protocol (CDP) to:
-1. Launch real Chrome (not Playwright) with `--disable-blink-features=AutomationControlled`
-2. Use persistent profile directory for saved login sessions
-3. Interact with X via CDP commands (Runtime.evaluate, Input.dispatchKeyEvent)
-4. **Paste images using osascript** (macOS): Sends real Cmd+V keystroke to Chrome, bypassing CDP's synthetic events that X can detect
+1. Codex 控制用户可见的 Google Chrome window
+2. Text 通过真实 UI 输入
+3. Images 被复制到 system clipboard，并通过真实 keystrokes 粘贴
+4. 最终 public post 前由用户确认
 
-This approach bypasses X's anti-automation detection that blocks Playwright/Puppeteer.
+`x-browser.ts` script 是 CDP fallback。它使用 Chrome DevTools Protocol（CDP）：
 
-### Image Paste Mechanism (macOS)
+1. 启动真实 Chrome（不是 Playwright），并带 `--disable-blink-features=AutomationControlled`
+2. 使用 persistent profile directory 保存 login sessions
+3. 通过 CDP commands（Runtime.evaluate、Input.dispatchKeyEvent）与 X 交互
+4. **使用 osascript 粘贴图片**（macOS）：向 Chrome 发送真实 Cmd+V keystroke，绕过 X 可检测到的 CDP synthetic events
 
-CDP's `Input.dispatchKeyEvent` sends "synthetic" keyboard events that websites can detect. X ignores synthetic paste events for security. The solution:
+该方式绕过 X 对 Playwright/Puppeteer 的 anti-automation detection。
 
-1. Copy image to system clipboard via Swift/AppKit (`copy-to-clipboard.ts`)
-2. Bring Chrome to front via `osascript`
-3. Send real Cmd+V keystroke via `osascript` and System Events
-4. Wait for upload to complete
+### Image Paste Mechanism（macOS）
 
-This requires Terminal to have "Accessibility" permission in System Settings.
+CDP 的 `Input.dispatchKeyEvent` 发送网站可检测的 "synthetic" keyboard events。出于安全原因，X 会忽略 synthetic paste events。解决方法：
+
+1. 通过 Swift/AppKit（`copy-to-clipboard.ts`）把图片复制到 system clipboard
+2. 通过 `osascript` 把 Chrome 置于前台
+3. 通过 `osascript` 和 System Events 发送真实 Cmd+V keystroke
+4. 等待 upload 完成
+
+这要求 Terminal 在 System Settings 中拥有 "Accessibility" permission。

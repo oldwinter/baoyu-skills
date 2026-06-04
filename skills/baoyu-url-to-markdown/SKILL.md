@@ -1,6 +1,6 @@
 ---
 name: baoyu-url-to-markdown
-description: Fetch any URL and convert to markdown using baoyu-fetch CLI (Chrome CDP with site-specific adapters). Built-in adapters for X/Twitter, YouTube transcripts, Hacker News threads, and generic pages via Defuddle. Handles login/CAPTCHA via interaction wait modes. Use when user wants to save a webpage as markdown.
+description: 使用 baoyu-fetch CLI（Chrome CDP + site-specific adapters）抓取任意 URL 并转换为 markdown。内置 X/Twitter、YouTube transcripts、Hacker News threads 和基于 Defuddle 的 generic pages adapters。通过交互等待模式处理 login/CAPTCHA。当用户想把网页保存为 markdown 时使用。
 version: 1.61.0
 metadata:
   openclaw:
@@ -12,32 +12,33 @@ metadata:
 
 # URL to Markdown
 
-Fetches any URL via `baoyu-fetch` CLI (Chrome CDP + site-specific adapters) and converts it to clean markdown.
+通过 `baoyu-fetch` CLI（Chrome CDP + site-specific adapters）抓取任意 URL，并转换为干净的 markdown。
 
 ## User Input Tools
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当该 skill 需要询问用户时，遵循以下 tool-selection rule（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或任意等价工具。
+2. **Fallback**：如果没有这类工具，输出编号式纯文本消息，让用户为每个问题回复所选编号/答案。
+3. **Batching**：如果工具支持一次调用多个问题，把所有适用问题合并到一次调用；如果只支持单问题，则按优先级一次问一个。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下文中的具体 `AskUserQuestion` 只是示例；其他 runtime 中请替换成本地等价工具。
 
 ## CLI Setup
 
-**Important**: The CLI source is vendored in `{baseDir}/scripts/lib`. `scripts/package.json` installs only third-party runtime dependencies.
+**Important**：CLI source vendored 在 `{baseDir}/scripts/lib` 中。`scripts/package.json` 只安装 third-party runtime dependencies。
 
-**Agent Execution Instructions**:
-1. Determine this SKILL.md file's directory path as `{baseDir}`
-2. Resolve `${BUN}` runtime: if `bun` installed → `bun`; else suggest installing Bun
-3. If `{baseDir}/scripts/node_modules` does not exist, run `${BUN} install --cwd {baseDir}/scripts`
+**Agent Execution Instructions**：
+
+1. 确定当前 SKILL.md 文件的目录路径为 `{baseDir}`
+2. 解析 `${BUN}` runtime：如果已安装 `bun` → `bun`；否则建议安装 Bun
+3. 如果 `{baseDir}/scripts/node_modules` 不存在，运行 `${BUN} install --cwd {baseDir}/scripts`
 4. `${READER}` = `{baseDir}/scripts/baoyu-fetch`
-5. Replace all `${READER}` in this document with the resolved value
+5. 把本文档中所有 `${READER}` 替换为 resolved value
 
-## Preferences (EXTEND.md)
+## Preferences（EXTEND.md）
 
-Check EXTEND.md in priority order — the first one found wins:
+按优先级检查 EXTEND.md：第一个找到的文件生效。
 
 | Priority | Path | Scope |
 |----------|------|-------|
@@ -47,45 +48,45 @@ Check EXTEND.md in priority order — the first one found wins:
 
 | Result | Action |
 |--------|--------|
-| Found | Read, parse, apply settings |
-| Not found | **MUST** run first-time setup (see below) — do NOT silently create defaults |
+| Found | 读取、解析并应用 settings |
+| Not found | **必须**执行 first-time setup（见下方），不要静默创建 defaults |
 
-**EXTEND.md supports**: download media by default, default output directory.
+**EXTEND.md supports**：是否默认下载 media、默认 output directory。
 
 ### First-Time Setup ⛔ BLOCKING
 
-When EXTEND.md is not found, you **MUST** use `AskUserQuestion` to gather preferences before creating EXTEND.md. **NEVER** create EXTEND.md with silent defaults. Generation is BLOCKED until setup completes. Batch all three questions into a single call:
+当找不到 EXTEND.md 时，**必须**使用 `AskUserQuestion` 收集偏好后再创建 EXTEND.md。**绝不要**用静默 defaults 创建 EXTEND.md。Setup 完成前，生成流程 BLOCKED。把以下三个问题 batch 到一次调用：
 
-- **Q1 — Media** (header "Media"): "How to handle images and videos in pages?"
-  - "Ask each time (Recommended)" — Prompt after each save
-  - "Always download" — Download to local `imgs/` and `videos/`
-  - "Never download" — Keep remote URLs
-- **Q2 — Output** (header "Output"): "Default output directory?"
-  - "url-to-markdown (Recommended)" — Save to `./url-to-markdown/{domain}/{slug}.md`
-  - User may pick "Other" and type a custom path
-- **Q3 — Save** (header "Save"): "Where to save preferences?"
-  - "User (Recommended)" — `~/.baoyu-skills/` (all projects)
-  - "Project" — `.baoyu-skills/` (this project only)
+- **Q1 — Media**（header "Media"）："How to handle images and videos in pages?"
+  - "Ask each time (Recommended)" — 每次保存后询问
+  - "Always download" — 下载到本地 `imgs/` 和 `videos/`
+  - "Never download" — 保留 remote URLs
+- **Q2 — Output**（header "Output"）："Default output directory?"
+  - "url-to-markdown (Recommended)" — 保存到 `./url-to-markdown/{domain}/{slug}.md`
+  - 用户可选择 "Other" 并输入 custom path
+- **Q3 — Save**（header "Save"）："Where to save preferences?"
+  - "User (Recommended)" — `~/.baoyu-skills/`（所有 projects）
+  - "Project" — `.baoyu-skills/`（仅当前 project）
 
-After answers, write EXTEND.md, confirm "Preferences saved to [path]", then continue.
+用户回答后，写入 EXTEND.md，确认 "Preferences saved to [path]"，然后继续。
 
-Full template: [references/config/first-time-setup.md](references/config/first-time-setup.md).
+完整 template：[references/config/first-time-setup.md](references/config/first-time-setup.md)。
 
 ### Supported Keys
 
 | Key | Default | Values | Description |
 |-----|---------|--------|-------------|
-| `download_media` | `ask` | `ask` / `1` / `0` | `ask` = prompt each time, `1` = always, `0` = never |
-| `default_output_dir` | empty | path or empty | Default output directory (empty = `./url-to-markdown/`) |
+| `download_media` | `ask` | `ask` / `1` / `0` | `ask` = 每次询问，`1` = always，`0` = never |
+| `default_output_dir` | empty | path or empty | 默认 output directory（empty = `./url-to-markdown/`） |
 
-**EXTEND.md → CLI mapping**:
+**EXTEND.md → CLI mapping**：
 
 | EXTEND.md key | CLI argument | Notes |
 |---------------|-------------|-------|
-| `download_media: 1` | `--download-media` | Requires `--output` to be set |
-| `default_output_dir: ./posts/` | Agent constructs `--output ./posts/{domain}/{slug}.md` | Agent generates path, not a direct flag |
+| `download_media: 1` | `--download-media` | 需要设置 `--output` |
+| `default_output_dir: ./posts/` | Agent 构造 `--output ./posts/{domain}/{slug}.md` | Agent 生成路径，不是直接 flag |
 
-**Value priority**: CLI arguments → EXTEND.md → skill defaults.
+**Value priority**：CLI arguments → EXTEND.md → skill defaults。
 
 ## Usage
 
@@ -116,56 +117,57 @@ ${READER} <url> --adapter youtube --output transcript.md
 
 | Option | Description |
 |--------|-------------|
-| `<url>` | URL to fetch |
-| `--output <path>` | Output file path (default: stdout) |
-| `--format <type>` | Output format: `markdown` (default) or `json` |
-| `--json` | Shorthand for `--format json` |
-| `--adapter <name>` | Force adapter: `x`, `youtube`, `hn`, or `generic` (default: auto-detect) |
-| `--headless` | Force headless Chrome (no visible window) |
-| `--wait-for <mode>` | Interaction wait mode: `none` (default), `interaction`, or `force` |
-| `--wait-for-interaction` | Alias for `--wait-for interaction` |
-| `--wait-for-login` | Alias for `--wait-for interaction` |
-| `--timeout <ms>` | Page load timeout (default: 30000) |
-| `--interaction-timeout <ms>` | Login/CAPTCHA wait timeout (default: 600000 = 10 min) |
-| `--interaction-poll-interval <ms>` | Poll interval for interaction checks (default: 1500) |
-| `--download-media` | Download images/videos to local `imgs/` and `videos/`, rewrite markdown links. Requires `--output` |
-| `--media-dir <dir>` | Base directory for downloaded media (default: same as `--output` directory) |
-| `--cdp-url <url>` | Reuse existing Chrome DevTools Protocol endpoint |
+| `<url>` | 要抓取的 URL |
+| `--output <path>` | Output file path（default: stdout） |
+| `--format <type>` | Output format：`markdown`（default）或 `json` |
+| `--json` | `--format json` 的 shorthand |
+| `--adapter <name>` | 强制 adapter：`x`、`youtube`、`hn` 或 `generic`（default: auto-detect） |
+| `--headless` | 强制 headless Chrome（无可见窗口） |
+| `--wait-for <mode>` | Interaction wait mode：`none`（default）、`interaction` 或 `force` |
+| `--wait-for-interaction` | `--wait-for interaction` 的 alias |
+| `--wait-for-login` | `--wait-for interaction` 的 alias |
+| `--timeout <ms>` | Page load timeout（default: 30000） |
+| `--interaction-timeout <ms>` | Login/CAPTCHA wait timeout（default: 600000 = 10 min） |
+| `--interaction-poll-interval <ms>` | Interaction checks 的 poll interval（default: 1500） |
+| `--download-media` | 下载图片/视频到本地 `imgs/` 和 `videos/`，并重写 markdown links。需要 `--output` |
+| `--media-dir <dir>` | Downloaded media 的 base directory（default: 与 `--output` 目录相同） |
+| `--cdp-url <url>` | 复用现有 Chrome DevTools Protocol endpoint |
 | `--browser-path <path>` | Custom Chrome/Chromium binary path |
-| `--chrome-profile-dir <path>` | Chrome user data directory (default: `BAOYU_CHROME_PROFILE_DIR` env or `./baoyu-skills/chrome-profile`) |
-| `--debug-dir <dir>` | Write debug artifacts (document.json, markdown.md, page.html, network.json) |
+| `--chrome-profile-dir <path>` | Chrome user data directory（default: `BAOYU_CHROME_PROFILE_DIR` env 或 `./baoyu-skills/chrome-profile`） |
+| `--debug-dir <dir>` | 写入 debug artifacts（document.json、markdown.md、page.html、network.json） |
 
 ## Agent Quality Gate
 
-**CRITICAL**: treat default headless capture as provisional. Some sites render differently in headless mode and can silently return low-quality content without failing the CLI.
+**CRITICAL**：把默认 headless capture 视为 provisional。有些网站在 headless mode 中渲染不同，可能在 CLI 不报错的情况下静默返回低质量内容。
 
-After every headless run, inspect the saved markdown. See [references/quality-gate.md](references/quality-gate.md) for the full checklist, recovery workflow, and capture-mode table. Read it whenever a run looks suspicious or the user asks about login/CAPTCHA handling.
+每次 headless run 后，都要检查保存的 markdown。完整 checklist、recovery workflow 和 capture-mode table 见 [references/quality-gate.md](references/quality-gate.md)。当运行结果可疑，或用户询问 login/CAPTCHA 处理时，读取该文件。
 
 ## Output Path Generation
 
-The agent must construct the output file path — `baoyu-fetch` does not auto-generate paths.
+Agent 必须构造 output file path：`baoyu-fetch` 不会自动生成路径。
 
-**Algorithm**:
-1. Determine base directory from EXTEND.md `default_output_dir` or default `./url-to-markdown/`
-2. Extract domain from URL (e.g., `example.com`)
-3. Generate slug from URL path or page title (kebab-case, 2-6 words)
-4. Construct: `{base_dir}/{domain}/{slug}/{slug}.md` — each URL gets its own directory so media files stay isolated
-5. Conflict resolution: append timestamp `{slug}-YYYYMMDD-HHMMSS/{slug}-YYYYMMDD-HHMMSS.md`
+**Algorithm**：
 
-Pass the constructed path to `--output`. Media files (`--download-media`) are saved into subdirectories next to the markdown file, keeping each URL's assets self-contained.
+1. 从 EXTEND.md `default_output_dir` 或默认 `./url-to-markdown/` 确定 base directory
+2. 从 URL 提取 domain（例如 `example.com`）
+3. 从 URL path 或 page title 生成 slug（kebab-case，2-6 个词）
+4. 构造：`{base_dir}/{domain}/{slug}/{slug}.md`。每个 URL 使用独立目录，便于隔离 media files
+5. Conflict resolution：追加 timestamp `{slug}-YYYYMMDD-HHMMSS/{slug}-YYYYMMDD-HHMMSS.md`
+
+把构造出的路径传给 `--output`。Media files（`--download-media`）保存在 markdown 文件旁边的子目录中，使每个 URL 的 assets 自包含。
 
 ## Adapters & Media
 
-See [references/adapters.md](references/adapters.md) for the adapter catalog (X, YouTube, Hacker News, generic), per-adapter notes, the media download flow (`ask` / always / never), and the JSON output schema. Read it before answering adapter-specific questions or handling media prompts.
+Adapter catalog（X、YouTube、Hacker News、generic）、per-adapter notes、media download flow（`ask` / always / never）和 JSON output schema 见 [references/adapters.md](references/adapters.md)。在回答 adapter-specific 问题或处理 media prompts 前先读取。
 
 ## Environment Variables
 
 | Variable | Description |
 |----------|-------------|
-| `BAOYU_CHROME_PROFILE_DIR` | Chrome user data directory (can also use `--chrome-profile-dir`) |
+| `BAOYU_CHROME_PROFILE_DIR` | Chrome user data directory（也可使用 `--chrome-profile-dir`） |
 
-**Troubleshooting**: Chrome not found → use `--browser-path`. Timeout → increase `--timeout`. Login/CAPTCHA → `--wait-for interaction`. Debug → `--debug-dir` to inspect captured HTML and network logs.
+**Troubleshooting**：找不到 Chrome → 使用 `--browser-path`。Timeout → 增大 `--timeout`。Login/CAPTCHA → `--wait-for interaction`。Debug → 使用 `--debug-dir` 检查 captured HTML 和 network logs。
 
 ## Extension Support
 
-Custom configurations via EXTEND.md. See **Preferences** section above for paths and supported keys.
+通过 EXTEND.md 自定义配置。路径和支持 keys 见上方 **Preferences** section。

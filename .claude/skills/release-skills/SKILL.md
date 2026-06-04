@@ -1,29 +1,29 @@
 ---
 name: release-skills
-description: Universal release workflow. Auto-detects version files and changelogs. Supports Node.js, Python, Rust, Claude Plugin, GitHub Releases, annotated tags, historical release backfill, and generic projects. Use when user says "release", "发布", "new version", "bump version", "push", "推送", "release notes", "GitHub Release", or "回填 Release".
+description: 通用 release workflow。自动检测 version files 和 changelogs。支持 Node.js、Python、Rust、Claude Plugin、GitHub Releases、annotated tags、historical release backfill 和 generic projects。当用户说 "release"、"发布"、"new version"、"bump version"、"push"、"推送"、"release notes"、"GitHub Release" 或 "回填 Release" 时使用。
 ---
 
 # Release Skills
 
-Universal release workflow supporting any project type with multi-language changelog.
+支持任意项目类型和多语言 changelog 的通用 release workflow。
 
-## User Input Tools
+## 用户输入工具
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当此 skill 需要提示用户时，按以下工具选择规则执行（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或等价工具。
+2. **Fallback**：如果不存在这类工具，输出带编号的纯文本消息，并请用户针对每个问题回复所选编号/答案。
+3. **批量提问**：如果工具支持单次调用多个问题，把所有适用问题合并到一次调用；如果只支持单问题，则按优先级逐个询问。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下面具体的 `AskUserQuestion` 引用只是示例 - 在其他 runtime 中替换为本地等价工具。
 
-## Quick Start
+## 快速开始
 
-Just run `/release-skills` - auto-detects your project configuration.
+直接运行 `/release-skills` - 它会自动检测项目配置。
 
-## Supported Projects
+## 支持的项目
 
-| Project Type | Version File | Auto-Detected |
+| Project Type | Version File | 自动检测 |
 |--------------|--------------|---------------|
 | Node.js | package.json | ✓ |
 | Python | pyproject.toml | ✓ |
@@ -33,79 +33,79 @@ Just run `/release-skills` - auto-detects your project configuration.
 
 ## Options
 
-| Flag | Description |
+| Flag | 说明 |
 |------|-------------|
-| `--dry-run` | Preview changes without executing |
-| `--major` | Force major version bump |
-| `--minor` | Force minor version bump |
-| `--patch` | Force patch version bump |
-| `--backfill-releases` | Create missing GitHub Releases for existing tags from changelog sections |
+| `--dry-run` | 预览变更，不执行 |
+| `--major` | 强制 major version bump |
+| `--minor` | 强制 minor version bump |
+| `--patch` | 强制 patch version bump |
+| `--backfill-releases` | 根据 changelog sections 为已有 tags 创建缺失的 GitHub Releases |
 
 ## Workflow
 
-### Step 1: Detect Project Configuration
+### Step 1: 检测项目配置
 
-1. Check for `.releaserc.yml` (optional config override)
-   - If present, inspect whether it defines release hooks
-2. Auto-detect version file by scanning (priority order):
+1. 检查 `.releaserc.yml`（可选 config override）
+   - 如果存在，检查它是否定义了 release hooks
+2. 通过扫描自动检测 version file（优先级顺序）：
    - `package.json` (Node.js)
    - `pyproject.toml` (Python)
    - `Cargo.toml` (Rust)
    - `marketplace.json` or `.claude-plugin/marketplace.json` (Claude Plugin)
    - `VERSION` or `version.txt` (Generic)
-3. Scan for changelog files using glob patterns:
+3. 使用 glob patterns 扫描 changelog files：
    - `CHANGELOG*.md`
    - `HISTORY*.md`
    - `CHANGES*.md`
-4. Identify language of each changelog by filename suffix
-5. Detect GitHub release support:
-   - Check whether `origin` points to GitHub
-   - Check whether `gh` is installed and authenticated
-   - Check existing releases with `gh release list --limit 5` when available
-6. Display detected configuration
+4. 通过文件名后缀识别每个 changelog 的语言
+5. 检测 GitHub release 支持：
+   - 检查 `origin` 是否指向 GitHub
+   - 检查 `gh` 是否已安装并认证
+   - 可用时用 `gh release list --limit 5` 检查现有 releases
+6. 显示检测到的配置
 
 **Project Hook Contract**:
 
-If `.releaserc.yml` defines `release.hooks`, keep the release workflow generic and delegate project-specific packaging/publishing to those hooks.
+如果 `.releaserc.yml` 定义了 `release.hooks`，保持 release workflow 通用，并把项目特定的 packaging/publishing 委托给这些 hooks。
 
-Supported hooks:
+支持的 hooks：
 
-| Hook | Purpose | Expected Responsibility |
+| Hook | 目的 | 预期职责 |
 |------|---------|-------------------------|
-| `prepare_artifact` | Make one target releasable | Validate the target is self-contained, sync/embed local dependencies, optionally stage extra files |
-| `publish_artifact` | Publish one releasable target | Upload the prepared target (or a staged directory if the project uses one), attach version/changelog/tags |
+| `prepare_artifact` | 让一个 target 可发布 | 验证 target 自包含，同步/嵌入本地依赖，可选 stage 额外文件 |
+| `publish_artifact` | 发布一个可发布 target | 上传准备好的 target（或项目使用的 staged directory），附加 version/changelog/tags |
 
-Supported placeholders:
+支持的 placeholders：
 
-| Placeholder | Meaning |
+| Placeholder | 含义 |
 |-------------|---------|
-| `{project_root}` | Absolute path to repository root |
-| `{target}` | Absolute path to the module/skill being released |
-| `{artifact_dir}` | Absolute path to a temporary staging directory for this target, when the project uses one |
-| `{version}` | Version selected by the release workflow |
+| `{project_root}` | repository root 的绝对路径 |
+| `{target}` | 正在发布的 module/skill 的绝对路径 |
+| `{artifact_dir}` | 当项目使用 staging 时，此 target 的临时 staging directory 绝对路径 |
+| `{version}` | release workflow 选择的 version |
 | `{dry_run}` | `true` or `false` |
-| `{release_notes_file}` | Absolute path to a UTF-8 file containing release notes/changelog text |
+| `{release_notes_file}` | 包含 release notes/changelog text 的 UTF-8 文件绝对路径 |
 
-Execution rules:
-- Keep the skill generic: do not hardcode registry/package-manager/project layout details into this SKILL.
-- If `prepare_artifact` exists, run it once per target before publish-related checks that need the final releasable target state.
-- Write release notes to a temp file and pass that file path to `publish_artifact`; do not inline multiline changelog text into shell commands.
-- If hooks are absent, fall back to the default project-agnostic release workflow.
+执行规则：
+- 保持 skill 通用：不要把 registry/package-manager/project layout 细节硬编码到此 SKILL。
+- 如果 `prepare_artifact` 存在，在需要最终可发布 target 状态的 publish 相关检查前，对每个 target 运行一次。
+- 将 release notes 写入临时文件，并把该文件路径传给 `publish_artifact`；不要把多行 changelog text inline 到 shell commands。
+- 如果 hooks 不存在，fallback 到默认的 project-agnostic release workflow。
 
-**Language Detection Rules**:
+**语言检测规则**：
 
-Changelog files follow the pattern `CHANGELOG_{LANG}.md` or `CHANGELOG.{lang}.md`, where `{lang}` / `{LANG}` is a language or region code.
+Changelog files 遵循 `CHANGELOG_{LANG}.md` 或 `CHANGELOG.{lang}.md` 模式，其中 `{lang}` / `{LANG}` 是语言或地区代码。
 
 | Pattern | Example | Language |
 |---------|---------|----------|
-| No suffix | `CHANGELOG.md` | en (default) |
-| `_{LANG}` (uppercase) | `CHANGELOG_CN.md`, `CHANGELOG_JP.md` | Corresponding language |
-| `.{lang}` (lowercase) | `CHANGELOG.zh.md`, `CHANGELOG.ja.md` | Corresponding language |
-| `.{lang-region}` | `CHANGELOG.zh-CN.md` | Corresponding region variant |
+| 无后缀 | `CHANGELOG.md` | en（默认） |
+| `_{LANG}`（大写） | `CHANGELOG_CN.md`, `CHANGELOG_JP.md` | 对应语言 |
+| `.{lang}`（小写） | `CHANGELOG.zh.md`, `CHANGELOG.ja.md` | 对应语言 |
+| `.{lang-region}` | `CHANGELOG.zh-CN.md` | 对应地区变体 |
 
-Common language codes: `zh` (Chinese), `ja` (Japanese), `ko` (Korean), `de` (German), `fr` (French), `es` (Spanish).
+常见语言代码：`zh`（Chinese）、`ja`（Japanese）、`ko`（Korean）、`de`（German）、`fr`（French）、`es`（Spanish）。
 
-**Output Example**:
+**输出示例**：
 ```
 Project detected:
   Version file: package.json (1.2.3)
@@ -115,7 +115,7 @@ Project detected:
     - CHANGELOG.ja.md (ja)
 ```
 
-### Step 2: Analyze Changes Since Last Tag
+### Step 2: 分析 Last Tag 之后的变更
 
 ```bash
 LAST_TAG=$(git tag --sort=-v:refname | head -1)
@@ -123,54 +123,54 @@ git log ${LAST_TAG}..HEAD --oneline
 git diff ${LAST_TAG}..HEAD --stat
 ```
 
-Categorize by conventional commit types:
+按 conventional commit types 分类：
 
-| Type | Description |
+| Type | 说明 |
 |------|-------------|
-| feat | New features |
+| feat | 新功能 |
 | fix | Bug fixes |
 | docs | Documentation |
 | refactor | Code refactoring |
-| perf | Performance improvements |
-| test | Test changes |
-| style | Formatting, styling |
-| chore | Maintenance (skip in changelog) |
+| perf | 性能优化 |
+| test | 测试变更 |
+| style | Formatting、styling |
+| chore | 维护（在 changelog 中跳过） |
 
-**Breaking Change Detection**:
-- Commit message starts with `BREAKING CHANGE`
-- Commit body/footer contains `BREAKING CHANGE:`
-- Removed public APIs, renamed exports, changed interfaces
+**Breaking Change 检测**：
+- Commit message 以 `BREAKING CHANGE` 开头
+- Commit body/footer 包含 `BREAKING CHANGE:`
+- 移除了 public APIs、重命名 exports 或改变 interfaces
 
-If breaking changes detected, warn user: "Breaking changes detected. Consider major version bump (--major flag)."
+如果检测到 breaking changes，提醒用户："Breaking changes detected. Consider major version bump (--major flag)."
 
-### Step 3: Determine Version Bump
+### Step 3: 确定 Version Bump
 
-Rules (in priority order):
-1. User flag `--major/--minor/--patch` → Use specified
-2. BREAKING CHANGE detected → Major bump (1.x.x → 2.0.0)
-3. `feat:` commits present → Minor bump (1.2.x → 1.3.0)
-4. Otherwise → Patch bump (1.2.3 → 1.2.4)
+规则（优先级顺序）：
+1. 用户 flag `--major/--minor/--patch` → 使用指定类型
+2. 检测到 BREAKING CHANGE → Major bump（1.x.x → 2.0.0）
+3. 存在 `feat:` commits → Minor bump（1.2.x → 1.3.0）
+4. 否则 → Patch bump（1.2.3 → 1.2.4）
 
-Display version change: `1.2.3 → 1.3.0`
+显示 version change：`1.2.3 → 1.3.0`
 
-### Step 4: Generate Multi-language Changelogs
+### Step 4: 生成多语言 Changelogs
 
-For each detected changelog file:
+对每个检测到的 changelog file：
 
-1. **Identify language** from filename suffix
-2. **Detect third-party contributors**:
-   - Check merge commits: `git log ${LAST_TAG}..HEAD --merges --pretty=format:"%H %s"`
-   - For each merged PR, identify the PR author via `gh pr view <number> --json author --jq '.author.login'`
-   - Compare against repo owner (`gh repo view --json owner --jq '.owner.login'`)
-   - If PR author ≠ repo owner → third-party contributor
-3. **Generate content in that language**:
-   - Section titles in target language
-   - Change descriptions written naturally in target language (not translated)
-   - Date format: YYYY-MM-DD (universal)
-   - **Third-party contributions**: Append contributor attribution `(by @username)` to the changelog entry
-4. **Insert at file head** (preserve existing content)
+1. **识别语言**：根据文件名后缀
+2. **检测第三方贡献者**：
+   - 检查 merge commits：`git log ${LAST_TAG}..HEAD --merges --pretty=format:"%H %s"`
+   - 对每个已 merge PR，通过 `gh pr view <number> --json author --jq '.author.login'` 识别 PR author
+   - 与 repo owner 比较（`gh repo view --json owner --jq '.owner.login'`）
+   - 如果 PR author ≠ repo owner → 第三方贡献者
+3. **用该语言生成内容**：
+   - Section titles 使用目标语言
+   - Change descriptions 用目标语言自然撰写（不是机器直译）
+   - 日期格式：YYYY-MM-DD（通用）
+   - **第三方贡献**：在 changelog entry 末尾追加贡献者 attribution `(by @username)`
+4. **插入文件头部**（保留现有内容）
 
-**Section Title Translations** (built-in):
+**Section Title Translations**（内置）：
 
 | Type | en | zh | ja | ko | de | fr | es |
 |------|----|----|----|----|----|----|-----|
@@ -181,7 +181,7 @@ For each detected changelog file:
 | perf | Performance | 性能优化 | パフォーマンス | 성능 | Leistung | Performance | Rendimiento |
 | breaking | Breaking Changes | 破坏性变更 | 破壊的変更 | 주요 변경사항 | Breaking Changes | Changements majeurs | Cambios importantes |
 
-**Changelog Format**:
+**Changelog 格式**：
 
 ```markdown
 ## {VERSION} - {YYYY-MM-DD}
@@ -197,15 +197,15 @@ For each detected changelog file:
 - Description of docs changes
 ```
 
-Only include sections that have changes. Omit empty sections.
+只包含有变更的 sections。省略空 sections。
 
-**Third-Party Attribution Rules**:
-- Only add `(by @username)` for contributors who are NOT the repo owner
-- Use GitHub username with `@` prefix
-- Place at the end of the changelog entry line
-- Apply to all languages consistently (always use `(by @username)` format, not translated)
+**第三方 Attribution 规则**：
+- 只为不是 repo owner 的 contributors 添加 `(by @username)`
+- 使用带 `@` 前缀的 GitHub username
+- 放在 changelog entry 行尾
+- 所有语言保持一致（始终使用 `(by @username)` 格式，不翻译）
 
-**Multi-language Example**:
+**多语言示例**：
 
 English (CHANGELOG.md):
 ```markdown
@@ -243,18 +243,18 @@ Japanese (CHANGELOG.ja.md):
 - コネクションプールのメモリリークを修正
 ```
 
-### Step 5: Group Changes by Skill/Module
+### Step 5: 按 Skill/Module 分组变更
 
-Analyze commits since last tag and group by affected skill/module:
+分析 last tag 之后的 commits，并按受影响 skill/module 分组：
 
-1. **Identify changed files** per commit
-2. **Group by skill/module**:
-   - `skills/<skill-name>/*` → Group under that skill
-   - Root files (CLAUDE.md, etc.) → Group as "project"
-   - Multiple skills in one commit → Split into multiple groups
-3. **For each group**, identify related README updates needed
+1. **识别每个 commit 的 changed files**
+2. **按 skill/module 分组**：
+   - `skills/<skill-name>/*` → 归入该 skill
+   - Root files（CLAUDE.md 等）→ 归为 "project"
+   - 一个 commit 涉及多个 skills → 拆分到多个 groups
+3. **对每个 group**，识别需要的相关 README updates
 
-**Example Grouping**:
+**分组示例**：
 ```
 baoyu-cover-image:
   - feat: add new style options
@@ -269,62 +269,62 @@ project:
   - docs: update CLAUDE.md architecture section
 ```
 
-### Step 6: Commit Each Skill/Module Separately
+### Step 6: 分别提交每个 Skill/Module
 
-For each skill/module group (in order of changes):
+对每个 skill/module group（按变更顺序）：
 
-1. **Check README updates needed**:
-   - Scan `README*.md` for mentions of this skill/module
-   - Verify options/flags documented correctly
-   - Update usage examples if syntax changed
-   - Update feature descriptions if behavior changed
+1. **检查是否需要 README updates**：
+   - 扫描 `README*.md` 中对此 skill/module 的提及
+   - 验证 options/flags 文档是否正确
+   - 如果语法改变，更新 usage examples
+   - 如果行为改变，更新 feature descriptions
 
-2. **Stage and commit**:
+2. **Stage and commit**：
    ```bash
    git add skills/<skill-name>/*
    git add README.md README.zh.md  # If updated for this skill
    git commit -m "<type>(<skill-name>): <meaningful description>"
    ```
 
-3. **Commit message format**:
-   - Use conventional commit format: `<type>(<scope>): <description>`
+3. **Commit message 格式**：
+   - 使用 conventional commit 格式：`<type>(<scope>): <description>`
    - `<type>`: feat, fix, refactor, docs, perf, etc.
    - `<scope>`: skill name or "project"
-   - `<description>`: Clear, meaningful description of changes
+   - `<description>`：清晰、有意义的变更说明
 
-**Example Commits**:
+**Commit 示例**：
 ```bash
 git commit -m "feat(baoyu-cover-image): add watercolor and minimalist styles"
 git commit -m "fix(baoyu-comic): improve panel layout for long dialogues"
 git commit -m "docs(project): update architecture documentation"
 ```
 
-**Common README Updates Needed**:
-| Change Type | README Section to Check |
+**常见需要检查的 README Updates**：
+| 变更类型 | 需要检查的 README section |
 |-------------|------------------------|
-| New options/flags | Options table, usage examples |
-| Renamed options | Options table, usage examples |
-| New features | Feature description, examples |
-| Breaking changes | Migration notes, deprecation warnings |
-| Restructured internals | Architecture section (if exposed to users) |
+| New options/flags | Options table、usage examples |
+| Renamed options | Options table、usage examples |
+| New features | Feature description、examples |
+| Breaking changes | Migration notes、deprecation warnings |
+| Restructured internals | Architecture section（如果暴露给用户） |
 
-### Step 7: Generate Changelog and Update Version
+### Step 7: 生成 Changelog 并更新 Version
 
-1. **Generate multi-language changelogs** (as described in Step 4)
-2. **Update version file**:
-   - Read version file (JSON/TOML/text)
-   - Update version number
-   - Write back (preserve formatting)
-3. **Create release notes file**:
-   - Prefer the new version section from `CHANGELOG.md`
-   - If no English/default changelog exists, use the first detected changelog
-   - Extract only the exact `## {VERSION} - {YYYY-MM-DD}` section through the next `##`
-   - Match both plain version and tag-prefixed headings when needed, e.g. `1.2.3` and `v1.2.3`
-   - Keep breaking changes near the top; if needed, add a short highlight before other sections
-   - Write notes to a UTF-8 temp file and reuse it for annotated tag messages, GitHub Releases, and `publish_artifact`
-   - In normal mode, stop rather than creating an empty tag or GitHub Release when notes cannot be found
+1. **生成多语言 changelogs**（如 Step 4 所述）
+2. **更新 version file**：
+   - 读取 version file（JSON/TOML/text）
+   - 更新 version number
+   - 写回（保留 formatting）
+3. **创建 release notes file**：
+   - 优先使用 `CHANGELOG.md` 中的新 version section
+   - 如果没有 English/default changelog，使用第一个检测到的 changelog
+   - 只提取精确的 `## {VERSION} - {YYYY-MM-DD}` section，直到下一个 `##`
+   - 需要时同时匹配 plain version 和带 tag prefix 的 headings，例如 `1.2.3` 和 `v1.2.3`
+   - 将 breaking changes 保持在靠前位置；需要时在其他 sections 前加短 highlight
+   - 将 notes 写入 UTF-8 temp file，并复用于 annotated tag messages、GitHub Releases 和 `publish_artifact`
+   - 在 normal mode 中，如果找不到 notes，应停止，而不是创建空 tag 或 GitHub Release
 
-**Version Paths by File Type**:
+**按文件类型的 Version Paths**：
 
 | File | Path |
 |------|------|
@@ -334,26 +334,26 @@ git commit -m "docs(project): update architecture documentation"
 | marketplace.json | `$.metadata.version` |
 | VERSION / version.txt | Direct content |
 
-### Step 8: User Confirmation
+### Step 8: 用户确认
 
-Before creating the release commit, ask user to confirm:
+创建 release commit 前，请用户确认：
 
-**Use AskUserQuestion with three questions**:
+**使用 AskUserQuestion 提出三个问题**：
 
-1. **Version bump** (single select):
-   - Show recommended version based on Step 3 analysis
-   - Options: recommended (with label), other semver options
+1. **Version bump**（single select）：
+   - 基于 Step 3 分析展示推荐 version
+   - Options：recommended（带 label）、其他 semver options
    - Example: `1.2.3 → 1.3.0 (Recommended)`, `1.2.3 → 1.2.4`, `1.2.3 → 2.0.0`
 
-2. **Push to remote** (single select):
-   - Options: "Yes, push after commit", "No, keep local only"
+2. **Push to remote**（single select）：
+   - Options："Yes, push after commit", "No, keep local only"
 
-3. **Publish GitHub Release** (single select):
-   - Offer this only when GitHub release support is available
-   - Default to "Yes, publish after tag push" when the user also chose push
-   - If the user keeps the release local, do not create or edit a GitHub Release
+3. **Publish GitHub Release**（single select）：
+   - 仅当 GitHub release support 可用时提供
+   - 当用户也选择 push 时，默认使用 "Yes, publish after tag push"
+   - 如果用户选择保持 release local，不要创建或编辑 GitHub Release
 
-**Example Output Before Confirmation**:
+**确认前输出示例**：
 ```
 Commits created:
   1. feat(baoyu-cover-image): add watercolor and minimalist styles
@@ -371,48 +371,48 @@ Release notes source: CHANGELOG.md#1.3.0
 Ready to create release commit, annotated tag, and GitHub Release.
 ```
 
-### Step 9: Create Release Commit and Annotated Tag
+### Step 9: 创建 Release Commit 和 Annotated Tag
 
-After user confirmation:
+用户确认后：
 
-1. **Stage version and changelog files**:
+1. **Stage version 和 changelog files**：
    ```bash
    git add <version-file>
    git add CHANGELOG*.md
    ```
 
-2. **Create release commit**:
+2. **创建 release commit**：
    ```bash
    git commit -m "chore: release v{VERSION}"
    ```
 
-3. **Create annotated tag**:
+3. **创建 annotated tag**：
    ```bash
    git tag -a v{VERSION} -F <release-notes-file>
    ```
-   If `.releaserc.yml` sets `tag.sign: true`, use `git tag -s` with the same notes file.
+   如果 `.releaserc.yml` 设置了 `tag.sign: true`，使用 `git tag -s` 和同一个 notes file。
 
-4. **Push if user confirmed** (Step 8):
+4. **如果用户确认则 push**（Step 8）：
    ```bash
    git push origin main
    git push origin v{VERSION}
    ```
 
-**Note**: Do NOT add Co-Authored-By line. This is a release commit, not a code contribution.
+**注意**：不要添加 Co-Authored-By 行。这是 release commit，不是 code contribution。
 
-### Step 10: Publish Release Artifacts and GitHub Release
+### Step 10: 发布 Release Artifacts 和 GitHub Release
 
-Project artifact publishing and GitHub Releases are separate outputs:
+Project artifact publishing 和 GitHub Releases 是两个独立输出：
 
-1. **Project artifacts**:
-   - If `release.hooks.publish_artifact` exists, run it once per prepared target
-   - Pass the same `{release_notes_file}` used for the tag and GitHub Release
-   - In dry-run mode, pass `{dry_run}=true` and report what would be published
+1. **Project artifacts**：
+   - 如果 `release.hooks.publish_artifact` 存在，对每个已准备 target 运行一次
+   - 传入 tag 和 GitHub Release 使用的同一个 `{release_notes_file}`
+   - 在 dry-run mode 中，传入 `{dry_run}=true` 并报告将会发布什么
 
-2. **GitHub Release**:
-   - Run only if the user confirmed remote publishing and GitHub support is available
-   - Ensure the tag exists on the remote before creating the release
-   - Create or update using the extracted notes:
+2. **GitHub Release**：
+   - 仅当用户确认 remote publishing 且 GitHub support 可用时运行
+   - 创建 release 前确认 tag 已存在于 remote
+   - 使用提取出的 notes 创建或更新：
      ```bash
      if gh release view v{VERSION} >/dev/null 2>&1; then
        gh release edit v{VERSION} --title "v{VERSION}" --notes-file <release-notes-file>
@@ -420,9 +420,9 @@ Project artifact publishing and GitHub Releases are separate outputs:
        gh release create v{VERSION} --title "v{VERSION}" --notes-file <release-notes-file> --verify-tag
      fi
      ```
-   - Never inline multiline release notes into shell commands
+   - 绝不要将多行 release notes inline 到 shell commands
 
-**Post-Release Output**:
+**发布后输出**：
 ```
 Release v1.3.0 created.
 
@@ -438,30 +438,30 @@ GitHub Release: published  # or "skipped/local only"
 Status: Pushed to origin  # or "Local only - run git push when ready"
 ```
 
-## Backfill Existing GitHub Releases
+## 回填已有 GitHub Releases
 
-Use this mode when the user asks to backfill historical releases or passes `--backfill-releases`.
+当用户要求回填 historical releases，或传入 `--backfill-releases` 时，使用此模式。
 
-1. Do not bump versions, edit changelogs, or create release commits.
-2. List existing tags in version order and detect missing releases:
+1. 不要 bump versions、编辑 changelogs 或创建 release commits。
+2. 按 version 顺序列出现有 tags，并检测缺失的 releases：
    ```bash
    git tag --sort=v:refname
    gh release view <tag>
    ```
-3. For each tag without a GitHub Release:
-   - Normalize the changelog lookup by stripping the configured tag prefix, e.g. `v1.2.3` -> `1.2.3`
-   - Extract the matching section from `CHANGELOG.md`; fall back to the first matching changelog file
-   - Skip or ask before publishing if no matching changelog section exists
-   - Create the release with:
+3. 对每个没有 GitHub Release 的 tag：
+   - 去掉配置的 tag prefix 来规范化 changelog lookup，例如 `v1.2.3` -> `1.2.3`
+   - 从 `CHANGELOG.md` 提取匹配 section；fallback 到第一个匹配的 changelog file
+   - 如果没有匹配的 changelog section，发布前跳过或询问
+   - 用以下命令创建 release：
      ```bash
      gh release create <tag> --title "<tag>" --notes-file <release-notes-file> --verify-tag
      ```
-4. Detect lightweight tags with `git cat-file -t <tag>` (`commit` means lightweight, `tag` means annotated).
-5. Do not rewrite public lightweight tags by default. Converting an existing remote tag to an annotated tag requires explicit user confirmation because it rewrites a published reference.
+4. 用 `git cat-file -t <tag>` 检测 lightweight tags（`commit` 表示 lightweight，`tag` 表示 annotated）。
+5. 默认不要重写 public lightweight tags。将现有 remote tag 转换为 annotated tag 需要用户明确确认，因为这会重写已发布引用。
 
 ## Configuration (.releaserc.yml)
 
-Optional config file in project root to override defaults:
+项目根目录中的可选 config file，用于覆盖 defaults：
 
 ```yaml
 # .releaserc.yml - Optional configuration
@@ -509,7 +509,7 @@ include:
 
 ## Dry-Run Mode
 
-When `--dry-run` is specified:
+指定 `--dry-run` 时：
 
 ```
 === DRY RUN MODE ===
@@ -555,7 +555,7 @@ Commits to create:
 No changes made. Run without --dry-run to execute.
 ```
 
-## Example Usage
+## 使用示例
 
 ```
 /release-skills              # Auto-detect version bump
@@ -566,13 +566,13 @@ No changes made. Run without --dry-run to execute.
 /release-skills --backfill-releases  # Create missing GitHub Releases for existing tags
 ```
 
-## When to Use
+## 何时使用
 
-Trigger this skill when user requests:
+当用户请求以下内容时触发此 skill：
 - "release", "发布", "create release", "new version", "新版本"
 - "bump version", "update version", "更新版本"
 - "prepare release"
 - "release notes", "GitHub Release", "回填 Release"
 - "push to remote" (with uncommitted changes)
 
-**Important**: If user says "just push" or "直接 push" with uncommitted changes, STILL follow all steps above first.
+**重要**：如果用户在有未提交变更时说 "just push" 或 "直接 push"，仍然先执行上面的全部步骤。

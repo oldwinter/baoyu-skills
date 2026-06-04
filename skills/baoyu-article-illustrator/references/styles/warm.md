@@ -1,58 +1,58 @@
 # warm
 
-Friendly, approachable illustration style for human-centered content
+适合以人为中心内容的友好、亲近 illustration 风格。
 
-## Design Aesthetic
+## 设计美学
 
-Warm and inviting visual approach that feels personal and approachable. Soft, friendly colors that evoke comfort and connection. Emphasizes human elements and emotional resonance. Creates an atmosphere of trust and openness.
+温暖亲切的视觉方式，带有个人化与易接近的感受。柔和友好的色彩唤起舒适感与连接感。强调人的元素与情感共鸣。营造信任和开放的氛围。
 
-## Background
+## 背景
 
-- Color: Cream (#FFFAF0) or Soft Peach (#FED7AA)
-- Texture: Soft paper texture with warm undertones
+- 颜色：Cream (#FFFAF0) 或 Soft Peach (#FED7AA)
+- 纹理：柔和纸张纹理，带暖色 undertone
 
-## Color Palette
+## 调色板
 
-| Role | Color | Hex | Usage |
+| 角色 | 颜色 | Hex | 用途 |
 |------|-------|-----|-------|
-| Background | Cream | #FFFAF0 | Primary background |
-| Alt Background | Soft Peach | #FED7AA | Accent sections |
-| Primary | Warm Orange | #ED8936 | Main accent color |
-| Secondary | Golden Yellow | #F6AD55 | Supporting warmth |
-| Tertiary | Terracotta | #C05621 | Earthy depth |
-| Accent | Deep Brown | #744210 | Grounding elements |
-| Alt Accent | Soft Red | #E53E3E | Emotional touches |
-| Text | Warm Charcoal | #4A4A4A | Text elements |
+| Background | Cream | #FFFAF0 | 主背景 |
+| Alt Background | Soft Peach | #FED7AA | 强调区块 |
+| Primary | Warm Orange | #ED8936 | 主要强调色 |
+| Secondary | Golden Yellow | #F6AD55 | 辅助温暖感 |
+| Tertiary | Terracotta | #C05621 | 大地色深度 |
+| Accent | Deep Brown | #744210 | 稳定元素 |
+| Alt Accent | Soft Red | #E53E3E | 情感点缀 |
+| Text | Warm Charcoal | #4A4A4A | 文本元素 |
 
-## Visual Elements
+## 视觉元素
 
-- Rounded shapes and soft corners
-- Friendly character illustrations
-- Sun rays and warm light motifs
-- Heart symbols and care icons
-- Cozy lighting effects
-- Gentle gradients with warmth
-- Soft shadows without harsh edges
-- Hand-drawn quality touches
+- 圆润形状和柔软边角
+- 友好的角色插画
+- 阳光光线与暖光 motif
+- 爱心符号与关怀图标
+- 舒适的光照效果
+- 带温暖感的柔和渐变
+- 无硬边的柔软阴影
+- 手绘质感点缀
 
-## Style Rules
+## 风格规则
 
-### Do
+### 应该
 
-- Use warm, inviting colors
-- Create rounded, friendly shapes
-- Include human-centered elements
-- Evoke feelings of comfort
-- Maintain soft, gentle contrasts
+- 使用温暖、亲切的颜色
+- 创建圆润友好的形状
+- 包含以人为中心的元素
+- 唤起舒适感
+- 保持柔软温和的对比
 
-### Don't
+### 不要
 
-- Use cold or stark colors
-- Create sharp, aggressive shapes
-- Add technical or clinical elements
-- Use dark, moody backgrounds
-- Create sterile compositions
+- 使用冷色或生硬颜色
+- 创建尖锐、有攻击性的形状
+- 添加技术感或临床感元素
+- 使用暗色、情绪沉重的背景
+- 创建冷冰冰的构图
 
-## Best For
+## 适合
 
-Personal growth articles, lifestyle content, education, human interest stories, wellness topics, relationship advice, self-help content, community building
+个人成长文章、生活方式内容、教育、人情故事、wellness 主题、关系建议、自助内容、社区建设

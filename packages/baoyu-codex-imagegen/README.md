@@ -1,12 +1,12 @@
 # baoyu-codex-imagegen
 
-Generate images via Codex CLI's built-in `image_gen` tool from non-Codex runtimes (e.g., Claude Code). The wrapper spawns `codex exec --json` and lets the user's existing Codex subscription drive image generation — **no `OPENAI_API_KEY` required**.
+从非 Codex runtime（例如 Claude Code）通过 Codex CLI 内置的 `image_gen` 工具生成图片。Wrapper 会启动 `codex exec --json`，并使用用户已有的 Codex subscription 驱动图片生成：**不需要 `OPENAI_API_KEY`**。
 
-This package implements the `preferred_image_backend: codex-imagegen` config key referenced across the `baoyu-skills` plugin and is the engine behind `baoyu-image-gen --provider codex-cli`.
+该 package 实现了 `baoyu-skills` plugin 中多处引用的 `preferred_image_backend: codex-imagegen` 配置键，也是 `baoyu-image-gen --provider codex-cli` 背后的 engine。
 
 ## Layout
 
-```
+```text
 packages/baoyu-codex-imagegen/
 ├── src/
 │   ├── main.ts             # CLI orchestrator (executable via `#!/usr/bin/env bun`)
@@ -24,17 +24,17 @@ packages/baoyu-codex-imagegen/
 
 ```bash
 npm install -g @openai/codex
-codex login            # signs in with your OpenAI account (subscription)
-codex --version        # confirm >= 0.130
+codex login            # 使用你的 OpenAI account（subscription）登录
+codex --version        # 确认 >= 0.130
 ```
 
-`bun` is required for running the wrapper:
+运行 wrapper 需要 `bun`：
 
 ```bash
 brew install oven-sh/bun/bun
 ```
 
-If `bun` is not on `PATH`, `npx -y bun src/main.ts …` works as a fallback.
+如果 `bun` 不在 `PATH`，可 fallback 到 `npx -y bun src/main.ts …`。
 
 ## Usage
 
@@ -55,33 +55,33 @@ bun src/main.ts \
 npx -y bun src/main.ts --image cover.png --prompt "..."
 ```
 
-Stdout emits a single JSON line:
+Stdout 输出单行 JSON：
 
 ```json
 {"status":"ok","path":"…","bytes":1234567,"elapsed_seconds":62,"thread_id":"…","attempts":1,"cached":false,"usage":{…}}
 ```
 
-On failure:
+失败时：
 
 ```json
 {"status":"error","path":"…","bytes":0,"error":"…","error_kind":"timeout"}
 ```
 
-`error_kind` values: `codex_not_installed`, `invalid_args`, `prompt_file_missing`, `spawn_failed`, `timeout`, `no_image_gen_tool_use`, `output_missing`, `invalid_png`, `agent_refused`, `lock_busy`.
+`error_kind` values：`codex_not_installed`、`invalid_args`、`prompt_file_missing`、`spawn_failed`、`timeout`、`no_image_gen_tool_use`、`output_missing`、`invalid_png`、`agent_refused`、`lock_busy`。
 
 ## Options
 
 | Flag | Description |
 |---|---|
-| `--image <path>` | Output PNG path (required) |
+| `--image <path>` | Output PNG path（required） |
 | `--prompt <text>` | Prompt text |
-| `--prompt-file <path>` | Read prompt from file (mutually exclusive with `--prompt`) |
-| `--aspect <ratio>` | Aspect ratio (`1:1`, `16:9`, `9:16`, `4:3`, `2.35:1`). Default: `1:1` |
-| `--ref <file>` | Reference image (repeatable) |
-| `--timeout <ms>` | Codex exec timeout in ms. Default: `300000` |
-| `--retries <n>` | Retry attempts on retryable errors. Default: `2` |
-| `--retry-delay <ms>` | Base retry delay (exponential). Default: `1500` |
-| `--cache-dir <path>` | Enable idempotency cache. Disabled by default. |
+| `--prompt-file <path>` | 从文件读取 prompt（与 `--prompt` 互斥） |
+| `--aspect <ratio>` | Aspect ratio（`1:1`、`16:9`、`9:16`、`4:3`、`2.35:1`）。Default：`1:1` |
+| `--ref <file>` | Reference image（可重复） |
+| `--timeout <ms>` | Codex exec timeout，单位 ms。Default：`300000` |
+| `--retries <n>` | Retryable errors 的 retry attempts。Default：`2` |
+| `--retry-delay <ms>` | Base retry delay（exponential）。Default：`1500` |
+| `--cache-dir <path>` | 启用 idempotency cache。默认禁用。 |
 | `--log-file <path>` | Append structured JSONL log |
 | `-v, --verbose` | Verbose stderr logging |
 | `-h, --help` | Show help |
@@ -95,8 +95,8 @@ bun test
 
 ## Trade-offs
 
-- 5–10× slower than direct OpenAI API calls (except on cache hits)
-- Uses your Codex subscription — programmatic use of `codex exec` falls into the same terms as interactive use
-- Requires `codex` CLI and active login session
+- 比直接调用 OpenAI API 慢 5–10 倍（cache hits 除外）
+- 使用你的 Codex subscription：通过 `codex exec` 编程调用时，适用范围与交互式使用相同
+- 需要 `codex` CLI 和有效 login session
 
-See [`docs/codex-imagegen-backend.md`](../../docs/codex-imagegen-backend.md) for the full background.
+完整背景见 [`docs/codex-imagegen-backend.md`](../../docs/codex-imagegen-backend.md)。

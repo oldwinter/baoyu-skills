@@ -1,25 +1,25 @@
 # blueprint
 
-Precise technical blueprint style with professional analytical visual presentation
+带 professional analytical visual presentation 的 precise technical blueprint style
 
 ## Design Aesthetic
 
-Clean, structured visual metaphors using blueprints, diagrams, and schematics. Precise, analytical and aesthetically refined. Information presented in triptych or grid-based layouts with engineering precision.
+使用 blueprints、diagrams 和 schematics 的 clean、structured visual metaphors。Precise、analytical 且 aesthetically refined。信息以 triptych 或 grid-based layouts 呈现，带 engineering precision。
 
 ## Background
 
 - Color: Blueprint Off-White (#FAF8F5)
-- Texture: Subtle grid overlay, light engineering paper feel
+- Texture: Subtle grid overlay，轻微 engineering paper feel
 
 ## Typography
 
 ### Primary Font (Headlines)
 
-Neue Haas Grotesk Display Pro or similar clean sans-serif. Bold weight for titles. Precise letterforms with consistent spacing. Technical, authoritative presence.
+Neue Haas Grotesk Display Pro 或类似 clean sans-serif。Titles 使用 bold weight。Precise letterforms，spacing 一致。Technical、authoritative presence。
 
 ### Secondary Font (Body)
 
-Tiempos Text or similar elegant serif for body explanations. Clean, readable at smaller sizes. Professional editorial quality.
+Body explanations 使用 Tiempos Text 或类似 elegant serif。小尺寸下干净可读。Professional editorial quality。
 
 ## Color Palette
 
@@ -27,41 +27,41 @@ Tiempos Text or similar elegant serif for body explanations. Clean, readable at 
 |------|-------|-----|-------|
 | Background | Blueprint Paper | #FAF8F5 | Primary background |
 | Grid | Light Gray | #E5E5E5 | Background grid lines |
-| Primary Text | Deep Slate | #334155 | Headlines, body text |
-| Primary Accent | Engineering Blue | #2563EB | Key elements, highlights |
+| Primary Text | Deep Slate | #334155 | Headlines、body text |
+| Primary Accent | Engineering Blue | #2563EB | Key elements、highlights |
 | Secondary Accent | Navy Blue | #1E3A5F | Supporting elements |
-| Tertiary | Light Blue | #BFDBFE | Backgrounds, fills |
-| Warning | Amber | #F59E0B | Warnings, emphasis points |
+| Tertiary | Light Blue | #BFDBFE | Backgrounds、fills |
+| Warning | Amber | #F59E0B | Warnings、emphasis points |
 
 ## Visual Elements
 
-- Precise lines with consistent stroke weights
-- Technical schematics and clean vector graphics
-- Thin line work in technical drawing style
-- Connection lines use straight lines or 90-degree angles only
-- Data visualization with clean, minimal charts
-- Dimension lines and measurement indicators
+- Precise lines，stroke weights 一致
+- Technical schematics 和 clean vector graphics
+- Technical drawing style 的 thin line work
+- Connection lines 只使用 straight lines 或 90-degree angles
+- 使用 clean、minimal charts 的 data visualization
+- Dimension lines 和 measurement indicators
 - Cross-section style diagrams
-- Isometric or orthographic projections
+- Isometric 或 orthographic projections
 
 ## Style Rules
 
 ### Do
 
-- Maintain consistent line weights throughout
-- Use grid alignment for all elements
-- Keep color palette restrained and unified
-- Create clear visual hierarchy through scale
-- Use geometric precision for all shapes
+- 全篇保持一致 line weights
+- 所有元素使用 grid alignment
+- 保持 color palette 克制且统一
+- 通过 scale 创建清晰 visual hierarchy
+- 所有 shapes 使用 geometric precision
 
 ### Don't
 
-- Use hand-drawn or organic shapes
-- Add decorative flourishes
-- Use curved connection lines
-- Include photographic elements
-- Add slide numbers, footers, or logos
+- 使用 hand-drawn 或 organic shapes
+- 添加 decorative flourishes
+- 使用 curved connection lines
+- 包含 photographic elements
+- 添加 slide numbers、footers 或 logos
 
 ## Best For
 
-Technical architecture, system design, data analysis, professional business presentations, engineering documentation, process flows
+Technical architecture、system design、data analysis、professional business presentations、engineering documentation、process flows

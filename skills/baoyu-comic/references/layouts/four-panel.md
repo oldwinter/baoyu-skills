@@ -1,40 +1,40 @@
 # four-panel
 
-四格漫画 - Strict 2×2 grid, single-page story
+四格漫画 - 严格 2×2 网格，单页故事
 
-## Panel Structure
+## 分镜结构
 
-- **Panels per page**: 4 (exactly, no variation)
-- **Structure**: Strict 2×2 equal grid
-- **Gutters**: Consistent white space (8-10px), uniform on all sides
+- **每页分镜数**：4（严格固定，不变化）
+- **结构**：严格 2×2 等分网格
+- **间距**：一致的留白（8-10px），四周统一
 
-## Grid Configuration
+## 网格配置
 
-- 2 columns × 2 rows, all panels identical size
-- Panel sizes: Exactly equal (each panel = 25% of content area)
-- Reading flow: Z-pattern — Panel 1 (top-left) → Panel 2 (top-right) → Panel 3 (bottom-left) → Panel 4 (bottom-right)
+- 2 列 × 2 行，所有分镜尺寸完全一致
+- 分镜尺寸：严格等分（每个分镜 = 内容区域的 25%）
+- 阅读顺序：Z 字形 - 分镜 1（左上）→ 分镜 2（右上）→ 分镜 3（左下）→ 分镜 4（右下）
 
-## Narrative Structure
+## 叙事结构
 
-Each panel serves a specific narrative role (起承转合 / kishōtenketsu):
+每个分镜承担明确的叙事角色（起承转合 / kishōtenketsu）：
 
-| Panel | Position | Role | Purpose |
+| 分镜 | 位置 | 角色 | 目的 |
 |-------|----------|------|---------|
-| 1 | Top-left | 起 Setup | Establish situation, introduce characters/problem |
-| 2 | Top-right | 承 Development | Build on setup, add complication or attempt |
-| 3 | Bottom-left | 转 Turn | Twist, key insight, or reversal — the pivotal moment |
-| 4 | Bottom-right | 合 Conclusion | Resolution, punchline, or takeaway |
+| 1 | 左上 | 起 Setup | 建立情境，引入角色/问题 |
+| 2 | 右上 | 承 Development | 承接设定，增加复杂度或尝试 |
+| 3 | 左下 | 转 Turn | 转折、关键洞察或反转 - 关键时刻 |
+| 4 | 右下 | 合 Conclusion | 解决、笑点或 takeaway |
 
-## Aspect Ratio
+## 宽高比
 
-- Recommended page aspect: **4:3** (landscape)
-- Landscape gives each panel a comfortable wide rectangle
-- Portrait (3:4) makes panels tall and narrow — avoid for this layout
+- 推荐页面宽高比：**4:3**（横向）
+- 横向能让每个分镜拥有舒适的宽矩形空间
+- 竖向（3:4）会让分镜又高又窄 - 这个布局应避免
 
-## Best For
+## 最适合
 
-Business allegory, quick-insight education, social media comics, fables, parables, single-concept explanation
+商业寓言、快速洞察型教育、社交媒体漫画、寓言、类比故事、单一概念解释
 
-## Best Style Pairings
+## 最佳 Style 搭配
 
 minimalist, ligne-claire, chalk

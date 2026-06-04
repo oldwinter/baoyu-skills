@@ -1,107 +1,107 @@
 # four-panel
 
-四格漫画预设 - Minimalist four-panel business allegory comics
+四格漫画预设 - 极简 four-panel 商业寓言 comics
 
 ## Base Configuration
 
-| Dimension | Value |
+| 维度 | 值 |
 |-----------|-------|
 | Art Style | minimalist |
 | Tone | neutral |
 | Layout | four-panel (default) |
 | Aspect | 4:3 (landscape) |
 
-Equivalent to: `--art minimalist --tone neutral --layout four-panel --aspect 4:3`
+等价于：`--art minimalist --tone neutral --layout four-panel --aspect 4:3`
 
 ## Unique Rules
 
-This preset includes special rules beyond the art+tone combination. When `--style four-panel` is used, ALL rules below must be applied.
+此 preset 包含超出 art+tone 组合的特殊规则。使用 `--style four-panel` 时，必须应用下方所有规则。
 
 ### 起承转合 Narrative Structure (CRITICAL)
 
-Every comic MUST follow the four-panel 起承转合 structure:
+每部 comic 都必须遵循 four-panel 起承转合结构：
 
-| Panel | Role | Requirements |
+| Panel | 角色 | 要求 |
 |-------|------|-------------|
-| 1 (起 Setup) | Introduce the situation | Show character(s) in a recognizable context. Establish the "normal" state or problem |
-| 2 (承 Development) | Build on the setup | Add complication, show an attempt, or introduce the concept. Stakes become clearer |
-| 3 (转 Turn) | The twist or key insight | **Most important panel.** Show the unexpected reversal, contrast, or "aha" moment that makes the allegory work |
-| 4 (合 Conclusion) | Resolution and takeaway | Show the result, consequence, or lesson learned. Can be a visual punchline or summary |
+| 1 (起 Setup) | 引入情境 | 展示可识别语境中的角色。建立“正常”状态或问题 |
+| 2 (承 Development) | 承接 setup | 增加复杂性，展示尝试，或引入概念。利害关系更清晰 |
+| 3 (转 Turn) | 转折或关键洞察 | **最重要的 panel。** 展示让寓言成立的意外反转、对比或 "aha" moment |
+| 4 (合 Conclusion) | 解决与 takeaway | 展示结果、后果或学到的经验。可以是视觉 punchline 或总结 |
 
-**CRITICAL**: Do NOT deviate from exactly 4 panels. No 5th panel, no title panel, no footer panel within the image.
+**关键**：不要偏离精确 4 panels。图片内不要第 5 格，不要标题 panel，不要 footer panel。
 
 ### Single-Page Story Rule (CRITICAL)
 
-- The entire story is told in ONE page with exactly 4 panels
-- Page count: always 1 (plus optional cover)
-- No multi-page four-panel stories — if content requires more, create multiple separate four-panel comics
-- Storyboard structure: Cover (optional) + 1 page
+- 整个故事在一页内讲完，且精确 4 panels
+- 页数：始终为 1（可加可选封面）
+- 不要 multi-page four-panel stories；如果内容需要更多篇幅，创建多个独立 four-panel comics
+- Storyboard 结构：Cover（可选）+ 1 page
 
 ### Accent Color System
 
-- The image is primarily black-and-white line art
-- Use exactly 1-2 spot colors per strip (default: orange `#FF6B35`)
-- Rules:
-  - Key concept label or object: filled with accent color or outlined in accent
-  - Panel 3 (转 Turn) should have the strongest color emphasis
-  - Characters remain B&W — color is for concepts/objects/labels only
-  - Consistent accent color across all 4 panels (do not switch colors between panels)
+- 图片主要是黑白 line art
+- 每条 strip 精确使用 1-2 个 spot colors（默认：orange `#FF6B35`）
+- 规则：
+  - 关键概念标签或对象：用 accent color 填充或描边
+  - Panel 3（转 Turn）应有最强色彩强调
+  - 角色保持 B&W，颜色只用于概念/对象/标签
+  - 4 个 panels 中保持一致 accent color（不要在 panels 之间切换颜色）
 
 ### Character Design Rules
 
-- Simplified stick-figure-like characters
-- Distinguish characters through simple props: ties, glasses, hats, briefcases, aprons
-- No detailed faces — dot eyes, line mouth at most
-- Characters should be generic enough to represent archetypes (the manager, the employee, the customer)
-- Maximum 2-3 characters per strip
+- 简化的火柴人式角色
+- 通过简单道具区分角色：领带、眼镜、帽子、公文包、围裙
+- 无详细面部，最多点眼和线条嘴
+- 角色应足够通用，以代表 archetypes（经理、员工、客户）
+- 每条 strip 最多 2-3 个角色
 
 ### Text in Panels
 
-- Chinese text for dialogue and labels (or match source language)
-- Keep text minimal — 1-2 short lines per panel maximum
-- Key concept terms can be highlighted with accent color background
-- No narrator boxes — dialogue and labels only
-- Speech bubbles: simple rectangles or ovals, thin black outline
+- 对话和标签使用中文（或匹配源语言）
+- 文本保持极简，每个 panel 最多 1-2 行短句
+- 关键概念词可用 accent color 背景高亮
+- 不使用 narrator boxes，只使用 dialogue 和 labels
+- Speech bubbles：简单矩形或椭圆，细黑描边
 
 ### Optional Title & Caption
 
-- A brief descriptive title above the 4 panels
-- An optional one-line caption/moral below the panels
-- These are part of the page composition, not separate panels
+- 4 个 panels 上方可有简短描述性标题
+- panels 下方可有可选单行 caption/moral
+- 它们是页面构图的一部分，不是独立 panels
 
 ### Character Archetypes (Flexible)
 
-Create simple stick-figure characters based on content. No fixed defaults:
+基于内容创建简单火柴人角色。没有固定默认角色：
 
-| Role | Archetype | Visual Cues |
+| 角色 | Archetype | 视觉线索 |
 |------|-----------|------------|
-| Protagonist | Worker/employee facing a situation | Simple figure, minimal distinguishing feature (glasses, tie) |
-| Authority | Boss/manager/expert | Slightly larger figure, or prop like pointer/clipboard |
-| Object | The concept itself | Labeled object, icon, or highlighted text with accent color |
+| Protagonist | 面对情境的工作者/员工 | 简单人物，极少区分特征（眼镜、领带） |
+| Authority | 老板/经理/专家 | 略大人物，或带教鞭/夹板等道具 |
+| Object | 概念本身 | 带标签对象、图标，或用 accent color 高亮的文本 |
 
 ### Prompt Template
 
-When generating image prompts for four-panel comics, include these keywords:
+为 four-panel comics 生成 image prompts 时，包含这些关键词：
 
 > A minimalist, clean line art digital comic strip in a four-panel grid layout (2×2). The style is simplified cartoon illustration with clear black outlines and a minimal color palette of black, white, and specific spot [accent color] for key concepts.
 
-Each panel description should specify:
-- Panel position (Top Left / Top Right / Bottom Left / Bottom Right)
-- Character poses and gestures (simple, stick-figure style)
-- Dialogue text in Chinese (hand-drawn style)
-- Any accent-colored elements (concept labels, key objects)
+每个 panel 描述应说明：
+- Panel 位置（Top Left / Top Right / Bottom Left / Bottom Right）
+- 角色姿势和手势（简单、stick-figure style）
+- 中文对话文本（hand-drawn style）
+- 任何 accent-colored elements（概念标签、关键对象）
 
 ## Quality Markers
 
-- ✓ Exactly 4 panels in strict 2×2 grid
-- ✓ 起承转合 narrative arc clearly present
-- ✓ 90%+ black-and-white with strategic spot color
-- ✓ Simplified stick-figure characters
-- ✓ Key concept visually highlighted with accent color
-- ✓ Text is minimal and in Chinese (or source language)
-- ✓ Single complete story in one page
-- ✓ Panel 3 delivers a clear "turn" or insight
+- ✓ 严格 2×2 grid，精确 4 panels
+- ✓ 起承转合 narrative arc 清晰存在
+- ✓ 90%+ 黑白，并策略性使用 spot color
+- ✓ 简化火柴人角色
+- ✓ 关键概念用 accent color 视觉高亮
+- ✓ 文本极简且为中文（或源语言）
+- ✓ 一页内完成单个完整故事
+- ✓ Panel 3 提供清晰 "turn" 或 insight
 
 ## Best For
 
-Business allegory, management fables, short insights, workplace parables, concept contrasts, social media educational content, quick-read comics
+商业寓言、管理寓言、短洞察、职场寓言、概念对比、社交媒体教育内容、快速阅读 comics

@@ -1,6 +1,6 @@
 ---
 name: baoyu-post-to-x
-description: Posts content and articles to X (Twitter). Supports regular posts with images/videos and X Articles (long-form Markdown). In Codex, honor explicit requests for the Codex Chrome plugin/@chrome by using the Chrome Extension workflow; otherwise use Chrome Computer Use when available and fall back to real Chrome CDP scripts only when allowed. Use when user asks to "post to X", "tweet", "publish to Twitter", or "share on X".
+description: 将内容和文章发布到 X（Twitter）。支持带图片/视频的 regular posts，以及 X Articles（long-form Markdown）。在 Codex 中，如果用户明确要求 Codex Chrome plugin/@chrome，必须使用 Chrome Extension workflow；否则在可用时使用 Chrome Computer Use，并且只有在允许时才 fallback 到 real Chrome CDP scripts。当用户要求 "post to X"、"tweet"、"publish to Twitter" 或 "share on X" 时使用。
 version: 1.58.1
 metadata:
   openclaw:
@@ -11,92 +11,98 @@ metadata:
         - npx
 ---
 
-# Post to X (Twitter)
+# Post to X（Twitter）
 
-Posts text, images, videos, and long-form articles to X via a real Chrome browser.
+通过真实 Chrome browser 向 X 发布文本、图片、视频和 long-form articles。
 
-In Codex, do not conflate these browser paths:
-- **Codex Chrome plugin / `@chrome` / Chrome Extension**: use the bundled `chrome:Chrome` skill and its Node REPL browser client. This is required whenever the user says "Codex Chrome plugin", "Codex 自带的 Chrome 插件", `@chrome`, or similar.
-- **Chrome Computer Use**: use `mcp__computer_use__.*` against the visible Google Chrome UI only when the user asks for Computer Use or no Chrome-plugin preference is stated and Computer Use is available.
-- **CDP script mode**: use only as a fallback when the selected mode is unavailable or the user explicitly asks for CDP/script mode.
+在 Codex 中，不要混淆以下 browser paths：
+
+- **Codex Chrome plugin / `@chrome` / Chrome Extension**：使用 bundled `chrome:Chrome` skill 及其 Node REPL browser client。只要用户说 "Codex Chrome plugin"、"Codex 自带的 Chrome 插件"、`@chrome` 或类似表达，就必须使用该路径。
+- **Chrome Computer Use**：只有当用户要求 Computer Use，或用户没有声明 Chrome-plugin 偏好且 Computer Use 可用时，才通过 `mcp__computer_use__.*` 操作可见的 Google Chrome UI。
+- **CDP script mode**：仅当所选模式不可用，或用户明确要求 CDP/script mode 时作为 fallback 使用。
 
 ## Script Directory
 
-**Important**: All scripts are located in the `scripts/` subdirectory of this skill.
+**Important**：所有 scripts 都位于该 skill 的 `scripts/` 子目录。
 
-**Agent Execution Instructions**:
-1. Determine this SKILL.md file's directory path as `{baseDir}`
+**Agent Execution Instructions**：
+
+1. 确定当前 SKILL.md 文件的目录路径为 `{baseDir}`
 2. Script path = `{baseDir}/scripts/<script-name>.ts`
-3. Replace all `{baseDir}` in this document with the actual path
-4. Resolve `${BUN_X}` runtime: if `bun` installed → `bun`; if `npx` available → `npx -y bun`; else suggest installing bun
+3. 把本文档中所有 `{baseDir}` 替换为 actual path
+4. 解析 `${BUN_X}` runtime：如果已安装 `bun` → `bun`；如果 `npx` 可用 → `npx -y bun`；否则建议安装 bun
 
-**Script Reference**:
+**Script Reference**：
+
 | Script | Purpose |
 |--------|---------|
-| `scripts/x-browser.ts` | Regular posts (text + images), CDP fallback |
-| `scripts/x-video.ts` | Video posts (text + video), CDP fallback |
-| `scripts/x-quote.ts` | Quote tweet with comment, CDP fallback |
-| `scripts/x-article.ts` | Long-form article publishing (Markdown), CDP fallback |
+| `scripts/x-browser.ts` | Regular posts（text + images），CDP fallback |
+| `scripts/x-video.ts` | Video posts（text + video），CDP fallback |
+| `scripts/x-quote.ts` | Quote tweet with comment，CDP fallback |
+| `scripts/x-article.ts` | Long-form article publishing（Markdown），CDP fallback |
 | `scripts/md-to-html.ts` | Markdown → HTML conversion |
 | `scripts/copy-to-clipboard.ts` | Copy content to clipboard |
-| `scripts/paste-from-clipboard.ts` | Send real paste keystroke |
+| `scripts/paste-from-clipboard.ts` | 发送真实 paste keystroke |
 | `scripts/check-paste-permissions.ts` | Verify environment & permissions |
 
-## Execution Mode Selection (Required)
+## Execution Mode Selection（Required）
 
-Choose exactly one mode before interacting with X:
+与 X 交互前，必须且只能选择一种 mode：
 
-1. If the user explicitly asks for the Codex Chrome plugin, `@chrome`, the Chrome extension, or "Codex 自带的 Chrome 插件", use **Codex Chrome Plugin Mode**. Do not call Computer Use first.
-2. If the user explicitly asks for Chrome Computer Use, use **Chrome Computer Use Mode**. Do not fall back to CDP, Playwright, the in-app Browser, or the Chrome plugin without telling the user and getting approval.
-3. If the user explicitly asks for CDP/script mode, use **CDP Script Mode**.
-4. Otherwise, prefer **Chrome Computer Use Mode**. For Markdown **X Articles with local content images**, use the tested X editor flow: insert each body image from the toolbar (`Insert` -> `Media` -> dialog icon button `Add photos or video`) at its placeholder, then delete the placeholder text. Use CDP Script Mode only when the selected browser-control mode is unavailable or the UI upload/selection flow is unreliable.
+1. 如果用户明确要求 Codex Chrome plugin、`@chrome`、Chrome extension 或 "Codex 自带的 Chrome 插件"，使用 **Codex Chrome Plugin Mode**。不要先调用 Computer Use。
+2. 如果用户明确要求 Chrome Computer Use，使用 **Chrome Computer Use Mode**。不要在未告知用户并获得同意的情况下 fallback 到 CDP、Playwright、in-app Browser 或 Chrome plugin。
+3. 如果用户明确要求 CDP/script mode，使用 **CDP Script Mode**。
+4. 否则，优先 **Chrome Computer Use Mode**。对带 local content images 的 Markdown **X Articles**，使用已验证的 X editor flow：从 toolbar（`Insert` -> `Media` -> dialog icon button `Add photos or video`）把每张正文图片插入到其 placeholder 位置，再删除 placeholder text。只有当选定 browser-control mode 不可用，或 UI upload/selection flow 不可靠时，才使用 CDP Script Mode。
 
-Never use the in-app Browser for X publishing workflows.
+绝不要把 in-app Browser 用于 X publishing workflows。
 
 ## Codex Chrome Plugin Mode
 
-Use this mode whenever the user requests the Codex Chrome plugin, `@chrome`, or the Chrome Extension path. This uses the user's real Chrome profile and X login through the bundled Chrome plugin, not Computer Use and not CDP.
+当用户要求 Codex Chrome plugin、`@chrome` 或 Chrome Extension path 时使用该模式。该模式通过 bundled Chrome plugin 使用用户真实 Chrome profile 和 X login，不是 Computer Use，也不是 CDP。
 
 **Setup**
-1. Load the `chrome:Chrome` skill before browser work.
-2. Use `tool_search` for `node_repl js` if the Node REPL `js` tool is not already visible.
-3. Initialize the Chrome browser client exactly as the Chrome skill specifies, then run a lightweight call such as `browser.user.openTabs()` to verify the extension connection.
-4. If the first lightweight call fails, wait 2 seconds and retry once. If it still fails, follow the Chrome skill's extension checks and recovery steps. If checks pass but communication still fails, ask the user before opening a new Chrome window. Do not switch to Computer Use or CDP silently.
+
+1. 在 browser work 前加载 `chrome:Chrome` skill。
+2. 如果 Node REPL `js` tool 尚不可见，用 `tool_search` 查找 `node_repl js`。
+3. 严格按 Chrome skill 指引初始化 Chrome browser client，然后运行 `browser.user.openTabs()` 这类轻量调用验证 extension connection。
+4. 如果第一次轻量调用失败，等待 2 秒后 retry 一次。如果仍失败，按 Chrome skill 的 extension checks 和 recovery steps 处理。如果 checks 通过但通信仍失败，打开新 Chrome window 前先询问用户。不要静默切换到 Computer Use 或 CDP。
 
 **General rules**
-- Use the Chrome plugin's `browser.tabs.*`, `tab.playwright.*`, `tab.cua.*`, and file chooser APIs for X UI actions.
-- Shell commands are allowed for Markdown preprocessing and rich-HTML clipboard preparation. For X Article body images, do not rely on image clipboard paste; use the editor's `Insert` -> `Media` upload flow.
-- If a file upload fails with `Not allowed`, tell the user: `To enable file upload, go to chrome://extensions in Chrome, click Details under the Codex extension, and enable "Allow access to file URLs." See https://developers.openai.com/codex/app/chrome-extension#upload-files for details.`
-- If the Chrome plugin reports `native pipe is closed`, retry the lightweight browser call once after 2 seconds, then run the Chrome skill health checks. If Chrome is running, the extension is enabled, and the native host manifest is correct, ask permission to open a new Chrome window and retry. Do not keep sending browser actions through the broken pipe.
-- Never click `Publish`, `Post`, or any externally visible submit action without explicit final confirmation from the user in the current conversation.
+
+- 使用 Chrome plugin 的 `browser.tabs.*`、`tab.playwright.*`、`tab.cua.*` 和 file chooser APIs 执行 X UI actions。
+- Shell commands 可用于 Markdown preprocessing 和 rich-HTML clipboard preparation。对 X Article body images，不要依赖 image clipboard paste；使用 editor 的 `Insert` -> `Media` upload flow。
+- 如果 file upload 报 `Not allowed`，告诉用户：`To enable file upload, go to chrome://extensions in Chrome, click Details under the Codex extension, and enable "Allow access to file URLs." See https://developers.openai.com/codex/app/chrome-extension#upload-files for details.`
+- 如果 Chrome plugin 报 `native pipe is closed`，2 秒后 retry 一次轻量 browser call，然后运行 Chrome skill health checks。如果 Chrome 正在运行、extension 已启用、native host manifest 正确，则询问是否打开新 Chrome window 并 retry。不要继续通过 broken pipe 发送 browser actions。
+- 没有当前对话中的 explicit final confirmation，绝不点击 `Publish`、`Post` 或任何 externally visible submit action。
 
 **X Articles**
-1. Convert Markdown and keep the image map:
+
+1. 转换 Markdown 并保留 image map：
    ```bash
    ${BUN_X} {baseDir}/scripts/md-to-html.ts article.md --save-html /tmp/x-article-body.html > /tmp/x-article.json
    ```
-2. Read the JSON output for `title`, `coverImage`, and `contentImages` (`placeholder` → `localPath`).
-3. Open or create the article draft at `https://x.com/compose/articles`.
-4. Upload the cover with the Chrome plugin file chooser flow. If upload is blocked by extension permissions, stop and report the exact permission fix above.
-5. Fill the title, then copy rich HTML:
+2. 读取 JSON output 中的 `title`、`coverImage` 和 `contentImages`（`placeholder` → `localPath`）。
+3. 在 `https://x.com/compose/articles` 打开或创建 article draft。
+4. 用 Chrome plugin file chooser flow 上传 cover。如果 upload 被 extension permissions 阻止，停止并报告上方 exact permission fix。
+5. 填写 title，然后复制 rich HTML：
    ```bash
    ${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts html --file /tmp/x-article-body.html
    ```
-6. Paste into the article body with a real paste keystroke through the Chrome plugin. On macOS use `Meta+V`.
-7. Verify the editor text contains the article body and `XIMGPH_` placeholders. Do not rely on `tab.clipboard.readText()` as proof of the system clipboard after shell clipboard writes; on macOS verify with `pbpaste` if needed.
-8. For each `contentImages` item in placeholder order:
-   - Locate the visible placeholder text (`XIMGPH_N`) and click it to place the caret there.
-   - Open the toolbar menu `Insert` -> `Media`.
-   - In the modal, click the icon button with `aria-label="Add photos or video"`; do not click the text/dropzone or hidden file input.
-   - Use the file chooser to upload that image's `localPath`.
-   - After the image appears, if `XIMGPH_N` remains above it, select exactly that placeholder and press `Delete` first. Use `Backspace` only if `Delete` fails and the selected text is confirmed to be exactly the placeholder.
-   - Verify the placeholder count for that `XIMGPH_N` is `0`.
-9. Open Preview and verify title, cover, body, links, and images.
-10. Ask for explicit confirmation before clicking `Publish`.
+6. 通过 Chrome plugin 发送真实 paste keystroke，把内容粘贴到 article body。macOS 使用 `Meta+V`。
+7. 验证 editor text 包含 article body 和 `XIMGPH_` placeholders。Shell 写入 clipboard 后，不要把 `tab.clipboard.readText()` 当作 system clipboard 的证明；macOS 可用 `pbpaste` 验证。
+8. 按 placeholder 顺序处理每个 `contentImages` item：
+   - 定位可见 placeholder text（`XIMGPH_N`）并点击，把 caret 放在该处。
+   - 打开 toolbar menu `Insert` -> `Media`。
+   - 在 modal 中点击带 `aria-label="Add photos or video"` 的 icon button；不要点击 text/dropzone 或 hidden file input。
+   - 使用 file chooser 上传该图片的 `localPath`。
+   - 图片出现后，如果 `XIMGPH_N` 仍留在图片上方，先精确选中该 placeholder 并按 `Delete`。只有当 `Delete` 失败且确认选中文本正好是 placeholder 时，才使用 `Backspace`。
+   - 验证该 `XIMGPH_N` 的 placeholder count 为 `0`。
+9. 打开 Preview，验证 title、cover、body、links 和 images。
+10. 点击 `Publish` 前必须请求 explicit confirmation。
 
-## Preferences (EXTEND.md)
+## Preferences（EXTEND.md）
 
-Check EXTEND.md in priority order — the first one found wins:
+按优先级检查 EXTEND.md：第一个找到的文件生效。
 
 | Priority | Path | Scope |
 |----------|------|-------|
@@ -104,117 +110,123 @@ Check EXTEND.md in priority order — the first one found wins:
 | 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-post-to-x/EXTEND.md` | XDG |
 | 3 | `$HOME/.baoyu-skills/baoyu-post-to-x/EXTEND.md` | User home |
 
-If none found, use defaults.
+如果没有找到，使用默认值。
 
-**EXTEND.md supports**: Default Chrome profile
+**EXTEND.md supports**：Default Chrome profile
 
 ## Prerequisites
 
-- Google Chrome or Chromium
+- Google Chrome 或 Chromium
 - `bun` runtime
-- First run: log in to X manually (session saved)
+- 首次运行：手动登录 X（session 会保存）
 
-## Pre-flight Check (Optional)
+## Pre-flight Check（Optional）
 
-Before first use, suggest running the environment check. User can skip if they prefer.
+首次使用前，建议运行 environment check。用户可选择跳过。
 
 ```bash
 ${BUN_X} {baseDir}/scripts/check-paste-permissions.ts
 ```
 
-Checks: Chrome, profile isolation, Bun, Accessibility, clipboard, paste keystroke, Chrome conflicts.
+Checks：Chrome、profile isolation、Bun、Accessibility、clipboard、paste keystroke、Chrome conflicts。
 
-**If any check fails**, provide fix guidance per item:
+**如果任何 check 失败**，按项目给出修复指引：
 
 | Check | Fix |
 |-------|-----|
-| Chrome | Install Chrome or set `X_BROWSER_CHROME_PATH` env var |
-| Profile dir | Shared profile at `baoyu-skills/chrome-profile` (see CLAUDE.md Chrome Profile section) |
-| Bun runtime | `brew install oven-sh/bun/bun` (macOS) or `npm install -g bun` |
-| Accessibility (macOS) | System Settings → Privacy & Security → Accessibility → enable terminal app |
-| Clipboard copy | Ensure Swift/AppKit available (macOS Xcode CLI tools: `xcode-select --install`) |
-| Paste keystroke (macOS) | Same as Accessibility fix above |
-| Paste keystroke (Linux) | Install `xdotool` (X11) or `ydotool` (Wayland) |
+| Chrome | 安装 Chrome 或设置 `X_BROWSER_CHROME_PATH` env var |
+| Profile dir | Shared profile at `baoyu-skills/chrome-profile`（见 CLAUDE.md Chrome Profile section） |
+| Bun runtime | `brew install oven-sh/bun/bun`（macOS）或 `npm install -g bun` |
+| Accessibility（macOS） | System Settings → Privacy & Security → Accessibility → enable terminal app |
+| Clipboard copy | 确保 Swift/AppKit 可用（macOS Xcode CLI tools：`xcode-select --install`） |
+| Paste keystroke（macOS） | 同 Accessibility fix |
+| Paste keystroke（Linux） | 安装 `xdotool`（X11）或 `ydotool`（Wayland） |
 
 ## References
 
-- **Regular Posts**: See `references/regular-posts.md` for manual workflow, troubleshooting, and technical details
-- **X Articles**: See `references/articles.md` for long-form article publishing guide
+- **Regular Posts**：manual workflow、troubleshooting 和 technical details 见 `references/regular-posts.md`
+- **X Articles**：long-form article publishing guide 见 `references/articles.md`
 
 ---
 
 ## Chrome Computer Use Mode
 
-Use this mode when the user explicitly asks for Chrome Computer Use, or when no Chrome-plugin preference is stated and Codex can control `Google Chrome` with Computer Use. This uses the user's existing Chrome window, cookies, login, extensions, and X session.
+当用户明确要求 Chrome Computer Use，或用户没有声明 Chrome-plugin 偏好且 Codex 可通过 Computer Use 控制 `Google Chrome` 时使用。该模式使用用户现有 Chrome window、cookies、login、extensions 和 X session。
 
-**General rules**:
-- Start each assistant turn that controls Chrome by calling `get_app_state` for `Google Chrome`.
-- Prefer element-index actions when available; use coordinates only for editor text selection or drag selection.
-- Do not use the in-app Browser, the Chrome plugin, Playwright, or CDP for X UI actions in this mode unless the user approves a mode change.
-- Never click `Publish`, `Post`, or any externally visible submit action without an explicit final confirmation from the user in the current conversation.
+**General rules**：
 
-**Regular posts**:
-1. Open or navigate Chrome to `https://x.com/compose/post`.
-2. Type the post text into the composer using Computer Use.
-3. For each image, run:
+- 每个会控制 Chrome 的 assistant turn，都要先对 `Google Chrome` 调用 `get_app_state`。
+- 可用时优先 element-index actions；仅在 editor text selection 或 drag selection 时使用 coordinates。
+- 除非用户同意 mode change，否则在该模式下不要用 in-app Browser、Chrome plugin、Playwright 或 CDP 做 X UI actions。
+- 没有当前对话中的 explicit final confirmation，绝不点击 `Publish`、`Post` 或任何 externally visible submit action。
+
+**Regular posts**：
+
+1. 打开或导航 Chrome 到 `https://x.com/compose/post`。
+2. 用 Computer Use 把 post text 输入 composer。
+3. 对每张图片运行：
    ```bash
    ${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts image /absolute/path/to/image.png
    ```
-4. Paste with Computer Use (`super+v` on macOS, `control+v` on Windows/Linux), then wait until X finishes uploading media.
-5. Ask for confirmation before clicking `Post`.
+4. 用 Computer Use 粘贴（macOS 为 `super+v`，Windows/Linux 为 `control+v`），然后等待 X 完成 media upload。
+5. 点击 `Post` 前请求确认。
 
-**Video posts**:
-1. Open or navigate Chrome to `https://x.com/compose/post`.
-2. Type the post text into the composer.
-3. Use the visible media upload/file picker UI to attach the video.
-4. Wait for upload and processing to complete.
-5. Ask for confirmation before clicking `Post`.
+**Video posts**：
 
-**Quote tweets**:
-1. Open the tweet URL in Chrome.
-2. Use the visible quote/repost UI to choose Quote.
-3. Type the comment.
-4. Ask for confirmation before clicking `Post`.
+1. 打开或导航 Chrome 到 `https://x.com/compose/post`。
+2. 把 post text 输入 composer。
+3. 使用可见 media upload/file picker UI 附加视频。
+4. 等待 upload 和 processing 完成。
+5. 点击 `Post` 前请求确认。
 
-**X Articles**:
-1. Convert Markdown and keep the image map:
+**Quote tweets**：
+
+1. 在 Chrome 中打开 tweet URL。
+2. 使用可见 quote/repost UI 选择 Quote。
+3. 输入 comment。
+4. 点击 `Post` 前请求确认。
+
+**X Articles**：
+
+1. 转换 Markdown 并保留 image map：
    ```bash
    ${BUN_X} {baseDir}/scripts/md-to-html.ts article.md --save-html /tmp/x-article-body.html > /tmp/x-article.json
    ```
-2. Read the JSON output for `title`, `coverImage`, and `contentImages` (`placeholder` → `localPath`).
-3. In Chrome, open `https://x.com/compose/articles`, create or open the draft, upload the cover if present, and fill the title.
-4. Copy rich HTML to the clipboard:
+2. 读取 JSON output 中的 `title`、`coverImage` 和 `contentImages`（`placeholder` → `localPath`）。
+3. 在 Chrome 中打开 `https://x.com/compose/articles`，创建或打开 draft，若有 cover 则上传，并填写 title。
+4. 复制 rich HTML 到 clipboard：
    ```bash
    ${BUN_X} {baseDir}/scripts/copy-to-clipboard.ts html --file /tmp/x-article-body.html
    ```
-5. Paste into the article body with Computer Use.
-6. For each `contentImages` entry in placeholder order:
-   - Locate the exact visible placeholder text such as `XIMGPH_3` and click it to set the insertion point.
-   - Open the toolbar `Insert` dropdown, choose `Media`, then click the modal's icon button labeled `Add photos or video`.
-   - Use the native file picker to choose the image's `localPath`.
-   - Wait until the image block appears and any upload activity is finished.
-   - If the placeholder remains above the inserted image, reselect exactly that placeholder text and press `Delete` first. Use `Backspace` only if `Delete` fails and the selected text is confirmed to be exactly the placeholder.
-7. Verify no `XIMGPH_` placeholders remain and the expected images appear.
-8. Open Preview and verify title, cover, body, links, and images.
-9. Ask for explicit confirmation before clicking `Publish`.
+5. 用 Computer Use 粘贴到 article body。
+6. 按 placeholder 顺序处理每个 `contentImages` entry：
+   - 定位精确可见 placeholder text，例如 `XIMGPH_3`，并点击设置 insertion point。
+   - 打开 toolbar `Insert` dropdown，选择 `Media`，然后点击 modal 中标记为 `Add photos or video` 的 icon button。
+   - 使用 native file picker 选择该图片的 `localPath`。
+   - 等待 image block 出现，且 upload activity 完成。
+   - 如果 placeholder 仍在插入图片上方，先重新精确选中该 placeholder text 并按 `Delete`。只有当 `Delete` 失败且确认选中文本正好是 placeholder 时，才使用 `Backspace`。
+7. 验证没有 `XIMGPH_` placeholders 残留，且 expected images 出现。
+8. 打开 Preview，验证 title、cover、body、links 和 images。
+9. 点击 `Publish` 前请求 explicit confirmation。
 
-If Computer Use selection, toolbar upload, or file-picker control becomes unreliable, stop and report the blocker instead of switching to the Chrome plugin or CDP silently.
+如果 Computer Use selection、toolbar upload 或 file-picker control 变得不可靠，停止并报告 blocker，不要静默切换到 Chrome plugin 或 CDP。
 
 ---
 
-## CDP Script Mode (Fallback)
+## CDP Script Mode（Fallback）
 
-Use the script sections below only when the selected browser-control mode is unavailable, unreliable, or explicitly not requested. These scripts launch or reuse a real Chrome instance via CDP and keep the browser open for review.
+只有当所选 browser-control mode 不可用、不可靠，或用户明确未要求该模式时，才使用下方 script sections。这些 scripts 会通过 CDP 启动或复用真实 Chrome instance，并保持 browser 打开供 review。
 
-Do not use CDP Script Mode when the user explicitly requires the Codex Chrome plugin or Chrome Computer Use unless the user approves the fallback after you explain the blocker.
+当用户明确要求 Codex Chrome plugin 或 Chrome Computer Use 时，不要使用 CDP Script Mode；除非你解释 blocker 后，用户同意 fallback。
 
 ---
 
 ## Post Type Selection
 
-Unless the user explicitly specifies the post type:
-- **Plain text** + within 10,000 characters → **Regular Post** (Premium members support up to 10,000 characters, non-Premium: 280)
-- **Markdown file** (.md) → **X Article**
+除非用户明确指定 post type：
+
+- **Plain text** + 10,000 characters 以内 → **Regular Post**（Premium members 支持最多 10,000 characters，non-Premium: 280）
+- **Markdown file**（.md）→ **X Article**
 
 ## Regular Posts
 
@@ -222,92 +234,97 @@ Unless the user explicitly specifies the post type:
 ${BUN_X} {baseDir}/scripts/x-browser.ts "Hello!" --image ./photo.png
 ```
 
-**Parameters**:
+**Parameters**：
+
 | Parameter | Description |
 |-----------|-------------|
-| `<text>` | Post content (positional) |
-| `--image <path>` | Image file (repeatable, max 4) |
+| `<text>` | Post content（positional） |
+| `--image <path>` | Image file（可重复，最多 4 张） |
 | `--profile <dir>` | Custom Chrome profile |
 
-**Note**: Script opens browser with content filled in. User reviews and publishes manually.
+**Note**：Script 会打开 browser 并填入内容。用户 review 后手动 publish。
 
-**Codex mode note**: If the user explicitly requested the Codex Chrome plugin, use **Codex Chrome Plugin Mode**. Otherwise, if Chrome Computer Use is enabled, use **Chrome Computer Use Mode** instead of running `x-browser.ts`.
+**Codex mode note**：如果用户明确要求 Codex Chrome plugin，使用 **Codex Chrome Plugin Mode**。否则，如果 Chrome Computer Use 已启用，使用 **Chrome Computer Use Mode**，而不是运行 `x-browser.ts`。
 
 ---
 
 ## Video Posts
 
-Text + video file.
+Text + video file。
 
 ```bash
 ${BUN_X} {baseDir}/scripts/x-video.ts "Check this out!" --video ./clip.mp4
 ```
 
-**Parameters**:
+**Parameters**：
+
 | Parameter | Description |
 |-----------|-------------|
-| `<text>` | Post content (positional) |
-| `--video <path>` | Video file (MP4, MOV, WebM) |
+| `<text>` | Post content（positional） |
+| `--video <path>` | Video file（MP4、MOV、WebM） |
 | `--profile <dir>` | Custom Chrome profile |
 
-**Note**: Script opens browser with content filled in. User reviews and publishes manually.
+**Note**：Script 会打开 browser 并填入内容。用户 review 后手动 publish。
 
-**Codex mode note**: If the user explicitly requested the Codex Chrome plugin, use **Codex Chrome Plugin Mode**. Otherwise, if Chrome Computer Use is enabled, use **Chrome Computer Use Mode** instead of running `x-video.ts`.
+**Codex mode note**：如果用户明确要求 Codex Chrome plugin，使用 **Codex Chrome Plugin Mode**。否则，如果 Chrome Computer Use 已启用，使用 **Chrome Computer Use Mode**，而不是运行 `x-video.ts`。
 
-**Limits**: Regular 140s max, Premium 60min. Processing: 30-60s.
+**Limits**：Regular 140s max，Premium 60min。Processing：30-60s。
 
 ---
 
 ## Quote Tweets
 
-Quote an existing tweet with comment.
+引用现有 tweet 并添加 comment。
 
 ```bash
 ${BUN_X} {baseDir}/scripts/x-quote.ts https://x.com/user/status/123 "Great insight!"
 ```
 
-**Parameters**:
+**Parameters**：
+
 | Parameter | Description |
 |-----------|-------------|
-| `<tweet-url>` | URL to quote (positional) |
-| `<comment>` | Comment text (positional, optional) |
+| `<tweet-url>` | 要 quote 的 URL（positional） |
+| `<comment>` | Comment text（positional，optional） |
 | `--profile <dir>` | Custom Chrome profile |
 
-**Note**: Script opens browser with content filled in. User reviews and publishes manually.
+**Note**：Script 会打开 browser 并填入内容。用户 review 后手动 publish。
 
-**Codex mode note**: If the user explicitly requested the Codex Chrome plugin, use **Codex Chrome Plugin Mode**. Otherwise, if Chrome Computer Use is enabled, use **Chrome Computer Use Mode** instead of running `x-quote.ts`.
+**Codex mode note**：如果用户明确要求 Codex Chrome plugin，使用 **Codex Chrome Plugin Mode**。否则，如果 Chrome Computer Use 已启用，使用 **Chrome Computer Use Mode**，而不是运行 `x-quote.ts`。
 
 ---
 
 ## X Articles
 
-Long-form Markdown articles (requires X Premium).
+Long-form Markdown articles（需要 X Premium）。
 
 ```bash
 ${BUN_X} {baseDir}/scripts/x-article.ts article.md
 ${BUN_X} {baseDir}/scripts/x-article.ts article.md --cover ./cover.jpg
 ```
 
-**Parameters**:
+**Parameters**：
+
 | Parameter | Description |
 |-----------|-------------|
-| `<markdown>` | Markdown file (positional) |
+| `<markdown>` | Markdown file（positional） |
 | `--cover <path>` | Cover image |
 | `--title <text>` | Override title |
 
-**Frontmatter**: `title`, `cover_image` supported in YAML front matter.
+**Frontmatter**：支持 YAML front matter 中的 `title`、`cover_image`。
 
-**Codex mode note**: If the user explicitly requested the Codex Chrome plugin, follow **Codex Chrome Plugin Mode** above. If the user explicitly requested Chrome Computer Use, follow **Chrome Computer Use Mode**. Otherwise, prefer Chrome Computer Use; for Markdown articles with local content images, use the toolbar `Insert` -> `Media` image-upload workflow before falling back to `x-article.ts` in **CDP Script Mode**.
+**Codex mode note**：如果用户明确要求 Codex Chrome plugin，遵循上方 **Codex Chrome Plugin Mode**。如果用户明确要求 Chrome Computer Use，遵循 **Chrome Computer Use Mode**。否则，优先 Chrome Computer Use；对带 local content images 的 Markdown articles，使用 toolbar `Insert` -> `Media` image-upload workflow，然后再 fallback 到 **CDP Script Mode** 中的 `x-article.ts`。
 
-**CDP fallback note**: The script opens browser with article filled in. User reviews and publishes manually unless `--submit` is used.
+**CDP fallback note**：Script 会打开 browser 并填入 article。除非使用 `--submit`，否则用户 review 后手动 publish。
 
-**Publish safety**: Do not use `--submit` or click `Publish` unless the user explicitly confirms the final public publish action.
+**Publish safety**：除非用户明确确认最终 public publish action，否则不要使用 `--submit` 或点击 `Publish`。
 
-**Post-Composition Check**: The script automatically verifies after all images are inserted:
-- Remaining `XIMGPH_` placeholders in editor content
+**Post-Composition Check**：Script 会在所有 images 插入后自动验证：
+
+- Editor content 中剩余的 `XIMGPH_` placeholders
 - Expected vs actual image count
 
-If the check fails (warnings in output), alert the user with the specific issues before they publish.
+如果 check 失败（output 中出现 warnings），在用户 publish 前用具体问题提醒用户。
 
 ---
 
@@ -315,21 +332,21 @@ If the check fails (warnings in output), alert the user with the specific issues
 
 ### Chrome debug port not ready
 
-CDP fallback only: if a script fails with `Chrome debug port not ready` or `Unable to connect`, kill existing Chrome CDP instances first, then retry:
+仅 CDP fallback：如果 script 失败并显示 `Chrome debug port not ready` 或 `Unable to connect`，先 kill 现有 Chrome CDP instances，再 retry：
 
 ```bash
 pkill -f "Chrome.*remote-debugging-port" 2>/dev/null; pkill -f "Chromium.*remote-debugging-port" 2>/dev/null; sleep 2
 ```
 
-**Important**: This should be done automatically — when encountering this error, kill Chrome CDP instances and retry the command without asking the user.
+**Important**：这应自动完成。遇到该错误时，kill Chrome CDP instances 并 retry command，不要询问用户。
 
 ## Notes
 
-- First run: manual login required (session persists)
-- In Codex Chrome Plugin Mode and Chrome Computer Use Mode, use the user's existing Chrome session and do not launch a separate CDP profile
-- CDP scripts only fill content into the browser by default; user must review and publish manually unless `--submit` is explicitly used
-- Cross-platform: macOS, Linux, Windows
+- 首次运行：需要 manual login（session persists）
+- 在 Codex Chrome Plugin Mode 和 Chrome Computer Use Mode 中，使用用户现有 Chrome session，不要启动独立 CDP profile
+- CDP scripts 默认只把内容填入 browser；除非显式使用 `--submit`，否则用户必须 review 并手动 publish
+- Cross-platform：macOS、Linux、Windows
 
 ## Extension Support
 
-Custom configurations via EXTEND.md. See **Preferences** section for paths and supported options.
+通过 EXTEND.md 自定义配置。路径和支持选项见 **Preferences** section。

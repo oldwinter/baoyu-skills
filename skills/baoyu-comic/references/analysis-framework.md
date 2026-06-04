@@ -1,143 +1,165 @@
 # Comic Content Analysis Framework
 
-Deep analysis framework for transforming source content into effective visual storytelling.
+将 source content 转换为有效 visual storytelling 的深度分析框架。
 
 ## Purpose
 
-Before creating a comic, thoroughly analyze the source material to:
-- Identify the target audience and their needs
-- Determine what value the comic will deliver
-- Extract narrative potential for visual storytelling
-- Plan character arcs and key moments
+创建 comic 前，彻底分析源材料，以便：
+
+- 识别 target audience 及其需求
+- 判断 comic 将交付什么价值
+- 提取适合 visual storytelling 的叙事潜力
+- 规划 character arcs 和关键时刻
 
 ## Analysis Dimensions
 
-### 1. Core Content (Understanding "What")
+### 1. Core Content（理解 "What"）
 
 **Central Message**
-- What is the single most important idea readers should take away?
-- Can you express it in one sentence?
+
+- 读者最应该带走的单一重要想法是什么？
+- 能否用一句话表达？
 
 **Key Concepts**
-- What are the essential concepts readers must understand?
-- How should these concepts be visualized?
-- Which concepts need simplified explanations?
+
+- 读者必须理解哪些核心概念？
+- 这些概念应如何可视化？
+- 哪些概念需要简化解释？
 
 **Content Structure**
-- How is the source material organized?
-- What is the natural narrative arc?
-- Where are the climax and turning points?
+
+- Source material 是如何组织的？
+- 自然的 narrative arc 是什么？
+- Climax 和 turning points 在哪里？
 
 **Evidence & Examples**
-- What concrete examples, data, or stories support the main ideas?
-- Which examples translate well to visual panels?
-- What can be shown rather than told?
 
-### 2. Context & Background (Understanding "Why")
+- 哪些具体 examples、data 或 stories 支撑主要想法？
+- 哪些 examples 适合转换为 visual panels？
+- 哪些内容可以展示，而不是讲述？
+
+### 2. Context & Background（理解 "Why"）
 
 **Source Origin**
-- Who created this content? What is their perspective?
-- What was the original purpose?
-- Is there bias to be aware of?
+
+- 谁创建了这份内容？他们的视角是什么？
+- 原始目的是什么？
+- 是否存在需要注意的 bias？
 
 **Historical/Cultural Context**
-- When and where does the story take place?
-- What background knowledge do readers need?
-- What period-specific visual elements are required?
+
+- 故事发生在何时何地？
+- 读者需要什么背景知识？
+- 需要哪些特定时代/文化的视觉元素？
 
 **Underlying Assumptions**
-- What does the source assume readers already know?
-- What implicit beliefs or values are present?
-- Should the comic challenge or reinforce these?
+
+- Source 假定读者已经知道什么？
+- 其中有哪些隐含 beliefs 或 values？
+- Comic 应该挑战还是强化这些内容？
 
 ### 3. Audience Analysis
 
 **Primary Audience**
-- Who will read this comic?
-- What is their existing knowledge level?
-- What are their interests and motivations?
+
+- 谁会阅读这部 comic？
+- 他们现有知识水平如何？
+- 他们的兴趣和动机是什么？
 
 **Secondary Audiences**
-- Who else might benefit from this comic?
-- How might their needs differ?
+
+- 还有谁可能从这部 comic 受益？
+- 他们的需求有何不同？
 
 **Reader Questions**
-- What questions will readers have?
-- What misconceptions might they bring?
-- What "aha moments" can we create?
+
+- 读者会有什么问题？
+- 他们可能带着哪些误解？
+- 可以创造哪些 "aha moments"？
 
 ### 4. Value Proposition
 
 **Knowledge Value**
-- What will readers learn?
-- What new perspectives will they gain?
-- How will this change their understanding?
+
+- 读者会学到什么？
+- 他们会获得什么新视角？
+- 这会如何改变他们的理解？
 
 **Emotional Value**
-- What emotions should readers feel?
-- What connections will they make with characters?
-- What will make this memorable?
+
+- 读者应该感受到什么情绪？
+- 他们会与角色建立什么连接？
+- 什么会让内容难忘？
 
 **Practical Value**
-- Can readers apply what they learn?
-- What actions might this inspire?
-- What conversations might it spark?
+
+- 读者能否应用所学？
+- 这可能激发什么行动？
+- 这可能引发什么对话？
 
 ### 5. Narrative Potential
 
 **Story Arc Candidates**
-- What natural narratives exist in the content?
-- Where is the conflict or tension?
-- What transformations occur?
+
+- 内容中有哪些自然叙事？
+- 冲突或张力在哪里？
+- 发生了哪些 transformation？
 
 **Character Potential**
-- Who are the key figures?
-- What are their motivations and obstacles?
-- How do they change throughout?
+
+- 关键人物是谁？
+- 他们的 motivations 和 obstacles 是什么？
+- 他们在过程中如何变化？
 
 **Visual Opportunities**
-- What scenes have strong visual potential?
-- Where can abstract concepts become concrete images?
-- What metaphors can be visualized?
+
+- 哪些 scenes 有强视觉潜力？
+- 哪里能把 abstract concepts 变成 concrete images？
+- 哪些 metaphors 可以可视化？
 
 **Dramatic Moments**
-- What are the breakthrough/revelation moments?
-- Where are the emotional peaks?
-- What creates tension and release?
+
+- Breakthrough/revelation moments 是哪些？
+- 情绪高点在哪里？
+- 什么制造 tension and release？
 
 ### 6. Adaptation Considerations
 
 **What to Keep**
+
 - Essential facts and ideas
 - Key quotes or moments
 - Core emotional beats
 
 **What to Simplify**
+
 - Complex explanations
 - Dense technical details
 - Lengthy descriptions
 
 **What to Expand**
-- Brief mentions that deserve more attention
-- Implied emotions or relationships
-- Visual details not in source
+
+- 值得更多关注的 brief mentions
+- 隐含 emotions 或 relationships
+- Source 中没有展开的 visual details
 
 **What to Omit**
-- Tangential information
-- Redundant examples
-- Content that doesn't serve the narrative
+
+- 离题信息
+- 重复 examples
+- 不服务 narrative 的内容
 
 ## Output Format
 
-Analysis results should be saved to `analysis.md` with:
+Analysis results 应保存到 `analysis.md`，包含：
 
-1. **YAML Front Matter**: Metadata (title, topic, time_span, source_language, user_language, aspect_ratio, recommended_page_count, recommended_art, recommended_tone, recommended_layout)
-2. **Target Audience**: Primary, secondary, tertiary audiences with their needs
-3. **Value Proposition**: What readers will gain (knowledge, emotional, practical)
-4. **Core Themes**: Table with theme, narrative potential, visual opportunity
-5. **Key Figures & Story Arcs**: Character profiles with arcs, visual identity, key moments
-6. **Content Signals**: Style and layout recommendations based on content type
-7. **Recommended Approaches**: Narrative approaches ranked by suitability
+1. **YAML Front Matter**：Metadata（title、topic、time_span、source_language、user_language、aspect_ratio、recommended_page_count、recommended_art、recommended_tone、recommended_layout）
+2. **Target Audience**：Primary、secondary、tertiary audiences 及其 needs
+3. **Value Proposition**：读者将获得什么（knowledge、emotional、practical）
+4. **Core Themes**：包含 theme、narrative potential、visual opportunity 的表格
+5. **Key Figures & Story Arcs**：包含 arcs、visual identity、key moments 的 character profiles
+6. **Content Signals**：基于 content type 的 style 和 layout recommendations
+7. **Recommended Approaches**：按适配度排序的 narrative approaches
 
 ### YAML Front Matter Example
 
@@ -160,17 +182,17 @@ recommended_layout: mixed      # standard|cinematic|dense|splash|mixed|webtoon
 
 | Field | Description |
 |-------|-------------|
-| `source_language` | Detected language of source content |
-| `user_language` | Output language for comic (from EXTEND.md > --lang > source_language) |
+| `source_language` | Source content 的检测语言 |
+| `user_language` | Comic 输出语言（来自 EXTEND.md > --lang > source_language） |
 
 ## Analysis Checklist
 
-Before proceeding to storyboard:
+进入 storyboard 前检查：
 
-- [ ] Can I state the core message in one sentence?
-- [ ] Do I know exactly who will read this comic?
-- [ ] Have I identified at least 3 ways this comic provides value?
-- [ ] Are there clear protagonists with compelling arcs?
-- [ ] Have I found at least 5 visually powerful moments?
-- [ ] Do I understand what to keep, simplify, expand, and omit?
-- [ ] Have I identified the emotional peaks and valleys?
+- [ ] 我能否用一句话说出 core message？
+- [ ] 我是否清楚谁会阅读这部 comic？
+- [ ] 我是否识别了至少 3 种 comic 提供价值的方式？
+- [ ] 是否有清晰 protagonist 和有吸引力的 arcs？
+- [ ] 我是否找到了至少 5 个视觉冲击强的 moments？
+- [ ] 我是否理解哪些内容要 keep、simplify、expand、omit？
+- [ ] 我是否识别了 emotional peaks and valleys？

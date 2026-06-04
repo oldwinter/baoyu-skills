@@ -1,39 +1,39 @@
-# Image-Text Posting (贴图发表, formerly 图文)
+# Image-Text Posting（贴图发表，原“图文”）
 
-Post image-text messages with multiple images to WeChat Official Account.
+向 WeChat Official Account 发布带多张图片的 image-text messages。
 
-> **Note**: WeChat has renamed "图文" to "贴图" in the Official Account menu (as of 2026).
+> **Note**：截至 2026 年，WeChat 已在 Official Account 菜单中将“图文”更名为“贴图”。
 
-## Usage
+## 用法
 
 ```bash
-# Post with images and markdown file (title/content extracted automatically)
+# 使用图片和 markdown 文件发布（自动提取 title/content）
 ${BUN_X} ./scripts/wechat-browser.ts --markdown source.md --images ./images/
 
-# Post with explicit title and content
+# 使用明确 title 和 content 发布
 ${BUN_X} ./scripts/wechat-browser.ts --title "标题" --content "内容" --image img1.png --image img2.png
 
-# Save as draft
+# 保存为草稿
 ${BUN_X} ./scripts/wechat-browser.ts --markdown source.md --images ./images/ --submit
 ```
 
-## Parameters
+## 参数
 
-| Parameter | Description |
+| 参数 | 说明 |
 |-----------|-------------|
-| `--markdown <path>` | Markdown file for title/content extraction |
-| `--images <dir>` | Directory containing images (sorted by name) |
-| `--title <text>` | Article title (max 20 chars, auto-compressed if too long) |
-| `--content <text>` | Article content (max 1000 chars, auto-compressed if too long) |
-| `--image <path>` | Single image file (can be repeated) |
-| `--submit` | Save as draft (default: preview only) |
+| `--markdown <path>` | 用于提取 title/content 的 Markdown file |
+| `--images <dir>` | 包含 images 的 directory（按名称排序） |
+| `--title <text>` | Article title（最长 20 chars，过长会自动压缩） |
+| `--content <text>` | Article content（最长 1000 chars，过长会自动压缩） |
+| `--image <path>` | 单个 image file（可重复） |
+| `--submit` | 保存为草稿（默认：仅 preview） |
 | `--profile <dir>` | Chrome profile directory |
 
-## Auto Title/Content from Markdown
+## 从 Markdown 自动提取 Title/Content
 
-When using `--markdown`, the script:
+使用 `--markdown` 时，脚本会：
 
-1. **Parses frontmatter** for title and author:
+1. **解析 frontmatter** 获取 title 和 author：
    ```yaml
    ---
    title: 文章标题
@@ -41,34 +41,34 @@ When using `--markdown`, the script:
    ---
    ```
 
-2. **Falls back to H1** if no frontmatter title:
+2. 如果没有 frontmatter title，则 **fallback 到 H1**：
    ```markdown
    # 这将成为标题
    ```
 
-3. **Compresses title** to 20 characters if too long:
-   - Original: "如何在一天内彻底重塑你的人生"
-   - Compressed: "一天彻底重塑你的人生"
+3. 如果 title 过长，**压缩 title** 到 20 个字符：
+   - 原始："如何在一天内彻底重塑你的人生"
+   - 压缩后："一天彻底重塑你的人生"
 
-4. **Extracts first paragraphs** as content (max 1000 chars)
+4. **提取前几段** 作为 content（最多 1000 chars）
 
 ## Image Directory Mode
 
-When using `--images <dir>`:
+使用 `--images <dir>` 时：
 
-- All PNG/JPG files in directory are uploaded
-- Files are sorted alphabetically by name
-- Naming convention: `01-cover.png`, `02-content.png`, etc.
+- 上传 directory 中所有 PNG/JPG files
+- 文件按名称字母序排序
+- 命名约定：`01-cover.png`、`02-content.png` 等
 
-## Constraints
+## 约束
 
-| Field | Max Length | Notes |
+| 字段 | 最大长度 | 说明 |
 |-------|------------|-------|
-| Title | 20 chars | Auto-compressed if longer |
-| Content | 1000 chars | Auto-compressed if longer |
-| Images | 9 max | WeChat limit |
+| Title | 20 chars | 过长会自动压缩 |
+| Content | 1000 chars | 过长会自动压缩 |
+| Images | 最多 9 张 | WeChat limit |
 
-## Example Session
+## 示例会话
 
 ```
 User: /post-to-wechat --markdown ./article.md --images ./xhs-images/
@@ -87,8 +87,8 @@ Claude:
 
 ## Scripts
 
-| Script | Purpose |
+| Script | 用途 |
 |--------|---------|
-| `wechat-browser.ts` | Main image-text posting script |
+| `wechat-browser.ts` | 主要 image-text posting script |
 | `cdp.ts` | Chrome DevTools Protocol utilities |
 | `copy-to-clipboard.ts` | Clipboard operations |

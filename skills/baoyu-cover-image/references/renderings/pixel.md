@@ -1,42 +1,42 @@
 # pixel
 
-Retro 8-bit, nostalgic, chunky
+Retro 8-bit、nostalgic、chunky
 
 ## Core Characteristics
 
-Pixel art aesthetic with visible pixel grid, limited color palette, and nostalgic gaming feel. Emulates classic 8-bit and 16-bit era graphics.
+Pixel art aesthetic，带 visible pixel grid、limited color palette 和 nostalgic gaming feel。模拟 classic 8-bit 与 16-bit era graphics。
 
 ## Lines
 
-- Pixel grid alignment, no anti-aliasing
-- Staircase edges on diagonals
-- Single-pixel or double-pixel outlines
-- Blocky, angular forms
+- Pixel grid alignment，无 anti-aliasing
+- Diagonals 上有 staircase edges
+- Single-pixel 或 double-pixel outlines
+- Blocky、angular forms
 
 ## Texture
 
-- Dithering patterns for gradients
-- No smooth transitions
-- Cross-hatching with pixel precision
-- Limited 16-32 color palette per scene
+- 用 dithering patterns 表现 gradients
+- 无 smooth transitions
+- Pixel precision 的 cross-hatching
+- 每个 scene 限制 16-32 色 palette
 
 ## Depth
 
-- None: flat pixel planes only
-- Parallax layering (foreground/background)
-- No perspective or 3D effects
+- None：仅 flat pixel planes
+- Parallax layering（foreground/background）
+- 无 perspective 或 3D effects
 
 ## Element Vocabulary
 
-- 8-bit sprites and chunky shapes
-- Simple iconography: stars, hearts, arrows
-- Text bubbles with pixel borders
-- Progress bars with chunky segments
+- 8-bit sprites 和 chunky shapes
+- Simple iconography：stars、hearts、arrows
+- 带 pixel borders 的 text bubbles
+- 带 chunky segments 的 progress bars
 - Retro gaming UI elements
 
 ## Typography Approach
 
 - Pixelated bitmap font style
 - Chunky blocky letterforms
-- Fixed-width or monospace feel
-- All-caps for headers
+- Fixed-width 或 monospace feel
+- Headers 使用 all-caps
