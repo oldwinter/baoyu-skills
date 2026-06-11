@@ -1,6 +1,6 @@
 ---
 name: baoyu-image-gen
-description: 通过 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope、Z.AI GLM-Image、MiniMax、Jimeng、Seedream 和 Replicate APIs 进行 AI image generation。支持 text-to-image、reference images、aspect ratios，以及从已保存 prompt files 批量生成。默认 sequential；当用户已有多个 prompts 或需要稳定多图吞吐时使用 batch parallel generation。用户要求生成、创建或绘制图片时使用。
+description: 通过 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope、Z.AI GLM-Image、MiniMax、Jimeng、Seedream、Replicate 和 Agnes APIs 进行 AI image generation。支持 text-to-image、reference images、aspect ratios，以及从已保存 prompt files 批量生成。默认 sequential；当用户已有多个 prompts 或需要稳定多图吞吐时使用 batch parallel generation。用户要求生成、创建或绘制图片时使用。
 version: 2.1.0
 metadata:
   openclaw:
@@ -13,7 +13,7 @@ metadata:
 
 # Image Generation（AI SDK）
 
-基于官方 API 的 image generation。支持 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope（阿里通义万象）、Z.AI GLM-Image、MiniMax、Jimeng（即梦）、Seedream（豆包）和 Replicate。
+基于官方 API 的 image generation。支持 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope（阿里通义万象）、Z.AI GLM-Image、MiniMax、Jimeng（即梦）、Seedream（豆包）、Replicate 和 Agnes。
 
 ## User Input Tools
 
@@ -111,7 +111,7 @@ ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json --jobs 4
 | `--image <path>` | Output image path（single-image mode 中 required） |
 | `--batchfile <path>` | Multi-image generation 的 JSON batch file |
 | `--jobs <count>` | Batch mode worker count（default: auto，max from config，built-in default 10） |
-| `--provider google\|openai\|azure\|openrouter\|dashscope\|zai\|minimax\|jimeng\|seedream\|replicate\|codex-cli` | 强制 provider（default: auto-detect；`codex-cli` 永不 auto-selected，必须通过 CLI 或 EXTEND.md pinned） |
+| `--provider google\|openai\|azure\|openrouter\|dashscope\|zai\|minimax\|jimeng\|seedream\|replicate\|codex-cli\|agnes` | 强制 provider（default: auto-detect；`codex-cli` 永不 auto-selected，必须通过 CLI 或 EXTEND.md pinned） |
 | `--model <id>`, `-m` | Model ID：defaults 和 allowed values 见 provider references |
 | `--ar <ratio>` | Aspect ratio（`16:9`、`1:1`、`4:3`、…） |
 | `--size <WxH>` | 显式 size（例如 `1024x1024`；对 `gpt-image-2`，width/height 必须是 16 的倍数，max edge 3840px，ratio 不宽于 3:1） |
@@ -136,7 +136,8 @@ ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json --jobs 4
 | `REPLICATE_API_TOKEN` | Replicate API token |
 | `JIMENG_ACCESS_KEY_ID`, `JIMENG_SECRET_ACCESS_KEY` | Jimeng（即梦）Volcengine credentials |
 | `ARK_API_KEY` | Seedream（豆包）Volcengine ARK API key |
-| `<PROVIDER>_IMAGE_MODEL` | Per-provider model override（`OPENAI_IMAGE_MODEL`、`GOOGLE_IMAGE_MODEL`、`DASHSCOPE_IMAGE_MODEL`、`ZAI_IMAGE_MODEL`/`BIGMODEL_IMAGE_MODEL`、`MINIMAX_IMAGE_MODEL`、`OPENROUTER_IMAGE_MODEL`、`REPLICATE_IMAGE_MODEL`、`JIMENG_IMAGE_MODEL`、`SEEDREAM_IMAGE_MODEL`） |
+| `AGNES_API_KEY` | Agnes API key |
+| `<PROVIDER>_IMAGE_MODEL` | Per-provider model override（`OPENAI_IMAGE_MODEL`、`GOOGLE_IMAGE_MODEL`、`DASHSCOPE_IMAGE_MODEL`、`ZAI_IMAGE_MODEL`/`BIGMODEL_IMAGE_MODEL`、`MINIMAX_IMAGE_MODEL`、`OPENROUTER_IMAGE_MODEL`、`REPLICATE_IMAGE_MODEL`、`JIMENG_IMAGE_MODEL`、`SEEDREAM_IMAGE_MODEL`、`AGNES_IMAGE_MODEL`） |
 | `AZURE_OPENAI_DEPLOYMENT`（alias `AZURE_OPENAI_IMAGE_MODEL`） | Azure default deployment |
 | `<PROVIDER>_BASE_URL` | Per-provider endpoint override |
 | `AZURE_API_VERSION` | Azure image API version（default `2025-04-01-preview`） |
@@ -207,13 +208,14 @@ OpenAI native API 或严格 clones 使用 `openai-native`；Gemini 或类似 mod
 | OpenRouter（multimodal models、`/chat/completions` flow） | `references/providers/openrouter.md` |
 | Replicate（nano-banana、Seedream、Wan） | `references/providers/replicate.md` |
 | Codex CLI（wraps bundled `scripts/codex-imagegen/`；Codex login，不需要 `OPENAI_API_KEY`） | `references/providers/codex-cli.md` |
+| Agnes（`agnes-image-2.1-flash`、支持 reference image） | `references/providers/agnes.md` |
 
 ## Provider Selection
 
-1. 提供了 `--ref` 且没有 `--provider` → auto-select Google → OpenAI → Azure → OpenRouter → Replicate → Seedream → MiniMax（MiniMax 的 subject reference 更偏向 character/portrait consistency）
-2. 指定了 `--provider` → 使用它（如果有 `--ref`，必须是 google/openai/azure/openrouter/replicate/seedream/minimax/codex-cli）
+1. 提供了 `--ref` 且没有 `--provider` → auto-select Google → OpenAI → Azure → OpenRouter → Replicate → Seedream → MiniMax → Agnes（MiniMax 的 subject reference 更偏向 character/portrait consistency）
+2. 指定了 `--provider` → 使用它（如果有 `--ref`，必须是 google/openai/azure/openrouter/replicate/seedream/minimax/codex-cli/agnes）
 3. 只有一个 API key 存在 → 使用该 provider
-4. 多个 keys → 默认优先级：Google → OpenAI → Azure → OpenRouter → DashScope → Z.AI → MiniMax → Replicate → Jimeng → Seedream
+4. 多个 keys → 默认优先级：Google → OpenAI → Azure → OpenRouter → DashScope → Z.AI → MiniMax → Replicate → Jimeng → Seedream → Agnes
 5. `codex-cli` **永不 auto-selected**：需在 EXTEND.md 设置 `default_provider: codex-cli` 或传 `--provider codex-cli`。它通过 bundled `scripts/codex-imagegen/main.ts` TS entrypoint（用 `bun` 运行）启动 `codex exec`，并使用用户的 Codex subscription（不需要 `OPENAI_API_KEY`）。要求 `codex` 在 `PATH` 中且已有有效 `codex login`。
 
 ## Quality Presets
@@ -281,6 +283,7 @@ Rule of thumb：一旦 prompt files 已保存，任务变成“generate all of t
 | `references/providers/minimax.md` | MiniMax image-01 + subject reference |
 | `references/providers/openrouter.md` | OpenRouter multimodal flow |
 | `references/providers/replicate.md` | Replicate supported families + guardrails |
+| `references/providers/agnes.md` | Agnes (agnes-image-2.1-flash) sizing, refs, and limits |
 | `references/config/preferences-schema.md` | EXTEND.md schema |
 | `references/config/first-time-setup.md` | First-time setup flow |
 

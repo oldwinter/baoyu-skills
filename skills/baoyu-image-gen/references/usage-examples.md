@@ -83,6 +83,15 @@ ${BUN_X} {baseDir}/scripts/main.ts --prompt "A cinematic portrait" --image out.p
 
 # Codex CLI 带 reference images（style/composition guidance）
 ${BUN_X} {baseDir}/scripts/main.ts --prompt "Match this color palette" --image out.png --provider codex-cli --ref source.png --ar 1:1
+
+# Agnes（默认 model）
+${BUN_X} {baseDir}/scripts/main.ts --prompt "A detailed infographic" --image out.png --provider agnes
+
+# Agnes 带 aspect ratio 和 URL output
+${BUN_X} {baseDir}/scripts/main.ts --prompt "A cinematic scene" --image out.txt --provider agnes --ar 16:9 --response-format url
+
+# Agnes 带 reference image
+${BUN_X} {baseDir}/scripts/main.ts --prompt "Apply this style" --image out.png --provider agnes --ref source.png
 ```
 
 `codex-cli` 说明：

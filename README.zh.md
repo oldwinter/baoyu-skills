@@ -105,6 +105,18 @@ clawhub install baoyu-markdown-to-html
 
 技能分为三大类：
 
+### 设计技能推荐：baoyu-design
+
+如果你想让本地 Agent 直接做设计，可以试试 [JimLiu/baoyu-design](https://github.com/JimLiu/baoyu-design)。这是一个独立项目，它把 Claude Design 打包成可移植的 Agent Skill，可在 Cursor、Claude Code、Codex、Claude Desktop 或其他能读写文件的编码 Agent 中运行，用来生成精致 UI 稿、可交互原型、线框图、落地页、仪表盘、移动 App 和幻灯片，产物都是自包含 HTML，留在你自己的仓库里。
+
+<a href="https://github.com/JimLiu/baoyu-design">
+  <img src="https://raw.githubusercontent.com/JimLiu/baoyu-design/main/assets/screenshots/cursor-reader-mac-app.webp" alt="Cursor 运行 baoyu-design" width="720">
+</a>
+
+```bash
+npx skills add JimLiu/baoyu-design
+```
+
 ### 内容技能 (Content Skills)
 
 内容生成和发布技能。
@@ -729,7 +741,7 @@ AI 驱动的生成后端。
 
 #### baoyu-image-gen
 
-基于 AI SDK 的图像生成，支持 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope（阿里通义万相）、MiniMax、即梦（Jimeng）、豆包（Seedream）和 Replicate API。支持文生图、参考图、宽高比、自定义尺寸、批量生成和质量预设。
+基于 AI SDK 的图像生成，支持 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope（阿里通义万相）、MiniMax、即梦（Jimeng）、豆包（Seedream）、Replicate 和 Agnes API。支持文生图、参考图、宽高比、自定义尺寸、批量生成和质量预设。
 
 ```bash
 # 基础生成（自动检测服务商）
@@ -783,7 +795,7 @@ AI 驱动的生成后端。
 # 豆包（Seedream）
 /baoyu-image-gen --prompt "一只可爱的猫" --image cat.png --provider seedream
 
-# 带参考图（Google、OpenAI、Azure OpenAI、OpenRouter、Replicate、MiniMax 或 Seedream 5.0/4.5/4.0）
+# 带参考图（Google、OpenAI、Azure OpenAI、OpenRouter、Replicate、MiniMax、Seedream 5.0/4.5/4.0 或 Agnes）
 /baoyu-image-gen --prompt "把它变成蓝色" --image out.png --ref source.png
 
 # 批量模式
@@ -798,7 +810,7 @@ AI 驱动的生成后端。
 | `--image` | 输出图片路径（必需） |
 | `--batchfile` | 多图批量生成的 JSON 文件 |
 | `--jobs` | 批量模式的并发 worker 数 |
-| `--provider` | `google`、`openai`、`azure`、`openrouter`、`dashscope`、`zai`、`minimax`、`jimeng`、`seedream` 或 `replicate` |
+| `--provider` | `google`、`openai`、`azure`、`openrouter`、`dashscope`、`zai`、`minimax`、`jimeng`、`seedream`、`replicate` 或 `agnes` |
 | `--model`, `-m` | 模型 ID 或部署名。Azure 使用部署名；OpenRouter 使用完整模型 ID；Z.AI 使用 `glm-image`；MiniMax 使用 `image-01` / `image-01-live` |
 | `--ar` | 宽高比（如 `16:9`、`1:1`、`4:3`） |
 | `--size` | 尺寸（如 `1024x1024`；`gpt-image-2` 支持最长边不超过 3840px 的有效自定义尺寸） |
@@ -825,6 +837,7 @@ AI 驱动的生成后端。
 | `JIMENG_ACCESS_KEY_ID` | 即梦火山引擎 Access Key | - |
 | `JIMENG_SECRET_ACCESS_KEY` | 即梦火山引擎 Secret Key | - |
 | `ARK_API_KEY` | 豆包火山引擎 ARK API 密钥 | - |
+| `AGNES_API_KEY` | Agnes API 密钥 | - |
 | `OPENAI_IMAGE_MODEL` | OpenAI 模型 | `gpt-image-2` |
 | `AZURE_OPENAI_DEPLOYMENT` | Azure 默认部署名 | - |
 | `AZURE_OPENAI_IMAGE_MODEL` | 兼容旧配置的 Azure 部署/模型别名 | `gpt-image-2` |
@@ -837,6 +850,7 @@ AI 驱动的生成后端。
 | `REPLICATE_IMAGE_MODEL` | Replicate 模型 | `google/nano-banana-2` |
 | `JIMENG_IMAGE_MODEL` | 即梦模型 | `jimeng_t2i_v40` |
 | `SEEDREAM_IMAGE_MODEL` | 豆包模型 | `doubao-seedream-5-0-260128` |
+| `AGNES_IMAGE_MODEL` | Agnes 模型 | `agnes-image-2.1-flash` |
 | `OPENAI_BASE_URL` | 自定义 OpenAI 端点 | - |
 | `OPENAI_IMAGE_API_DIALECT` | OpenAI 兼容图像 API 方言（`openai-native` 或 `ratio-metadata`） | `openai-native` |
 | `OPENAI_IMAGE_USE_CHAT` | OpenAI 改走 `/chat/completions` | `false` |
@@ -854,6 +868,7 @@ AI 驱动的生成后端。
 | `JIMENG_BASE_URL` | 自定义即梦端点 | `https://visual.volcengineapi.com` |
 | `JIMENG_REGION` | 即梦区域 | `cn-north-1` |
 | `SEEDREAM_BASE_URL` | 自定义豆包端点 | `https://ark.cn-beijing.volces.com/api/v3` |
+| `AGNES_BASE_URL` | 自定义 Agnes 端点 | `https://apihub.agnes-ai.com/v1` |
 | `BAOYU_IMAGE_GEN_MAX_WORKERS` | 批量模式最大 worker 数 | `10` |
 | `BAOYU_IMAGE_GEN_<PROVIDER>_CONCURRENCY` | 覆盖 provider 并发数 | provider 默认值 |
 | `BAOYU_IMAGE_GEN_<PROVIDER>_START_INTERVAL_MS` | 覆盖 provider 请求启动间隔 | provider 默认值 |
@@ -869,12 +884,13 @@ AI 驱动的生成后端。
 - Replicate 默认模型改为 `google/nano-banana-2`。`baoyu-image-gen` 目前只对 `google/nano-banana*`、`bytedance/seedream-4.5`、`bytedance/seedream-5-lite`、`wan-video/wan-2.7-image` 和 `wan-video/wan-2.7-image-pro` 开启本地能力识别与校验。
 - Replicate 当前只保存单张输出图，`--n > 1` 会在本地直接报错，避免多图结果被静默丢弃。
 - Replicate 的参数能力按模型家族区分：nano-banana 走 `--quality` / `--ar`，Seedream 走校验后的 `--size` / `--ar`，Wan 走校验后的 `--size`（`--ar` 会先在本地换算成具体尺寸）。
+- Agnes：`agnes-image-2.1-flash` 支持参考图；`--n > 1` 会在本地直接报错，因为 API 每次请求只返回一张图片。
 
 **服务商自动选择**：
 1. 如果指定了 `--provider` → 使用指定的
-2. 如果传了 `--ref` 且未指定 provider → 依次尝试 Google、OpenAI、Azure、OpenRouter、Replicate、Seedream，最后是 MiniMax
+2. 如果传了 `--ref` 且未指定 provider → 依次尝试 Google、OpenAI、Azure、OpenRouter、Replicate、Seedream、MiniMax，最后是 Agnes
 3. 如果只有一个 API 密钥 → 使用对应服务商
-4. 如果多个可用 → 默认使用 Google，然后依次为 OpenAI、Azure、OpenRouter、DashScope、Z.AI、MiniMax、Replicate、即梦、豆包
+4. 如果多个可用 → 默认使用 Google，然后依次为 OpenAI、Azure、OpenRouter、DashScope、Z.AI、MiniMax、Replicate、即梦、豆包、Agnes
 
 #### baoyu-danger-gemini-web
 

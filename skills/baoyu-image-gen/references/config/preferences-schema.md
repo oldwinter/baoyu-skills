@@ -11,7 +11,7 @@ description: baoyu-image-gen 用户偏好的 EXTEND.md YAML schema
 ---
 version: 1
 
-default_provider: null      # google|openai|azure|openrouter|dashscope|zai|minimax|replicate|jimeng|seedream|codex-cli|null (null = auto-detect; codex-cli is never auto-detected — pin it here or via --provider)
+default_provider: null      # google|openai|azure|openrouter|dashscope|zai|minimax|replicate|jimeng|seedream|codex-cli|agnes|null (null = auto-detect; codex-cli is never auto-detected — pin it here or via --provider)
 
 default_quality: null       # normal|2k|null (null = use default: 2k)
 
@@ -31,6 +31,7 @@ default_model:
   minimax: null             # e.g., "image-01"
   replicate: null           # e.g., "google/nano-banana-2"
   codex-cli: null           # Logical label only — Codex image_gen has no user-selectable model. Default: "codex-image-gen"
+  agnes: null               # e.g., "agnes-image-2.1-flash"
 
 batch:
   max_workers: 10
@@ -62,6 +63,9 @@ batch:
     codex-cli:
       concurrency: 1
       start_interval_ms: 2000
+    agnes:
+      concurrency: 3
+      start_interval_ms: 1100
 ---
 ```
 
@@ -84,6 +88,7 @@ batch:
 | `default_model.minimax` | string\|null | null | MiniMax 默认 model |
 | `default_model.replicate` | string\|null | null | Replicate 默认 model |
 | `default_model.codex-cli` | string\|null | null | Codex-CLI 逻辑标签（Codex image_gen 没有用户可选 model） |
+| `default_model.agnes` | string\|null | null | Agnes 默认 model |
 | `batch.max_workers` | int\|null | 10 | Batch worker 上限 |
 | `batch.provider_limits.<provider>.concurrency` | int\|null | provider default | 每个 provider 最大同时请求数 |
 | `batch.provider_limits.<provider>.start_interval_ms` | int\|null | provider default | 每个 provider 的请求启动最小间隔 |
@@ -120,6 +125,7 @@ default_model:
   zai: "glm-image"
   minimax: "image-01"
   replicate: "google/nano-banana-2"
+  agnes: "agnes-image-2.1-flash"
 batch:
   max_workers: 10
   provider_limits:
@@ -136,6 +142,9 @@ batch:
       concurrency: 3
       start_interval_ms: 1100
     minimax:
+      concurrency: 3
+      start_interval_ms: 1100
+    agnes:
       concurrency: 3
       start_interval_ms: 1100
 ---
