@@ -30,6 +30,7 @@ metadata:
 3. **Auto-select**（当 preference 为 `auto`、未设置，或 pinned backend 不可用时）：
    - **Codex（`imagegen`）**：首先检查 available-skills / tool inventory。如果列出了名为 `imagegen` 的 skill，说明你运行在 Codex 内，必须使用它：通过 `Skill` tool 调用，参数为 `skill: "imagegen"`，并传入已保存 prompt file 的内容（再按 Codex `imagegen` 自身参数传 output path 和 aspect ratio）。Codex `imagegen` 是该 runtime 中的官方 raster backend，优先级高于任何非 native skill（例如 `baoyu-image-gen`），除非用户显式 pinned 了不同的 `preferred_image_backend`。
    - **Codex via `codex exec`（`codex-imagegen`）**：如果当前 runtime 没有 native `imagegen` skill，但 `codex` CLI 在 `PATH` 中且已有有效 `codex login`，通过 `baoyu-image-gen --provider codex-cli` 路由（preferred）；如果 baoyu-image-gen 不可用，则直接调用 bundled wrapper。详情、参数和 runtime-discovery procedure 见 [references/codex-imagegen.md](references/codex-imagegen.md)，仅在选择该分支时加载。
+   - **Cursor（`GenerateImage`）**：如果 runtime 暴露原生 `GenerateImage` tool，说明你正在 Cursor 中运行。它和 Codex `imagegen` 一样，优先级高于任何非 native skill。两个硬性注意点：(a) 它没有 aspect-ratio 参数，必须在传给 `description` 的 prompt 文本中明确目标宽高比/尺寸；(b) 它不接收输出目录，会保存到 tool 管理的位置，因此生成后要把文件复制/移动到 skill 期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
    - **Other runtime-native tools**：如果 runtime 暴露其他 native image tool（例如 Hermes `image_generate`），以同样方式使用。
    - 否则，如果只安装了一个 non-native backend（例如 `baoyu-image-gen`），使用它。
    - 否则（多个 non-native backends 且无 runtime-native tool），询问用户一次，并与其他初始问题 batch。
@@ -43,7 +44,7 @@ metadata:
 
 **Prompt file requirement（hard）**：调用任何 backend **之前**，必须把每张图片完整、最终的 prompt 写入 `prompts/` 下的独立文件（命名：`NN-{type}-[slug].md`）。Backend 接收 prompt file（或其内容）；该文件是 reproducibility record，也允许在不重新生成 prompts 的情况下切换 backend。
 
-上方具体工具名（`imagegen`、`image_generate`、`baoyu-image-gen`）都是示例；其他 runtime 中请按同一规则替换成本地等价工具。
+上方具体工具名（`imagegen`、`GenerateImage`、`image_generate`、`baoyu-image-gen`）都是示例；其他 runtime 中请按同一规则替换成本地等价工具。
 
 ## Confirmation Policy
 

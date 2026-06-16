@@ -6,7 +6,7 @@ description: >-
   "localize", "本地化", "refined translation", "精细翻译", "proofread translation", "快速翻译", "快翻",
   "这篇文章翻译一下"，或提供带翻译意图的 URL/文件时，使用此 skill。支持三种模式
   (quick/normal/refined)，并支持自定义 glossary。
-version: 1.59.0
+version: 1.117.3
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-translate

@@ -2,6 +2,28 @@
 
 中文 | [上游英文原文](https://github.com/JimLiu/baoyu-skills/blob/main/CHANGELOG.md)
 
+## 2.5.1 - 2026-06-13
+
+### Documentation
+- Image generation skills: document Cursor's native `GenerateImage` backend in the shared backend-selection rule, including prompt-based aspect-ratio guidance, tool-managed output handling, and `reference_image_paths` support.
+
+## 2.5.0 - 2026-06-12
+
+### Features
+- `baoyu-wechat-summary`: add per-group fact memory (`memory.md`). Objective facts corrected or confirmed by group members (e.g., the real cause behind an error message, the correct name of a product) persist across digests, so a mistake corrected once is never repeated. Writes are conservative — three-part threshold (specific fact + evidence + unchallenged), strict injection guardrails (statements only, never instructions to the bot; `@bot` is not a whitelist channel), provenance on every entry, and revision/expiry/dedup rules with a 30-entry cap. Memory is shared by the normal and roast versions
+- `baoyu-image-gen`: add Agnes AI image generation provider (by @Davidlaizz)
+- `baoyu-image-gen`: default to GA Gemini image endpoints and allow reference images with them (by @hypn4)
+- `baoyu-post-to-wechat`: add `content_source_url` support for the "阅读原文" link (by @NTLx)
+
+### Fixes
+- `baoyu-image-gen`: remove gcd from `resolveSize` so decimal aspect ratios are no longer distorted (by @Davidlaizz)
+- `baoyu-fetch`: parse YouTube `/embed/` URLs in `parseYouTubeVideoId` (by @Osamaali313)
+- `baoyu-image-gen`: tolerate Bun-on-Windows `EEXIST` errors from `mkdir(recursive)` (by @sandypoli-boop)
+
+### Documentation
+- Improve skill descriptions for better trigger accuracy (by @yanghaod2278827)
+- README: add book/ebook links and promote `baoyu-design` in skill listings
+
 ## 2.4.1 - 2026-06-01
 
 ### 修复

@@ -65,7 +65,7 @@ else echo "Error: install bun: brew install oven-sh/bun/bun or npm install -g bu
 
 ## Image Generation Tools
 
-会渲染图片的 skills，必须在每个 `SKILL.md` 中恰好一个位置内联 backend-selection 约定：靠前的 `## Image Generation Tools` section（位于 `## User Input Tools` 之后）。不要链接到 [docs/image-generation-tools.md](docs/image-generation-tools.md)；该文档是作者侧 canonical source，需要把其正文复制进每个 SKILL.md。skill 中其他位置出现的具体工具名（`imagegen`、`image_generate`、`baoyu-image-gen`）都视为示例；其他 runtime 按规则替换成本地等价工具。该规则是无状态的：使用可用 backend；如果有多个则询问一次；如果没有则询问如何继续。每张渲染图片的完整 prompt 都必须在调用任何 backend 之前写入独立的 `prompts/NN-*.md` 文件。Backend skills（`baoyu-image-gen`、`baoyu-danger-gemini-web`）豁免：它们直接渲染，不做 backend 选择。
+会渲染图片的 skills，必须在每个 `SKILL.md` 中恰好一个位置内联 backend-selection 约定：靠前的 `## Image Generation Tools` section（位于 `## User Input Tools` 之后）。不要链接到 [docs/image-generation-tools.md](docs/image-generation-tools.md)；该文档是作者侧 canonical source，需要把其正文复制进每个 SKILL.md。skill 中其他位置出现的具体工具名（`imagegen`、`GenerateImage`、`image_generate`、`baoyu-image-gen`）都视为示例；其他 runtime 按规则替换成本地等价工具。该规则是无状态的：使用可用 backend；如果有多个则询问一次；如果没有则询问如何继续。每张渲染图片的完整 prompt 都必须在调用任何 backend 之前写入独立的 `prompts/NN-*.md` 文件。Backend skills（`baoyu-image-gen`、`baoyu-danger-gemini-web`）豁免：它们直接渲染，不做 backend 选择。
 
 ### `codex-imagegen` Backend
 

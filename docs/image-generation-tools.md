@@ -1,6 +1,6 @@
 # Image Generation Tools
 
-本仓库的 skills 会被多个 agent runtime 加载（Claude Code、Codex、Hermes、其他 agents、裸 CLI）。不同 runtime 暴露不同的 image-generation capability：有些有 runtime-native tool（Codex `imagegen`、Hermes `image_generate`），有些依赖已安装 skill（`baoyu-image-gen` 或用户自定义 skill）。本文件定义每个渲染图片的 skill 都应遵循的 canonical **backend-selection rule**，以保证 skills 可移植。
+本仓库的 skills 会被多个 agent runtime 加载（Claude Code、Codex、Cursor、Hermes、其他 agents、裸 CLI）。不同 runtime 暴露不同的 image-generation capability：有些有 runtime-native tool（Codex `imagegen`、Cursor `GenerateImage`、Hermes `image_generate`），有些依赖已安装 skill（`baoyu-image-gen` 或用户自定义 skill）。本文件定义每个渲染图片的 skill 都应遵循的 canonical **backend-selection rule**，以保证 skills 可移植。
 
 ## The Rule
 
@@ -10,6 +10,7 @@
 2. **Saved preference**：如果该 skill 的 `EXTEND.md` 把 `preferred_image_backend` 设置为当前可用 backend，就使用它。
 3. **Auto-select**（当 preference 为 `auto`、未设置，或 pinned backend 不可用时）：
    - **Codex（`imagegen`）**：首先检查 available-skills / tool inventory。如果列出了名为 `imagegen` 的 skill，说明你运行在 Codex 内，必须使用它：通过 `Skill` tool 调用，参数为 `skill: "imagegen"`，并传入已保存 prompt file 的内容（再按 Codex `imagegen` 自身参数传 output path 和 aspect ratio）。Codex `imagegen` 是该 runtime 中的官方 raster backend，优先级高于任何非 native skill（例如 `baoyu-image-gen`），除非用户显式 pinned 了不同的 `preferred_image_backend`。
+   - **Cursor（`GenerateImage`）**：如果 runtime 暴露原生 `GenerateImage` tool，说明你正在 Cursor 中运行。它和 Codex `imagegen` 一样，优先级高于任何非 native skill。两个硬性注意点：(a) 它没有 aspect-ratio 参数，必须在传给 `description` 的 prompt 文本中明确目标宽高比/尺寸；(b) 它不接收输出目录，会保存到 tool 管理的位置，因此生成后要把文件复制/移动到 skill 期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
    - **Other runtime-native tools**：如果 runtime 暴露其他 native image tool（例如 Hermes `image_generate`），以同样方式使用。
    - 否则，如果只安装了一个 non-native backend（例如 `baoyu-image-gen`），使用它。
    - 否则（多个 non-native backends 且无 runtime-native tool），询问用户一次，并与其他初始问题 batch。
@@ -27,7 +28,7 @@
 |---|---|
 | `auto`（default） | 应用 auto-select 规则：优先 runtime-native；如果只安装一个 backend 则 fallback；多个 non-native 时询问。 |
 | `ask` | 每次运行都确认 backend，即使存在 runtime-native tool。 |
-| `<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`image_generate`） | 当该 backend 可用时固定使用；不可用时 fallback 到 `auto`。 |
+| `<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`GenerateImage`、`image_generate`） | 当该 backend 可用时固定使用；不可用时 fallback 到 `auto`。 |
 
 该字段遵循 **absent-equals-auto**：旧的 `EXTEND.md` 即使没有该字段，也完全等同于设置了 `preferred_image_backend: auto`。引入该字段无需 bump schema version。
 
@@ -41,7 +42,7 @@
 
 每个 skill 的 `references/config/preferences-schema.md`（以及 `first-time-setup.md` 中的 `EXTEND.md` template）都会把 `preferred_image_backend` 与其他 preference fields 一起列出。First-time setup 不会询问用户 backend：会静默设置为 `auto`。想 pinned 特定 backend 的用户可稍后编辑 `EXTEND.md`，每个 skill 的 `## Changing Preferences` section 也记录了常见的一行编辑。
 
-本文档和 SKILL.md 中的具体工具名（`imagegen`、`image_generate`、`baoyu-image-gen`）都是 **示例**；其他 runtime 中的 agents 应应用上方规则，并替换成本地等价工具。这些 backend 的 skill-specific parameters 也是说明性示例；没有对应参数的 runtime 可以省略。
+本文档和 SKILL.md 中的具体工具名（`imagegen`、`GenerateImage`、`image_generate`、`baoyu-image-gen`）都是 **示例**；其他 runtime 中的 agents 应应用上方规则，并替换成本地等价工具。这些 backend 的 skill-specific parameters 也是说明性示例；没有对应参数的 runtime 可以省略。
 
 ## Backend Skills Are Exempt
 

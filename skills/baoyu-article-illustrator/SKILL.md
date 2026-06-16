@@ -30,10 +30,11 @@ metadata:
 3. **Auto-select**（当偏好为 `auto`、未设置，或固定 backend 当前不可用时）：
    - **Codex (`imagegen`)**：先检查 available-skills / tool inventory。如果列出了名为 `imagegen` 的 skill，说明你正在 Codex 中运行，并且 MUST 使用它：通过 `Skill` tool 调用 `skill: "imagegen"`，传入已保存 prompt 文件内容（外加输出路径和宽高比，按 Codex `imagegen` 自身参数要求）。Codex `imagegen` 是该 runtime 中的官方 raster backend，优先级高于任何非原生 skill（例如 `baoyu-image-gen`），除非用户显式固定了不同的 `preferred_image_backend`。
    - **Codex via `codex exec` (`codex-imagegen`)**：如果当前 runtime 没有暴露原生 `imagegen` skill，但 `PATH` 上有 `codex` CLI 且已完成 `codex login`，则通过 `baoyu-image-gen --provider codex-cli` 路由（首选）；如果 `baoyu-image-gen` 不可用，再直接调用 bundled wrapper。细节、参数和 runtime 发现流程见 [references/codex-imagegen.md](references/codex-imagegen.md)，只在选择此分支时加载该文件。
+   - **Cursor (`GenerateImage`)**：如果 runtime 暴露原生 `GenerateImage` tool，说明你正在 Cursor 中运行。它和 Codex `imagegen` 一样，优先级高于任何非原生 skill。两个硬性注意点：(a) 它没有 aspect-ratio 参数，必须在传给 `description` 的 prompt 文本中明确目标宽高比/尺寸；(b) 它不接收输出目录，会保存到 tool 管理的位置，因此生成后要把文件复制/移动到 skill 期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
    - **Other runtime-native tools**：如果 runtime 暴露了其他原生图片工具（例如 Hermes `image_generate`），以相同方式使用它。
    - 否则，如果只安装了一个非原生 backend（例如 `baoyu-image-gen`），使用它。
    - 否则（存在多个非原生 backend 且无 runtime-native tool），向用户询问一次，可与其他初始问题合并。
-4. **如果没有任何 backend 可用**，告知用户并询问如何继续。
+4. **如果没有任何 backend 可用**，告知用户并询问如何继续.
 
 **⛔ 绝不要用 SVG、HTML、canvas 或其他 code-based rendering 替代 raster image generation。** Codex `imagegen` 的说明明确写着，当输出应是 bitmap asset 而非 repo-native code 或 vector 时应使用它。如果无法通过第 3 步解析 raster backend，就进入第 4 步询问用户；不要静默输出 SVG、写 inline `<svg>`，或生成 HTML/CSS art 作为替代。即使文章或章节看起来像 diagram，也同样适用：调用此规则的消费 skill 已经决定它需要 raster image。
 
@@ -43,7 +44,7 @@ metadata:
 
 **Prompt file requirement (hard)**：调用任何 backend 前，必须先把每张图片的完整最终 prompt 写入 `prompts/` 下的独立文件（命名：`NN-{type}-[slug].md`）。Backend 接收 prompt 文件（或其内容）；该文件是可复现记录，也让你能在不重写 prompt 的情况下切换 backend。
 
-上方具体工具名（`imagegen`、`image_generate`、`baoyu-image-gen`）只是示例；请在同一规则下替换为本地等价工具。
+上方具体工具名（`imagegen`、`GenerateImage`、`image_generate`、`baoyu-image-gen`）只是示例；请在同一规则下替换为本地等价工具。
 
 ## Batch Generation Policy
 
