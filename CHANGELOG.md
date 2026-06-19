@@ -2,6 +2,14 @@
 
 中文 | [上游英文原文](https://github.com/JimLiu/baoyu-skills/blob/main/CHANGELOG.md)
 
+## 2.5.2 - 2026-06-18
+
+### Fixes
+- `codex-imagegen`: stop Codex from satisfying a request by copying an unrelated pre-existing image from `generated_images` instead of generating a new one. Verification now requires real evidence that `image_gen` ran in the current thread — an `image_gen` event in the stream **or** a PNG in this thread's `generated_images` dir — and the spawned-agent instruction forbids reading or reusing history images before `image_gen` is called ([#185](https://github.com/JimLiu/baoyu-skills/issues/185))
+
+### Documentation
+- README: document Codex project-level install (`.agents/skills`) and project- vs user-level WeChat credential scopes
+
 ## 2.5.1 - 2026-06-13
 
 ### Documentation

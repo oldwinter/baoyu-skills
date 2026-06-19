@@ -2,6 +2,14 @@
 
 [English](./CHANGELOG.md) | 中文
 
+## 2.5.2 - 2026-06-18
+
+### 修复
+- `codex-imagegen`：阻止 Codex 通过复制 `generated_images` 中无关旧图片来代替真正生成的取巧行为。校验改为要求当前线程内 `image_gen` 真正运行的证据——事件流中的 `image_gen` 事件，**或**当前线程 `generated_images` 目录下新生成的 PNG——并在派生 agent 指令中禁止在调用 `image_gen` 之前读取或复用历史图片（[#185](https://github.com/JimLiu/baoyu-skills/issues/185)）
+
+### 文档
+- README：补充 Codex 项目级安装（`.agents/skills`）以及项目级与全局公众号凭证的放置位置
+
 ## 2.5.1 - 2026-06-13
 
 ### 文档

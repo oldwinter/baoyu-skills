@@ -29,6 +29,31 @@
 npx skills add jimliu/baoyu-skills
 ```
 
+### Codex 项目级安装
+
+如果只在某个项目中使用部分技能，不需要安装整个插件。Codex 会扫描项目里的 `.agents/skills`，可以只把需要的 skill 按整个目录复制或软链接到当前项目：
+
+```text
+<project>/.agents/skills/baoyu-cover-image/SKILL.md
+<project>/.agents/skills/baoyu-article-illustrator/SKILL.md
+<project>/.agents/skills/baoyu-post-to-wechat/SKILL.md
+```
+
+公众号文章发布的最小组合通常是：
+
+- `baoyu-cover-image`
+- `baoyu-article-illustrator`
+- `baoyu-post-to-wechat`
+
+不需要单独安装 `baoyu-markdown-to-html`，`baoyu-post-to-wechat` 已内置 Markdown 到公众号可用 HTML 的转换流程。只有需要先把原始文本或草稿整理成 Markdown 文章结构（标题、摘要、层级标题、加粗、列表等）时，再额外安装 `baoyu-format-markdown`。
+
+公众号 API 凭证按作用范围放置：
+
+- 全局：`~/.baoyu-skills/.env`
+- 项目：`<project>/.baoyu-skills/.env`
+
+项目级 `.env` 适合只给当前项目使用，注意不要提交到 Git。
+
 ### 发布到 ClawHub / OpenClaw
 
 现在这个仓库支持把每个 `skills/baoyu-*` 目录作为独立 ClawHub skill 发布。
