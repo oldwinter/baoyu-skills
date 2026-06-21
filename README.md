@@ -1392,7 +1392,9 @@ HTTP_PROXY=http://127.0.0.1:7890 HTTPS_PROXY=http://127.0.0.1:7890 /baoyu-danger
 
 ## 许可证
 
-MIT
+Unless otherwise noted, this repository is licensed under the [MIT License](./LICENSE).
+
+Published ClawHub skills follow ClawHub registry rules and are distributed under `MIT-0`. Third-party code and assets retain their original licenses where noted.
 
 ## Star History
 
