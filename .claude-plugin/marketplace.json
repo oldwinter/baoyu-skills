@@ -5,13 +5,13 @@
     "email": "junminliu@gmail.com"
   },
   "metadata": {
-    "description": "Skills shared by Baoyu for improving daily work efficiency",
+    "description": "宝玉分享的 Agent Skills，用于提升日常工作效率",
     "version": "2.5.2"
   },
   "plugins": [
     {
       "name": "baoyu-skills",
-      "description": "Content generation, AI backends, and utility tools for daily work efficiency",
+      "description": "用于内容生成、AI 后端和日常效率的实用工具",
       "source": "./",
       "strict": false,
       "skills": [

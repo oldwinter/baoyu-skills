@@ -4,6 +4,9 @@
 
 宝玉分享的 AI Agent 技能集（适用于 Claude Code、Codex 等），提升日常工作效率。
 
+> [!IMPORTANT]
+> 本仓库是 `JimLiu/baoyu-skills` 的社区维护中文 fork，当前同步到上游 `6b7a2e4`。请使用下方 `oldwinter/baoyu-skills` 命令安装；runtime 会直接加载本 fork 中的中文 `skills/**/SKILL.md`。
+
 ## 作者的图书
 
 <img width="500" height="500" alt="图解 Skill —— AI 提效实战指南" src="https://github.com/user-attachments/assets/6caef6a2-6f11-490e-a43b-e810df8e9354" />
@@ -26,7 +29,7 @@
 ### 快速安装（推荐）
 
 ```bash
-npx skills add jimliu/baoyu-skills
+npx skills add oldwinter/baoyu-skills
 ```
 
 ### Codex 项目级安装
@@ -80,7 +83,7 @@ clawhub install baoyu-markdown-to-html
 在 Agent 中运行：
 
 ```bash
-/plugin marketplace add JimLiu/baoyu-skills
+/plugin marketplace add oldwinter/baoyu-skills
 ```
 
 ### 安装技能
@@ -103,7 +106,7 @@ clawhub install baoyu-markdown-to-html
 
 直接告诉 Agent：
 
-> 请帮我安装 github.com/JimLiu/baoyu-skills 中的 Skills
+> 请帮我安装 github.com/oldwinter/baoyu-skills 中的 Skills
 
 ### 可用插件
 
