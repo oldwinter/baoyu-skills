@@ -9,7 +9,7 @@ import frontMatter from 'front-matter';
 import hljs from 'highlight.js/lib/common';
 import { Lexer, Marked, type RendererObject, type Tokens } from 'marked';
 import { unified } from 'unified';
-import remarkCjkFriendly from 'remark-cjk-friendly';
+import remarkCjkFriendlyParseOnly from 'remark-cjk-friendly/parseOnly';
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
 
@@ -141,9 +141,10 @@ function highlightCode(code: string, lang: string): string {
 // `marked`'s emphasis tokenizer treats a closing `**`/`*` directly followed by a
 // CJK character as not right-flanking, so it leaves the delimiters literal
 // (e.g. `**加粗**这` renders as plain text with the asterisks intact). We round-trip
-// the markdown through `remark-cjk-friendly`, whose stringify serializes the
-// boundary character as an HTML entity (`&#x8FD9;`); the entity is treated as
-// punctuation by `marked`'s flanking rules, so emphasis parses as expected.
+// the markdown through the parse-only `remark-cjk-friendly` entry point. The
+// standard stringify path then serializes the boundary character as an HTML
+// entity (`&#x8FD9;`); the entity is treated as punctuation by `marked`'s
+// flanking rules, so emphasis parses as expected.
 //
 // We deliberately do NOT decode the entities afterward. They are valid HTML
 // character references that render correctly when the article HTML is pasted into
@@ -155,7 +156,7 @@ function preprocessCjkMarkdown(markdown: string): string {
   try {
     const processor = unified()
       .use(remarkParse)
-      .use(remarkCjkFriendly)
+      .use(remarkCjkFriendlyParseOnly)
       .use(remarkStringify);
 
     return String(processor.processSync(markdown));
