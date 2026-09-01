@@ -26,7 +26,7 @@
 ### 快速安装（推荐）
 
 ```bash
-npx skills add jimliu/baoyu-skills
+npx skills add oldwinter/baoyu-skills
 ```
 
 ### Codex 项目级安装
@@ -80,7 +80,7 @@ clawhub install baoyu-markdown-to-html
 在 Agent 中运行：
 
 ```bash
-/plugin marketplace add JimLiu/baoyu-skills
+/plugin marketplace add oldwinter/baoyu-skills
 ```
 
 ### 安装技能
@@ -103,7 +103,7 @@ clawhub install baoyu-markdown-to-html
 
 直接告诉 Agent：
 
-> 请帮我安装 github.com/JimLiu/baoyu-skills 中的 Skills
+> 请帮我安装 github.com/oldwinter/baoyu-skills 中的 Skills
 
 ### 可用插件
 
