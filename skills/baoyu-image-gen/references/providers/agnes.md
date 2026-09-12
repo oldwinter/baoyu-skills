@@ -1,10 +1,10 @@
 # Sapiens AI Agnes Image
 
-当用户选择 `--provider agnes` 或设置 `default_model.agnes` 时读取。默认模型是 `agnes-image-2.1-flash`。
+当用户选择 `--provider agnes` 或设置 `default_model.agnes` 时读取。默认模型是 `agnes-image-2.5-flash`。
 
 ## 模型
 
-**`agnes-image-2.1-flash`**（唯一模型）
+**`agnes-image-2.5-flash`**（唯一模型）
 
 - 在同一个 `/images/generations` endpoint 中支持 text-to-image 和 image-to-image（通过 `--ref`）
 - 支持 public URL 或 Data URI（base64）形式的 reference images

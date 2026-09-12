@@ -4,7 +4,7 @@
 
 ## Model Families
 
-**`qwen-image-2.0*`**：推荐的现代 family。成员：`qwen-image-2.0-pro`, `qwen-image-2.0-pro-2026-03-03`, `qwen-image-2.0`, `qwen-image-2.0-2026-03-03`。
+**`qwen-image-3.0*` / `qwen-image-2.0*`**：推荐的现代 family，使用相同的尺寸范围。成员：`qwen-image-3.0-pro`, `qwen-image-2.0-pro`, `qwen-image-2.0-pro-2026-04-22`, `qwen-image-2.0-pro-2026-03-03`, `qwen-image-2.0`, `qwen-image-2.0-2026-03-03`。`qwen-image-3.0-pro` 是新的旗舰模型，但在端到端请求形状完成验证前，built-in default 仍是 `qwen-image-2.0-pro`。
 
 - 自由格式 `size`，使用 `宽*高` 格式
 - 总像素必须在 `512*512` 到 `2048*2048` 之间
@@ -33,10 +33,10 @@
 ## Size Resolution
 
 - `--size` 优先于 `--ar`
-- 对 `qwen-image-2.0*`：优先使用显式 `--size`；否则用下方推荐表从 `--ar` 推断
+- 对 `qwen-image-3.0*` / `qwen-image-2.0*`：优先使用显式 `--size`；否则用下方推荐表从 `--ar` 推断
 - 对 `qwen-image-max/plus/image`：只使用五种固定尺寸；如果请求比例不合适，切换到 `qwen-image-2.0-pro`
 - 对 `wan2.7-image*`：显式 `--size` 会按对应模式的像素/比例限制验证；否则从 `--ar` 和 `--quality` 推导尺寸（`normal` ≈ 1K，`2k` ≈ 2K）。如需用 `wan2.7-image-pro` text-to-image 请求 4K，请显式传入 `--size`（例如 `4096*4096`, `3840*2160`）
-- `--quality` 是 baoyu-image-gen preset，不是 DashScope 官方字段。将 `normal`/`2k` 映射到 `qwen-image-2.0*` 和 `wan2.7-image*` 表是实现选择，不是 API 保证
+- `--quality` 是 baoyu-image-gen preset，不是 DashScope 官方字段。将 `normal`/`2k` 映射到 `qwen-image-3.0*` / `qwen-image-2.0*` 和 `wan2.7-image*` 表是实现选择，不是 API 保证
 
 ### 推荐 `qwen-image-2.0*` 尺寸
 
@@ -53,7 +53,7 @@
 
 ## Reference Images
 
-- 只有 `wan2.7-image-pro` 和 `wan2.7-image` 接受 `--ref`。其他 DashScope models（qwen-image-2.0*、qwen-image-max/plus/image、legacy）会拒绝 `--ref`，并引导用户换 provider/model。
+- 只有 `wan2.7-image-pro` 和 `wan2.7-image` 接受 `--ref`。其他 DashScope models（qwen-image-3.0*、qwen-image-2.0*、qwen-image-max/plus/image、legacy）会拒绝 `--ref`，并引导用户换 provider/model。
 - 每次请求最多 9 张 reference images。本地文件会以内联 base64 data URLs 发送；`http(s)://` URLs 原样转发。
 - 提供任何 `--ref` 都会自动把 wan2.7-image-pro 的像素上限从 4K 限制到 2K（API 只对无图片输入的纯 text-to-image 支持 4K）。
 

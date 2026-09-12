@@ -5,7 +5,7 @@ description: 当 baoyu-image-gen 缺少 OpenAI API credentials 但 Codex/native 
 
 # Codex Image2 Fallback
 
-使用 `baoyu-image-gen` 搭配 `--provider openai --model gpt-image-2` 时，CLI 可能失败并显示：
+使用 `baoyu-image-gen` 搭配 `--provider openai --model gpt-image-2.5-flare` 时，CLI 可能失败并显示：
 
 ```text
 OPENAI_API_KEY is required. Codex/ChatGPT desktop login does not automatically grant OpenAI Images API access to this script.

@@ -1,7 +1,7 @@
 ---
 name: baoyu-image-gen
-description: 通过 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope、Z.AI GLM-Image、MiniMax、Jimeng、Seedream、Replicate 和 Agnes APIs 进行 AI image generation。支持 text-to-image、reference images、aspect ratios，以及从已保存 prompt files 批量生成。默认 sequential；当用户已有多个 prompts 或需要稳定多图吞吐时使用 batch parallel generation。用户要求生成、创建或绘制图片时使用。
-version: 2.1.0
+description: 通过 OpenAI GPT Image 2.5、Azure OpenAI、Google、OpenRouter、DashScope、Z.AI GLM-Image、MiniMax、Jimeng、Seedream、Replicate 和 Agnes APIs 进行 AI image generation。支持 text-to-image、reference images、aspect ratios，以及从已保存 prompt files 批量生成。默认 sequential；当用户已有多个 prompts 或需要稳定多图吞吐时使用 batch parallel generation。用户要求生成、创建或绘制图片时使用。
+version: 2.2.0
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-image-gen
@@ -13,7 +13,7 @@ metadata:
 
 # Image Generation（AI SDK）
 
-基于官方 API 的 image generation。支持 OpenAI GPT Image 2、Azure OpenAI、Google、OpenRouter、DashScope（阿里通义万象）、Z.AI GLM-Image、MiniMax、Jimeng（即梦）、Seedream（豆包）、Replicate 和 Agnes。
+基于官方 API 的 image generation。支持 OpenAI GPT Image 2.5、Azure OpenAI、Google、OpenRouter、DashScope（阿里通义万象）、Z.AI GLM-Image、MiniMax、Jimeng（即梦）、Seedream（豆包）、Replicate 和 Agnes。
 
 ## User Input Tools
 
@@ -78,8 +78,8 @@ ${BUN_X} {baseDir}/scripts/main.ts --prompt "Make blue" --image out.png --ref so
 # Specific provider
 ${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image out.png --provider dashscope --model qwen-image-2.0-pro
 
-# OpenAI GPT Image 2
-${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image out.png --provider openai --model gpt-image-2
+# OpenAI GPT Image 2.5
+${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image out.png --provider openai --model gpt-image-2.5-flare
 
 # Codex CLI (uses logged-in Codex subscription — no OPENAI_API_KEY required; requires `codex` on PATH)
 ${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image out.png --provider codex-cli --ar 16:9
@@ -114,7 +114,7 @@ ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json --jobs 4
 | `--provider google\|openai\|azure\|openrouter\|dashscope\|zai\|minimax\|jimeng\|seedream\|replicate\|codex-cli\|agnes` | 强制 provider（default: auto-detect；`codex-cli` 永不 auto-selected，必须通过 CLI 或 EXTEND.md pinned） |
 | `--model <id>`, `-m` | Model ID：defaults 和 allowed values 见 provider references |
 | `--ar <ratio>` | Aspect ratio（`16:9`、`1:1`、`4:3`、…） |
-| `--size <WxH>` | 显式 size（例如 `1024x1024`；对 `gpt-image-2`，width/height 必须是 16 的倍数，max edge 3840px，ratio 不宽于 3:1） |
+| `--size <WxH>` | 显式 size（例如 `1024x1024`；对 `gpt-image-2.5-*` 和 `gpt-image-2`，width/height 必须是 16 的倍数，max edge 3840px，ratio 不宽于 3:1） |
 | `--quality normal\|2k` | Quality preset（default: `2k`） |
 | `--imageSize 1K\|2K\|4K` | Google/OpenRouter 的 image size（default: from quality） |
 | `--imageApiDialect openai-native\|ratio-metadata` | OpenAI-compatible endpoint dialect；对期望 aspect-ratio `size` + `metadata.resolution` 的 gateways 使用 `ratio-metadata` |
@@ -157,7 +157,7 @@ ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json --jobs 4
 
 ### Codex/ChatGPT OAuth is not an OpenAI API key
 
-`--provider openai --model gpt-image-2` 使用标准 OpenAI Images API（`/v1/images/generations` 或 `/v1/images/edits`），并要求 `OPENAI_API_KEY`。Codex 或 ChatGPT desktop login 是另一种 entitlement，不能直接替代 `OPENAI_API_KEY`；不要把 Codex OAuth token 粘贴到 `OPENAI_API_KEY`，也不要只把 `OPENAI_BASE_URL` 设为 Codex backend。
+`--provider openai --model gpt-image-2.5-flare` 使用标准 OpenAI Images API（`/v1/images/generations` 或 `/v1/images/edits`），并要求 `OPENAI_API_KEY`。Codex 或 ChatGPT desktop login 是另一种 entitlement，不能直接替代 `OPENAI_API_KEY`；不要把 Codex OAuth token 粘贴到 `OPENAI_API_KEY`，也不要只把 `OPENAI_BASE_URL` 设为 Codex backend。
 
 如果用户想在没有 OpenAI API key 的情况下使用 Codex subscription / GPT Image 2 entitlement，请路由到 Codex-native backend，而不是该 skill 的 `openai` provider：
 
@@ -176,7 +176,11 @@ ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json --jobs 4
 3. Env var `<PROVIDER>_IMAGE_MODEL`
 4. Built-in default
 
-对 OpenAI，built-in default 是 `gpt-image-2`。`gpt-image-1.5`、`gpt-image-1` 和 GPT Image snapshots 仍可通过 `--model` 或 `OPENAI_IMAGE_MODEL` 选择。
+对 OpenAI，built-in default 是 `gpt-image-2.5-flare`（速度快、延迟低）。`gpt-image-2.5-sunburst` 适合复杂场景和精细编辑；`gpt-image-2`、`gpt-image-1.5`、`gpt-image-1` 和 GPT Image snapshots 仍可通过 `--model` 或 `OPENAI_IMAGE_MODEL` 选择。
+
+对 Google，built-in default 是 `gemini-3-pro-image`。`gemini-3.1-flash-image` 更快且成本更低，`gemini-3.1-flash-lite-image` 最便宜但只生成 1K 输出。
+
+对 DashScope，built-in default 是 `qwen-image-2.0-pro`；`qwen-image-3.0-pro` 是新的旗舰模型，使用相同尺寸规则。
 
 对 Azure，`--model` / `default_model.azure` 是 Azure deployment name。`AZURE_OPENAI_DEPLOYMENT` 是 preferred env var；`AZURE_OPENAI_IMAGE_MODEL` 保留为 backward-compatible alias。如果你的 Azure deployment 以底层 model 命名，就使用 `gpt-image-2`；否则使用 exact custom deployment name。
 
@@ -208,7 +212,7 @@ OpenAI native API 或严格 clones 使用 `openai-native`；Gemini 或类似 mod
 | OpenRouter（multimodal models、`/chat/completions` flow） | `references/providers/openrouter.md` |
 | Replicate（nano-banana、Seedream、Wan） | `references/providers/replicate.md` |
 | Codex CLI（wraps bundled `scripts/codex-imagegen/`；Codex login，不需要 `OPENAI_API_KEY`） | `references/providers/codex-cli.md` |
-| Agnes（`agnes-image-2.1-flash`、支持 reference image） | `references/providers/agnes.md` |
+| Agnes（`agnes-image-2.5-flash`、支持 reference image） | `references/providers/agnes.md` |
 
 ## Provider Selection
 
@@ -227,14 +231,14 @@ OpenAI native API 或严格 clones 使用 `openai-native`；Gemini 或类似 mod
 
 Google/OpenRouter `imageSize` 可用 `--imageSize 1K|2K|4K` 覆盖。
 
-对 OpenAI native `gpt-image-2`，`normal` 映射到 `quality=medium` 和接近请求 aspect ratio 的低延迟 valid size；`2k` 映射到 `quality=high` 和 2048px-class sizes，例如 `2048x2048`、`2048x1152` 或 `1152x2048`。要使用 valid custom 或 4K outputs，请显式传 `--size`，例如 `3840x2160`。
+对 OpenAI native `gpt-image-2.5-*` 和 `gpt-image-2`，`normal` 映射到 `quality=medium` 和接近请求 aspect ratio 的低延迟 valid size；`2k` 映射到 `quality=high` 和 2048px-class sizes，例如 `2048x2048`、`2048x1152` 或 `1152x2048`。要使用 valid custom 或 4K outputs，请显式传 `--size`，例如 `3840x2160`。
 
 ## Aspect Ratios
 
 Supported：`1:1`、`16:9`、`9:16`、`4:3`、`3:4`、`2.35:1`。
 
 - Google multimodal：`imageConfig.aspectRatio`
-- OpenAI：`gpt-image-2` 会为请求 ratio 使用最接近的 valid custom size；旧 GPT Image 和 DALL·E models 使用最接近的 supported fixed size
+- OpenAI：`gpt-image-2.5-*` 和 `gpt-image-2` 会为请求 ratio 使用最接近的 valid custom size；旧 GPT Image 和 DALL·E models 使用最接近的 supported fixed size
 - OpenRouter：`imageGenerationOptions.aspect_ratio`；如果只给出 `--size <WxH>`，则推断 ratio
 - Replicate：行为取决于 model；`google/nano-banana*` 使用 `aspect_ratio`，`bytedance/seedream-*` 使用 Replicate 文档中的 ratios，Wan 2.7 把 `--ar` 映射为具体 `size`
 - MiniMax：官方 `aspect_ratio` values；如果给了 `--size <WxH>` 但没有 `--ar`，对 `image-01` 发送 `width`/`height`
@@ -269,7 +273,7 @@ Rule of thumb：一旦 prompt files 已保存，任务变成“generate all of t
 
 ### Codex image2 fallback
 
-如果 `--provider openai --model gpt-image-2` 因缺少 `OPENAI_API_KEY` 失败，但当前 runtime 有 native image-generation backend，或 repo-level `codex-imagegen` wrapper 可用，请使用该路径，而不是让用户等待。明确说明 fallback 是真正的 reference-image generation，还是只从提取的 visual traits 重建 text prompt。见 `references/codex-image2-fallback.md`。
+如果 `--provider openai --model gpt-image-2.5-flare` 因缺少 `OPENAI_API_KEY` 失败，但当前 runtime 有 native image-generation backend，或 repo-level `codex-imagegen` wrapper 可用，请使用该路径，而不是让用户等待。明确说明 fallback 是真正的 reference-image generation，还是只从提取的 visual traits 重建 text prompt。见 `references/codex-image2-fallback.md`。
 
 ## References
 
