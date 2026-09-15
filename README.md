@@ -5,7 +5,7 @@
 宝玉分享的 AI Agent 技能集（适用于 Claude Code、Codex 等），提升日常工作效率。
 
 > [!IMPORTANT]
-> 本仓库是 `JimLiu/baoyu-skills` 的社区维护中文 fork，当前同步到上游 `6b7a2e4`。请使用下方 `oldwinter/baoyu-skills` 命令安装；runtime 会直接加载本 fork 中的中文 `skills/**/SKILL.md`。
+> 本仓库是 `JimLiu/baoyu-skills` 的社区维护中文 fork，当前同步到上游 `1567581`。请使用下方 `oldwinter/baoyu-skills` 命令安装；runtime 会直接加载本 fork 中的中文 `skills/**/SKILL.md`。
 
 ## 作者的图书
 

@@ -10,7 +10,7 @@
 - 目标用户：使用 Claude Code、Codex 或其他 Agent Skills 兼容工具的中文用户
 - 用户安装后实际读取的入口文件：`skills/baoyu-*/SKILL.md`、相邻 `references/`、`scripts/` 和 `assets/`
 - 不应宣传为中文版安装的入口：指向 `JimLiu/baoyu-skills` 的安装命令
-- 当前同步上游 commit：`6b7a2e4`
+- 当前同步上游 commit：`1567581`
 
 ## 本地化目标
 
