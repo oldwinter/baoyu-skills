@@ -11,6 +11,7 @@ import {
   formatTimestamp,
   renderMarkdownDocument,
   resolveColorToken,
+  resolveDocumentLang,
   resolveFontFamilyToken,
   resolveMarkdownStyle,
   resolveRenderOptions,
@@ -76,6 +77,7 @@ test("buildMarkdownDocumentMeta prefers frontmatter and falls back to markdown t
     title: "YAML Title",
     author: "Baoyu",
     description: "YAML Summary",
+    lang: "zh-CN",
   });
 
   const metaFromMarkdown = buildMarkdownDocumentMeta(
@@ -85,7 +87,26 @@ test("buildMarkdownDocumentMeta prefers frontmatter and falls back to markdown t
   );
 
   assert.equal(metaFromMarkdown.title, "Markdown Title");
+  assert.equal(metaFromMarkdown.lang, "zh-CN");
   assert.match(metaFromMarkdown.description ?? "", /^This is the first body paragraph/);
+});
+
+test("resolveDocumentLang keeps valid BCP 47 tags and falls back to zh-CN", () => {
+  assert.equal(resolveDocumentLang(), "zh-CN");
+  assert.equal(resolveDocumentLang("en-US"), "en-US");
+  assert.equal(resolveDocumentLang("zh"), "zh");
+  assert.equal(resolveDocumentLang("not a language!!"), "zh-CN");
+});
+
+test("buildMarkdownDocumentMeta reads lang or language frontmatter", () => {
+  assert.equal(
+    buildMarkdownDocumentMeta("# Title", { language: "ja-JP" }).lang,
+    "ja-JP",
+  );
+  assert.equal(
+    buildMarkdownDocumentMeta("# Title", { lang: "bogus tag" }).lang,
+    "zh-CN",
+  );
 });
 
 test("resolveMarkdownStyle merges theme defaults with explicit overrides", () => {
@@ -171,4 +192,16 @@ test("renderMarkdownDocument layers default rules into grace theme before CSS in
   const strongMatch = html.match(strongPattern);
   assert.ok(strongMatch, "Expected inline style for <strong>bold</strong>");
   assert.match(strongMatch![1]!, /font-weight:/);
+  assert.match(html, /<html lang="zh-CN"/);
+  assert.match(html, /color-scheme: light|name="color-scheme" content="light"/);
+});
+
+test("renderMarkdownDocument marks dark themeMode on the document shell", async () => {
+  const { html } = await renderMarkdownDocument("## Section\n\nParagraph.", {
+    keepTitle: true,
+    themeMode: "dark",
+  });
+
+  assert.match(html, /<html lang="zh-CN"/);
+  assert.match(html, /name="color-scheme" content="dark"/);
 });

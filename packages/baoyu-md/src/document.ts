@@ -71,6 +71,14 @@ export function formatTimestamp(date = new Date()): string {
   )}${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
 }
 
+const BCP47_TAG = /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/;
+
+export function resolveDocumentLang(raw?: string): string {
+  if (!raw) return "zh-CN";
+  const tag = raw.trim();
+  return BCP47_TAG.test(tag) ? tag : "zh-CN";
+}
+
 export function buildMarkdownDocumentMeta(
   markdown: string,
   yamlData: Record<string, unknown>,
@@ -82,11 +90,13 @@ export function buildMarkdownDocumentMeta(
   const author = pickFirstString(yamlData, ["author"]);
   const description = pickFirstString(yamlData, ["description", "summary"])
     || extractSummaryFromBody(markdown, 120);
+  const lang = resolveDocumentLang(pickFirstString(yamlData, ["lang", "language"]));
 
   return {
     title: stripWrappingQuotes(title),
     author: author ? stripWrappingQuotes(author) : undefined,
     description: description ? stripWrappingQuotes(description) : undefined,
+    lang,
   };
 }
 
@@ -160,7 +170,15 @@ export async function renderMarkdownDocument(
     yamlData as Record<string, unknown>,
     resolvedOptions.defaultTitle,
   );
-  const html = buildHtmlDocument(meta, css, contentHtml, codeThemeCss);
+  const html = buildHtmlDocument(
+    {
+      ...meta,
+      colorScheme: resolvedOptions.themeMode === "dark" ? "dark" : "light",
+    },
+    css,
+    contentHtml,
+    codeThemeCss,
+  );
   const inlinedHtml = normalizeInlineCss(await inlineCss(html), style);
 
   return {

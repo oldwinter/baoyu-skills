@@ -31,12 +31,30 @@ test("buildHtmlDocument includes optional meta tags and code theme CSS", () => {
     ".hljs { color: blue; }",
   );
 
+  assert.match(html, /<html lang="zh-CN">/);
+  assert.match(html, /meta name="color-scheme" content="light"/);
   assert.match(html, /<title>Doc<\/title>/);
   assert.match(html, /meta name="author" content="Baoyu"/);
   assert.match(html, /meta name="description" content="Summary"/);
   assert.match(html, /<style>body \{ color: red; \}<\/style>/);
   assert.match(html, /<style>\.hljs \{ color: blue; \}<\/style>/);
   assert.match(html, /<article>Hello<\/article>/);
+});
+
+test("buildHtmlDocument uses frontmatter lang and dark color-scheme", () => {
+  const html = buildHtmlDocument(
+    {
+      title: "Doc",
+      lang: "en-US",
+      colorScheme: "dark",
+    },
+    "",
+    "",
+  );
+
+  assert.match(html, /<html lang="en-US">/);
+  assert.match(html, /meta name="color-scheme" content="dark"/);
+  assert.doesNotMatch(html, /<html>/);
 });
 
 test("buildHtmlDocument escapes head metadata attributes", () => {
