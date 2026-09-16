@@ -274,7 +274,7 @@ project:
 对每个 skill/module group（按变更顺序）：
 
 1. **检查是否需要 README updates**：
-   - 扫描 `README*.md` 中对此 skill/module 的提及
+   - 扫描中文真源 `README.md` 中对此 skill/module 的提及
    - 验证 options/flags 文档是否正确
    - 如果语法改变，更新 usage examples
    - 如果行为改变，更新 feature descriptions
@@ -282,7 +282,7 @@ project:
 2. **Stage and commit**：
    ```bash
    git add skills/<skill-name>/*
-   git add README.md README.zh.md  # If updated for this skill
+   git add README.md  # If the Chinese source README was updated for this skill
    git commit -m "<type>(<skill-name>): <meaningful description>"
    ```
 

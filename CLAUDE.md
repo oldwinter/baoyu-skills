@@ -91,7 +91,7 @@ Stdout 输出单行 JSON：`{"status":"ok","path":...,"bytes":N,...}`。失败�
 
 1. `CHANGELOG.md` + `CHANGELOG.zh.md`
 2. `marketplace.json` version bump
-3. 如适用，更新 `README.md` + `README.zh.md`
+3. 如适用，更新 `README.md`（中文真源）。`README.zh.md` 只是语言入口索引，不要再双写技能清单。
 4. 打 tag 前把所有文件一起 commit
 
 ## Code Style
