@@ -11,7 +11,7 @@
      --image screenshots/comic-styles/<style-name>.png
    ```
 4. 压缩：`${BUN_X} skills/baoyu-compress-image/scripts/main.ts screenshots/comic-styles/<style-name>.png`
-5. 更新两份 README（`README.md` + `README.zh.md`）：添加 style 到 options、description table、preview grid
+5. 更新 `README.md`（中文真源）：添加 style 到 options、description table、preview grid
 
 ## 更新现有 Style
 
@@ -23,7 +23,7 @@
 
 1. 删除 style definition + showcase image（`.webp`）
 2. 从 SKILL.md 的 `--style` options + auto-selection 中移除
-3. 从两份 README 中移除（options、description table、preview grid）
+3. 从 `README.md` 中移除（options、description table、preview grid）
 
 ## Style Preview Grid Format
 
