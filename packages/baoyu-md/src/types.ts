@@ -75,4 +75,6 @@ export interface HtmlDocumentMeta {
   title: string;
   author?: string;
   description?: string;
+  lang?: string;
+  colorScheme?: "light" | "dark";
 }

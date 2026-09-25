@@ -70,12 +70,15 @@ export function buildHtmlDocument(meta: HtmlDocumentMeta, css: string, html: str
     .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+  const lang = meta.lang ?? "zh-CN";
+  const colorScheme = meta.colorScheme ?? "light";
   const lines = [
     "<!doctype html>",
-    "<html>",
+    `<html lang="${escapeHtmlAttribute(lang)}">`,
     "<head>",
     '  <meta charset="utf-8" />',
     '  <meta name="viewport" content="width=device-width, initial-scale=1" />',
+    `  <meta name="color-scheme" content="${escapeHtmlAttribute(colorScheme)}" />`,
     `  <title>${escapeHtmlAttribute(meta.title)}</title>`,
   ];
   if (meta.author) {
