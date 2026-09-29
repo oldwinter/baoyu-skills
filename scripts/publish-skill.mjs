@@ -48,6 +48,7 @@ async function main() {
     config.registry ||
     DEFAULT_REGISTRY
   ).replace(/\/+$/, "");
+  validateRegistryUrl(registry);
 
   if (!config.token) {
     throw new Error("Not logged in. Run: clawhub login");
@@ -166,10 +167,33 @@ function buildSkillEntry(folder, slugOverride, displayNameOverride) {
 
 async function readClawhubConfig() {
   const configPath = getConfigPath();
+  let source;
   try {
-    return JSON.parse(await fs.readFile(configPath, "utf8"));
+    source = await fs.readFile(configPath, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") return {};
+    throw new Error(`Failed to read ClawHub config at ${configPath}: ${error.message}`);
+  }
+  try {
+    return JSON.parse(source);
+  } catch (error) {
+    throw new Error(`Failed to parse ClawHub config at ${configPath}: ${error.message}`);
+  }
+}
+
+function validateRegistryUrl(registry) {
+  let parsed;
+  try {
+    parsed = new URL(registry);
   } catch {
-    return {};
+    throw new Error(`Invalid registry URL: ${registry}`);
+  }
+  const loopback = ["localhost", "127.0.0.1", "::1"].includes(parsed.hostname);
+  if (parsed.protocol !== "https:" && !(parsed.protocol === "http:" && loopback)) {
+    throw new Error(`Registry URL must use HTTPS (loopback HTTP is allowed): ${registry}`);
+  }
+  if (parsed.username || parsed.password) {
+    throw new Error("Registry URL must not contain embedded credentials");
   }
 }
 
