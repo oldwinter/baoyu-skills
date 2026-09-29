@@ -207,7 +207,7 @@ async function generate(opts: CliOptions, log: JsonLogger): Promise<GenerateResu
 
   // Cache lookup
   if (opts.cacheDir) {
-    const key = cacheKey(prompt, opts.aspect, opts.refImages);
+    const key = await cacheKey(prompt, opts.aspect, opts.refImages);
     const cached = await lookupCache(opts.cacheDir, key);
     if (cached) {
       await mkdir(path.dirname(opts.outputPath), { recursive: true });
@@ -251,7 +251,7 @@ async function generate(opts: CliOptions, log: JsonLogger): Promise<GenerateResu
 
         // write to cache
         if (opts.cacheDir) {
-          const key = cacheKey(prompt, opts.aspect, opts.refImages);
+          const key = await cacheKey(prompt, opts.aspect, opts.refImages);
           await storeCache(opts.cacheDir, key, opts.outputPath);
           await log.info("cache.stored", { key });
         }

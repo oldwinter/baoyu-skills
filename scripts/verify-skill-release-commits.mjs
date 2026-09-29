@@ -116,10 +116,24 @@ async function resolveGitHubRange() {
     return { args: [`${event.before}..${head}`], label: `${event.before}..${head}` };
   }
 
+  if (event?.before && ZERO_SHA.test(event.before)) {
+    const commits = Array.isArray(event.commits)
+      ? event.commits.map((commit) => commit?.id).filter(Boolean)
+      : [];
+    if (commits.length > 0) {
+      return { commits, label: `new-branch push (${commits.length} commits)` };
+    }
+  }
+
   return null;
 }
 
 async function listCommits(range) {
+  if (range.commits) {
+    const output = await git(["rev-list", "--no-merges", "--no-walk=unsorted", ...range.commits]);
+    const nonMergeCommits = new Set(output ? output.split("\n").filter(Boolean) : []);
+    return range.commits.filter((commit) => nonMergeCommits.has(commit));
+  }
   const output = await git(["rev-list", "--no-merges", "--reverse", ...range.args]);
   return output ? output.split("\n").filter(Boolean) : [];
 }

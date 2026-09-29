@@ -43,8 +43,8 @@ export async function runCodexExec(input: SpawnInput): Promise<CodexRunResult> {
     stderr += chunk.toString();
   });
 
-  child.stdin.write(input.instruction);
-  child.stdin.end();
+  child.stdin.on("error", () => {});
+  child.stdin.end(input.instruction);
 
   const timer = setTimeout(() => {
     timedOut = true;
@@ -52,23 +52,34 @@ export async function runCodexExec(input: SpawnInput): Promise<CodexRunResult> {
     setTimeout(() => child.kill("SIGKILL"), 2000);
   }, input.timeoutMs);
 
-  const exit = await new Promise<{ code: number | null; signal: NodeJS.Signals | null }>((resolve) => {
-    child.on("close", (code, signal) => resolve({ code, signal }));
+  const outcome = await new Promise<
+    | { type: "close"; code: number | null; signal: NodeJS.Signals | null }
+    | { type: "error"; error: NodeJS.ErrnoException }
+  >((resolve) => {
+    child.once("error", (error) => resolve({ type: "error", error }));
+    child.once("close", (code, signal) => resolve({ type: "close", code, signal }));
   });
   clearTimeout(timer);
 
   await writeFile(rawLogPath, stdout + (stderr ? `\n--- stderr ---\n${stderr}` : ""));
 
+  if (outcome.type === "error") {
+    if (outcome.error.code === "ENOENT") {
+      throw new GenError("codex_not_installed", "codex CLI not installed", false);
+    }
+    throw new GenError("spawn_failed", `Failed to start codex CLI: ${outcome.error.message}`);
+  }
+
   if (timedOut) {
     throw new GenError("timeout", `codex exec exceeded ${input.timeoutMs}ms (log: ${rawLogPath})`);
   }
-  if (exit.code !== 0) {
+  if (outcome.code !== 0) {
     if (stderr.includes("command not found") || stderr.includes("not found: codex")) {
       throw new GenError("codex_not_installed", "codex CLI not installed", false);
     }
     throw new GenError(
       "spawn_failed",
-      `codex exec exited ${exit.code} signal=${exit.signal} (log: ${rawLogPath})`,
+      `codex exec exited ${outcome.code} signal=${outcome.signal} (log: ${rawLogPath})`,
     );
   }
 

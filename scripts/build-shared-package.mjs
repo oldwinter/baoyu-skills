@@ -11,6 +11,12 @@ async function main() {
   const packageDir = path.resolve(options.packageDir);
   const outDir = path.resolve(packageDir, options.outDir);
   assertStrictDescendant(packageDir, outDir, "--out-dir");
+  const assets = options.assets.map((asset) => {
+    const source = path.resolve(packageDir, asset.source);
+    const target = path.resolve(outDir, asset.target);
+    assertWithin(outDir, target, "--asset target");
+    return { source, target };
+  });
 
   await fs.rm(outDir, { recursive: true, force: true });
   await fs.mkdir(outDir, { recursive: true });
@@ -38,9 +44,7 @@ async function main() {
     await scrubCommonJsSourceFileUrls(cjsOutfile, packageDir);
   }
 
-  for (const asset of options.assets) {
-    const source = path.resolve(packageDir, asset.source);
-    const target = path.resolve(outDir, asset.target);
+  for (const { source, target } of assets) {
     await fs.cp(source, target, { recursive: true });
   }
 }
@@ -49,6 +53,13 @@ function assertStrictDescendant(root, candidate, label) {
   const relative = path.relative(root, candidate);
   if (!relative || relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
     throw new Error(`${label} must resolve inside the package directory: ${candidate}`);
+  }
+}
+
+function assertWithin(root, candidate, label) {
+  const relative = path.relative(root, candidate);
+  if (relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
+    throw new Error(`${label} must resolve inside the output directory: ${candidate}`);
   }
 }
 
