@@ -10,6 +10,7 @@ async function main() {
   const options = parseArgs(process.argv.slice(2));
   const packageDir = path.resolve(options.packageDir);
   const outDir = path.resolve(packageDir, options.outDir);
+  assertStrictDescendant(packageDir, outDir, "--out-dir");
 
   await fs.rm(outDir, { recursive: true, force: true });
   await fs.mkdir(outDir, { recursive: true });
@@ -41,6 +42,13 @@ async function main() {
     const source = path.resolve(packageDir, asset.source);
     const target = path.resolve(outDir, asset.target);
     await fs.cp(source, target, { recursive: true });
+  }
+}
+
+function assertStrictDescendant(root, candidate, label) {
+  const relative = path.relative(root, candidate);
+  if (!relative || relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
+    throw new Error(`${label} must resolve inside the package directory: ${candidate}`);
   }
 }
 
