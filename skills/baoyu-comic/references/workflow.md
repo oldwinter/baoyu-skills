@@ -1,34 +1,6 @@
 # 完整 Workflow
 
-生成知识漫画的完整 workflow。
-
-## 进度检查清单
-
-复制并跟踪进度：
-
-```
-Comic Progress:
-- [ ] Step 1: Setup & Analyze
-  - [ ] 1.1 Load preferences
-  - [ ] 1.2 Analyze content
-  - [ ] 1.3 Check existing ⚠️ REQUIRED
-- [ ] Step 2: Confirmation 1 - Style & options ⚠️ REQUIRED
-- [ ] Step 3: Generate storyboard + characters
-- [ ] Step 4: Review outline (conditional)
-- [ ] Step 5: Generate prompts
-- [ ] Step 6: Review prompts (conditional)
-- [ ] Step 7: Generate images
-  - [ ] 7.1 Character sheet (if needed)
-  - [ ] 7.2 Generate pages
-- [ ] Step 8: Merge to PDF
-- [ ] Step 9: Completion report
-```
-
-## 流程图
-
-```
-Input → Preferences → Analyze → [Check Existing?] → [Confirm 1: Style + Reviews] → Storyboard → [Review Outline?] → Prompts → [Review Prompts?] → Images → PDF → Complete
-```
+进度检查清单：见 SKILL.md 的 `## Workflow`。
 
 ---
 
@@ -492,8 +464,8 @@ options:
 1. 从已保存的选中 prompts 构建 page task list：
    - `prompt_file`: `prompts/NN-{cover|page}-[slug].md`
    - `output_file`: `NN-{cover|page}-[slug].png`
-   - `aspect_ratio`: from storyboard (default `3:4`; preset may override)
-   - `refs`: character sheet and verified direct user refs when Strategy A is active
+   - `aspect_ratio`：取自 storyboard（默认 `3:4`；preset 可覆盖）
+   - `refs`：character sheet，以及 Strategy A 启用时已验证的直接用户 refs
 2. **Backup rule**：派发 task 前，如果其 image 文件已存在，重命名为 `NN-{cover|page}-[slug]-backup-YYYYMMDD-HHMMSS.png`。
 3. 分 batch 派发 tasks：
    - Native batch backend：发送所有符合条件的 page tasks；如果 backend 有实际限制，则按 `generation_batch_size` 分块。
@@ -511,8 +483,6 @@ options:
 ---
 
 ## Step 8: 合并为 PDF
-
-所有 images 生成后：
 
 ```bash
 ${BUN_X} {baseDir}/scripts/merge-to-pdf.ts <comic-dir>
@@ -537,14 +507,4 @@ Location: [path]
 
 ---
 
-## Page Modification
-
-| Action | 步骤 |
-|--------|-------|
-| **Edit** | 更新 prompt → 重新生成 image → 重新生成 PDF |
-| **Add** | 在目标位置创建 prompt → 生成 image → 后续重新编号（NN+1）→ 更新 storyboard → 重新生成 PDF |
-| **Delete** | 删除文件 → 后续重新编号（NN-1）→ 更新 storyboard → 重新生成 PDF |
-
-**文件命名**：`NN-{cover|page}-[slug].png`（如 `03-page-enigma-machine.png`）
-- Slugs：kebab-case、唯一、由内容派生
-- Renumbering：只更新 NN 前缀，slugs 不变
+Page 的新增/编辑/删除与文件命名：见 SKILL.md 的 `## Page Modification`。

@@ -1,7 +1,5 @@
 # Title Formulas Reference
 
-8 种 hook formulas + straightforward style，用于平衡 title generation。
-
 ## Hook Formulas
 
 | # | Formula | 特征 | Example |
@@ -30,12 +28,10 @@
 
 ## Straightforward Style
 
-不是每个 title 都需要 hook。Straightforward titles 很适合作为替代：
+为偏好清晰而非悬念的读者提供不带 hook 的替代方案：
 
 - **Descriptive**：清楚说明 topic 和 scope
 - **Declarative**：直接陈述 main conclusion 或 thesis
-
-它们提供 balance；偏好 clarity 胜过 curiosity 的读者会喜欢。
 
 ## Title Principles
 

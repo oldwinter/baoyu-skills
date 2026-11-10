@@ -5,11 +5,9 @@ description: baoyu-image-gen 用户偏好的 EXTEND.md YAML schema
 
 # Preferences Schema
 
-## 完整 Schema
-
 ```yaml
 ---
-version: 1
+version: 1                  # schema version
 
 default_provider: null      # google|openai|azure|openrouter|dashscope|zai|minimax|replicate|jimeng|seedream|codex-cli|agnes|null (null = auto-detect; codex-cli is never auto-detected — pin it here or via --provider)
 
@@ -34,8 +32,8 @@ default_model:
   agnes: null               # e.g., "agnes-image-2.5-flash"
 
 batch:
-  max_workers: 10
-  provider_limits:
+  max_workers: 10            # batch worker cap
+  provider_limits:          # per provider: concurrency = max simultaneous requests; start_interval_ms = min gap between request starts (omitted = provider default)
     replicate:
       concurrency: 5
       start_interval_ms: 700
@@ -69,33 +67,7 @@ batch:
 ---
 ```
 
-## 字段参考
-
-| 字段 | 类型 | 默认值 | 说明 |
-|-------|------|---------|-------------|
-| `version` | int | 1 | Schema 版本 |
-| `default_provider` | string\|null | null | 默认 provider（null = auto-detect） |
-| `default_quality` | string\|null | null | 默认 quality（null = 2k） |
-| `default_aspect_ratio` | string\|null | null | 默认 aspect ratio |
-| `default_image_size` | string\|null | null | Google/OpenRouter image size（覆盖 quality） |
-| `default_image_api_dialect` | string\|null | null | OpenAI-compatible image dialect（`openai-native` 或 `ratio-metadata`） |
-| `default_model.google` | string\|null | null | Google 默认 model |
-| `default_model.openai` | string\|null | null | OpenAI 默认 model |
-| `default_model.azure` | string\|null | null | Azure 默认 deployment name |
-| `default_model.openrouter` | string\|null | null | OpenRouter 默认 model |
-| `default_model.dashscope` | string\|null | null | DashScope 默认 model |
-| `default_model.zai` | string\|null | null | Z.AI 默认 model |
-| `default_model.minimax` | string\|null | null | MiniMax 默认 model |
-| `default_model.replicate` | string\|null | null | Replicate 默认 model |
-| `default_model.codex-cli` | string\|null | null | Codex-CLI 逻辑标签（Codex image_gen 没有用户可选 model） |
-| `default_model.agnes` | string\|null | null | Agnes 默认 model |
-| `batch.max_workers` | int\|null | 10 | Batch worker 上限 |
-| `batch.provider_limits.<provider>.concurrency` | int\|null | provider default | 每个 provider 最大同时请求数 |
-| `batch.provider_limits.<provider>.start_interval_ms` | int\|null | provider default | 每个 provider 的请求启动最小间隔 |
-
-## 示例
-
-**Minimal**：
+## Minimal 示例
 
 ```yaml
 ---
@@ -103,49 +75,5 @@ version: 1
 default_provider: google
 default_quality: 2k
 default_image_api_dialect: null
----
-```
-
-**Full**：
-
-```yaml
----
-version: 1
-default_provider: google
-default_quality: 2k
-default_aspect_ratio: "16:9"
-default_image_size: 2K
-default_image_api_dialect: null
-default_model:
-  google: "gemini-3-pro-image"
-  openai: "gpt-image-2.5-flare"
-  azure: "gpt-image-2.5-flare"
-  openrouter: "google/gemini-3.1-flash-image"
-  dashscope: "qwen-image-2.0-pro"
-  zai: "glm-image"
-  minimax: "image-01"
-  replicate: "google/nano-banana-2"
-  agnes: "agnes-image-2.5-flash"
-batch:
-  max_workers: 10
-  provider_limits:
-    replicate:
-      concurrency: 5
-      start_interval_ms: 700
-    azure:
-      concurrency: 3
-      start_interval_ms: 1100
-    zai:
-      concurrency: 3
-      start_interval_ms: 1100
-    openrouter:
-      concurrency: 3
-      start_interval_ms: 1100
-    minimax:
-      concurrency: 3
-      start_interval_ms: 1100
-    agnes:
-      concurrency: 3
-      start_interval_ms: 1100
 ---
 ```

@@ -5,8 +5,6 @@ description: 封面图的情绪强度维度
 
 # Mood Dimension
 
-控制 cover images 的情绪强度和视觉重量。
-
 ## Values
 
 | Value | Contrast | Saturation | Weight | Energy |
@@ -98,19 +96,6 @@ description: 封面图的情绪强度维度
 - 强 contrast ratios
 - 动态 color combinations（4+ colors）
 
-## Type Compatibility
-
-| Type | subtle | balanced | bold |
-|------|:------:|:--------:|:----:|
-| hero | ✓ | ✓✓ | ✓✓ |
-| conceptual | ✓✓ | ✓✓ | ✓ |
-| typography | ✓ | ✓✓ | ✓✓ |
-| metaphor | ✓✓ | ✓✓ | ✓ |
-| scene | ✓✓ | ✓✓ | ✓ |
-| minimal | ✓✓ | ✓✓ | ✗ |
-
-✓✓ = 强烈推荐 | ✓ = 兼容 | ✗ = 不推荐
-
 ## Palette Interaction
 
 Mood 会调整 base palette 特征：
@@ -137,14 +122,4 @@ Mood 会调整 rendering 特征：
 | chalk | 更轻 chalk，露出更多 board | 标准 chalk | 重 chalk，鲜明颜色，密集 marks |
 | screen-print | 更少颜色（2），更轻 halftone | 标准 3-4 colors，中等 halftone | 更多颜色（4-5），密 halftone，更强 misregistration |
 
-## Auto Selection
-
-省略 `--mood` 时，按信号选择：
-
-| Signals | Mood Level |
-|---------|------------|
-| Professional, corporate, thought leadership, academic, luxury | `subtle` |
-| General, educational, standard, blog, documentation | `balanced` |
-| Launch, announcement, promotion, event, gaming, entertainment | `bold` |
-
-Default: `balanced`
+Type compatibility：见 [../compatibility.md](../compatibility.md#type--mood)。Auto selection：见 [../auto-selection.md](../auto-selection.md#auto-mood-selection)。

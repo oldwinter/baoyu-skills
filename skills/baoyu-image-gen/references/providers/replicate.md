@@ -38,13 +38,3 @@
 
 - 在此工具中，Replicate 当前只支持 single-output save semantics；保持 `--n 1`
 - 如果某个 model 不在上面的 compatibility list 中，baoyu-image-gen 会将它视为 prompt-only，并拒绝 advanced local options，而不是猜测 nano-banana-style schema
-
-## Examples
-
-```bash
-# Default model
-${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image out.png --provider replicate
-
-# Explicit model
-${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image out.png --provider replicate --model google/nano-banana
-```

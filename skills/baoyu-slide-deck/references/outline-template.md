@@ -1,7 +1,5 @@
 # Outline Template
 
-带 style instructions 的 slide deck outline 标准结构。
-
 ## Outline Format
 
 ```markdown
@@ -218,32 +216,9 @@ Layout: [optional: layout name from gallery]
 
 `<STYLE_INSTRUCTIONS>` block 是此 outline 中 style information 的 SINGLE SOURCE OF TRUTH。
 
-| Section | Content | Source |
-|---------|---------|--------|
-| Design Aesthetic | 整体视觉方向 | Combined from all dimensions |
-| Background | Base color 和 texture details | texture + mood dimensions |
-| Typography | Font descriptions（视觉描述，不是名称） | typography dimension |
-| Color Palette | 带 hex codes 和 usage 的命名颜色 | mood dimension |
-| Visual Elements | 带 rendering instructions 的图形元素 | texture + mood dimensions |
-| Density Guidelines | Content limits 和 whitespace | density dimension |
-| Style Rules | Do/Don't guidelines | Combined from dimensions |
-
-**Important**：
-
 - Typography descriptions 必须描述视觉外观（例如 "rounded sans-serif"、"bold geometric"），因为 image generators 无法使用 font names
-- Prompts 应从此 outline 提取 STYLE_INSTRUCTIONS，而不是重新读取 style files
-
-## Preset → Dimensions Reference
-
-使用 preset 时，在 `references/dimensions/presets.md` 中查找 dimensions：
-
-| Preset | Dimensions |
-|--------|------------|
-| blueprint | grid + cool + technical + balanced |
-| sketch-notes | organic + warm + handwritten + balanced |
-| corporate | clean + professional + geometric + balanced |
-| minimal | clean + neutral + geometric + minimal |
-| ... | 完整 mapping 见 presets.md |
+- Prompts 应从本 outline 提取 STYLE_INSTRUCTIONS，而不是重新读取 style files
+- Preset → dimensions：见 `references/dimensions/presets.md`
 
 ## Section Dividers
 

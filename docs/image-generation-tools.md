@@ -4,21 +4,32 @@
 
 ## The Rule
 
-当某个 skill 需要渲染图片时，按以下顺序解析 backend：
+每个渲染图片的 `SKILL.md` 都原样内联本 section，并把 text-patching rule 中的三个 `{…}` 占位符替换为该 skill 自己的措辞（什么文字、什么产物、哪个低文字量 fallback），以及它使用的 prompt-file 命名（例如 slide-deck 中的 `NN-slide-[slug].md`）。本段文字变更时，请同步所有副本。
 
-1. **Current-request override**：如果用户在当前消息中点名某个 backend，就使用它。
-2. **Saved preference**：如果该 skill 的 `EXTEND.md` 把 `preferred_image_backend` 设置为当前可用 backend，就使用它。
-3. **Auto-select**（当 preference 为 `auto`、未设置，或 pinned backend 不可用时）：
-   - **Codex（`imagegen`）**：首先检查 available-skills / tool inventory。如果列出了名为 `imagegen` 的 skill，说明你运行在 Codex 内，必须使用它：通过 `Skill` tool 调用，参数为 `skill: "imagegen"`，并传入已保存 prompt file 的内容（再按 Codex `imagegen` 自身参数传 output path 和 aspect ratio）。Codex `imagegen` 是该 runtime 中的官方 raster backend，优先级高于任何非 native skill（例如 `baoyu-image-gen`），除非用户显式 pinned 了不同的 `preferred_image_backend`。
-   - **Cursor（`GenerateImage`）**：如果 runtime 暴露原生 `GenerateImage` tool，说明你正在 Cursor 中运行。它和 Codex `imagegen` 一样，优先级高于任何非 native skill。两个硬性注意点：(a) 它没有 aspect-ratio 参数，必须在传给 `description` 的 prompt 文本中明确目标宽高比/尺寸；(b) 它不接收输出目录，会保存到 tool 管理的位置，因此生成后要把文件复制/移动到 skill 期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
-   - **Other runtime-native tools**：如果 runtime 暴露其他 native image tool（例如 Hermes `image_generate`），以同样方式使用。
-   - 否则，如果只安装了一个 non-native backend（例如 `baoyu-image-gen`），使用它。
-   - 否则（多个 non-native backends 且无 runtime-native tool），询问用户一次，并与其他初始问题 batch。
-4. **如果没有可用 backend**，告诉用户并询问如何继续。
+```markdown
+## Image Generation Tools
 
-**⛔ 绝不要用 SVG、HTML、canvas 或其他 code-based rendering 替代 raster image generation。** Codex `imagegen` 自身说明表示，当输出应为 bitmap asset 而不是 repo-native code 或 vector 时应使用它。如果第 3 步无法解析 raster backend，就进入第 4 步询问用户；不要静默输出 SVG、写 inline `<svg>` markup，或用 HTML/CSS art 替代。即使文章/段落看起来像“diagram-like”也一样：调用本规则的 consumer skill 已经决定需要 raster image。
+按以下顺序解析 image backend：
 
-设置 `preferred_image_backend: ask` 会强制每次运行都执行第 3 步的询问，无论当前有哪些 backend。
+1. **用户在当前消息中点名某个 backend** → 使用它。
+2. **`EXTEND.md` 中的 `preferred_image_backend`** 指向当前可用的 backend → 使用它。`ask` 表示每次运行都询问。
+3. **Auto-select**（preference 为 `auto`、未设置，或 pinned backend 不可用），先匹配者胜出：
+   - 可用 skills 中有 **Codex `imagegen`** skill → 说明你在 Codex 中，必须使用它：`Skill`，参数为 `skill: "imagegen"`，并传入 prompt file 内容、output path 和 aspect ratio。它优先于 `baoyu-image-gen` 等非 native skills。
+   - **Codex via `codex exec`（`codex-imagegen`）**：没有 native `imagegen`，但 `codex` CLI 在 `PATH` 中且已有有效 `codex login` → `baoyu-image-gen --provider codex-cli`（preferred），如果 baoyu-image-gen 不可用则使用 bundled wrapper。仅在该分支加载 [references/codex-imagegen.md](references/codex-imagegen.md)。
+   - **Cursor `GenerateImage`** → 使用它（优先于非 native skills）。它没有 aspect-ratio 参数，因此要在 `description` prompt 中说明宽高比/尺寸；它会保存到 tool 管理的位置，因此要把文件复制到期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
+   - **其他 runtime-native image tool**（例如 Hermes `image_generate`）→ 以同样方式使用。
+   - 只安装了一个 non-native backend（例如 `baoyu-image-gen`）→ 使用它。
+   - 有多个 non-native backends → 询问用户一次，并与其他初始问题 batch。
+4. **没有可用 backend** → 告诉用户并询问如何继续。
+
+**⛔ 仅 raster**：绝不要用 SVG、HTML/CSS、canvas 或其他 code-based rendering 替代 raster image，即使内容看起来像 diagram。如果无法解析 raster backend，进入第 4 步。
+
+**⛔ 不要 patch bitmap 文字**：绝不要使用 ImageMagick、Pillow、Canvas、SVG、HTML/CSS、OCR scripts 或任何其他 overlay 去覆盖、重写、擦除、描边或替换已生成 {artifact，例如 illustration} 中的 {text kinds，例如 labels、captions 或任何其他文字}。用修正后的 prompt 重新生成、{low-text fallback，例如用更少或无图内文字重绘}，或询问用户保留哪个不完美候选。
+
+**Prompt file（hard）**：调用任何 backend 之前，把每张图片完整、最终的 prompt 写入 `prompts/` 下的独立文件（`NN-{type}-[slug].md`），并把该文件（或其内容）传给 backend。它既是可复现记录，也允许在不重写 prompts 的情况下切换 backend。
+
+通过下方 `## Changing Preferences` 修改 pinned backend。上方工具名只是示例；其他 runtime 使用本地等价工具。
+```
 
 ## The Preference Field
 
@@ -31,10 +42,6 @@
 | `<backend-id>`（例如 `codex-imagegen`、`baoyu-image-gen`、`GenerateImage`、`image_generate`） | 当该 backend 可用时固定使用；不可用时 fallback 到 `auto`。 |
 
 该字段遵循 **absent-equals-auto**：旧的 `EXTEND.md` 即使没有该字段，也完全等同于设置了 `preferred_image_backend: auto`。引入该字段无需 bump schema version。
-
-## Prompt File Requirement（hard）
-
-无论选择哪个 backend，每个渲染图片的 skill 都必须在调用任何 backend **之前**，把每张图片完整、最终的 prompt 写入 `prompts/` 下的独立文件（命名：`NN-{type}-[slug].md`）。Backend 接收 prompt file（或其内容）；该文件是可复现记录，也允许在不重新生成 prompts 的情况下切换 backend。
 
 ## How Skills Declare This
 

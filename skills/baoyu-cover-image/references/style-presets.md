@@ -31,9 +31,4 @@
 | `propaganda` | `vivid` | `screen-print` |
 | `cinematic` | `duotone` | `screen-print` |
 
-## 覆盖示例
-
-- `--style blueprint --rendering hand-drawn` = cool palette + hand-drawn rendering
-- `--style elegant --palette warm` = warm palette + hand-drawn rendering
-
-显式 `--palette`/`--rendering` flags 始终覆盖 preset 值。
+显式 `--palette`/`--rendering` flags 始终覆盖 preset 值（例如 `--style blueprint --rendering hand-drawn` = cool palette + hand-drawn）。

@@ -1,7 +1,5 @@
 # Slide 修改指南
 
-初次生成后修改单张 slide 的工作流。
-
 ## 编辑单张 Slide
 
 用修改后的内容重新生成指定 slide：
@@ -37,22 +35,9 @@
 4. 更新 `outline.md`，移除该 slide 条目
 5. 重新生成 PPTX 和 PDF
 
-## 文件命名约定
+## 命名与重新编号
 
-文件使用有意义的 slug，以提升可读性：
-
-```
-NN-slide-[slug].png
-NN-slide-[slug].md (in prompts/)
-```
-
-示例：
-- `01-slide-cover.png`
-- `02-slide-problem-statement.png`
-- `03-slide-key-findings.png`
-- `04-slide-back-cover.png`
-
-## Slug 规则
+文件：`NN-slide-[slug].png`、`prompts/NN-slide-[slug].md`（例如 `01-slide-cover.png`、`02-slide-problem-statement.png`、`04-slide-back-cover.png`）。
 
 | 规则 | 说明 |
 |------|-------------|
@@ -60,17 +45,8 @@ NN-slide-[slug].md (in prompts/)
 | 来源 | 来自 slide 标题/内容 |
 | 唯一性 | 在同一个 deck 内必须唯一 |
 | 更新 | 内容变化较大时更新 slug |
-
-## 重新编号规则
-
-| 场景 | 操作 |
-|----------|--------|
-| 新增 slide | 所有后续 slide 的 NN 加 1 |
-| 删除 slide | 所有后续 slide 的 NN 减 1 |
 | 重新排序 slide | 更新 NN，使其匹配新位置 |
-| 编辑 slide | NN 不变，必要时更新 slug |
-
-**重要**：重新编号时 slug 保持不变。只修改 NN 前缀。
+| 重新编号 | 只修改 NN 前缀；slug 保持不变 |
 
 ## 修改后检查清单
 

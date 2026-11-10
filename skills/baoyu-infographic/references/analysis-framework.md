@@ -1,28 +1,6 @@
 # Infographic Content Analysis Framework
 
-将 instructional design 原则应用到信息图创建中的深度分析框架。
-
-## Purpose
-
-创建信息图前，彻底分析源材料，以便：
-
-- 深入理解内容
-- 为观看者识别清晰 learning objectives
-- 以最大清晰度和记忆留存来组织信息
-- 将内容匹配到最优 layout x style 组合
-- 原样保留所有 source data
-
-## Instructional Design Mindset
-
-把内容分析当作**世界级 instructional designer** 来做：
-
-| Principle | Application |
-|-----------|-------------|
-| **Deep Understanding** | 分析任何局部前，先阅读完整文档 |
-| **Learner-Centered** | 聚焦观看者需要理解什么 |
-| **Visual Storytelling** | 用视觉沟通，而不是只做装饰 |
-| **Cognitive Load** | 在不损失准确性的前提下简化复杂想法 |
-| **Data Integrity** | 永不改写、总结或意译 source facts |
+分析任何局部前先通读整个 source；聚焦观看者需要理解的内容；用视觉沟通而非装饰；在不损失准确性的前提下简化；永不改写、总结或意译 source facts。
 
 ## Analysis Dimensions
 
@@ -169,17 +147,3 @@ After viewing this infographic, the viewer should understand:
 2. **[Layout] + [Style]**: [简短理由]
 3. **[Layout] + [Style]**: [简短理由]
 ```
-
-## Analysis Checklist
-
-进入 structured content generation 前检查：
-
-- [ ] 我是否读完了整个 source document？
-- [ ] 我能否用 1-2 句话总结 main topic？
-- [ ] 我是否识别了 1-3 个清晰 learning objectives？
-- [ ] 我是否理解 target audience？
-- [ ] 我是否正确分类了 content type？
-- [ ] 我是否原样提取了所有 data points？
-- [ ] 我是否识别了 visual opportunities？
-- [ ] 我是否从 user input 中提取了 design instructions？
-- [ ] 我是否推荐了 3 个 layout x style 组合？

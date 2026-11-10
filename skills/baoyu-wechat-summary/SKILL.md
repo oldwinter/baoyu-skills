@@ -28,6 +28,8 @@ metadata:
 | [references/output-formats.md](references/output-formats.md) | 两版摘要的 Section 顺序、格式与内容规范、输出骨架、自检清单 | Round 2 动笔前 |
 | [references/profiles.md](references/profiles.md) | 画像文件格式、更新规则、隐私红线、回溯流程 | Step 3.7 / 8.5 / Step 9 |
 | [references/group-memory.md](references/group-memory.md) | 群级事实记忆的写入门槛、防注入、格式 | Step 8.6 |
+| [references/preferences.md](references/preferences.md) | EXTEND.md 支持的键、首次配置流程 | 解析/写入 EXTEND.md，或未找到 EXTEND.md 时 |
+| [references/bot-requests.md](references/bot-requests.md) | @bot 请求的提取、误触过滤、答复来源约束 | Step 3.9 有命中时 |
 
 ## User Input Tools
 
@@ -58,46 +60,7 @@ metadata:
 | Found | 读取、解析、应用。在会话首次使用时简短提醒："Using preferences from [path]. Edit it to change defaults." |
 | Not found | 生成任何 digest 前**必须**运行 first-time setup（BLOCKING），不要静默使用 defaults。 |
 
-### 支持的 keys
-
-EXTEND.md 是纯文本，使用 `key: value` 或 `key=value` 行，`#` 表示 comments，keys 大小写不敏感。
-
-| Key | Type | Default | 用途 |
-|-----|------|---------|---------|
-| `self_wxid` | string | (required) | 所属账号的 wxid。`from_wxid` 与它匹配的消息会归属为用户本人。 |
-| `self_display` | string | (required) | 在 digest 文本中替换用户本人消息的显示名。 |
-| `default_version` | `normal` / `roast` / `both` | `normal` | 用户未特别说明时生成哪些版本。 |
-| `default_time_range` | string（例如 `7d`、`24h`、`1d`） | (none) | 用户省略时间且没有 incremental anchor 时使用的默认范围。 |
-| `data_root` | path | `{project_root}/wechat` | 覆盖 digest folders 的存放位置。 |
-| `bot_aliases` | comma-separated strings | `bot, 精华bot` | 触发「@bot 答疑」section 的名称。包含 `@<alias>`（case-insensitive）的消息会被视为面向 digest bot 的问题/请求。选择不会匹配任何真实群成员或现有 bot 的名称，避免歧义。 |
-
-Starter template 位于 [EXTEND.md.example](EXTEND.md.example)。
-
-### First-Time Setup (BLOCKING)
-
-如果找不到 EXTEND.md，不要静默继续。
-
-**Step A - 先尝试自动发现 `self_wxid` 和 `self_display`。** 按顺序运行（遇到第一个成功项即停止）：
-
-```bash
-# 1. If wx-cli exposes a whoami, use it
-wx whoami --json 2>/dev/null
-
-# 2. Otherwise, find self-sent messages in recent sessions
-wx sessions --json --limit 20 2>/dev/null
-```
-
-对于选项 2，扫描 sessions，找到用户曾发言的任何私聊/群聊 thread，并读取他们自己的 `from_wxid` / `from_nickname` pair。如果能有信心预填两个值，就把它们作为下面问题的默认值；否则留空让用户填写。
-
-**Step B - 用一次 `AskUserQuestion` 调用确认（batched），预填自动发现的内容：**
-
-- `self_wxid`（例如 `wxid_abc123`）- fallback 提示：用户可通过 `wx contacts --query "<own nickname>"` 查找，或查看 `wx sessions --json` 中任意自己发送的消息。
-- `self_display`（例如 `宝玉`）- 他们希望自己消息在 digest 中如何署名。
-- `default_version` - 从 `normal` / `roast` / `both` 中选择一个。
-- `data_root` - digest folders 存放位置。默认：`{project_root}/wechat`。输入自定义绝对路径（例如 `~/Documents/wechat-digests`）或留空使用默认。
-- Save location - 从 project / XDG / home 中选择一个。
-
-将 EXTEND.md 写入所选路径。如果用户提供了非默认 `data_root`，将它作为未注释行写入；否则省略它（默认值会自动生效）。确认 "Preferences saved to [path]. Edit it any time to change defaults."，然后继续 digest workflow。
+支持的 keys（`self_wxid`、`self_display`、`default_version`、`default_time_range`、`data_root`、`bot_aliases`）和首次设置流程见 [references/preferences.md](references/preferences.md) —— 解析或写入 EXTEND.md 时、以及运行首次设置前请先阅读。
 
 ## 工作流
 
@@ -267,15 +230,7 @@ K. H：空中直播员 / 生活百科全书。常见话题：旅行、金融、�
 
 **Trigger**：消息文本包含 `bot_aliases`（来自 EXTEND.md；默认 `bot`、`精华bot`；case-insensitive）中任意 alias 的 `@<alias>`。Aliases 以裸名称存储，匹配 `@` 前缀加 alias。
 
-**提取**到内部 worklist `== @bot 请求清单 ==`（仅 working memory，绝不写入最终 digest）：
-
-- 提问者真实姓名 - 完成 Step 3.6 解析后；对于 `self_wxid` 用户替换为 `self_display`。
-- 请求正文 - 去掉 `@<alias>` 前缀后的文本。如果该消息是 reply（按 Step 3.5 的 quote/reply fields 判断），包含 quoted message 作为 context。
-- 用于 back-reference 的 anchor `local_id`。
-
-**误触过滤**：如果真实成员昵称恰好等于某个 alias，按上下文判断。只保留真正面向 digest bot 的消息（问题或请求）；跳过明显的人对人对话，例如给那个真人的 reply，或调侃他们的玩笑。（选择没有真实成员使用的 `bot_aliases` 值可从源头避免问题；此过滤是兜底。）纯问候/闲聊（`@bot 在吗`）可以保留并简短回复。
-
-**Answer-source constraint**（按 [references/output-formats.md](references/output-formats.md) 渲染 section 时遵守）：只从群聊上下文和你自己的知识回答，**不要 web access**。对于任何需要实时或外部信息且你无法验证的请求，诚实说明（`这个我查不到实时数据，需要联网确认`），不要编造。
+**命中任何请求时** → 阅读 [references/bot-requests.md](references/bot-requests.md)，了解如何把每个请求提取到 `== @bot 请求清单 ==` worklist、如何过滤误触，以及 answer-source constraint（禁止 web access）。
 
 **No hits** → 两个版本都完全省略 @bot 答疑 section。
 
@@ -456,16 +411,7 @@ Digest 落盘后很容易忘记 profile updates。报告运行 "done" 前，验�
 
 ### Step 9: Backfill（用户触发）
 
-当用户说 "回溯画像" / "初始化画像" / "backfill profiles" 时：
-
-1. 确认 target group（如果未指定，询问是哪一个）。
-2. 列出 `{folder}/` 中所有 digest files 和 `history-digests.jsonl`。
-3. 按 10-15 个一批读取现有 digests，避免 context blowup。
-4. 对出现在 3+ digests 中的用户，使用历史 digests 中的 leaderboard counts、portrait paragraphs 和 quoted lines 初始化 profile files。
-5. 写入 `profiles/`（如果存在任何 `-roast.md` 文件，也写入 `profiles-roast/`）。
-6. 回报：创建了多少 profiles，覆盖了多少 users。
-
-完整流程见 [references/profiles.md](references/profiles.md)。
+当用户说 "回溯画像" / "初始化画像" / "backfill profiles" 时，按 [references/profiles.md](references/profiles.md) §4 中的 backfill 流程执行。
 
 ## 存储布局
 

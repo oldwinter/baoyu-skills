@@ -69,7 +69,7 @@ Provider 会将每个 wrapper error 重新抛为 `Invalid codex-cli result (<err
 | `agent_refused` | Codex agent 拒绝（policy 或 content） | 调整 prompt；将拒绝原因告知用户。 |
 | `lock_busy` | 另一个 `codex-imagegen` invocation 持有 file lock | 等待，或为并发调用方设置不同 `--cache-dir`。 |
 
-## Trade-offs
+## Notes
 
 - 慢：比直接 OpenAI API latency 慢 5–10 倍（cache hits 除外）。
 - 受与交互式 `codex exec` 使用相同的 TOS 约束；从 baoyu-image-gen 程序化调用属于同一 usage class。

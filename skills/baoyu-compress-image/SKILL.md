@@ -41,7 +41,12 @@ Scripts 位于 `scripts/` 子目录。`{baseDir}` = 当前 SKILL.md 所在目录
 
 ```bash
 ${BUN_X} {baseDir}/scripts/main.ts <input> [options]
+${BUN_X} {baseDir}/scripts/main.ts image.png                    # → WebP, replaces original
+${BUN_X} {baseDir}/scripts/main.ts image.png -f png --keep      # keep PNG format and original
+${BUN_X} {baseDir}/scripts/main.ts ./images/ -r -q 75           # directory, recursive
 ```
+
+Output: `image.png → image.webp (245KB → 89KB, 64% reduction)`
 
 ## Options
 
@@ -55,28 +60,6 @@ ${BUN_X} {baseDir}/scripts/main.ts <input> [options]
 | `--recursive` | `-r` | 处理子目录 | false |
 | `--json` | | JSON output | false |
 
-## Examples
-
-```bash
-# Single file → WebP（替换原文件）
-${BUN_X} {baseDir}/scripts/main.ts image.png
-
-# 保持 PNG 格式
-${BUN_X} {baseDir}/scripts/main.ts image.png -f png --keep
-
-# Directory recursive
-${BUN_X} {baseDir}/scripts/main.ts ./images/ -r -q 75
-
-# JSON output
-${BUN_X} {baseDir}/scripts/main.ts image.png --json
-```
-
-**Output**：
-
-```text
-image.png → image.webp (245KB → 89KB, 64% reduction)
-```
-
 ## Extension Support
 
-通过 EXTEND.md 自定义配置。路径和支持选项见 **Preferences** section。
+通过 EXTEND.md 自定义配置。路径和支持选项见 **Preferences** 一节。

@@ -1,7 +1,5 @@
 # DashScope (阿里通义万象)
 
-当用户选择 `--provider dashscope`、设置 `default_model.dashscope`，或询问 Qwen-Image 行为时读取。SKILL.md 只说明默认值，本文件覆盖 model families、尺寸规则和限制。
-
 ## Model Families
 
 **`qwen-image-3.0*` / `qwen-image-2.0*`**：推荐的现代 family，使用相同的尺寸范围。成员：`qwen-image-3.0-pro`, `qwen-image-2.0-pro`, `qwen-image-2.0-pro-2026-04-22`, `qwen-image-2.0-pro-2026-03-03`, `qwen-image-2.0`, `qwen-image-2.0-2026-03-03`。`qwen-image-3.0-pro` 是新的旗舰模型，但在端到端请求形状完成验证前，built-in default 仍是 `qwen-image-2.0-pro`。

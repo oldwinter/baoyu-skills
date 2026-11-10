@@ -1,7 +1,5 @@
 # Reference Image Handling
 
-Cover generation 中处理用户提供 reference images 的指南。
-
 ## Input Detection
 
 | Input Type | Action |
@@ -53,7 +51,7 @@ usage: direct | style | palette
 3. 不要在 prompt frontmatter 中添加 `references`
 4. 将提取出的 style/colors 直接追加到 prompt text
 
-## Deep Analysis ⚠️ CRITICAL
+## Deep Analysis ⚠️
 
 References 是高优先级输入。提取**具体、可复现、可执行**的元素：
 
@@ -64,10 +62,12 @@ References 是高优先级输入。提取**具体、可复现、可执行**的�
 | **Color palette** | 关键颜色的精确 hex values | Good: "#2D4A3E dark teal, #F5F0E0 cream" / Bad: "Dark and light colors" |
 | **Layout structure** | 具体 spatial arrangement | Good: "Bottom 30% dark banner with branding" / Bad: "Has a banner" |
 | **Typography** | Font style、weight、spacing、case | Good: "Uppercase, wide letter-spacing" / Bad: "Has text" |
+| **Rendering** | 线条质感、texture、depth 处理 | Good: "Topographic contour lines as background texture" / Bad: "Clean style" |
+| **Elements** | Icon vocabulary、decorative motifs | Good: "Geometric intersecting line ornaments at corners" / Bad: "Has decorations" |
 | **Content/subject** | Reference 描绘什么 | Factual description |
 | **Usage recommendation** | `direct` / `style` / `palette` | 基于分析判断 |
 
-**Output format**：将每个元素列成 bullet，能直接复制进 prompt 作为 mandatory instruction。
+**Output format**：将每个元素列成 bullet，能直接复制进 prompt 作为 mandatory instruction，并以 "MUST" 或 "REQUIRED" 前缀标注。
 
 ### Character Analysis ⚠️ If Reference Contains People
 

@@ -1,6 +1,6 @@
 ---
 name: first-time-setup
-description: First-time setup flow for baoyu-translate preferences
+description: baoyu-translate 偏好的首次设置流程
 ---
 
 # First-Time Setup

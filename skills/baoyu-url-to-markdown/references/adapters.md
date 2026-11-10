@@ -1,8 +1,6 @@
 # Adapters & Media
 
-选择 adapter、处理 media，或回答 adapter-specific 问题时阅读。
-
-## 内置 Adapters
+## Built-in Adapters
 
 | Adapter | URLs | 关键能力 |
 |---------|------|-------------|

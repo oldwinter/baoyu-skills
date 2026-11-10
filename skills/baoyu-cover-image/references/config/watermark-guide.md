@@ -5,20 +5,6 @@ description: baoyu-cover-image 的水印配置指南
 
 # 水印指南
 
-## 位置示意图
-
-```
-┌─────────────────────────────┐
-│                  [top-right]│
-│                             │
-│                             │
-│       COVER IMAGE           │
-│                             │
-│                             │
-│[bottom-left][bottom-center][bottom-right]│
-└─────────────────────────────┘
-```
-
 ## 位置建议
 
 | 位置 | 适合 | 避免场景 |

@@ -1,25 +1,6 @@
 # Usage Examples
 
-扩展 CLI 示例。SKILL.md 展示最小集合；当用户询问 provider-specific invocation、batch generation 或较少用的 flags 时，读取此文件。
-
-## 核心模式
-
-```bash
-# 基础 text-to-image
-${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image cat.png
-
-# 带 aspect ratio
-${BUN_X} {baseDir}/scripts/main.ts --prompt "A landscape" --image out.png --ar 16:9
-
-# 高质量
-${BUN_X} {baseDir}/scripts/main.ts --prompt "A cat" --image out.png --quality 2k
-
-# 从文件读取 prompt
-${BUN_X} {baseDir}/scripts/main.ts --promptfiles system.md content.md --image out.png
-
-# 带 reference images（任何支持 refs 的 provider family）
-${BUN_X} {baseDir}/scripts/main.ts --prompt "Make blue" --image out.png --ref source.png
-```
+基础用法见 SKILL.md 的 “Usage” 一节。
 
 ## 按 Provider
 
@@ -98,14 +79,12 @@ ${BUN_X} {baseDir}/scripts/main.ts --prompt "Apply this style" --image out.png -
 - 绝不自动选择 - 通过 `--provider codex-cli` 或 EXTEND.md 中的 `default_provider: codex-cli` 固定使用。
 - 仅支持 `n=1`（Codex `image_gen` 每次调用返回一张图片）；`--size`、`--imageSize`、`--quality` 和 `--imageApiDialect` 会被忽略或拒绝。
 - 通常比直接 OpenAI / Google API calls 慢 5-10 倍（命中 cache 除外）。可通过 `BAOYU_CODEX_IMAGEGEN_TIMEOUT_MS`、`BAOYU_CODEX_IMAGEGEN_RETRIES` 和 `BAOYU_CODEX_IMAGEGEN_CACHE_DIR` 调整。
+`codex-cli` 的限制（绝不自动选择、仅支持 `n=1`、被忽略的 flags、延迟、可调 env vars）：见 `references/providers/codex-cli.md`。
 
 ## Batch Mode
 
 ```bash
-# 从已保存 prompt files 批量生成
 ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json
-
-# 指定 worker count 的 batch
 ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json --jobs 4 --json
 ```
 

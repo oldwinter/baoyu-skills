@@ -1,7 +1,5 @@
 # Preset → Dimension Mapping
 
-将 16 个 preset styles 映射到它们的 dimension combinations。
-
 ## Mapping Table
 
 | Preset | Texture | Mood | Typography | Density |
@@ -24,109 +22,29 @@
 | vector-illustration | clean | vibrant | humanist | balanced |
 | vintage | paper | warm | editorial | balanced |
 
-## Preset Details
+## Preset Feel
 
-### blueprint
+Auto-select 信号：见 SKILL.md 的 `### Auto-Selection`。
 
-- **Dimensions**: grid + cool + technical + balanced
-- **Feel**: 工程精度，分析清晰
-- **Auto-select**: architecture, system, data, analysis, technical
-
-### chalkboard
-
-- **Dimensions**: organic + warm + handwritten + balanced
-- **Feel**: 课堂温度，教育感
-- **Auto-select**: classroom, teaching, school, chalkboard
-
-### corporate
-
-- **Dimensions**: clean + professional + geometric + balanced
-- **Feel**: 商业可信度，机构信任感
-- **Auto-select**: investor, quarterly, business, corporate
-
-### minimal
-
-- **Dimensions**: clean + neutral + geometric + minimal
-- **Feel**: 极致精致，executive focus
-- **Auto-select**: executive, minimal, clean, simple
-
-### sketch-notes
-
-- **Dimensions**: organic + warm + handwritten + balanced
-- **Feel**: 友好的学习感，亲近的教育表达
-- **Auto-select**: tutorial, learn, education, guide, beginner
-
-### hand-drawn-edu
-
-- **Dimensions**: organic + macaron + handwritten + balanced
-- **Feel**: 手绘教育信息图，macaron pastel zones
-- **Auto-select**: hand-drawn, infographic, diagram, process, onboarding
-
-### watercolor
-
-- **Dimensions**: organic + warm + humanist + minimal
-- **Feel**: 艺术、自然、生活方式
-- **Auto-select**: lifestyle, wellness, travel, artistic
-
-### dark-atmospheric
-
-- **Dimensions**: clean + dark + editorial + balanced
-- **Feel**: 电影感、娱乐感
-- **Auto-select**: entertainment, music, gaming, atmospheric
-
-### notion
-
-- **Dimensions**: clean + neutral + geometric + dense
-- **Feel**: SaaS 专业感，data-forward
-- **Auto-select**: saas, product, dashboard, metrics
-
-### bold-editorial
-
-- **Dimensions**: clean + vibrant + editorial + balanced
-- **Feel**: Magazine impact，keynote drama
-- **Auto-select**: launch, marketing, keynote, magazine
-
-### editorial-infographic
-
-- **Dimensions**: clean + cool + editorial + dense
-- **Feel**: Publication quality，信息充分
-- **Auto-select**: explainer, journalism, science communication
-
-### fantasy-animation
-
-- **Dimensions**: organic + vibrant + handwritten + minimal
-- **Feel**: 魔法感、storytelling
-- **Auto-select**: story, fantasy, animation, magical
-
-### intuition-machine
-
-- **Dimensions**: clean + cool + technical + dense
-- **Feel**: Technical briefing，双语文档感
-- **Auto-select**: briefing, academic, research, bilingual
-
-### pixel-art
-
-- **Dimensions**: pixel + vibrant + technical + balanced
-- **Feel**: 复古游戏、developer culture
-- **Auto-select**: gaming, retro, pixel, developer
-
-### scientific
-
-- **Dimensions**: clean + cool + technical + dense
-- **Feel**: 学术精度，research quality
-- **Auto-select**: biology, chemistry, medical, scientific
-
-### vector-illustration
-
-- **Dimensions**: clean + vibrant + humanist + balanced
-- **Feel**: Flat design，友好创意
-- **Auto-select**: creative, children, kids, cute
-
-### vintage
-
-- **Dimensions**: paper + warm + editorial + balanced
-- **Feel**: 历史、heritage storytelling
-- **Auto-select**: history, heritage, vintage, expedition
+| Preset | 观感 |
+|--------|------|
+| blueprint | 工程精度，分析清晰 |
+| chalkboard | 课堂温度，教育感 |
+| corporate | 商业可信度，机构信任感 |
+| minimal | 极致精致，executive focus |
+| sketch-notes | 友好的学习感，亲近的教育表达 |
+| hand-drawn-edu | 手绘教育信息图，macaron pastel zones |
+| watercolor | 艺术、自然、生活方式 |
+| dark-atmospheric | 电影感、娱乐感 |
+| notion | SaaS 专业感，data-forward |
+| bold-editorial | Magazine impact，keynote drama |
+| editorial-infographic | Publication quality，信息充分 |
+| fantasy-animation | 魔法感、storytelling |
+| intuition-machine | Technical briefing，双语文档感 |
+| pixel-art | 复古游戏、developer culture |
+| scientific | 学术精度，research quality |
+| vector-illustration | Flat design，友好创意 |
+| vintage | 历史、heritage storytelling |
 
 ## Building Custom Combinations
 

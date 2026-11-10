@@ -1,40 +1,6 @@
 # Structured Content Template
 
-用于生成结构化信息图内容的模板，为视觉设计者提供清楚输入。
-
-## Purpose
-
-本文档连接 content analysis 和 visual design：
-
-- 将源材料转成 designer-ready 格式
-- 把 learning objectives 组织成视觉 sections
-- 原样保留所有 source data
-- 将内容与 design instructions 分离
-
-## Instructional Design Process
-
-### Phase 1: High-Level Outline
-
-1. **Title**：用有吸引力的标题抓住本质
-2. **Overview**：简短说明（1-2 句话）
-3. **Learning Objectives**：列出观看者会理解什么
-
-### Phase 2: Section Development
-
-对每个 learning objective：
-
-1. **Key Concept**：该 section 的一句话总结
-2. **Content**：从 source 原样提取的要点
-3. **Visual Element**：视觉上应展示什么
-4. **Text Labels**：headlines、subheads、labels 的准确文本
-
-### Phase 3: Data Integrity Check
-
-验证所有 source data：
-
-- 精确复制（不意译）
-- 正确 attribution（针对 quotes）
-- 格式一致
+连接 content analysis 和 visual design：把 learning objectives 组织成视觉 sections，原样保留 source data，并把 design instructions 与内容分开。
 
 ## Critical Rules
 
@@ -230,7 +196,6 @@ The viewer will understand:
 - Label: "[Metric name]"
 - Context: "[Brief context]"
 ```
-
 ## Quality Checklist
 
 完成 structured content 前检查：

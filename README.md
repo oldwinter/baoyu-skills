@@ -5,7 +5,7 @@
 宝玉分享的 AI Agent 技能集（适用于 Claude Code、Codex 等），提升日常工作效率。
 
 > [!IMPORTANT]
-> 本仓库是 `JimLiu/baoyu-skills` 的社区维护中文 fork，当前同步到上游 `1567581`。请使用下方 `oldwinter/baoyu-skills` 命令安装；runtime 会直接加载本 fork 中的中文 `skills/**/SKILL.md`。
+> 本仓库是 `JimLiu/baoyu-skills` 的社区维护中文 fork，当前同步到上游 `ca703c2`。请使用下方 `oldwinter/baoyu-skills` 命令安装；runtime 会直接加载本 fork 中的中文 `skills/**/SKILL.md`。
 
 ## 作者的图书
 
@@ -145,6 +145,8 @@ clawhub install baoyu-markdown-to-html
 npx skills add JimLiu/baoyu-design
 ```
 
+> 注意：`baoyu-design` 是上游独立项目，本中文 fork 未收录其 skill，因此该命令安装的是上游英文版本。
+
 ### 内容技能 (Content Skills)
 
 内容生成和发布技能。
@@ -213,14 +215,14 @@ npx skills add JimLiu/baoyu-design
 
 #### baoyu-infographic
 
-专业信息图生成器，支持 21 种布局和 21 种视觉风格。分析内容后推荐布局×风格组合，生成可发布的信息图。
+专业信息图生成器，支持 21 种布局类型和 22 种视觉风格。分析内容后推荐布局×风格组合，生成可直接发布的信息图。
 
 ```bash
 # 根据内容自动推荐组合
 /baoyu-infographic path/to/content.md
 
 # 指定布局
-/baoyu-infographic path/to/content.md --layout pyramid
+/baoyu-infographic path/to/content.md --layout hub-spoke
 
 # 指定风格（默认：craft-handmade）
 /baoyu-infographic path/to/content.md --style technical-schematic
@@ -236,37 +238,44 @@ npx skills add JimLiu/baoyu-design
 **选项**：
 | 选项 | 说明 |
 |------|------|
-| `--layout <name>` | 信息布局（20 种选项） |
-| `--style <name>` | 视觉风格（17 种选项，默认：craft-handmade） |
+| `--layout <name>` | 信息布局（21 种选项，默认：bento-grid） |
+| `--style <name>` | 视觉风格（22 种选项，默认：craft-handmade） |
 | `--aspect <ratio>` | 预设：landscape (16:9)、portrait (9:16)、square (1:1)。自定义：任意 W:H 比例（如 3:4、4:3、2.35:1） |
 | `--lang <code>` | 输出语言（en、zh、ja 等） |
+| `--no-confirm` | 跳过组合确认步骤，直接生成 |
+| `--ref <files...>` | 用于风格、配色、构图或主体参考的参考图 |
 
 **布局**（信息结构）：
 
 | 布局 | 适用场景 |
 |------|----------|
-| `bridge` | 问题→解决方案、跨越鸿沟 |
-| `circular-flow` | 循环、周期性流程 |
-| `comparison-table` | 多因素对比 |
-| `do-dont` | 正确 vs 错误做法 |
-| `equation` | 公式分解、输入→输出 |
-| `feature-list` | 产品功能、要点列表 |
-| `fishbone` | 根因分析、鱼骨图 |
-| `funnel` | 转化漏斗、筛选过程 |
-| `grid-cards` | 多主题概览、卡片网格 |
+| `linear-progression` | 时间线、流程、教程 |
+| `binary-comparison` | A vs B、前后对比、优缺点 |
+| `comparison-matrix` | 多因素对比 |
+| `hierarchical-layers` | 金字塔、优先级层级 |
+| `tree-branching` | 分类、层级体系 |
+| `hub-spoke` | 中心概念与关联项 |
+| `structural-breakdown` | 爆炸视图、剖面图 |
+| `bento-grid` | 多主题概览（默认） |
 | `iceberg` | 表面 vs 隐藏层面 |
-| `journey-path` | 用户旅程、里程碑 |
-| `layers-stack` | 技术栈、分层结构 |
-| `mind-map` | 头脑风暴、思维导图 |
-| `nested-circles` | 影响层级、范围圈 |
-| `priority-quadrants` | 四象限矩阵、优先级 |
-| `pyramid` | 层级金字塔、马斯洛需求 |
-| `scale-balance` | 利弊权衡、天平对比 |
-| `timeline-horizontal` | 历史、时间线事件 |
-| `tree-hierarchy` | 组织架构、分类树 |
-| `venn` | 重叠概念、韦恩图 |
+| `bridge` | 问题→解决方案 |
+| `funnel` | 转化、筛选 |
+| `isometric-map` | 空间关系 |
+| `dashboard` | 指标、KPI |
+| `periodic-table` | 分类集合 |
+| `comic-strip` | 叙事、序列 |
+| `story-mountain` | 情节结构、张力曲线 |
+| `jigsaw` | 相互关联的部分 |
+| `venn-diagram` | 重叠概念 |
+| `winding-roadmap` | 旅程、里程碑 |
+| `circular-flow` | 循环、周期性流程 |
+| `dense-modules` | 高密度模块、数据密集型指南 |
 
-**布局预览**：
+**旧版布局预览**：
+
+> **说明：** 这些图片沿用旧版布局名称，仅作为视觉参考，并不代表上方当前的 `--layout` 取值。
+>
+> **TODO：** 为当前 21 种布局重新生成预览图并替换此图库。
 
 | | | |
 |:---:|:---:|:---:|
@@ -306,8 +315,13 @@ npx skills add JimLiu/baoyu-design
 | `ikea-manual` | 极简线条、组装说明风 |
 | `knolling` | 整齐平铺、俯视图 |
 | `lego-brick` | 乐高积木、童趣拼搭 |
+| `pop-laboratory` | 蓝图网格、坐标标记、实验室精度 |
+| `morandi-journal` | 手绘涂鸦、温暖莫兰迪色调 |
+| `retro-pop-grid` | 1970s 波普艺术、瑞士网格、粗描边 |
+| `hand-drawn-edu` | 马卡龙粉彩、手绘抖动、火柴人 |
+| `retro-popup-pop` | 复古弹出拼贴、怀旧 UI、扁平波普色彩 |
 
-**风格预览**：
+**风格预览（部分）**：
 
 | | | |
 |:---:|:---:|:---:|
@@ -1371,6 +1385,16 @@ mkdir -p .baoyu-skills/baoyu-cover-image
 ```bash
 HTTP_PROXY=http://127.0.0.1:7890 HTTPS_PROXY=http://127.0.0.1:7890 /baoyu-danger-gemini-web "你好"
 ```
+
+在 Windows PowerShell 中，行内赋值不生效。请先在当前会话中设置变量，然后从同一个会话启动你的 agent：
+
+```powershell
+$env:HTTP_PROXY = 'http://127.0.0.1:7890'
+$env:HTTPS_PROXY = 'http://127.0.0.1:7890'
+# 从这个 PowerShell 会话启动 agent，再在其中运行该 skill
+```
+
+这些变量只对当前 PowerShell 会话及其启动的进程生效。已经在运行的 agent 必须重启才能读取到它们。
 
 ### baoyu-danger-x-to-markdown
 

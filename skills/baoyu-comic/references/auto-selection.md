@@ -51,8 +51,6 @@
 
 ## Compatibility Matrix
 
-Art Style × Tone 组合在适配得当时效果最好：
-
 | Art Style | ✓✓ Best | ✓ Works | ✗ Avoid |
 |-----------|---------|---------|---------|
 | ligne-claire | neutral, warm | dramatic, vintage, energetic | romantic, action |

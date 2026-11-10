@@ -1,16 +1,5 @@
 # Comic Content Analysis Framework
 
-将 source content 转换为有效 visual storytelling 的深度分析框架。
-
-## Purpose
-
-创建 comic 前，彻底分析源材料，以便：
-
-- 识别 target audience 及其需求
-- 判断 comic 将交付什么价值
-- 提取适合 visual storytelling 的叙事潜力
-- 规划 character arcs 和关键时刻
-
 ## Analysis Dimensions
 
 ### 1. Core Content（理解 "What"）

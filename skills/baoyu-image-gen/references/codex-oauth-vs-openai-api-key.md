@@ -11,8 +11,4 @@ Codex / ChatGPT login 是另一条路径。Codex image generation 由 Codex OAut
 - 如果在 Hermes 内运行且原生 `image_generate` tool 可用，将其作为 runtime-native fallback。需要明确 reference images 是直接传入，还是仅从提取出的 traits 重建。
 - `baoyu-image-gen` 已经暴露独立的 `codex-cli` provider（包装 bundled `scripts/codex-imagegen/`）；不要修改现有 `openai` provider 来添加 Codex OAuth。
 
-## Reference-image prompting note
-
-使用真实 reference images 做 identity preservation 时，避免对 subject 写很长的泛化描述。长描述可能导致模型合成一个相似但新的 person/object。优先使用直接措辞：
-
-> Use the person/object in the reference image(s) as the same identity. Do not redesign it or create a similar-looking new subject. Only change scene, clothing, pose, lighting, rendering style, and composition.
+关于保持身份一致的 reference prompts，见 SKILL.md 中的 “Reference-Image Identity Preservation” 一节。

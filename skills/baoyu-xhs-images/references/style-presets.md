@@ -41,3 +41,58 @@ Palette 为空 = 使用 style 内置颜色（或 frontmatter 中定义的 style 
 - `--style notion --palette macaron` = notion 渲染规则 + macaron 颜色
 
 显式 `--style`/`--layout`/`--palette` flags 始终覆盖 preset 值。
+
+## 场景预设
+
+按场景分组的快速上手组合。使用 `--preset <name>`，或在 Step 2 中推荐。
+
+**知识与学习**：
+
+| Preset | Style | Layout | 适合场景 |
+|--------|-------|--------|----------|
+| `knowledge-card` | notion | dense | 干货知识卡、概念科普 |
+| `checklist` | notion | list | 清单、排行榜 |
+| `concept-map` | notion | mindmap | 概念图、知识脉络 |
+| `swot` | notion | quadrant | SWOT 分析、四象限 |
+| `tutorial` | chalkboard | flow | 教程步骤、操作流程 |
+| `classroom` | chalkboard | balanced | 课堂笔记、知识讲解 |
+| `study-guide` | study-notes | dense | 学习笔记、考试重点 |
+| `hand-drawn-edu` | sketch-notes | flow | 手绘教程、流程图解 |
+| `sketch-card` | sketch-notes | dense | 手绘知识卡 |
+| `sketch-summary` | sketch-notes | balanced | 手绘总结、图文笔记 |
+
+**生活与分享**：
+
+| Preset | Style | Layout | 适合场景 |
+|--------|-------|--------|----------|
+| `cute-share` | cute | balanced | 少女风分享、日常种草 |
+| `girly` | cute | sparse | 甜美封面、氛围感 |
+| `cozy-story` | warm | balanced | 生活故事、情感分享 |
+| `product-review` | fresh | comparison | 产品对比、测评 |
+| `nature-flow` | fresh | flow | 健康流程、自然主题 |
+
+**冲击与观点**：
+
+| Preset | Style | Layout | 适合场景 |
+|--------|-------|--------|----------|
+| `warning` | bold | list | 避坑指南、重要提醒 |
+| `versus` | bold | comparison | 正反对比 |
+| `clean-quote` | minimal | sparse | 金句、极简封面 |
+| `pro-summary` | minimal | balanced | 专业总结、商务内容 |
+
+**潮流与娱乐**：
+
+| Preset | Style | Layout | 适合场景 |
+|--------|-------|--------|----------|
+| `retro-ranking` | retro | list | 复古排行、经典盘点 |
+| `throwback` | retro | balanced | 怀旧分享 |
+| `pop-facts` | pop | list | 趣味冷知识 |
+| `hype` | pop | sparse | 炸裂封面、惊叹分享 |
+
+**海报与编辑**：
+
+| Preset | Style | Layout | 适合场景 |
+|--------|-------|--------|----------|
+| `poster` | screen-print | sparse | 海报风封面、影评书评 |
+| `editorial` | screen-print | balanced | 观点文章、文化评论 |
+| `cinematic` | screen-print | comparison | 电影对比、戏剧张力 |

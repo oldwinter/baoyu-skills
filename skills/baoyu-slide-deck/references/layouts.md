@@ -36,8 +36,6 @@
 | `iceberg` | Visible vs hidden layers | Surface vs depth |
 | `bridge` | Gap with connection | Problem-solution |
 
-**Usage**：在 slide 的 `// LAYOUT` section 中添加 `Layout: <name>`。
-
 ## Layout 选择提示
 
 **让 Layout 匹配 Content**：

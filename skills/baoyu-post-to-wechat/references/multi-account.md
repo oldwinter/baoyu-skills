@@ -43,7 +43,7 @@ accounts:
 
 ## Account Selection (Step 0.5)
 
-Insert between Step 0 (Load EXTEND.md) and Step 1 (Determine input type):
+Between Step 0 and Step 1:
 
 ```
 if no accounts block:
@@ -103,6 +103,7 @@ ${BUN_X} {baseDir}/scripts/wechat-browser.ts --markdown <file> --images ./photos
 ## Remote API Publishing
 
 `wechat-api.ts` 支持 `remote-api` mode：通过 SSH SOCKS5 dynamic port forward，把 WeChat API calls 隧道转发到一台 IP 位于 WeChat allowlist 的服务器。Markdown rendering、image processing、draft assembly 和 HTML rewriting 仍在本地完成；只有发往 `api.weixin.qq.com` 的 outbound HTTPS calls 走隧道。不向 remote host 写入文件，`AppSecret` 永不离开本地进程。Remote host 只需要 `sshd` 和 outbound network access。
+`remote-api` 的工作方式：见 SKILL.md 的 Step 2。
 
 ### Per-Account Configuration
 
@@ -116,9 +117,7 @@ accounts:
     alias: baoyu
     default: true
     default_publish_method: api
-    default_author: 宝玉
-    app_id: your_wechat_app_id
-    app_secret: your_wechat_app_secret
+    # ...
   - name: AI工具集
     alias: ai-tools
     default_publish_method: remote-api

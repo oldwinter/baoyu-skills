@@ -13,8 +13,6 @@ metadata:
 
 # Image Generation（AI SDK）
 
-基于官方 API 的 image generation。支持 OpenAI GPT Image 2.5、Azure OpenAI、Google、OpenRouter、DashScope（阿里通义万象）、Z.AI GLM-Image、MiniMax、Jimeng（即梦）、Seedream（豆包）、Replicate 和 Agnes。
-
 ## User Input Tools
 
 当该 skill 需要询问用户时，遵循以下 tool-selection rule（优先级顺序）：
@@ -51,16 +49,6 @@ Legacy compatibility：如果 `.baoyu-skills/baoyu-imagine/EXTEND.md` 存在且�
 ## Usage
 
 最小可运行示例见下方；完整 per-provider invocations 和 batch mode 见 `references/usage-examples.md`。
-
-### Identity-preserving reference prompts
-
-当用户想从 reference images 保留真实人物/角色/物体时，**不要**用很长的通用描述替代 reference。优先使用简短、强约束的身份保持语言：
-
-- "Use the person/object in the reference image(s) as the same identity. Do not redesign it or create a similar-looking new subject."
-- "Only change scene, clothing, pose, lighting, rendering style, and composition. Keep the face/proportions/hair/key accessories/overall identity from the references."
-- 如果使用多个 references，说明它们是同一 subject，并应共同定义 identity。
-
-Pitfall：类似 "young East Asian woman, oval face, clear eyes..." 的长描述，可能导致模型合成一个符合描述的新人物，而不是保留 reference 中的人。
 
 ```bash
 # Basic
@@ -166,6 +154,8 @@ ${BUN_X} {baseDir}/scripts/main.ts --batchfile batch.json --jobs 4
 - 在带 native `image_generate` tool 的 Hermes runtimes 中：将该 tool 作为 fallback，并说明 reference images 是直接传入，还是从提取出的视觉特征重建。
 
 不要修改现有 `openai` provider，使其静默消费 Codex OAuth。First-class Codex-CLI path 是专用 `codex-cli` provider；它有自己的 auth（Codex login）、route（`codex exec`）、request shape 和 tests。见 `references/codex-oauth-vs-openai-api-key.md`。
+
+**Fallback**：如果 `--provider openai` 仅因缺少 `OPENAI_API_KEY` 而失败，且上述某个 backend 可用，就直接使用它，不要让用户等待；同时说明这是真正的 reference-image generation，还是从视觉特征重建的文字描述。详见 `references/codex-oauth-vs-openai-api-key.md`、`references/codex-image2-fallback.md`。
 
 ## Model Resolution
 

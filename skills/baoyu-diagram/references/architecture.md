@@ -42,7 +42,7 @@ Row spacing：行起点之间 120-140px。
 - 优先使用 straight horizontal 或 vertical lines
 - 对会穿过 components 的 connections，使用 two-segment（L-shaped）paths：
   ```svg
-  <path d="M x1,y1 L midX,y1 L midX,y2" fill="none" stroke="#64748b" marker-end="url(#arrow)"/>
+  <path d="M x1,y1 L midX,y1 L midX,y2" fill="none" stroke="var(--arrow)" marker-end="url(#arrow)"/>
   ```
 - 对 busy diagrams，给不太重要的 connections 使用 `stroke-opacity="0.6"`
 - 在 midpoint 附近用 text element 标注重要 connections

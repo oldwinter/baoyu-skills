@@ -1,25 +1,13 @@
 # Usage
 
-## Command Syntax
-
 ```bash
-# 根据内容自动选择 type 和 style
-/baoyu-article-illustrator path/to/article.md
-
-# 指定 type
-/baoyu-article-illustrator path/to/article.md --type infographic
-
-# 指定 style
-/baoyu-article-illustrator path/to/article.md --style blueprint
-
-# 组合 type 和 style
+/baoyu-article-illustrator path/to/article.md                      # 自动选择 type 和 style
 /baoyu-article-illustrator path/to/article.md --type flowchart --style notion
-
-# 指定 density
 /baoyu-article-illustrator path/to/article.md --density rich
-
-# 保存 prompts 后，最多并行生成 4 张图
-/baoyu-article-illustrator path/to/article.md --batch-size 4
+/baoyu-article-illustrator path/to/article.md --batch-size 4       # prompts 保存后最多并行生成 4 张
+/baoyu-article-illustrator api-design.md --preset tech-explainer
+/baoyu-article-illustrator how-to-deploy.md --preset tutorial --density rich
+/baoyu-article-illustrator article.md --preset tech-explainer --style notion   # 用 preset 时覆盖 style
 
 # 直接输入内容（paste mode）
 /baoyu-article-illustrator
@@ -40,53 +28,5 @@
 
 | Mode | Trigger | Output Directory |
 |------|---------|------------------|
-| File path | `path/to/article.md` | 使用 `default_output_dir` 偏好；未设置时询问 |
+| File path | `path/to/article.md` | 使用 `default_output_dir` 偏好；未设置时询问（取值见 SKILL.md 的 Output Directory） |
 | Paste content | 无 path 参数 | `illustrations/{topic-slug}/` |
-
-## Output Directory Options
-
-| Value | Path |
-|-------|------|
-| `same-dir` | `{article-dir}/` |
-| `illustrations-subdir` | `{article-dir}/illustrations/` |
-| `independent` | `illustrations/{topic-slug}/` |
-
-在 EXTEND.md 中配置：`default_output_dir: illustrations-subdir`
-
-## Examples
-
-**带数据的技术文章**：
-
-```bash
-/baoyu-article-illustrator api-design.md --type infographic --style blueprint
-```
-
-**同一需求使用 preset**：
-
-```bash
-/baoyu-article-illustrator api-design.md --preset tech-explainer
-```
-
-**个人故事**：
-
-```bash
-/baoyu-article-illustrator journey.md --preset storytelling
-```
-
-**包含步骤的教程**：
-
-```bash
-/baoyu-article-illustrator how-to-deploy.md --preset tutorial --density rich
-```
-
-**Poster style 观点文章**：
-
-```bash
-/baoyu-article-illustrator opinion.md --preset opinion-piece
-```
-
-**Preset + override**：
-
-```bash
-/baoyu-article-illustrator article.md --preset tech-explainer --style notion
-```

@@ -27,38 +27,34 @@ metadata:
 
 ## Image Generation Tools
 
-当此 skill 需要渲染图片时，按以下顺序解析 backend：
+按以下顺序解析 image backend：
 
-1. **当前请求覆盖**：如果用户在当前消息中指定某个 backend，就使用它。
-2. **已保存偏好**：如果 `EXTEND.md` 将 `preferred_image_backend` 设为当前可用的 backend，就使用它。
-3. **Auto-select**（当偏好为 `auto`、未设置，或固定的 backend 不可用时）：
-   - **Codex (`imagegen`)**：先检查 available-skills / tool inventory。如果列表中存在名为 `imagegen` 的 skill，说明你正在 Codex 中运行，且必须使用它：通过 `Skill` tool 以 `skill: "imagegen"` 调用，传入已保存 prompt 文件的内容（以及 Codex `imagegen` 自身参数要求的输出路径和 aspect ratio）。Codex `imagegen` 是该 runtime 的官方 raster backend，优先级高于任何非原生 skill（如 `baoyu-image-gen`），除非用户已经明确固定了不同的 `preferred_image_backend`。
-   - **通过 `codex exec` 使用 Codex (`codex-imagegen`)**：如果当前 runtime 没有暴露原生 `imagegen` skill，但 `codex` CLI 在 `PATH` 中且已有有效 `codex login`，则通过 `baoyu-image-gen --provider codex-cli` 路由（优先），或者在 baoyu-image-gen 不可用时直接调用 bundled wrapper。细节、参数和 runtime-discovery 流程见 [references/codex-imagegen.md](references/codex-imagegen.md)，只有选中此分支时才加载该文件。
-   - **Cursor (`GenerateImage`)**：如果 runtime 暴露原生 `GenerateImage` tool，说明你正在 Cursor 中运行。它和 Codex `imagegen` 一样，优先级高于任何非原生 skill。两个硬性注意点：(a) 它没有 aspect-ratio 参数，必须在传给 `description` 的 prompt 文本中明确目标宽高比/尺寸；(b) 它不接收输出目录，会保存到 tool 管理的位置，因此生成后要把文件复制/移动到 skill 期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
-   - **其他 runtime-native tools**：如果 runtime 暴露了其他原生图片工具（如 Hermes `image_generate`），按同样方式使用。
-   - 否则，如果只安装了一个 non-native backend（如 `baoyu-image-gen`），就使用它。
-   - 否则（有多个 non-native backends 且没有 runtime-native tool），向用户询问一次，并与其他初始问题合并。
-4. **如果没有任何可用 backend**，告知用户并询问如何继续.
+1. **用户在当前消息中点名某个 backend** → 使用它。
+2. **`EXTEND.md` 中的 `preferred_image_backend`** 指向当前可用的 backend → 使用它。`ask` 表示每次运行都询问。
+3. **Auto-select**（preference 为 `auto`、未设置，或 pinned backend 不可用），先匹配者胜出：
+   - 可用 skills 中有 **Codex `imagegen`** skill → 说明你在 Codex 中，必须使用它：`Skill`，参数为 `skill: "imagegen"`，并传入 prompt file 内容、output path 和 aspect ratio。它优先于 `baoyu-image-gen` 等非 native skills。
+   - **Codex via `codex exec`（`codex-imagegen`）**：没有 native `imagegen`，但 `codex` CLI 在 `PATH` 中且已有有效 `codex login` → `baoyu-image-gen --provider codex-cli`（preferred），如果 baoyu-image-gen 不可用则使用 bundled wrapper。仅在该分支加载 [references/codex-imagegen.md](references/codex-imagegen.md)。
+   - **Cursor `GenerateImage`** → 使用它（优先于非 native skills）。它没有 aspect-ratio 参数，因此要在 `description` prompt 中说明宽高比/尺寸；它会保存到 tool 管理的位置，因此要把文件复制到期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
+   - **其他 runtime-native image tool**（例如 Hermes `image_generate`）→ 以同样方式使用。
+   - 只安装了一个 non-native backend（例如 `baoyu-image-gen`）→ 使用它。
+   - 有多个 non-native backends → 询问用户一次，并与其他初始问题 batch。
+4. **没有可用 backend** → 告诉用户并询问如何继续。
 
-**⛔ 绝不要用 SVG、HTML、canvas 或其他代码化渲染替代 raster image generation。** Codex `imagegen` 自身描述说明，它应在 "when the output should be a bitmap asset rather than repo-native code or vector." 时使用。如果无法通过步骤 3 解析出 raster backend，就进入步骤 4 并询问用户；不要静默输出 SVG、写 inline `<svg>` 标记，或生成 HTML/CSS art 作为替代。即使文章或章节看起来像 "diagram-like" 也一样：调用此规则的 consumer skill 已经判断它需要 raster image。
+**⛔ 仅 raster**：绝不要用 SVG、HTML/CSS、canvas 或其他 code-based rendering 替代 raster image，即使内容看起来像 diagram。如果无法解析 raster backend，进入第 4 步。
 
-**⛔ 绝不要通过覆盖已生成 bitmap 来修复渲染文字。** 不要用 ImageMagick、Pillow、Canvas、SVG、HTML/CSS、OCR scripts 或任何其他程序化 overlay 去遮盖、重写、擦除、描边或替换已生成 slide image 中的 slide titles、bullets 或任何其他文本。如果文字错误或不清楚，请用修正后的 prompt 重新生成、简化 slide 上的文本，或询问用户保留哪个不完美候选。
+**⛔ 不要 patch bitmap 文字**：绝不要使用 ImageMagick、Pillow、Canvas、SVG、HTML/CSS、OCR scripts 或任何其他 overlay 去覆盖、重写、擦除、描边或替换已生成 slide image 中的 slide titles、bullets 或任何其他文字。用修正后的 prompt 重新生成、简化 slide 上的文字，或询问用户保留哪个不完美候选。
 
-设置 `preferred_image_backend: ask` 会强制每次运行都执行步骤 3 的询问，不受可用 backends 影响。用户可通过下面的 `## Changing Preferences` 章节修改固定 backend。
+**Prompt file（hard）**：调用任何 backend 之前，把每张图片完整、最终的 prompt 写入 `prompts/` 下的独立文件（`NN-slide-[slug].md`），并把该文件（或其内容）传给 backend。它既是可复现记录，也允许在不重写 prompts 的情况下切换 backend。
 
-**Prompt 文件要求（硬性）**：调用任何 backend 之前，必须先将每张图片完整、最终版 prompt 写入 `prompts/` 下的独立文件（命名：`NN-slide-[slug].md`）。该文件是可复现记录，也允许你在不重新生成 prompts 的情况下切换 backends。
-
-上面的具体工具名（`imagegen`、`GenerateImage`、`image_generate`、`baoyu-image-gen`）都是示例；请在相同规则下替换为本地等价工具。
+通过下方 `## Changing Preferences` 修改 pinned backend。上方工具名只是示例；其他 runtime 使用本地等价工具。
 
 ## Batch Generation Policy
 
-当前生成组的每个 prompt 文件都已保存并验证后，默认批量生成 slide images。
+当前生成组的每个 prompt 文件都已保存并验证后，默认批量生成 slide images：
 
-优先级顺序：
-
-1. 如果所选 backend 有原生 batch / multi-task 接口，使用它。每个 task 必须保留自己的 prompt 文件、输出路径、aspect ratio、session ID 和 direct reference images。
-2. 如果没有原生 batch 接口，但 runtime 可以发起 parallel tool calls，则每次最多派发 `generation_batch_size` 张 slide images。默认：`4`。当前消息中的显式用户请求（如 `--batch-size 4` 或“并行4张一起生成”）会覆盖 EXTEND.md。
-3. 如果原生 batch 和 parallel tool calls 都不可用，则顺序生成。
+1. 如果所选 backend 有原生 batch / multi-task 接口，使用它。每个 task 保留自己的 prompt file、output path、aspect ratio、session ID 和 direct reference images。
+2. 否则，如果 runtime 可以发起 parallel tool calls，每次最多派发 `generation_batch_size` 张 slide images（默认 `4`）。当前消息中的显式请求（例如 `--batch-size 4`、"并行4张一起生成"）会覆盖 EXTEND.md。
+3. 否则顺序生成。
 
 规则：
 
@@ -106,7 +102,7 @@ metadata:
 
 ## Style System
 
-17 个 presets 覆盖 technical / educational / lifestyle / editorial use cases。每个 preset 都由四个 dimensions（texture / mood / typography / density）组合而成。如果用户在 Round 1 选择 "Custom dimensions"，confirmation 的 Round 2 会对每个 dimension 各问一个问题；选项和原文 copy 位于 `references/confirmation.md`。
+每个 preset 都由四个 dimensions（texture / mood / typography / density）组合而成。如果用户在 Round 1 选择 "Custom dimensions"，Round 2 会对每个 dimension 各问一个问题（原文 copy 位于 `references/confirmation.md`）。
 
 ### Presets (17)
 
@@ -299,11 +295,11 @@ slide-deck/{topic-slug}/
 ### Step 7: Generate Images
 
 1. 通过顶部 Image Generation Tools 规则解析 image backend；如果安装了多个则询问一次。
-   - **`codex-imagegen` 调用**：当规则解析到 `codex-imagegen` 时，调用契约见 [references/codex-imagegen.md](references/codex-imagegen.md)（优先 `baoyu-image-gen --provider codex-cli` 路径、runtime wrapper discovery、参数说明、stdout schema、batch 语义；每次调用 n=1，因此 slide batches 必须为每张 slide 派发一次 wrapper 调用）。
-2. 确认每个 `prompts/NN-slide-{slug}.md` 都存在（硬性要求；无论 backend 是什么，prompt files 都是可复现记录）。
+   - 对 `codex-imagegen`，遵循 [references/codex-imagegen.md](references/codex-imagegen.md)（每次调用 n=1，因此 slide batches 必须为每张 slide 派发一次 wrapper 调用）。
+2. 确认每个 `prompts/NN-slide-{slug}.md` 都存在（硬性要求）。
 3. Session ID：`slides-{topic-slug}-{timestamp}`；仅当 backend 支持 sessions 时传入。
 4. 为选中的 slides 构建 task list，每个 task 包含 slide 的 prompt file、输出 PNG path、aspect ratio、session ID 和已验证 direct references。
-5. 按 `## Batch Generation Policy` 批量派发 slide images：backend native batch 优先，其次 runtime parallel tool calls，顺序生成只作为 fallback。派发前对 PNG files 应用 backup rule。以 `Generated X/N` 报告进度。报错前只重试失败项一次。
+5. 按 `## Batch Generation Policy` 派发。派发前对 PNG files 应用 backup rule。以 `Generated X/N` 报告进度。报错前只重试失败项一次。
 
 `--regenerate N` 只针对指定 slides 跳到此步骤。`--images-only` 从这里开始，使用现有 prompts。
 
@@ -350,31 +346,16 @@ PDF: {topic-slug}.pdf
 
 完整细节见 `references/modification-guide.md`。
 
-## References
-
-| File | 内容 |
-|------|---------|
-| `references/confirmation.md` | 每次 confirmation 的 AskUserQuestion 原文选项 copy |
-| `references/analysis-framework.md` | Content analysis framework |
-| `references/outline-template.md` | Outline structure |
-| `references/base-prompt.md` | Image generation 的 base prompt body |
-| `references/layouts.md` | Layout options |
-| `references/design-guidelines.md` | Audience、typography、color selection |
-| `references/content-rules.md` | Content guidelines |
-| `references/modification-guide.md` | Edit/add/delete workflows |
-| `references/styles/<preset>.md` | Per-preset specifications |
-| `references/dimensions/*.md` | Per-dimension specifications |
-| `references/config/preferences-schema.md` | EXTEND.md schema |
+## Other References
 
 ## Notes
 
-- Image generation 每张 slide 约需 10-30s；在生成之间报告进度。
 - 对敏感公众人物，优先使用 stylized alternatives，以避免 likeness issues。
 - 当 backend 支持 session ID 时，通过它保持 visual consistency。
 
 ## Changing Preferences
 
-EXTEND.md 位于 Step 1.1 所列第一个匹配路径。有两种修改方式：
+EXTEND.md 位于 Step 1.1 所列第一个匹配路径。
 
 - **直接编辑**：打开 EXTEND.md 并修改字段。完整 schema：`references/config/preferences-schema.md`。
 - **常见单行修改**：

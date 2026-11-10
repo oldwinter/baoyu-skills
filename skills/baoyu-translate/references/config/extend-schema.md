@@ -1,8 +1,6 @@
 # baoyu-translate 的 EXTEND.md Schema
 
-## Format
-
-EXTEND.md 使用 YAML 格式：
+YAML 格式：
 
 ```yaml
 # Default target language (ISO code or common name)
@@ -75,7 +73,7 @@ glossaries:
 
 ## Glossary File Format
 
-外部 glossary 文件（`glossary_files`）支持两种格式：
+`glossary_files` 支持两种格式（绝对路径，或相对 EXTEND.md 的路径）：
 
 **Markdown table** (`.md`):
 ```markdown
@@ -94,14 +92,12 @@ glossaries:
   note: "Keep English"
 ```
 
-路径可以是绝对路径，或相对 EXTEND.md 文件所在位置。
+## 优先级
 
-## Priority
-
-1. CLI `--glossary` file entries
-2. EXTEND.md `glossaries[pair]` entries
-3. EXTEND.md `glossary` entries (inline)
-4. EXTEND.md `glossary_files` entries (in listed order, later files override earlier)
-5. Built-in glossary (e.g., `references/glossary-en-zh.md`)
+1. CLI `--glossary` 文件中的 entries
+2. EXTEND.md 的 `glossaries[pair]` entries
+3. EXTEND.md 的 `glossary` entries（inline）
+4. EXTEND.md 的 `glossary_files` entries（按列出顺序，后面的文件覆盖前面的）
+5. 内置 glossary（例如 `references/glossary-en-zh.md`）
 
 对同一源术语，后面的 entries 会覆盖前面的。

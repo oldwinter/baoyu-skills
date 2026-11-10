@@ -1,7 +1,5 @@
 # Workflow Mechanics
 
-Source materialization、output directory creation 和 conflict resolution 的细节。
-
 ## Materialize Source
 
 | Input Type | Action |

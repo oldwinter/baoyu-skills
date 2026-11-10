@@ -171,11 +171,3 @@ White background, clear labels under each character.
 | Define color codes | 使用具体颜色名或 hex codes |
 | Include age markers | 皱纹、姿态、符合时代的服饰 |
 | Reference real people | 对历史人物，注明 "based on 1940s photographs" |
-
-## Why Character Reference Matters
-
-没有统一 character definition，AI 会生成不一致的外观。Reference sheet 提供：
-
-1. 保持特征一致的 visual anchors
-2. 保持上色一致的 color palettes
-3. 用于情绪刻画的 expression documentation

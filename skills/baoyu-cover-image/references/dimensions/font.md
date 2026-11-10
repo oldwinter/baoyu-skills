@@ -5,8 +5,6 @@ description: 封面图的 typography style 维度
 
 # Font Dimension
 
-控制 typography style 和字符气质。
-
 ## Values
 
 | Font | Visual Style | Line Quality | Character |
@@ -130,17 +128,6 @@ description: 封面图的 typography style 维度
 
 `clean` — 通用，能与大多数 rendering styles 搭配。
 
-## Rendering Compatibility
-
-| Font × Rendering | flat-vector | hand-drawn | painterly | digital | pixel | chalk | screen-print |
-|------------------|:-----------:|:----------:|:---------:|:-------:|:-----:|:-----:|:------------:|
-| clean | ✓✓ | ✗ | ✗ | ✓✓ | ✓ | ✗ | ✓ |
-| handwritten | ✓ | ✓✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✗ |
-| serif | ✓ | ✗ | ✓ | ✓✓ | ✗ | ✗ | ✓ |
-| display | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ |
-
-✓✓ = 强烈推荐 | ✓ = 兼容 | ✗ = 不推荐
-
 ## Type Compatibility
 
 | Font × Type | hero | conceptual | typography | metaphor | scene | minimal |
@@ -162,15 +149,4 @@ Font style 会适配 palette 特征：
 | Vintage (retro) | 现代对比 | 怀旧适配 | 符合时代 | Retro headlines |
 | Duotone (duotone) | 锐利对比 | 不推荐 | 戏剧化搭配 | 电影感冲击 |
 
-## Auto Selection
-
-省略 `--font` 时，按信号选择：
-
-| Signals | Font |
-|---------|------|
-| Personal, lifestyle, human, warm, friendly, story | `handwritten` |
-| Technical, professional, clean, modern, minimal, data | `clean` |
-| Editorial, academic, luxury, classic, literary | `serif` |
-| Announcement, entertainment, promotion, bold, event, gaming | `display` |
-
-Default: `clean`
+Rendering compatibility：见 [../compatibility.md](../compatibility.md#font--rendering)。Auto selection：见 [../auto-selection.md](../auto-selection.md#auto-font-selection)。

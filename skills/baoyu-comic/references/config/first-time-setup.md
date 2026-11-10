@@ -17,31 +17,9 @@ description: baoyu-comic 偏好的首次设置流程
 
 只询问本设置流程中的问题，保存 EXTEND.md，然后继续。
 
-## 设置流程
+## Questions
 
-```
-No EXTEND.md found
-        │
-        ▼
-┌─────────────────────┐
-│ AskUserQuestion     │
-│ (all questions)     │
-└─────────────────────┘
-        │
-        ▼
-┌─────────────────────┐
-│ Create EXTEND.md    │
-└─────────────────────┘
-        │
-        ▼
-    Continue to Step 1
-```
-
-## 问题
-
-**Language**：所有问题都使用用户的输入语言或偏好语言。不要总是使用 English。
-
-使用一次包含多个问题的 AskUserQuestion（AskUserQuestion 会自动添加 "Other" 选项）：
+使用用户的输入语言或偏好语言提问（不要总是使用 English）。使用一次包含全部问题的 AskUserQuestion 调用（它会自动添加 "Other" 选项）：
 
 ### 问题 1：Watermark
 

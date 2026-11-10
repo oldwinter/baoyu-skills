@@ -13,8 +13,6 @@ metadata:
 
 # Electron App Extract
 
-从已安装 Electron app 的 `app.asar` 中提取资源和代码。当存在 `.js.map` 时，从 embedded `sourcesContent` 还原原始 source files；否则用 Prettier 格式化 minified code。Source-map paths 会优先相对于 `.js.map` 文件解析，因此 `../../src/main.ts` 这类 bundled paths 会还原为 `restored/src/main.ts` 等可读路径，而不是 hashed placeholders。始终跳过 `node_modules`。支持 macOS 和 Windows。
-
 ## User Input Tools
 
 当该 skill 需要询问用户时，遵循以下 tool-selection rule（优先级顺序）：
@@ -33,20 +31,9 @@ Scripts 位于 `scripts/` 子目录。`{baseDir}` = 当前 SKILL.md 所在目录
 |--------|---------|
 | `scripts/main.ts` | App discovery + asar extraction + source-map restoration + Prettier formatting |
 
-## When to use
-
-当用户想查看已安装 Electron application 内部内容，或检查其 bundled code 时使用。Trigger phrases 包括：
-
-- "extract Electron app"、"decompile this Electron app"、"unpack app.asar"
-- "show me the source of <app>"、"look inside <app>"、"how is <app> built"
-- "get the source code of Codex / Cursor / Discord / Slack / VS Code / Notion / Obsidian / ChatGPT desktop"
-- "提取 Electron 应用"、"看 <app> 的源码"、"反编译 Electron"、"解包 app.asar"、"还原 source map"
-
-既接受 **app name**（例如 `Codex`），也接受 **absolute path**（例如 `/Applications/Codex.app`、`.asar` file 或 Windows install dir）。Script 会处理两个平台上的 discovery。
-
 ## Workflow
 
-**1. Determine the input.** 如果用户没有给出 app name 或 path，先询问。如果用户想指定 custom output directory，也一并询问。
+**1. Determine the input.** 接受 **app name**（例如 `Codex`）或 **absolute path**（`/Applications/Codex.app`、`.asar` 文件或 Windows install dir）。如果用户没有给出，先询问；如果用户想指定 custom output directory，也一并询问。
 
 **2. Run the script.**
 
@@ -68,39 +55,15 @@ ${BUN_X} {baseDir}/scripts/main.ts "<app>" [--output <dir>] [--asar <path>] [--f
 - 存在 `restored/` → 原始 source tree 已从 `.js.map` files 重建；优先阅读这里。
 - 只有 `extracted/`（没有 maps）→ `extracted/` 中的 JS/CSS 已原地 Prettier-formatted；从这里阅读。
 
-## Source-map path restoration
-
-Script 应尽可能保留原始 source names 和 directory structure，只要 source map 允许：
-
-- 当存在 `sourceRoot` 时，与每个 `sources[]` entry 合并解析，然后再相对于 `extracted/` 内 `.js.map` 文件所在目录解析。
-- 把正常 bundler-relative paths 折叠到 restored project tree。例如 `.vite/main/index.js.map` + `../../src/main.ts` 变为 `restored/src/main.ts`。
-- 如果 source path 向上越过 `extracted/`，把剩余的可读路径保留在 `restored/` 下，而不是 hash。例如 `.vite/main/index.js.map` + `../../../shared/src/lib/foo.ts` 变为 `restored/shared/src/lib/foo.ts`。
-- 去掉 source names 中的 URL/query decorations，包括常见的 `webpack://`、`file://` 和 `?loader` suffixes。
-- 只有当 source name 为空或无法规约为安全 file path 时，才使用 `restored/__unknown/<hash>.<ext>`。
-- 继续跳过 `node_modules` 和 `webpack/runtime/*` entries；这些是 bundler/runtime noise，不是 app sources。
-
 ## Usage
 
 ```bash
-# Extract by app name (default output: ~/Downloads/Codex-electron-extract/)
-${BUN_X} {baseDir}/scripts/main.ts Codex
-
-# Extract by absolute path (works for .app bundles, install dirs, or .asar files)
-${BUN_X} {baseDir}/scripts/main.ts "/Applications/Visual Studio Code.app"
+${BUN_X} {baseDir}/scripts/main.ts Codex                                   # → ~/Downloads/Codex-electron-extract/
+${BUN_X} {baseDir}/scripts/main.ts "/Applications/Visual Studio Code.app"  # .app bundle、install dir 或 .asar
 ${BUN_X} {baseDir}/scripts/main.ts "C:\Users\you\AppData\Local\Programs\codex"
 ${BUN_X} {baseDir}/scripts/main.ts --asar /Applications/Codex.app/Contents/Resources/app.asar Codex
-
-# Custom output
 ${BUN_X} {baseDir}/scripts/main.ts Codex --output ~/work/codex-source
-
-# Preview discovery without writing anything
-${BUN_X} {baseDir}/scripts/main.ts Codex --dry-run
-
-# Overwrite an existing output dir
-${BUN_X} {baseDir}/scripts/main.ts Codex --force
-
-# Machine-readable result (one JSON line on stdout)
-${BUN_X} {baseDir}/scripts/main.ts Codex --json
+${BUN_X} {baseDir}/scripts/main.ts Codex --json                            # stdout 输出一行 JSON
 ```
 
 ## Options
@@ -119,22 +82,31 @@ ${BUN_X} {baseDir}/scripts/main.ts Codex --json
 
 ## Output layout
 
-```text
-~/Downloads/<AppName>-electron-extract/
-├── extract-report.json          # JSON summary: counts, warnings, resolved paths
-├── extracted/                   # raw asar contents (JS/CSS Prettier-formatted when no map)
-│   └── ...                      # node_modules left untouched (skipped from format)
-├── extracted.unpacked/          # copied from <asar>.unpacked/ if present
-│   └── ...                      # native modules (.node), large assets
-└── restored/                    # only present if at least one .js.map was usable
-    └── <original/source/tree>   # rebuilt from sourcesContent in each .js.map
 ```
+~/Downloads/<AppName>-electron-extract/
+├── extract-report.json          # JSON summary：counts、warnings、resolved paths
+├── extracted/                   # 原始 asar 内容（无 map 时 JS/CSS 已 Prettier-formatted）
+│   └── ...                      # node_modules 保持原样（跳过格式化）
+├── extracted.unpacked/          # 如果存在 <asar>.unpacked/ 则复制过来
+│   └── ...                      # native modules（.node）、大型 assets
+└── restored/                    # 仅当至少一个 .js.map 可用时存在
+    └── <original/source/tree>   # 由各 .js.map 的 sourcesContent 重建
+```
+
+## Source-Map Path Restoration
+
+Script 应尽可能保留原始 source names 和 directory structure，只要 source map 允许：
+
+- 当存在 `sourceRoot` 时，与每个 `sources[]` entry 合并解析，然后再相对于 `extracted/` 内 `.js.map` 文件所在目录解析。例如 `.vite/main/index.js.map` + `../../src/main.ts` 变为 `restored/src/main.ts`。
+- `../` segments 不会被自动视为不安全：先从 map 所在位置解析，再清洗最终 path，确保仍位于 `restored/` 下。向上越过 `extracted/` 的路径会保留其可读部分 —— `.vite/main/index.js.map` + `../../../shared/src/lib/foo.ts` 变为 `restored/shared/src/lib/foo.ts`。
+- 去掉 source names 中的 URL/query decorations（`webpack://`、`file://`、`?loader` suffixes）。
+- 只有当 source name 为空或无法规约为安全 file path 时，才使用 `restored/__unknown/<hash>.<ext>`。
+- 跳过 `node_modules` 和 `webpack/runtime/*` entries（bundler/runtime noise）。
 
 ## Notes
 
-- **node_modules** 始终跳过：无论 source-map restoration 还是 Prettier formatting 都跳过，因为 inspecting app 时 vendored dependencies 是噪音。
-- **Source-map restoration** 只有在 `.js.map` embeds `sourcesContent` 时可用。这是现代 bundlers（webpack、esbuild、Vite、rollup）的常见情况。如果 map 引用了外部 `.ts`/`.js` files 但没有嵌入内容，该 map 会被跳过，对应 `.js` 改用 Prettier formatting。Skipped maps 会列在 `extract-report.json` 的 `warnings` 中。
-- **Readable paths over hashes**：不要把 source-map paths 中的 `../` segments 自动视为不安全。先从 map location 解析，再清洗最终 output path，确保仍位于 `restored/` 下。Hash fallback 只用于无法使用的 source names。
-- **App discovery** 会在 macOS 搜索 `/Applications` + `~/Applications`，在 Windows 搜索 `%LOCALAPPDATA%\Programs`、`%PROGRAMFILES%`、`%PROGRAMFILES(X86)%`、`%APPDATA%`。如果 discovery 找到多个 matches，script 会退出并列出它们：用 absolute path 重新运行。Linux 或其他平台请显式传入 `--asar /path/to/app.asar`。
+- **node_modules** 始终跳过：无论 source-map restoration 还是 Prettier formatting 都跳过。
+- **Restoration needs embedded `sourcesContent`**（webpack、esbuild、Vite、rollup 的常见情况）。如果 map 引用了外部 files 但没有嵌入内容，该 map 会被跳过，对应 `.js` 改用 Prettier formatting；Skipped maps 会列在 `extract-report.json` 的 `warnings` 中。
+- **App discovery**：macOS 搜索 `/Applications` + `~/Applications`；Windows 搜索 `%LOCALAPPDATA%\Programs`、`%PROGRAMFILES%`、`%PROGRAMFILES(X86)%`、`%APPDATA%`。多个 matches → script 退出并列出它们；用 absolute path 重新运行。Linux/其他平台：显式传入 `--asar /path/to/app.asar`。
 - **Safety**：script 拒绝写入 `/`、用户 home 目录本身或当前 working directory；没有 `--force` 时，也拒绝写入已有且非空的 output dir。
-- **No global installs**：`@electron/asar` 和 `prettier` 会通过 `npx -y` on-the-fly 解析。首次运行会因为 npx cache 而较慢。
+- **No global installs**：`@electron/asar` 和 `prettier` 会通过 `npx -y` on-the-fly 解析；首次运行会因为 npx cache 而较慢。

@@ -1,7 +1,5 @@
 # Presentation Analysis Framework
 
-用于创建有效 slide deck 的深度内容分析框架。
-
 ## 1. Message Hierarchy
 
 设计 slides 前，先识别核心信息结构。

@@ -13,7 +13,7 @@ metadata:
 
 # Markdown to HTML Converter
 
-把 Markdown 文件转换为带 inline CSS 的精美 HTML，并针对 WeChat Official Account 和其他平台优化。
+输出为带 inline CSS 的 HTML，针对 WeChat Official Account 优化。
 
 ## User Input Tools
 
@@ -43,57 +43,34 @@ metadata:
 | 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-markdown-to-html/EXTEND.md` | XDG |
 | 3 | `$HOME/.baoyu-skills/baoyu-markdown-to-html/EXTEND.md` | User home |
 
-如果没有找到，使用默认值。
+没有找到 → 使用默认值。
 
-**EXTEND.md supports**：default theme、custom CSS variables、code block style、Mermaid defaults（`mermaid_theme`、`mermaid_scale`、`mermaid_background`）。
+**支持**：default theme、custom CSS variables、code block style、mermaid defaults（`mermaid_theme`、`mermaid_scale`、`mermaid_background`）。
 
 ## Workflow
 
-### Step 0：Pre-check（Chinese Content）
+### Step 0：Pre-check（CJK Content）
 
-**Condition**：仅当 input file 包含中文文本时执行。
-
-**Detection**：
-
-1. 读取 input markdown file
-2. 检查内容是否包含 CJK characters（Chinese/Japanese/Korean）
-3. 如果没有 CJK content → 跳到 Step 1
-
-**Format Suggestion**：
-
-如果检测到 CJK content，且 `baoyu-format-markdown` skill 可用：
-
-使用 `AskUserQuestion` 询问是否先格式化。格式化可以修复：
-
-- Bold markers 内含标点导致 `**` parse failures
-- CJK/English spacing issues
-
-**如果用户同意**：调用 `baoyu-format-markdown` skill 格式化文件，然后把 formatted file 作为 input。
-
-**如果用户拒绝**：继续使用 original file。
+仅当 input 包含 CJK characters 且 `baoyu-format-markdown` skill 可用时：用 `AskUserQuestion` 询问是否先格式化 — 它可以修复因内部标点导致 `**` bold markers 失效的问题，以及 CJK/English spacing。同意 → 运行 `baoyu-format-markdown`，使用 formatted file。拒绝 → 使用 original file。没有 CJK → 跳到 Step 1。
 
 ### Step 1：Determine Theme
 
-**Theme resolution order**（first match wins）：
+先匹配者胜出：
+1. 用户指定（CLI `--theme` 或对话中说明）
+2. 当前 skill 的 EXTEND.md `default_theme`
+3. Cross-skill fallback（仅当 step 2 没有时）：`$HOME/.baoyu-skills/baoyu-post-to-wechat/EXTEND.md` 中的 `default_theme:` 行（如果存在）
+4. 都没有 → 用 [Themes](#themes) 表通过 `AskUserQuestion` 询问
 
-1. 用户显式指定 theme（CLI `--theme` 或对话中说明）
-2. EXTEND.md `default_theme`（当前 skill 自己的 EXTEND.md，在 Step 0 检查）
-3. `baoyu-post-to-wechat` EXTEND.md `default_theme`（cross-skill fallback）
-4. 都没有找到 → 使用 AskUserQuestion 确认
-
-**Cross-skill EXTEND.md check**（仅当当前 skill 的 EXTEND.md 没有 `default_theme`）：
-
-如果 `$HOME/.baoyu-skills/baoyu-post-to-wechat/EXTEND.md` 存在，读取并查找 `default_theme:` 行。若存在则使用该值；否则继续 fallback。
-
-**如果 theme 从 EXTEND.md 解析得到**：直接使用，不要询问用户。
+Theme 来自 EXTEND.md → 直接使用，不要询问。
 
 **如果没有 default**：使用 `AskUserQuestion` 从下方 [Themes](#themes) table 中确认 theme。
 
 ### Step 1.5：Determine Citation Mode
 
-**Default**：关闭。默认不要询问。
-
-仅当用户显式要求 "微信外链转底部引用"、"底部引用"、"文末引用"，或传入 `--cite` 时启用。
+默认关闭；不要询问。仅当用户显式要求 "微信外链转底部引用"、"底部引用"、"文末引用"，或传入 `--cite` 时启用。启用后：
+- 普通 external links 使用编号上标渲染，并汇总到文末 `引用链接` section。
+- `https://mp.weixin.qq.com/...` 链接保持为直接链接，不移到底部。
+- link text 等于 URL 的 bare links 保持 inline。
 
 **启用后的行为**：
 
@@ -109,15 +86,9 @@ ${BUN_X} {baseDir}/scripts/main.ts <markdown_file> --theme <theme> [--cite]
 
 ### Step 3：Report Result
 
-展示 JSON result 中的 output path。如果创建了 backup，也一并说明。
+展示 JSON result 中的 `htmlPath`；如果创建了 backup，也说明 `backupPath`。
 
-## Usage
-
-```bash
-${BUN_X} {baseDir}/scripts/main.ts <markdown_file> [options]
-```
-
-**Options：**
+## Options
 
 | Option | Description | Default |
 |--------|-------------|---------|
@@ -156,37 +127,16 @@ ${BUN_X} {baseDir}/scripts/main.ts <markdown_file> [options]
 **Examples：**
 
 ```bash
-# Basic conversion (uses default theme, removes first heading)
-${BUN_X} {baseDir}/scripts/main.ts article.md
-
-# With specific theme
-${BUN_X} {baseDir}/scripts/main.ts article.md --theme grace
-
-# Theme with custom color
+${BUN_X} {baseDir}/scripts/main.ts article.md                                  # default theme, first heading removed
 ${BUN_X} {baseDir}/scripts/main.ts article.md --theme modern --color red
-
-# Enable bottom citations for ordinary external links
-${BUN_X} {baseDir}/scripts/main.ts article.md --cite
-
-# Keep the first heading in content
-${BUN_X} {baseDir}/scripts/main.ts article.md --keep-title
-
-# Override title
-${BUN_X} {baseDir}/scripts/main.ts article.md --title "My Article"
+${BUN_X} {baseDir}/scripts/main.ts article.md --cite --keep-title --title "My Article"
 ```
 
 ## Output
 
-**File location**：与 input markdown file 同目录。
+`/path/to/article.md` → `/path/to/article.html`（同目录）。已存在的 HTML file 会先备份到 `/path/to/article.html.bak-YYYYMMDDHHMMSS`。
 
-- Input：`/path/to/article.md`
-- Output：`/path/to/article.html`
-
-**Conflict handling**：如果 HTML file 已存在，会先创建 backup：
-
-- Backup：`/path/to/article.html.bak-YYYYMMDDHHMMSS`
-
-**JSON output to stdout：**
+**JSON to stdout：**
 
 ```json
 {
@@ -212,7 +162,7 @@ ${BUN_X} {baseDir}/scripts/main.ts article.md --title "My Article"
 }
 ```
 
-**Mermaid rendering**：以 ` ```mermaid ` fenced 的 code blocks 会通过 headless Chrome（CDP）渲染为 PNG，并缓存到 `imgs/.mermaid-cache/mermaid-<hash>.png`。Cache key 包含 code、theme、scale、target width、background 和 mermaid version。如果不想把生成的 diagrams 提交进仓库，把 `imgs/.mermaid-cache/` 加到 `.gitignore`。系统需要 Chrome/Chromium/Edge；否则该 block fallback 为 `<pre class="mermaid">…</pre>`，conversion 仍会成功。
+**Mermaid**：` ```mermaid ` blocks 通过 headless Chrome（CDP）渲染为 PNG，缓存到 `imgs/.mermaid-cache/mermaid-<hash>.png`（key：code、theme、scale、target width、background、mermaid version；建议把该目录加入 `.gitignore`）。需要 Chrome/Chromium/Edge；如果不可用或渲染失败，fallback 到 `<pre class="mermaid">…</pre>`，conversion 仍会成功。
 
 ## Themes
 
@@ -223,39 +173,24 @@ ${BUN_X} {baseDir}/scripts/main.ts article.md --title "My Article"
 | `simple` | Minimal：modern minimalist、不对称圆角、干净留白（by @okooo5km） |
 | `modern` | Modern：大圆角、pill-shaped titles、宽松 line height（搭配 `--color red` 可做传统红金风格） |
 
-## Supported Markdown Features
+## 支持的 Markdown 特性
+
+标准 GFM（headings、emphasis、lists、tables、images、links、blockquotes、inline code），外加：
 
 | Feature | Syntax |
 |---------|--------|
-| Headings | `# H1` to `###### H6` |
-| Bold/Italic | `**bold**`、`*italic*` |
 | Code blocks | ` ```lang ` with syntax highlighting |
-| Inline code | `` `code` `` |
-| Tables | GitHub-flavored markdown tables |
-| Images | `![alt](src)` |
 | Links | `[text](url)`；添加 `--cite` 可把普通 external links 移到底部 references |
-| Blockquotes | `> quote` |
-| Lists | `-` unordered、`1.` ordered |
 | Alerts | `> [!NOTE]`、`> [!WARNING]` 等 |
 | Footnotes | `[^1]` references |
 | Ruby text | `{base|annotation}` |
-| Mermaid | ` ```mermaid ` blocks 通过 headless Chrome 渲染为本地 PNG（缓存于 `imgs/.mermaid-cache/`）；如果 Chrome 不可用或渲染失败，fallback 到 `<pre class="mermaid">` |
+| Mermaid | ` ```mermaid `（见 Output） |
 | PlantUML | ` ```plantuml ` diagrams |
 
 ## Frontmatter
 
-支持 YAML frontmatter 作为 metadata：
-
-```yaml
----
-title: Article Title
-author: Author Name
-description: Article summary
----
-```
-
-如果没有找到 title，则从第一个 H1/H2 heading 提取，或使用 filename。
+`title`、`author`、`description`（summary）。没有 title → 第一个 H1/H2，否则使用 filename。
 
 ## Extension Support
 
-通过 EXTEND.md 自定义配置。路径和支持选项见 **Preferences** section。
+通过 EXTEND.md 自定义配置，见 Preferences。

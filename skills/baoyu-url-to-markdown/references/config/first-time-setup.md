@@ -5,42 +5,11 @@ description: baoyu-url-to-markdown 偏好的首次设置流程
 
 # 首次设置
 
-## 概述
-
-当找不到 EXTEND.md 时，引导用户完成偏好设置。
-
-**阻塞操作**：必须先完成此设置，才能执行任何其他 workflow 步骤。不要：
-- 开始转换 URLs
-- 询问 URLs 或 output paths
-- 进入任何 conversion
-
-只询问本设置流程中的问题，保存 EXTEND.md，然后继续。
-
-## 设置流程
-
-```
-No EXTEND.md found
-        |
-        v
-+---------------------+
-| AskUserQuestion     |
-| (all questions)     |
-+---------------------+
-        |
-        v
-+---------------------+
-| Create EXTEND.md    |
-+---------------------+
-        |
-        v
-    Continue conversion
-```
+**阻塞操作**：当找不到 EXTEND.md 时运行，必须在任何 conversion 之前完成。只询问这些设置问题（不要开始转换，也不要询问 URLs 或 output paths），保存 EXTEND.md，然后继续。
 
 ## 问题
 
-**Language**：使用用户的输入语言或已保存语言偏好。
-
-使用 AskUserQuestion，在一次调用中包含所有问题：
+使用用户的输入语言（或已保存的语言偏好）。在一次调用中包含所有问题：
 
 ### 问题 1：Download Media
 
@@ -89,10 +58,7 @@ options:
 
 ## 设置后
 
-1. 按需创建目录
-2. 写入 EXTEND.md
-3. 确认："Preferences saved to [path]"
-4. 使用已保存 preferences 继续 conversion
+按需创建目录、写入 EXTEND.md、确认 "Preferences saved to [path]"，然后继续 conversion。
 
 ## EXTEND.md 模板
 

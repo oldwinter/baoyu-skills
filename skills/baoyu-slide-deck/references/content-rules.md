@@ -1,7 +1,5 @@
 # Content & Style Rules
 
-用于保障 slide deck 内容质量和 style consistency 的准则。
-
 ## Content Rules
 
 ### 1. Respect Reader Attention
@@ -76,20 +74,3 @@ Headlines 要讲故事，而不是给内容贴标签。
 | Footers | None (no slide numbers, logos) |
 | Language Priority | `--lang` → source language → ask user |
 | Tone | 直接、自信（避免 AI phrases） |
-
-## Style Quick Reference
-
-| Style | Visual Summary |
-|-------|----------------|
-| `sketch-notes` | Hand-drawn、warm off-white、conceptual icons |
-| `blueprint` | Technical schematics、grid texture、blue tones |
-| `bold-editorial` | High contrast、dark backgrounds、magazine impact |
-| `vector-illustration` | Flat vector、black outlines、retro colors |
-| `minimal` | 最大 whitespace、single accent、zen-like |
-| `storytelling` | Full-bleed imagery、cinematic、emotional |
-| `warm` | Soft gradients、rounded shapes、wellness palette |
-| `notion` | Dashboard aesthetic、clean data viz、SaaS-inspired |
-| `corporate` | Navy/gold、structured layouts、business polish |
-| `playful` | Vibrant coral/teal/yellow、dynamic、energetic |
-
-完整 style specifications：`references/styles/<style>.md`

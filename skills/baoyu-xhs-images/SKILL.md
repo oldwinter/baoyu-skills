@@ -448,7 +448,10 @@ Style × layout 兼容矩阵见上方 **Style × Layout Matrix**。
 | 文件 | 内容 |
 |------|---------|
 | `references/confirmation.md` | 每条 confirmation path 的逐字 AskUserQuestion 文案 |
-| `references/style-presets.md` | 完整 preset shortcut definitions |
+| `references/style-presets.md` | 完整 preset shortcut definitions，按场景分组的 presets |
+| `references/style-layout-matrix.md` | Style × layout 兼容性评分 |
+| `references/reference-images.md` | 用户提供 reference images 的接收与使用 |
+| `references/image-modification.md` | 修改 / 新增 / 删除卡片，以及文字修正策略 |
 | `references/presets/<style>.md` | 每个 style 的 element definitions |
 | `references/palettes/<name>.md` | 每个 palette 的 color definitions |
 | `references/elements/canvas.md` | Aspect ratios、safe zones、grid layouts |

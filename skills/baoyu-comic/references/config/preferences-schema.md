@@ -109,48 +109,9 @@ preferred_tone: neutral
 ---
 ```
 
-## 示例：完整偏好
-
-```yaml
----
-version: 2
-watermark:
-  enabled: true
-  content: "@comicstudio"
-  position: bottom-right
-
-preferred_art: manga
-preferred_tone: neutral
-
-preferred_layout: webtoon
-
-preferred_aspect: "3:4"
-
-language: zh
-
-preferred_image_backend: codex-imagegen
-
-generation_batch_size: 4
-
-character_presets:
-  - name: tech-tutorial
-    roles:
-      learner: "小明"
-      mentor: "教授"
-      challenge: "难题怪"
-      support: "小助手"
-  - name: doraemon
-    roles:
-      learner: "大雄"
-      mentor: "哆啦A梦"
-      challenge: "胖虎"
-      support: "静香"
----
-```
-
 ## 从 v1 迁移
 
-如果你有包含 `preferred_style` 的 v1 preferences 文件，请按下面方式迁移：
+包含 `preferred_style` 的 v1 文件按下列方式迁移：
 
 | 旧 `preferred_style.name` | 新 `preferred_art` | 新 `preferred_tone` |
 |---------------------------|---------------------|---------------------|

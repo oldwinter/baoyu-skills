@@ -61,8 +61,6 @@
 
 ## Content Type → Preset Recommendations
 
-在 Step 3 中使用此表，根据 Step 2 内容分析推荐 presets：
-
 | Content Type (Step 2) | Primary Preset | Alternatives |
 |------------------------|----------------|--------------|
 | **General / No strong signal** | `hand-drawn-edu` | `edu-visual`, `knowledge-base` |
@@ -79,9 +77,4 @@
 | Historical / Timeline | `history` | `evolution` |
 | Academic / Research | `science-paper` | `tech-explainer`, `data-report` |
 
-## Override Examples
-
-- `--preset tech-explainer --style notion` = infographic type + notion style
-- `--preset storytelling --type timeline` = timeline type + warm style
-
-显式 `--type`/`--style` flags 始终覆盖 preset 值。
+显式 `--type`/`--style` flags 始终覆盖 preset 值（例如 `--preset tech-explainer --style notion` = infographic + notion）。

@@ -101,6 +101,8 @@ references:
 
 ## Layout Gallery (21)
 
+Definitions: `references/layouts/<layout>.md`.
+
 | Layout | Best For |
 |--------|----------|
 | `linear-progression` | Timelines、processes、tutorials |
@@ -125,9 +127,9 @@ references:
 | `circular-flow` | Cycles、循环过程 |
 | `dense-modules` | 高密度模块、数据丰富指南 |
 
-完整定义位于 `references/layouts/<layout>.md`。
-
 ## Style Gallery (22)
+
+Definitions: `references/styles/<style>.md`.
 
 | Style | Description |
 |-------|-------------|
@@ -153,8 +155,6 @@ references:
 | `retro-pop-grid` | 1970s retro pop art、Swiss grid、粗轮廓 |
 | `hand-drawn-edu` | Macaron pastels、手绘晃动线条、stick figures |
 | `retro-popup-pop` | Retro popup collage、vintage UI、粗轮廓、flat pop colors |
-
-完整定义位于 `references/styles/<style>.md`。
 
 ## Recommended Combinations
 
@@ -223,56 +223,33 @@ Slug：从 topic 提取 2-4 个词，kebab-case。Conflict：追加 `-YYYYMMDD-H
 | 2 | `${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-infographic/EXTEND.md` | XDG |
 | 3 | `$HOME/.baoyu-skills/baoyu-infographic/EXTEND.md` | User home |
 
-| Result | Action |
-|--------|--------|
-| Found | 读取、解析、展示一行摘要 |
-| Not found | 用 `AskUserQuestion` 询问用户（见 `references/config/first-time-setup.md`） |
+Found → 读取、解析、展示一行摘要。Not found → 按 `references/config/first-time-setup.md` 用 `AskUserQuestion` 询问用户。支持 preferred layout/style、default aspect、language、image backend、custom styles（schema：`references/config/preferences-schema.md`）。
 
-**EXTEND.md supports**：preferred layout/style、default aspect ratio、language preference、preferred image backend、custom style definitions。
+**1.2 Analyze Content → `analysis.md`**（格式：`references/analysis-framework.md`）
 
-Schema：`references/config/preferences-schema.md`
-
-**1.2 Analyze Content → `analysis.md`**
-
-1. 保存 source content（文件路径或粘贴 → `source.md`）
-   - **Backup rule**：如果 `source.md` 已存在，重命名为 `source-backup-YYYYMMDD-HHMMSS.md`
+1. 保存 source content（文件路径或粘贴 → `source.md`）。**Backup rule**：如果 `source.md` 已存在，重命名为 `source-backup-YYYYMMDD-HHMMSS.md`
 2. 分析：topic、data type、complexity、tone、audience
 3. 检测 source language 和 user language
 4. 从 user input 中提取 design instructions
-5. 保存 analysis
-   - **Backup rule**：如果 `analysis.md` 已存在，重命名为 `analysis-backup-YYYYMMDD-HHMMSS.md`
-
-详细格式见 `references/analysis-framework.md`。
+5. 保存 analysis。**Backup rule**：如果 `analysis.md` 已存在，重命名为 `analysis-backup-YYYYMMDD-HHMMSS.md`
 
 ### Step 2: Generate Structured Content → `structured-content.md`
 
-将内容转换为信息图结构：
+格式：`references/structured-content-template.md`。包含 title 和 learning objectives；每个 section 包含 key concept、content（逐字保留）、visual element、text labels；data points（所有统计/引用精确复制）；user design instructions。
 
 1. Title 和 learning objectives
 2. Sections，包括：key concept、content（verbatim）、visual element、text labels
 3. Data points（所有统计/quotes 精确复制）
 4. 来自用户的 design instructions
 
-**Rules**：只用 Markdown。不添加新信息。忠实保留数据。从输出中剥离任何 credentials 或 secrets。
-
-详细格式见 `references/structured-content-template.md`。
-
 ### Step 3: Recommend Combinations
 
-**3.1 先检查 Keyword Shortcuts**：如果用户输入匹配 **Keyword Shortcuts** 表中的关键词，使用关联 layout 作为首选推荐，并将关联 styles 作为顶部推荐。跳过基于内容的 layout 推断。
-
-**3.2 否则**，基于以下因素推荐 3-5 个 layout x style 组合：
-
-- Data structure → 匹配 layout
-- Content tone → 匹配 style
-- Audience expectations
-- User design instructions
+1. 如果用户输入匹配 **Keyword Shortcut**，应用它（见上方）。
+2. 否则，根据 data structure → layout、content tone → style、audience expectations 和 user design instructions，推荐 3-5 个 layout×style 组合。
 
 ### Step 4: Confirm Options
 
-**Hard gate**：按照 [Confirmation Policy](#confirmation-policy)，此步骤强制执行。用户在这里确认前（或在当前请求中明确用 `--no-confirm` / 等价表述跳过前），不得开始 Step 5-6。
-
-按本文件顶部 [User Input Tools](#user-input-tools) 规则询问用户确认下列问题（如果 runtime 支持多个问题，则合并到一次调用；否则按优先级逐个询问）。
+**Hard gate**：按照 [Confirmation Policy](#confirmation-policy)（opt-out：`--no-confirm` / 当前请求中的等价表述）。按 [User Input Tools](#user-input-tools) 询问：
 
 | Priority | Question | When | Options |
 |----------|----------|------|---------|
@@ -283,58 +260,29 @@ Schema：`references/config/preferences-schema.md`
 
 ### Step 5: Generate Prompt → `prompts/infographic.md`
 
-**Backup rule**：如果 `prompts/infographic.md` 已存在，重命名为 `prompts/infographic-backup-YYYYMMDD-HHMMSS.md`
+**Backup rule**：如果 `prompts/infographic.md` 已存在，重命名为 `prompts/infographic-backup-YYYYMMDD-HHMMSS.md`。
 
-组合：
+组合：layout definition（`references/layouts/<layout>.md`）、style definition（`references/styles/<style>.md`）、base template（`references/base-prompt.md`）、Step 2 的 structured content；所有文字使用已确认语言。
 
-1. 来自 `references/layouts/<layout>.md` 的 layout definition
-2. 来自 `references/styles/<style>.md` 的 style definition
-3. 来自 `references/base-prompt.md` 的 base template
-4. Step 2 的 structured content
-5. 所有文字使用已确认语言
-
-**Aspect ratio resolution** for `{{ASPECT_RATIO}}`：
-
-- Named presets → ratio string：landscape→`16:9`、portrait→`9:16`、square→`1:1`
-- Custom W:H ratios → 原样使用（例如 `3:4`、`4:3`、`2.35:1`）
+`{{ASPECT_RATIO}}`：landscape→`16:9`、portrait→`9:16`、square→`1:1`；custom W:H ratios 原样使用（例如 `3:4`、`4:3`、`2.35:1`）。
 
 ### Step 6: Generate Image
 
-1. 按本文件顶部 `## Image Generation Tools` 规则解析 backend。
-2. 确保完整最终 prompt 已持久化到 `prompts/infographic.md`（Step 5 已写入），然后才能调用 backend；该文件是可复现记录。
-3. **Check for existing file**：生成前检查 `infographic.png` 是否存在。
-   - 如果存在：重命名为 `infographic-backup-YYYYMMDD-HHMMSS.png`
-4. 使用 prompt 文件和输出路径调用所选 backend。
-   - **`codex-imagegen` invocation**：当规则解析到 `codex-imagegen` 时，查看 [references/codex-imagegen.md](references/codex-imagegen.md) 了解调用契约（首选 `baoyu-image-gen --provider codex-cli` 路径、runtime wrapper 发现、参数说明、stdout schema、batch 语义）。
+1. 按 `## Image Generation Tools` 解析 backend。
+2. 调用 backend 前，确保完整最终 prompt 已持久化到 `prompts/infographic.md`（Step 5）。
+3. 如果 `infographic.png` 存在，重命名为 `infographic-backup-YYYYMMDD-HHMMSS.png`。
+4. 使用 prompt 文件和输出路径调用 backend。`codex-imagegen` 见 [references/codex-imagegen.md](references/codex-imagegen.md)。
 5. 失败时自动重试一次。
 
-Text correction policy：
-
-- 如果 labels、headings、callouts、data values 或任何其他渲染文字拼写错误、乱码、难以阅读或视觉效果弱，不要用代码修补 bitmap。
-- 对文字修正的重新生成，应写入新的 prompt 文件和新的输出路径，以便保留有缺陷候选用于比较。
-- Post-processing 仅限 crop、resize、compression 或 format conversion，且不得改动文字或主体构图。
+Text correction：如果 labels、headings、callouts、data values 等渲染文字拼写错误、乱码、难以阅读或视觉效果弱，不要用代码修补 bitmap。写入新的 prompt file 和新的 output path，保留 flawed candidate 供比较。Post-processing 仅限 crop、resize、compression 或 format conversion，且不得改动文字或构图。
 
 ### Step 7: Output Summary
 
 报告：topic、layout、style、aspect、language、image backend、output path、created files。
 
-## References
-
-- `references/analysis-framework.md` - 分析方法
-- `references/structured-content-template.md` - 内容格式
-- `references/base-prompt.md` - Prompt template
-- `references/layouts/<layout>.md` - 21 个 layout definitions
-- `references/styles/<style>.md` - 21 个 style definitions
-
 ## Changing Preferences
 
-EXTEND.md 位于 Step 1.1 列出的第一个匹配路径。可用三种方式修改：
+EXTEND.md 位于 Step 1.1 列出的第一个匹配路径。直接编辑它（schema：`references/config/preferences-schema.md`），或删除它 / 请求 "reconfigure baoyu-infographic preferences" / "重新配置" 以重新触发 first-time setup。常见修改：
 
-- **直接编辑**：打开 EXTEND.md 并修改字段。完整 schema：`references/config/preferences-schema.md`。
-- **交互式重新配置**：删除 EXTEND.md（或请求“reconfigure baoyu-infographic preferences” / “重新配置”）。下次运行会重新触发 first-time setup。
-- **常见单行修改**：
-  - `preferred_image_backend: auto`：默认；runtime-native tool 优先，退回到唯一已安装 backend，仅在存在多个非原生 backend 时询问。
-  - `preferred_image_backend: codex-imagegen`：固定到 Codex 内置 backend。
-  - `preferred_image_backend: baoyu-image-gen`：固定到 baoyu-image-gen skill。
-  - `preferred_image_backend: ask`：每次运行都确认 backend。
-  - `preferred_layout: dense-modules`、`preferred_style: morandi-journal`、`preferred_aspect: portrait`、`language: zh`：调整 Step 3 推荐和 Step 4 默认值（按照 [Confirmation Policy](#confirmation-policy)，这些设置绝不会绕过 Step 4）。
+- `preferred_image_backend`：`auto`（default；runtime-native 优先，否则使用唯一已安装 backend，多个 non-native 时询问）| `codex-imagegen` | `baoyu-image-gen` | `ask`（每次运行确认）
+- `preferred_layout: dense-modules`、`preferred_style: morandi-journal`、`preferred_aspect: portrait`、`language: zh`：调整 Step-3 推荐和 Step-4 默认值（绝不会绕过 Step 4）。

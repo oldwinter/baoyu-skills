@@ -5,44 +5,15 @@ description: baoyu-cover-image preferences 的首次设置流程
 
 # First-Time Setup
 
-## Overview
+当找不到 EXTEND.md 时，运行本设置流程。
 
-当找不到 EXTEND.md 时，引导用户完成 preference setup。
+**⛔ BLOCKING**：必须在任何其他 workflow step 之前完成本设置 —— 不要询问 reference images、content 或 dimensions（type、palette、rendering），也不要开始 content analysis。只询问这些设置问题，保存 EXTEND.md，然后继续。
 
-**⛔ BLOCKING OPERATION**：任何其他 workflow steps 前必须完成该 setup。不要：
-
-- 询问 reference images
-- 询问 content/article
-- 询问 dimensions（type、palette、rendering）
-- 继续 content analysis
-
-只询问本 setup flow 中的问题，保存 EXTEND.md，然后继续。
-
-## Setup Flow
-
-```text
-No EXTEND.md found
-        │
-        ▼
-┌─────────────────────┐
-│ AskUserQuestion     │
-│ (all questions)     │
-└─────────────────────┘
-        │
-        ▼
-┌─────────────────────┐
-│ Create EXTEND.md    │
-└─────────────────────┘
-        │
-        ▼
-    Continue to Step 1
-```
+**例外**：当本次请求选择跳过确认（`--quick`、"直接生成"、"不用确认"、"跳过确认"、"按默认出图" 或等效表达）时，完全跳过本设置 —— 使用内置默认值（无水印、自动选择 dimensions、独立输出目录、语言跟随内容），不提问，也不创建 EXTEND.md。下一次不带 `--quick` 的交互运行会照常触发设置。
 
 ## Questions
 
-**Language**：使用用户输入语言或已保存 language preference。
-
-使用 AskUserQuestion，并把所有问题放入 **一次调用**：
+使用用户输入语言或已保存的 language preference 提问，并把所有问题放入 **一次 AskUserQuestion 调用**：
 
 ### Question 1：Watermark
 
@@ -196,8 +167,6 @@ custom_palettes: []
 
 `preferred_image_backend: auto` 是 baked-in default；first-time setup 不询问它。随后由 SKILL.md 中的 `## Image Generation Tools` rule 选择 runtime-native tool（Codex `imagegen`、Hermes `image_generate` 等），并 fallback 到已安装 backends。
 
-## Modifying Preferences Later
+`preferred_image_backend: auto` 是内置默认值 —— 首次设置不会询问它。
 
-Canonical common edits（pin backend、change defaults、retrigger setup）见 `SKILL.md` 的 `## Changing Preferences` section。完整 schema：`preferences-schema.md`。
-
-**EXTEND.md Supports**：Watermark | Preferred type | Preferred palette | Preferred rendering | Preferred text | Preferred mood | Default aspect ratio | Default output directory | Quick mode | Image backend preference | Custom palette definitions | Language preference
+后续修改：见 `SKILL.md` 中的 `## Changing Preferences`；完整 schema：`preferences-schema.md`。

@@ -186,6 +186,17 @@ Section headers 是单独一行的纯文本。顺序固定。
 
 ## 4. Step 9 - Backfill 流程
 
+概述（从 SKILL.md 的 Step 9 移入）：
+
+1. 确认 target group（如果未指定，询问是哪一个）。
+2. 列出 `{folder}/` 中所有 digest files 和 `history-digests.jsonl`。
+3. 按 10–15 个一批读取现有 digests，避免 context blowup。
+4. 对出现在 3+ digests 中的用户，使用历史 digests 中的 leaderboard counts、portrait paragraphs 和 quoted lines 初始化 profile files。
+5. 写入 `profiles/`（如果存在任何 `-roast.md` 文件，也写入 `profiles-roast/`）。
+6. 回报：创建了多少 profiles，覆盖了多少 users。
+
+详细流程：
+
 当用户说 `回溯画像`、`初始化画像`、`backfill profiles` 或类似内容时触发。它会从已写好的 digest files 构建初始 profiles，不从 wx-cli 重新 fetch。
 
 1. **列出 inputs。**

@@ -70,18 +70,18 @@ description: I can help you create Xiaohongshu images
 ```markdown
 ## Script Directory
 
-**Important**: All scripts are located in the `scripts/` subdirectory of this skill.
+Scripts 位于本 skill 的 `scripts/` 子目录。
 
-**Agent Execution Instructions**:
-1. Determine this SKILL.md file's directory path as `{baseDir}`
+**Agent 执行说明**：
+1. 把当前 SKILL.md 所在目录确定为 `{baseDir}`
 2. Script path = `{baseDir}/scripts/<script-name>.ts`
-3. Resolve `${BUN_X}` runtime: if `bun` installed → `bun`; if `npx` available → `npx -y bun`; else suggest installing bun
-4. Replace all `{baseDir}` and `${BUN_X}` in this document with actual values
+3. 解析 `${BUN_X}` runtime：如果已安装 `bun` → `bun`；如果 `npx` 可用 → `npx -y bun`；否则建议安装 bun
+4. 把本文档中的 `{baseDir}` 和 `${BUN_X}` 替换为实际值
 
 **Script Reference**:
 | Script | Purpose |
 |--------|---------|
-| `scripts/main.ts` | Main entry point |
+| `scripts/main.ts` | 主入口 |
 ```
 
 ## Progressive Disclosure
@@ -111,7 +111,7 @@ skills/baoyu-example/
 ```markdown
 **1.1 Load Preferences (EXTEND.md)**
 
-Check EXTEND.md existence (priority order):
+按优先级检查 EXTEND.md 是否存在：
 
 \`\`\`bash
 test -f .baoyu-skills/<skill-name>/EXTEND.md && echo "project"
@@ -121,39 +121,39 @@ test -f "$HOME/.baoyu-skills/<skill-name>/EXTEND.md" && echo "user"
 
 | Path | Location |
 |------|----------|
-| `.baoyu-skills/<skill-name>/EXTEND.md` | Project directory |
+| `.baoyu-skills/<skill-name>/EXTEND.md` | 项目目录 |
 | `$XDG_CONFIG_HOME/baoyu-skills/<skill-name>/EXTEND.md` | XDG config (~/.config) |
 | `$HOME/.baoyu-skills/<skill-name>/EXTEND.md` | User home (legacy) |
 
 | Result | Action |
 |--------|--------|
-| Found | Read, parse, display summary |
-| Not found | Ask user via the runtime's user-input tool (see [user-input-tools.md](user-input-tools.md)) |
+| Found | 读取、解析并显示摘要 |
+| Not found | 通过 runtime 的 user-input tool 询问用户（见 [user-input-tools.md](user-input-tools.md)） |
 ```
 
 SKILL.md 结尾应包含：
 
 ```markdown
 ## Extension Support
-Custom configurations via EXTEND.md. See **Step 1.1** for paths and supported options.
+通过 EXTEND.md 自定义配置。路径和支持选项见 **Step 1.1**。
 ```
 
 ## User Input Tools Section（Required）
 
 每个会向用户询问选项的 SKILL.md，必须在靠前位置包含恰好一个 `## User Input Tools` section（intro 之后、main workflow 之前）。该规则必须 **内联**，不要链接到 `docs/user-input-tools.md`（skills 是自包含的；见 [CLAUDE.md → Skill Self-Containment](../CLAUDE.md)）。作者侧 canonical reference 位于 [user-input-tools.md](user-input-tools.md)；把其正文复制到每个新的 SKILL.md。
 
-标准 snippet（原样复制）：
+标准 snippet（原样复制，然后为本 skill 填写 `{…}` 占位符）：
 
 ```markdown
 ## User Input Tools
 
-When this skill prompts the user, follow this tool-selection rule (priority order):
+当该 skill 需要询问用户时，遵循以下 tool-selection rule（优先级顺序）：
 
-1. **Prefer built-in user-input tools** exposed by the current agent runtime — e.g., `AskUserQuestion`, `request_user_input`, `clarify`, `ask_user`, or any equivalent.
-2. **Fallback**: if no such tool exists, emit a numbered plain-text message and ask the user to reply with the chosen number/answer for each question.
-3. **Batching**: if the tool supports multiple questions per call, combine all applicable questions into a single call; if only single-question, ask them one at a time in priority order.
+1. **优先使用当前 agent runtime 暴露的内置 user-input tools**，例如 `AskUserQuestion`、`request_user_input`、`clarify`、`ask_user` 或任意等价工具。
+2. **Fallback**：如果没有这类工具，输出编号式纯文本消息，让用户为每个问题回复所选编号/答案。
+3. **Batching**：如果工具支持一次调用多个问题，把所有适用问题合并到一次调用；如果只支持单问题，则按优先级一次问一个。
 
-Concrete `AskUserQuestion` references below are examples — substitute the local equivalent in other runtimes.
+下文中的具体 `AskUserQuestion` 只是示例；其他 runtime 中请替换成本地等价工具。
 ```
 
 ## Image Generation Tools Section（image-gen skills 必需）
@@ -165,13 +165,24 @@ Concrete `AskUserQuestion` references below are examples — substitute the loca
 ```markdown
 ## Image Generation Tools
 
-When this skill needs to render an image:
+按以下顺序解析 image backend：
 
-- **Use whatever image-generation tool or skill is available** in the current runtime — e.g., Codex `imagegen`, Cursor `GenerateImage`, Hermes `image_generate`, `baoyu-image-gen`, or any equivalent the user has installed.
-- **If multiple are available**, ask the user **once** at the start which to use (batch with any other initial questions).
-- **If none are available**, tell the user and ask how to proceed.
+1. **用户在当前消息中点名某个 backend** → 使用它。
+2. **`EXTEND.md` 中的 `preferred_image_backend`** 指向当前可用的 backend → 使用它。`ask` 表示每次运行都询问。
+3. **Auto-select**（preference 为 `auto`、未设置，或 pinned backend 不可用），先匹配者胜出：
+   - 可用 skills 中有 **Codex `imagegen`** skill → 说明你在 Codex 中，必须使用它：`Skill`，参数为 `skill: "imagegen"`，并传入 prompt file 内容、output path 和 aspect ratio。它优先于 `baoyu-image-gen` 等非 native skills。
+   - **Codex via `codex exec`（`codex-imagegen`）**：没有 native `imagegen`，但 `codex` CLI 在 `PATH` 中且已有有效 `codex login` → `baoyu-image-gen --provider codex-cli`（preferred），如果 baoyu-image-gen 不可用则使用 bundled wrapper。仅在该分支加载 [references/codex-imagegen.md](references/codex-imagegen.md)。
+   - **Cursor `GenerateImage`** → 使用它（优先于非 native skills）。它没有 aspect-ratio 参数，因此要在 `description` prompt 中说明宽高比/尺寸；它会保存到 tool 管理的位置，因此要把文件复制到期望的输出路径（例如 `outputs/.../NN-xxx.png`）。Reference images 放在 `reference_image_paths`。
+   - **其他 runtime-native image tool**（例如 Hermes `image_generate`）→ 以同样方式使用。
+   - 只安装了一个 non-native backend（例如 `baoyu-image-gen`）→ 使用它。
+   - 有多个 non-native backends → 询问用户一次，并与其他初始问题 batch。
+4. **没有可用 backend** → 告诉用户并询问如何继续。
 
-**Prompt file requirement (hard)**: write each image's full, final prompt to a standalone file under `prompts/` (naming: `NN-{type}-[slug].md`) BEFORE invoking any backend. The backend receives the prompt file (or its content); the file is the reproducibility record and lets you switch backends without regenerating prompts.
+**⛔ 仅 raster**：绝不要用 SVG、HTML/CSS、canvas 或其他 code-based rendering 替代 raster image，即使内容看起来像 diagram。如果无法解析 raster backend，进入第 4 步。
 
-Concrete tool names (`imagegen`, `GenerateImage`, `image_generate`, `baoyu-image-gen`) above are examples — substitute the local equivalents under the same rule.
+**⛔ 不要 patch bitmap 文字**：绝不要使用 ImageMagick、Pillow、Canvas、SVG、HTML/CSS、OCR scripts 或任何其他 overlay 去覆盖、重写、擦除、描边或替换已生成 {artifact, e.g. illustration} 中的 {text kinds, e.g. labels, captions, or any other text}。用修正后的 prompt 重新生成、{low-text fallback, e.g. redraw with less or no on-image text}，或询问用户保留哪个不完美候选。
+
+**Prompt file（hard）**：调用任何 backend 之前，把每张图片完整、最终的 prompt 写入 `prompts/` 下的独立文件（`NN-{type}-[slug].md`），并把该文件（或其内容）传给 backend。它既是可复现记录，也允许在不重写 prompts 的情况下切换 backend。
+
+通过下方 `## Changing Preferences` 修改 pinned backend。上方工具名只是示例；其他 runtime 使用本地等价工具。
 ```
